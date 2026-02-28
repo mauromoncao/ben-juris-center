@@ -71,18 +71,21 @@ export default function Dashboard() {
     <div className="space-y-6">
 
       {/* ── Header – padrão Ben Growth ─────────────────────────────── */}
-      <div className="flex items-center justify-between flex-wrap gap-4">
+      <div
+        className="flex items-center justify-between flex-wrap gap-4 rounded-2xl px-6 py-5 shadow-md"
+        style={{ background: '#0f2044' }}
+      >
         <div>
-          <h1 className="text-2xl font-bold text-slate-800 font-serif" style={{ letterSpacing: '-0.01em' }}>Dashboard Executivo</h1>
-          <p className="text-slate-500 text-sm mt-1 font-sans">Gestão Jurídica · Operações · Setor Público · Processos · Financeiro</p>
+          <h1 className="text-2xl font-bold text-white font-serif" style={{ letterSpacing: '-0.01em' }}>Dashboard Executivo</h1>
+          <p className="text-blue-200 text-sm mt-1 font-sans opacity-80">Gestão Jurídica · Operações · Setor Público · Processos · Financeiro</p>
         </div>
         <div className="flex items-center gap-3 flex-wrap">
-          <div className="flex items-center gap-1.5 rounded-full px-3 py-1.5 border" style={{ background: 'rgba(0,179,126,0.10)', borderColor: 'rgba(0,179,126,0.35)', color: '#00b37e', fontSize: '0.75rem', fontWeight: 500 }}>
+          <div className="flex items-center gap-1.5 rounded-full px-3 py-1.5 border" style={{ background: 'rgba(0,179,126,0.18)', borderColor: 'rgba(0,179,126,0.45)', color: '#6ee7b7', fontSize: '0.75rem', fontWeight: 500 }}>
             <CheckCircle size={12} />
             <span className="font-sans">CNJ Conectado</span>
           </div>
           <div className="flex items-center gap-1.5 rounded-full px-3 py-1.5 border font-sans"
-            style={{ background: 'rgba(212,160,23,0.08)', borderColor: 'rgba(212,160,23,0.30)', color: '#92700a', fontSize: '0.75rem', fontWeight: 500 }}>
+            style={{ background: 'rgba(212,160,23,0.18)', borderColor: 'rgba(212,160,23,0.45)', color: '#F0C040', fontSize: '0.75rem', fontWeight: 500 }}>
             <Brain size={12} />
             <span>Dr. Ben IA Ativo</span>
           </div>
