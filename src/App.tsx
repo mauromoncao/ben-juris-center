@@ -117,42 +117,53 @@ function Sidebar({ collapsed, onToggle }: { collapsed: boolean; onToggle: () => 
 
   return (
     <aside
-      className={`fixed left-0 top-0 h-full z-30 flex flex-col transition-all duration-300 ${collapsed ? 'w-16' : 'w-64'}`}
-      style={{ background: '#fff', borderRight: '1px solid #e2e8f0', boxShadow: '2px 0 16px rgba(30,58,138,0.06)' }}>
+      className={`fixed left-0 top-0 h-full z-40 flex flex-col transition-all duration-300 overflow-y-auto ${collapsed ? 'w-16' : 'w-64'}`}
+      style={{ background: '#0f2044', borderRight: '1px solid rgba(255,255,255,0.08)' }}>
 
-      {/* Logo */}
-      <div className="flex items-center gap-3 px-4 py-4 border-b border-slate-200">
-        <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 shadow-md"
-          style={{ background: 'linear-gradient(135deg, #0f2340, #19385C)' }}>
-          <Scale size={18} style={{ color: '#D4A017' }} />
+      {/* Logo – padrão Ben Growth */}
+      <div className={`flex items-center gap-3 p-5 border-b flex-shrink-0 ${collapsed ? 'justify-center px-3' : ''}`}
+        style={{ borderColor: 'rgba(255,255,255,0.10)' }}>
+        <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg"
+          style={{ background: 'linear-gradient(135deg, #1e3470, #0f2044)', border: '1px solid rgba(212,160,23,0.40)' }}>
+          <Scale size={19} style={{ color: '#D4A017' }} />
         </div>
         {!collapsed && (
           <div className="flex-1 min-w-0">
-            <div className="font-bold text-sm leading-tight font-serif" style={{ color: '#0f2340', letterSpacing: '-0.01em' }}>Ben Juris Center</div>
+            <div className="font-bold text-sm leading-tight font-serif text-white" style={{ letterSpacing: '-0.01em' }}>Ben Juris Center</div>
             <div className="text-xs font-semibold font-sans" style={{ color: '#D4A017', letterSpacing: '0.06em' }}>Plataforma Jurídica IA</div>
           </div>
         )}
-        <button onClick={onToggle}
-          className="text-slate-400 hover:text-slate-600 transition-colors flex-shrink-0"
-          style={{ marginLeft: collapsed ? 'auto' : undefined }}>
-          {collapsed ? <ChevronRight size={16} /> : <Menu size={16} />}
-        </button>
+        {!collapsed && (
+          <button onClick={onToggle} className="transition-colors flex-shrink-0" style={{ color: 'rgba(255,255,255,0.4)' }}
+            onMouseEnter={e => (e.currentTarget.style.color='rgba(255,255,255,0.9)')}
+            onMouseLeave={e => (e.currentTarget.style.color='rgba(255,255,255,0.4)')}>
+            <Menu size={15} />
+          </button>
+        )}
+        {collapsed && (
+          <button onClick={onToggle} className="transition-colors" style={{ color: 'rgba(255,255,255,0.4)' }}
+            onMouseEnter={e => (e.currentTarget.style.color='rgba(255,255,255,0.9)')}
+            onMouseLeave={e => (e.currentTarget.style.color='rgba(255,255,255,0.4)')}>
+            <ChevronRight size={15} />
+          </button>
+        )}
       </div>
 
-      {/* Nav */}
-      <nav className="flex-1 overflow-y-auto py-3 px-2">
+      {/* Nav – padrão Ben Growth */}
+      <nav className="flex-1 p-3 space-y-4">
         {NAV_GROUPS.map(group => (
-          <div key={group.label} className="mb-1">
+          <div key={group.label}>
             {!collapsed && (
               <button
                 onClick={() => toggleGroup(group.label)}
-                className="flex items-center justify-between w-full px-2 py-1.5 text-xs font-bold uppercase hover:text-slate-600 transition-colors font-sans" style={{ letterSpacing: '0.14em' }}>
-                <span style={{ color: group.color || undefined }}>{group.label}</span>
-                {openGroups.includes(group.label) ? <ChevronDown size={11} /> : <ChevronRight size={11} />}
+                className="flex items-center justify-between w-full px-3 mb-1 font-sans font-semibold uppercase transition-colors"
+                style={{ color: 'rgba(159,176,215,0.70)', fontSize: '0.68rem', letterSpacing: '0.13em' }}>
+                <span>{group.label}</span>
+                {openGroups.includes(group.label) ? <ChevronDown size={10} /> : <ChevronRight size={10} />}
               </button>
             )}
             {(collapsed || openGroups.includes(group.label)) && (
-              <div className="mt-0.5 space-y-0.5">
+              <div className="space-y-0.5">
                 {group.items.map((item) => {
                   const Icon = item.icon;
                   const isActive = item.path === '/'
@@ -160,18 +171,19 @@ function Sidebar({ collapsed, onToggle }: { collapsed: boolean; onToggle: () => 
                     : location.pathname.startsWith(item.path);
                   return (
                     <NavLink key={`${item.path}-${item.label}`} to={item.path}
-                      className={`flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold font-sans transition-all duration-150 ${isActive
-                        ? 'shadow-md'
-                        : 'text-slate-500 hover:text-slate-700 hover:bg-slate-100'
-                      } ${collapsed ? 'justify-center' : ''}`}
-                      style={isActive ? { background: '#0f2340', color: '#D4A017' } : undefined}
+                      className={`flex items-center gap-3 px-3 py-2.5 rounded-lg font-sans text-sm font-medium transition-all ${collapsed ? 'justify-center' : ''}`}
+                      style={isActive
+                        ? { background: '#D4A017', color: '#0f2044', fontWeight: 700 }
+                        : { color: '#9fb0d7' }
+                      }
+                      onMouseEnter={e => { if (!isActive) { e.currentTarget.style.background='rgba(255,255,255,0.07)'; e.currentTarget.style.color='#ffffff'; }}}
+                      onMouseLeave={e => { if (!isActive) { e.currentTarget.style.background='transparent'; e.currentTarget.style.color='#9fb0d7'; }}}
                       title={collapsed ? item.label : undefined}>
-                      <Icon size={15} className="flex-shrink-0" />
-                      {!collapsed && (
-                        <span className="flex-1 truncate">{item.label}</span>
-                      )}
-                      {!collapsed && 'badge' in item && item.badge && (
-                        <span className={`text-xs px-1.5 py-0.5 rounded-full font-bold flex-shrink-0 font-sans ${isActive ? 'bg-white/20' : item.badge === 'NEW' ? 'bg-purple-100 text-purple-600' : 'bg-blue-100 text-blue-600'}`} style={isActive ? { color: '#D4A017' } : undefined}>
+                      <Icon size={16} className="flex-shrink-0" />
+                      {!collapsed && <span className="flex-1 truncate">{item.label}</span>}
+                      {!collapsed && isActive && <ChevronRight size={12} className="flex-shrink-0" />}
+                      {!collapsed && !isActive && 'badge' in item && item.badge && (
+                        <span className={`text-xs px-1.5 py-0.5 rounded-full font-bold flex-shrink-0 font-sans ${item.badge === 'NEW' ? 'bg-purple-500/20 text-purple-300' : 'bg-white/10 text-white/60'}`}>
                           {item.badge}
                         </span>
                       )}
@@ -184,20 +196,26 @@ function Sidebar({ collapsed, onToggle }: { collapsed: boolean; onToggle: () => 
         ))}
       </nav>
 
-      {/* Footer */}
+      {/* Footer – padrão Ben Growth */}
       {!collapsed && (
-        <div className="px-4 py-3 border-t border-slate-200 bg-slate-50">
-          <div className="flex items-center gap-2 mb-2">
-            <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"/>
-            <span className="text-xs text-slate-500 font-medium">Sistema Online</span>
+        <div className="p-4 border-t flex-shrink-0" style={{ borderColor: 'rgba(255,255,255,0.10)' }}>
+          <div className="flex items-center gap-2 rounded-lg px-3 py-1.5 mb-3"
+            style={{ background: 'rgba(212,160,23,0.10)', border: '1px solid rgba(212,160,23,0.25)' }}>
+            <div className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse flex-shrink-0" />
+            <span className="text-xs font-medium font-sans" style={{ color: '#D4A017' }}>Sistema Ativo</span>
           </div>
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 shadow-sm font-sans"
-              style={{ background: 'linear-gradient(135deg, #0f2340, #19385C)', color: '#D4A017' }}>MM</div>
-            <div className="min-w-0">
-              <div className="text-xs font-semibold truncate font-sans" style={{ color: '#0f2340' }}>Mauro Monção</div>
-              <div className="text-xs font-medium font-sans" style={{ color: '#D4A017', letterSpacing: '0.04em' }}>Sócio-Diretor</div>
+          <div className="flex items-center gap-3 px-1">
+            <div className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0"
+              style={{ background: '#D4A017', color: '#0f2044' }}>MM</div>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-medium text-white truncate font-sans">Mauro Monção</p>
+              <p className="text-xs font-sans" style={{ color: 'rgba(159,176,215,0.70)' }}>Sócio-Diretor · OAB/PI</p>
             </div>
+            <button className="transition-colors" style={{ color: 'rgba(159,176,215,0.50)' }}
+              onMouseEnter={e => (e.currentTarget.style.color='#ffffff')}
+              onMouseLeave={e => (e.currentTarget.style.color='rgba(159,176,215,0.50)')}>
+              <LogOut size={15} />
+            </button>
           </div>
         </div>
       )}
@@ -215,49 +233,51 @@ function TopBar({ collapsed }: { collapsed: boolean }) {
 
   return (
     <header
-      className="fixed top-0 right-0 z-20 flex items-center gap-4 px-6 py-3 border-b border-slate-200"
-      style={{
-        left: collapsed ? '64px' : '256px',
-        background: 'rgba(255,255,255,0.95)',
-        backdropFilter: 'blur(12px)',
-        transition: 'left 0.3s',
-        boxShadow: '0 1px 8px rgba(30,58,138,0.06)'
-      }}>
+      className="h-14 bg-white border-b border-slate-200 fixed top-0 right-0 z-30 flex items-center justify-between px-6"
+      style={{ left: collapsed ? '64px' : '256px', transition: 'left 0.3s' }}>
 
-      <div className="flex items-center gap-2">
-        <span className="font-semibold text-sm font-serif" style={{ color: '#0f2340', letterSpacing: '-0.01em' }}>{current?.label || 'Ben Juris Center'}</span>
+      {/* Título da página */}
+      <div className="flex items-center gap-3">
+        <div>
+          <p className="font-semibold text-sm font-serif" style={{ color: '#0f2044', letterSpacing: '-0.01em' }}>
+            {current?.label || 'Ben Juris Center'}
+          </p>
+          <p className="text-slate-400 text-xs font-sans">
+            {new Date().toLocaleDateString('pt-BR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
+          </p>
+        </div>
       </div>
 
-      <div className="flex-1 max-w-md">
+      {/* Busca */}
+      <div className="flex-1 max-w-sm mx-6">
         <div className="relative">
           <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
           <input
-            className="w-full bg-slate-100 border border-slate-200 rounded-xl pl-9 pr-4 py-1.5 text-sm text-slate-700 placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:bg-white transition-colors"
+            className="w-full bg-slate-100 border border-slate-200 rounded-xl pl-9 pr-4 py-1.5 text-sm font-sans text-slate-700 placeholder-slate-400 focus:outline-none focus:border-primary-700 focus:bg-white transition-colors"
             placeholder="Buscar processo, cliente, prazo..." />
         </div>
       </div>
 
-      <div className="flex items-center gap-3 ml-auto">
-        {/* Alert indicators */}
-        <div className="flex items-center gap-1.5">
-          <span className="flex items-center gap-1 bg-red-100 text-red-600 text-xs px-2 py-1 rounded-full border border-red-200 font-semibold">
-            <AlertTriangle size={11} />3
-          </span>
-          <span className="flex items-center gap-1 bg-yellow-100 text-yellow-700 text-xs px-2 py-1 rounded-full border border-yellow-200 font-semibold">
-            <Clock size={11} />2
-          </span>
+      {/* Ações */}
+      <div className="flex items-center gap-3">
+        {/* Agentes ativos */}
+        <div className="flex items-center gap-1.5 bg-green-50 border border-green-200 rounded-full px-3 py-1.5">
+          <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+          <span className="text-green-700 text-xs font-medium font-sans">10 Agentes Ativos</span>
         </div>
-
-        <button className="relative text-slate-500 hover:text-slate-700 transition-colors">
+        {/* Prazos críticos */}
+        <div className="flex items-center gap-1 bg-amber-50 border border-amber-200 rounded-full px-2.5 py-1.5">
+          <AlertTriangle size={11} className="text-amber-500" />
+          <span className="text-amber-700 text-xs font-medium font-sans">3 prazos críticos</span>
+        </div>
+        {/* Bell */}
+        <button className="relative p-2 text-slate-500 hover:text-slate-700 hover:bg-slate-100 rounded-lg transition-colors">
           <Bell size={18} />
-          <span className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full text-xs text-white flex items-center justify-center font-black">5</span>
+          <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full" />
         </button>
-
-        <div className="flex items-center gap-2 bg-slate-100 border border-slate-200 px-3 py-1.5 rounded-xl shadow-sm">
-          <div className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-black text-white"
-            style={{ background: 'linear-gradient(135deg, #0f2340, #19385C)', color: '#D4A017' }}>MM</div>
-          <span className="text-xs font-semibold font-sans" style={{ color: '#0f2340' }}>Mauro Monção</span>
-        </div>
+        {/* Avatar */}
+        <div className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold"
+          style={{ background: '#0f2044', color: '#D4A017' }}>MM</div>
       </div>
     </header>
   );
@@ -267,10 +287,10 @@ function TopBar({ collapsed }: { collapsed: boolean }) {
 function Layout({ children }: { children: React.ReactNode }) {
   const [collapsed, setCollapsed] = useState(false);
   return (
-    <div className="min-h-screen" style={{ background: '#f1f5f9' }}>
+    <div className="min-h-screen bg-slate-50">
       <Sidebar collapsed={collapsed} onToggle={() => setCollapsed(!collapsed)} />
       <TopBar collapsed={collapsed} />
-      <main className="transition-all duration-300 pt-14"
+      <main className="pt-14 min-h-screen bg-slate-50 transition-all duration-300"
         style={{ marginLeft: collapsed ? '64px' : '256px' }}>
         <div className="p-6">
           {children}

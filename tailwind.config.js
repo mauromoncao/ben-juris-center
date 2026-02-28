@@ -7,51 +7,77 @@ export default {
   theme: {
     extend: {
       colors: {
-        // ── Paleta oficial Mauro Monção Advogados ──────────────────
+        // ── Navy primário – idêntico ao Ben Growth Center ──────────
+        primary: {
+          DEFAULT: '#0f2044',
+          50:  '#e8edf7',
+          100: '#c5d0e8',
+          200: '#9fb0d7',
+          300: '#7890c6',
+          400: '#5b78ba',
+          500: '#3e60ae',
+          600: '#3858a6',
+          700: '#2f4d9c',
+          800: '#1e3470',
+          900: '#0f2044',
+        },
+        // ── Dourado institucional – Mauro Monção Advogados ─────────
+        gold: {
+          DEFAULT: '#D4A017',
+          50:  '#fdf8e8',
+          100: '#faefc4',
+          200: '#f5e090',
+          300: '#f0cc58',
+          400: '#e8bc30',
+          500: '#D4A017',
+          600: '#C8960E',
+          700: '#b07f0a',
+          800: '#8c6507',
+          900: '#6b4c05',
+        },
+        // ── Paleta oficial Mauro Monção (cores do site) ────────────
         brand: {
-          // Navy (azul-marinho institucional)
-          'navy-deeper': '#07182e',   // fundo mais escuro
-          'navy-dark':   '#0f2340',   // fundo escuro principal
-          'navy':        '#112845',   // cards / sidebar base
-          'navy-mid':    '#19385C',   // navy médio (cor primária do site)
-          'navy-light':  '#1a3a5c',   // bordas, separadores
-          // Gold (dourado institucional)
-          'gold':        '#D4A017',   // dourado principal
-          'gold-light':  '#F0C040',   // dourado claro / hover
-          'gold-dark':   '#C8960E',   // dourado escuro
-          'gold-pale':   'rgba(212,160,23,0.15)',
-          // Neutros
-          'cream':       '#f7f5f0',   // creme (background claro do site)
-          'white':       '#ffffff',
+          'navy-deeper': '#07182e',
+          'navy-dark':   '#0f2340',
+          'navy':        '#112845',
+          'navy-mid':    '#19385C',
+          'gold':        '#D4A017',
+          'gold-light':  '#F0C040',
+          'gold-dark':   '#C8960E',
+          'cream':       '#f7f5f0',
         },
         // ── Aliases semânticos ──────────────────────────────────────
         juridico: {
-          dark:    '#0f2340',
-          navy:    '#112845',
+          dark:    '#0f2044',
+          navy:    '#1e3470',
           blue:    '#19385C',
           accent:  '#D4A017',
           gold:    '#D4A017',
           success: '#10b981',
           warning: '#F0C040',
           danger:  '#ef4444',
-          muted:   '#6b7280',
-        }
+          muted:   '#64748b',
+        },
       },
       fontFamily: {
-        // ── Exatamente as mesmas fontes do site www.mauromoncao.adv.br ──
+        // ── Fontes do site www.mauromoncao.adv.br ─────────────────
         sans:  ['Outfit', 'system-ui', 'sans-serif'],
         serif: ['Cormorant Garamond', 'Georgia', 'Times New Roman', 'serif'],
         mono:  ['ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
       },
       letterSpacing: {
-        // rastreamentos usados no site institucional
-        'brand-wide':    '0.06em',
-        'brand-widest':  '0.18em',
-        'brand-widest2': '0.22em',
+        'brand-wide':   '0.06em',
+        'brand-wider':  '0.12em',
+        'brand-widest': '0.18em',
       },
-      lineHeight: {
-        'heading': '1.15',
-        'tight-brand': '1.05',
+      animation: {
+        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'fade-in':    'fadeIn 0.3s ease-in-out',
+        'slide-up':   'slideUp 0.4s ease-out',
+      },
+      keyframes: {
+        fadeIn:  { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
+        slideUp: { '0%': { opacity: '0', transform: 'translateY(12px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
       },
     },
   },

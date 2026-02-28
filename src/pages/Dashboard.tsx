@@ -4,7 +4,7 @@ import {
   XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
 } from 'recharts';
 import {
-  Gavel, Clock, AlertTriangle, CheckCircle, TrendingUp, DollarSign,
+  Gavel, Clock, AlertTriangle, CheckCircle, TrendingUp, TrendingDown, DollarSign,
   Building2, FileText, Scale, Calendar, ArrowUp, ArrowDown, Activity,
   Zap, Shield, BarChart3, Brain, Users, Star, Target
 } from 'lucide-react';
@@ -70,37 +70,26 @@ export default function Dashboard() {
   return (
     <div className="space-y-6">
 
-      {/* ── Banner ──────────────────────────────────────────────────── */}
-      <div className="rounded-2xl p-6 relative overflow-hidden shadow-lg"
-        style={{ background: 'linear-gradient(135deg, #0f2340 0%, #19385C 60%, #112845 100%)' }}>
-        <div className="absolute inset-0 opacity-10"
-          style={{ backgroundImage: 'radial-gradient(circle at 10% 50%, #fff 0%, transparent 40%), radial-gradient(circle at 90% 20%, #a5b4fc 0%, transparent 40%)' }} />
-        <div className="relative flex items-center justify-between flex-wrap gap-4">
-          <div>
-            <div className="flex items-center gap-3 mb-2">
-              <div className="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur flex items-center justify-center shadow-lg">
-                <Scale size={24} style={{ color: "#D4A017" }} />
-              </div>
-              <div>
-                <h1 className="text-2xl font-bold text-white font-serif" style={{ letterSpacing: '-0.01em' }}>Ben Juris Center</h1>
-                <p className="text-xs font-medium font-sans" style={{ color: '#D4A017', opacity: 0.85, letterSpacing: '0.04em' }}>Gestão Jurídica · Operações · Setor Público · Processos · Financeiro</p>
-              </div>
-            </div>
-            <p className="text-sm font-sans" style={{ color: 'rgba(240,192,64,0.7)' }}>
-              {new Date().toLocaleDateString('pt-BR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
-            </p>
+      {/* ── Header – padrão Ben Growth ─────────────────────────────── */}
+      <div className="flex items-center justify-between flex-wrap gap-4">
+        <div>
+          <h1 className="text-2xl font-bold text-slate-800 font-serif" style={{ letterSpacing: '-0.01em' }}>Dashboard Executivo</h1>
+          <p className="text-slate-500 text-sm mt-1 font-sans">Gestão Jurídica · Operações · Setor Público · Processos · Financeiro</p>
+        </div>
+        <div className="flex items-center gap-3 flex-wrap">
+          <div className="flex items-center gap-1.5 bg-green-50 border border-green-200 rounded-full px-3 py-1.5">
+            <CheckCircle size={12} className="text-green-600" />
+            <span className="text-green-700 text-xs font-medium font-sans">CNJ Conectado</span>
           </div>
-          <div className="flex items-center gap-3 flex-wrap">
-            {[
-              { icon: CheckCircle, label: 'Sistema Online',  color: 'bg-green-400/20 text-green-300 border-green-400/30' },
-              { icon: Activity,    label: 'CNJ Conectado',   color: 'bg-blue-300/20  text-blue-200  border-blue-300/30' },
-              { icon: Brain,       label: 'Dr. Ben IA Ativo',color: 'bg-purple-300/20 text-purple-200 border-purple-300/30' },
-            ].map(b => (
-              <span key={b.label} className={`flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full border font-medium ${b.color}`}>
-                <b.icon size={12} />{b.label}
-              </span>
-            ))}
+          <div className="flex items-center gap-1.5 rounded-full px-3 py-1.5 border font-sans"
+            style={{ background: 'rgba(212,160,23,0.08)', borderColor: 'rgba(212,160,23,0.30)', color: '#92700a', fontSize: '0.75rem', fontWeight: 500 }}>
+            <Brain size={12} />
+            <span>Dr. Ben IA Ativo</span>
           </div>
+          <button className="btn-primary flex items-center gap-2">
+            <Activity size={14} />
+            Acionar Agente
+          </button>
         </div>
       </div>
 
@@ -121,18 +110,24 @@ export default function Dashboard() {
           };
           const t = theme[card.color];
           return (
-            <div key={card.label} className={`${t.bg} border ${t.border} rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow`}>
-              <div className="flex items-start justify-between mb-3">
-                <div className={`w-11 h-11 rounded-xl ${t.iconBg} flex items-center justify-center shadow-sm`}>
+            <div key={card.label} className="card hover:shadow-md transition-shadow">
+              <div className="flex items-start justify-between">
+                <div>
+                  <p className="text-slate-500 text-sm font-medium font-sans">{card.label}</p>
+                  <p className="text-2xl font-bold text-slate-800 mt-1 font-serif" style={{ letterSpacing: '-0.01em' }}>{card.value}</p>
+                  <p className="text-slate-400 text-xs mt-0.5 font-sans">{card.sub}</p>
+                </div>
+                <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${t.iconBg}`}>
                   <Icon size={22} className={t.iconColor} />
                 </div>
-                <span className={`text-xs font-semibold flex items-center gap-0.5 ${card.up ? 'text-green-600' : 'text-red-500'}`}>
-                  {card.up ? <ArrowUp size={12} /> : <ArrowDown size={12} />}{card.change}
-                </span>
               </div>
-              <div className="text-3xl font-bold font-serif" style={{ color: '#0f2340', letterSpacing: '-0.01em' }}>{card.value}</div>
-              <div className="text-xs font-semibold text-slate-500 mt-0.5 font-sans">{card.label}</div>
-              <div className={`text-xs mt-1 font-medium ${t.accent}`}>{card.sub}</div>
+              <div className="flex items-center gap-1 mt-3">
+                {card.up
+                  ? <TrendingUp size={14} className="text-green-500" />
+                  : <TrendingDown size={14} className="text-red-500" />}
+                <span className={`text-sm font-medium font-sans ${card.up ? 'text-green-600' : 'text-red-600'}`}>{card.change}</span>
+                <span className="text-slate-400 text-xs font-sans">vs. mês anterior</span>
+              </div>
             </div>
           );
         })}
