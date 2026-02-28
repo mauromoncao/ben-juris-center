@@ -23,6 +23,8 @@ import PortalCliente from './pages/PortalCliente';
 import BIDashboard from './pages/BIDashboard';
 import Seguranca from './pages/Seguranca';
 import Configuracoes from './pages/Configuracoes';
+import NucleoIA from './pages/NucleoIA';
+import NucleoProjetos from './pages/NucleoProjetos';
 
 // Navigation groups
 const NAV_GROUPS = [
@@ -30,6 +32,13 @@ const NAV_GROUPS = [
     label: 'VISÃO GERAL',
     items: [
       { path: '/', icon: Home, label: 'Dashboard Executivo' },
+    ]
+  },
+  {
+    label: 'NÚCLEO IA – DR. BEN',
+    items: [
+      { path: '/nucleo-ia', icon: Zap, label: 'Agentes Dr. Ben IA' },
+      { path: '/nucleo-projetos', icon: Activity, label: 'Projetos & Produtividade' },
     ]
   },
   {
@@ -80,7 +89,7 @@ const NAV_GROUPS = [
 
 function Sidebar({ collapsed, onToggle }: { collapsed: boolean; onToggle: () => void }) {
   const location = useLocation();
-  const [openGroups, setOpenGroups] = useState<string[]>(['VISÃO GERAL', 'GESTÃO JURÍDICA', 'CONTROLE & PRAZOS', 'DOCUMENTOS', 'FINANCEIRO & CRM', 'PORTAL & BI', 'SISTEMA']);
+  const [openGroups, setOpenGroups] = useState<string[]>(['VISÃO GERAL', 'NÚCLEO IA – DR. BEN', 'GESTÃO JURÍDICA', 'CONTROLE & PRAZOS', 'DOCUMENTOS', 'FINANCEIRO & CRM', 'PORTAL & BI', 'SISTEMA']);
 
   const toggleGroup = (label: string) => {
     setOpenGroups(prev => prev.includes(label) ? prev.filter(g => g !== label) : [...prev, label]);
@@ -170,7 +179,7 @@ function TopBar({ collapsed }: { collapsed: boolean }) {
   const location = useLocation();
 
   const allItems = NAV_GROUPS.flatMap(g => g.items);
-  const current = allItems.find(i => i.path === location.pathname);
+  const current = allItems.find(i => i.path === location.pathname || (i.path !== '/' && location.pathname.startsWith(i.path)));
 
   const alerts = [
     { type: 'danger', msg: '3 prazos vencendo hoje' },
@@ -256,6 +265,8 @@ export default function App() {
           <Route path="/bi" element={<BIDashboard />} />
           <Route path="/seguranca" element={<Seguranca />} />
           <Route path="/configuracoes" element={<Configuracoes />} />
+          <Route path="/nucleo-ia" element={<NucleoIA />} />
+          <Route path="/nucleo-projetos" element={<NucleoProjetos />} />
         </Routes>
       </Layout>
     </BrowserRouter>
