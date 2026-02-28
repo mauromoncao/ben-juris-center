@@ -72,21 +72,21 @@ export default function Dashboard() {
 
       {/* ── Banner ──────────────────────────────────────────────────── */}
       <div className="rounded-2xl p-6 relative overflow-hidden shadow-lg"
-        style={{ background: 'linear-gradient(135deg, #1e3a8a 0%, #2563eb 60%, #7c3aed 100%)' }}>
+        style={{ background: 'linear-gradient(135deg, #0f2340 0%, #19385C 60%, #112845 100%)' }}>
         <div className="absolute inset-0 opacity-10"
           style={{ backgroundImage: 'radial-gradient(circle at 10% 50%, #fff 0%, transparent 40%), radial-gradient(circle at 90% 20%, #a5b4fc 0%, transparent 40%)' }} />
         <div className="relative flex items-center justify-between flex-wrap gap-4">
           <div>
             <div className="flex items-center gap-3 mb-2">
               <div className="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur flex items-center justify-center shadow-lg">
-                <Scale size={24} className="text-white" />
+                <Scale size={24} style={{ color: "#D4A017" }} />
               </div>
               <div>
-                <h1 className="text-2xl font-black text-white tracking-tight">Ben Juris Center</h1>
-                <p className="text-blue-200 text-xs font-medium">Gestão Jurídica · Operações · Setor Público · Processos · Financeiro</p>
+                <h1 className="text-2xl font-bold text-white font-serif" style={{ letterSpacing: '-0.01em' }}>Ben Juris Center</h1>
+                <p className="text-xs font-medium font-sans" style={{ color: '#D4A017', opacity: 0.85, letterSpacing: '0.04em' }}>Gestão Jurídica · Operações · Setor Público · Processos · Financeiro</p>
               </div>
             </div>
-            <p className="text-blue-100 text-sm">
+            <p className="text-sm font-sans" style={{ color: 'rgba(240,192,64,0.7)' }}>
               {new Date().toLocaleDateString('pt-BR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
             </p>
           </div>
@@ -130,8 +130,8 @@ export default function Dashboard() {
                   {card.up ? <ArrowUp size={12} /> : <ArrowDown size={12} />}{card.change}
                 </span>
               </div>
-              <div className="text-3xl font-black text-slate-800">{card.value}</div>
-              <div className="text-xs font-semibold text-slate-500 mt-0.5">{card.label}</div>
+              <div className="text-3xl font-bold font-serif" style={{ color: '#0f2340', letterSpacing: '-0.01em' }}>{card.value}</div>
+              <div className="text-xs font-semibold text-slate-500 mt-0.5 font-sans">{card.label}</div>
               <div className={`text-xs mt-1 font-medium ${t.accent}`}>{card.sub}</div>
             </div>
           );

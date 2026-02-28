@@ -123,13 +123,13 @@ function Sidebar({ collapsed, onToggle }: { collapsed: boolean; onToggle: () => 
       {/* Logo */}
       <div className="flex items-center gap-3 px-4 py-4 border-b border-slate-200">
         <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 shadow-md"
-          style={{ background: 'linear-gradient(135deg, #1e3a8a, #2563eb)' }}>
-          <Scale size={18} className="text-white" />
+          style={{ background: 'linear-gradient(135deg, #0f2340, #19385C)' }}>
+          <Scale size={18} style={{ color: '#D4A017' }} />
         </div>
         {!collapsed && (
           <div className="flex-1 min-w-0">
-            <div className="font-black text-slate-800 text-sm leading-tight">Ben Juris Center</div>
-            <div className="text-blue-500 text-xs font-semibold">Plataforma Jurídica IA</div>
+            <div className="font-bold text-sm leading-tight font-serif" style={{ color: '#0f2340', letterSpacing: '-0.01em' }}>Ben Juris Center</div>
+            <div className="text-xs font-semibold font-sans" style={{ color: '#D4A017', letterSpacing: '0.06em' }}>Plataforma Jurídica IA</div>
           </div>
         )}
         <button onClick={onToggle}
@@ -146,7 +146,7 @@ function Sidebar({ collapsed, onToggle }: { collapsed: boolean; onToggle: () => 
             {!collapsed && (
               <button
                 onClick={() => toggleGroup(group.label)}
-                className="flex items-center justify-between w-full px-2 py-1.5 text-xs font-black text-slate-400 uppercase tracking-wider hover:text-slate-600 transition-colors">
+                className="flex items-center justify-between w-full px-2 py-1.5 text-xs font-bold uppercase hover:text-slate-600 transition-colors font-sans" style={{ letterSpacing: '0.14em' }}>
                 <span style={{ color: group.color || undefined }}>{group.label}</span>
                 {openGroups.includes(group.label) ? <ChevronDown size={11} /> : <ChevronRight size={11} />}
               </button>
@@ -160,17 +160,18 @@ function Sidebar({ collapsed, onToggle }: { collapsed: boolean; onToggle: () => 
                     : location.pathname.startsWith(item.path);
                   return (
                     <NavLink key={`${item.path}-${item.label}`} to={item.path}
-                      className={`flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold transition-all duration-150 ${isActive
-                        ? 'bg-blue-600 text-white shadow-md'
+                      className={`flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold font-sans transition-all duration-150 ${isActive
+                        ? 'shadow-md'
                         : 'text-slate-500 hover:text-slate-700 hover:bg-slate-100'
                       } ${collapsed ? 'justify-center' : ''}`}
+                      style={isActive ? { background: '#0f2340', color: '#D4A017' } : undefined}
                       title={collapsed ? item.label : undefined}>
                       <Icon size={15} className="flex-shrink-0" />
                       {!collapsed && (
                         <span className="flex-1 truncate">{item.label}</span>
                       )}
                       {!collapsed && 'badge' in item && item.badge && (
-                        <span className={`text-xs px-1.5 py-0.5 rounded-full font-bold flex-shrink-0 ${isActive ? 'bg-white/20 text-white' : item.badge === 'NEW' ? 'bg-purple-100 text-purple-600' : 'bg-blue-100 text-blue-600'}`}>
+                        <span className={`text-xs px-1.5 py-0.5 rounded-full font-bold flex-shrink-0 font-sans ${isActive ? 'bg-white/20' : item.badge === 'NEW' ? 'bg-purple-100 text-purple-600' : 'bg-blue-100 text-blue-600'}`} style={isActive ? { color: '#D4A017' } : undefined}>
                           {item.badge}
                         </span>
                       )}
@@ -191,11 +192,11 @@ function Sidebar({ collapsed, onToggle }: { collapsed: boolean; onToggle: () => 
             <span className="text-xs text-slate-500 font-medium">Sistema Online</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-black text-white flex-shrink-0 shadow-sm"
-              style={{ background: 'linear-gradient(135deg, #2563eb, #7c3aed)' }}>MM</div>
+            <div className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 shadow-sm font-sans"
+              style={{ background: 'linear-gradient(135deg, #0f2340, #19385C)', color: '#D4A017' }}>MM</div>
             <div className="min-w-0">
-              <div className="text-xs font-bold text-slate-700 truncate">Mauro Monção</div>
-              <div className="text-xs text-slate-400 font-medium">Sócio-Diretor</div>
+              <div className="text-xs font-semibold truncate font-sans" style={{ color: '#0f2340' }}>Mauro Monção</div>
+              <div className="text-xs font-medium font-sans" style={{ color: '#D4A017', letterSpacing: '0.04em' }}>Sócio-Diretor</div>
             </div>
           </div>
         </div>
@@ -224,7 +225,7 @@ function TopBar({ collapsed }: { collapsed: boolean }) {
       }}>
 
       <div className="flex items-center gap-2">
-        <span className="font-black text-slate-700 text-sm">{current?.label || 'Ben Juris Center'}</span>
+        <span className="font-semibold text-sm font-serif" style={{ color: '#0f2340', letterSpacing: '-0.01em' }}>{current?.label || 'Ben Juris Center'}</span>
       </div>
 
       <div className="flex-1 max-w-md">
@@ -254,8 +255,8 @@ function TopBar({ collapsed }: { collapsed: boolean }) {
 
         <div className="flex items-center gap-2 bg-slate-100 border border-slate-200 px-3 py-1.5 rounded-xl shadow-sm">
           <div className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-black text-white"
-            style={{ background: 'linear-gradient(135deg, #2563eb, #7c3aed)' }}>MM</div>
-          <span className="text-xs font-bold text-slate-700">Mauro Monção</span>
+            style={{ background: 'linear-gradient(135deg, #0f2340, #19385C)', color: '#D4A017' }}>MM</div>
+          <span className="text-xs font-semibold font-sans" style={{ color: '#0f2340' }}>Mauro Monção</span>
         </div>
       </div>
     </header>
