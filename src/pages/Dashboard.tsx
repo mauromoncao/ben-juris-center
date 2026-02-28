@@ -105,27 +105,34 @@ export default function Dashboard() {
     <div className="space-y-6">
 
       {/* ── HEADER ─────────────────────────────────────────────────── */}
-      <div className="flex items-center justify-between flex-wrap gap-4 rounded-2xl px-6 py-5"
-        style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.10)' }}>
+      <div className="flex items-center justify-between flex-wrap gap-4 rounded-2xl px-6 py-5 relative overflow-hidden"
+        style={{
+          background: 'linear-gradient(135deg, #C8960E 0%, #D4A017 40%, #F0C040 70%, #C8960E 100%)',
+          border: '1px solid rgba(212,160,23,0.60)',
+          boxShadow: '0 4px 32px rgba(212,160,23,0.30)',
+        }}>
+        {/* brilho decorativo */}
+        <div className="absolute inset-0 pointer-events-none"
+          style={{ background: 'radial-gradient(ellipse at 20% 50%, rgba(255,255,255,0.18) 0%, transparent 60%)' }} />
         <div>
-          <h1 className="text-2xl font-bold text-white font-serif" style={{ letterSpacing: '-0.01em' }}>
+          <h1 className="text-2xl font-bold font-serif" style={{ color: '#0f2044', letterSpacing: '-0.01em' }}>
             Dashboard Executivo
           </h1>
-          <p className="text-sm mt-1 font-sans" style={{ color: 'rgba(159,176,215,0.85)' }}>
+          <p className="text-sm mt-1 font-sans" style={{ color: 'rgba(15,32,68,0.72)' }}>
             Gestão Jurídica · Operações · Setor Público · Processos · Financeiro
           </p>
         </div>
-        <div className="flex items-center gap-3 flex-wrap">
+        <div className="flex items-center gap-3 flex-wrap relative z-10">
           <div className="flex items-center gap-1.5 rounded-full px-3 py-1.5"
-            style={{ background: 'rgba(0,179,126,0.18)', border: '1px solid rgba(0,179,126,0.40)', color: '#6ee7b7', fontSize: '0.75rem', fontWeight: 500 }}>
+            style={{ background: 'rgba(15,32,68,0.18)', border: '1px solid rgba(15,32,68,0.35)', color: '#0f2044', fontSize: '0.75rem', fontWeight: 600 }}>
             <CheckCircle size={12} /><span className="font-sans">CNJ Conectado</span>
           </div>
           <div className="flex items-center gap-1.5 rounded-full px-3 py-1.5"
-            style={{ background: 'rgba(212,160,23,0.18)', border: '1px solid rgba(212,160,23,0.40)', color: '#F0C040', fontSize: '0.75rem', fontWeight: 500 }}>
+            style={{ background: 'rgba(15,32,68,0.18)', border: '1px solid rgba(15,32,68,0.35)', color: '#0f2044', fontSize: '0.75rem', fontWeight: 600 }}>
             <Brain size={12} /><span className="font-sans">Dr. Ben IA Ativo</span>
           </div>
           <button className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold font-sans transition-all hover:brightness-110 active:scale-95"
-            style={{ background: '#D4A017', color: '#0f2044' }}>
+            style={{ background: '#0f2044', color: '#F0C040', boxShadow: '0 2px 10px rgba(15,32,68,0.35)' }}>
             <Activity size={14} />Acionar Agente
           </button>
         </div>
