@@ -155,38 +155,38 @@ function KanbanColumn({ title, tasks, color, count }: { title: string; tasks: Ta
       <div className="flex items-center justify-between mb-3 px-1">
         <div className="flex items-center gap-2">
           <div className="w-2.5 h-2.5 rounded-full" style={{ background: color }} />
-          <span className="text-xs font-semibold text-gray-300 uppercase tracking-wider">{title}</span>
+          <span className="text-xs font-semibold text-slate-700 uppercase tracking-wider">{title}</span>
         </div>
-        <span className="text-xs bg-blue-900/30 text-gray-400 rounded-full px-2 py-0.5">{count}</span>
+        <span className="text-xs bg-slate-100 text-slate-500 rounded-full px-2 py-0.5">{count}</span>
       </div>
       <div className="space-y-2">
         {tasks.map(task => (
-          <div key={task.id} className="rounded-xl p-3 border border-blue-900/20 hover:border-blue-700/40 transition-all cursor-pointer group"
+          <div key={task.id} className="rounded-xl p-3 border border-slate-100 hover:border-blue-700/40 transition-all cursor-pointer group"
             style={{ background: 'rgba(15,22,35,0.9)' }}>
             <div className="flex items-start justify-between gap-2 mb-2">
-              <span className="text-xs text-gray-200 font-medium leading-snug flex-1">{task.title}</span>
+              <span className="text-xs text-slate-800 font-medium leading-snug flex-1">{task.title}</span>
               {task.aiSuggested && <span title="Sugerido por IA"><Brain size={11} className="text-purple-400 flex-shrink-0 mt-0.5" /></span>}
             </div>
             <div className="flex items-center justify-between">
               <PriorityBadge priority={task.priority} />
               <div className="flex items-center gap-1.5">
-                <span className="text-xs text-gray-500 flex items-center gap-0.5"><Clock size={9} />{task.hours}h</span>
+                <span className="text-xs text-slate-500 flex items-center gap-0.5"><Clock size={9} />{task.hours}h</span>
                 <MemberAvatar id={task.assignee} />
               </div>
             </div>
             {task.tags.length > 0 && (
               <div className="flex gap-1 mt-2 flex-wrap">
                 {task.tags.slice(0, 3).map(t => (
-                  <span key={t} className="text-xs bg-blue-900/20 text-blue-400 border border-blue-800/20 rounded px-1.5 py-0.5">{t}</span>
+                  <span key={t} className="text-xs bg-slate-50 text-blue-400 border border-blue-800/20 rounded px-1.5 py-0.5">{t}</span>
                 ))}
               </div>
             )}
-            <div className="mt-1.5 text-xs text-gray-600 flex items-center gap-1">
+            <div className="mt-1.5 text-xs text-slate-400 flex items-center gap-1">
               <Calendar size={9} />{new Date(task.dueDate).toLocaleDateString('pt-BR')}
             </div>
           </div>
         ))}
-        <button className="w-full border border-dashed border-blue-900/30 text-gray-600 hover:text-gray-400 hover:border-blue-700/40 rounded-xl py-2 text-xs transition-colors flex items-center justify-center gap-1">
+        <button className="w-full border border-dashed border-slate-200 text-slate-400 hover:text-slate-500 hover:border-blue-700/40 rounded-xl py-2 text-xs transition-colors flex items-center justify-center gap-1">
           <Plus size={12} /> Adicionar tarefa
         </button>
       </div>
@@ -214,19 +214,19 @@ function ProjectDetail({ project, onClose }: { project: Project; onClose: () => 
       <div className="min-h-full p-4 flex items-start justify-center pt-8">
         <div className="w-full max-w-6xl rounded-2xl overflow-hidden" style={{ background: '#0f1623', border: '1px solid rgba(30,58,138,0.4)' }}>
           {/* Header */}
-          <div className="p-6 border-b border-blue-900/30" style={{ background: 'linear-gradient(135deg, rgba(30,58,138,0.3), rgba(76,29,149,0.2))' }}>
+          <div className="p-6 border-b border-slate-200" style={{ background: 'linear-gradient(135deg, rgba(30,58,138,0.3), rgba(76,29,149,0.2))' }}>
             <div className="flex items-start justify-between">
               <div>
                 <div className="flex items-center gap-2 mb-1">
                   <StatusBadge status={project.status} />
                   <PriorityBadge priority={project.priority} />
-                  <span className="text-xs text-gray-500">{project.type}</span>
+                  <span className="text-xs text-slate-500">{project.type}</span>
                 </div>
                 <h2 className="text-xl font-bold text-white mb-1">{project.name}</h2>
-                <div className="text-sm text-gray-400">{project.client}</div>
-                <p className="text-xs text-gray-500 mt-2 max-w-2xl">{project.description}</p>
+                <div className="text-sm text-slate-500">{project.client}</div>
+                <p className="text-xs text-slate-500 mt-2 max-w-2xl">{project.description}</p>
               </div>
-              <button onClick={onClose} className="text-gray-500 hover:text-gray-300 text-2xl font-bold ml-4">&times;</button>
+              <button onClick={onClose} className="text-slate-500 hover:text-slate-700 text-2xl font-bold ml-4">&times;</button>
             </div>
 
             {/* Stats row */}
@@ -239,9 +239,9 @@ function ProjectDetail({ project, onClose }: { project: Project; onClose: () => 
                 { label: 'Prazo', value: new Date(project.deadline).toLocaleDateString('pt-BR'), icon: Calendar },
               ].map(s => (
                 <div key={s.label} className="flex items-center gap-1.5 text-xs">
-                  <s.icon size={13} className="text-gray-500" />
-                  <span className="text-gray-500">{s.label}:</span>
-                  <span className="text-gray-200 font-medium">{s.value}</span>
+                  <s.icon size={13} className="text-slate-500" />
+                  <span className="text-slate-500">{s.label}:</span>
+                  <span className="text-slate-800 font-medium">{s.value}</span>
                 </div>
               ))}
               <div className="ml-auto flex items-center gap-2">
@@ -253,22 +253,22 @@ function ProjectDetail({ project, onClose }: { project: Project; onClose: () => 
 
             {/* Progress bar */}
             <div className="mt-3">
-              <div className="flex justify-between text-xs text-gray-500 mb-1">
+              <div className="flex justify-between text-xs text-slate-500 mb-1">
                 <span>Progresso geral</span>
-                <span className="text-gray-300 font-medium">{project.progress}%</span>
+                <span className="text-slate-700 font-medium">{project.progress}%</span>
               </div>
-              <div className="bg-blue-900/30 rounded-full h-2">
+              <div className="bg-slate-100 rounded-full h-2">
                 <div className="h-full rounded-full bg-gradient-to-r from-blue-500 to-purple-500 transition-all" style={{ width: `${project.progress}%` }} />
               </div>
             </div>
           </div>
 
           {/* View toggle */}
-          <div className="px-6 py-3 border-b border-blue-900/20 flex items-center justify-between">
+          <div className="px-6 py-3 border-b border-slate-100 flex items-center justify-between">
             <div className="flex gap-1 bg-blue-950/30 p-0.5 rounded-lg">
               {[{ id: 'kanban', label: 'Kanban', icon: LayoutGrid }, { id: 'list', label: 'Lista', icon: List }].map(v => (
                 <button key={v.id} onClick={() => setView(v.id as any)}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-all ${view === v.id ? 'bg-blue-600 text-white' : 'text-gray-400 hover:text-gray-200'}`}>
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-all ${view === v.id ? 'bg-blue-600 text-white' : 'text-slate-500 hover:text-slate-800'}`}>
                   <v.icon size={12} />{v.label}
                 </button>
               ))}
@@ -277,7 +277,7 @@ function ProjectDetail({ project, onClose }: { project: Project; onClose: () => 
               <button className="flex items-center gap-1.5 text-xs text-purple-400 hover:text-purple-300 bg-purple-900/20 border border-purple-800/30 px-3 py-1.5 rounded-lg transition-colors">
                 <Brain size={12} /> Dr. Ben IA – Sugerir Tarefas
               </button>
-              <button className="flex items-center gap-1.5 text-xs text-blue-400 hover:text-blue-300 bg-blue-900/20 border border-blue-800/30 px-3 py-1.5 rounded-lg transition-colors">
+              <button className="flex items-center gap-1.5 text-xs text-blue-400 hover:text-blue-300 bg-slate-50 border border-blue-800/30 px-3 py-1.5 rounded-lg transition-colors">
                 <Plus size={12} /> Nova Tarefa
               </button>
             </div>
@@ -307,14 +307,14 @@ function ProjectDetail({ project, onClose }: { project: Project; onClose: () => 
             {view === 'list' && (
               <div className="space-y-2">
                 {project.tasks.map(task => (
-                  <div key={task.id} className="flex items-center gap-4 p-3 rounded-xl border border-blue-900/20 hover:border-blue-700/30 transition-all group"
+                  <div key={task.id} className="flex items-center gap-4 p-3 rounded-xl border border-slate-100 hover:border-blue-700/30 transition-all group"
                     style={{ background: 'rgba(15,22,35,0.6)' }}>
                     <div className={`w-4 h-4 rounded flex items-center justify-center flex-shrink-0 ${task.status === 'concluida' ? 'bg-green-500' : 'border border-gray-600'}`}>
                       {task.status === 'concluida' && <CheckCircle size={12} className="text-white" />}
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2">
-                        <span className={`text-sm font-medium ${task.status === 'concluida' ? 'line-through text-gray-500' : 'text-gray-200'}`}>{task.title}</span>
+                        <span className={`text-sm font-medium ${task.status === 'concluida' ? 'line-through text-slate-500' : 'text-slate-800'}`}>{task.title}</span>
                         {task.aiSuggested && <span title="IA"><Brain size={11} className="text-purple-400" /></span>}
                       </div>
                       <div className="flex items-center gap-3 mt-0.5">
@@ -326,8 +326,8 @@ function ProjectDetail({ project, onClose }: { project: Project; onClose: () => 
                     <div className="flex items-center gap-3 flex-shrink-0">
                       <StatusBadge status={task.status} />
                       <PriorityBadge priority={task.priority} />
-                      <span className="text-xs text-gray-500 flex items-center gap-0.5"><Clock size={10} />{task.hours}h</span>
-                      <span className="text-xs text-gray-500">{new Date(task.dueDate).toLocaleDateString('pt-BR')}</span>
+                      <span className="text-xs text-slate-500 flex items-center gap-0.5"><Clock size={10} />{task.hours}h</span>
+                      <span className="text-xs text-slate-500">{new Date(task.dueDate).toLocaleDateString('pt-BR')}</span>
                       <MemberAvatar id={task.assignee} />
                     </div>
                   </div>
@@ -373,10 +373,10 @@ export default function NucleoProjetos() {
             </div>
             <div>
               <h1 className="text-2xl font-bold text-white">Núcleo de Projetos</h1>
-              <p className="text-gray-400 text-sm">Gestão completa da produtividade do escritório com IA integrada</p>
+              <p className="text-slate-500 text-sm">Gestão completa da produtividade do escritório com IA integrada</p>
             </div>
           </div>
-          <button className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 rounded-xl text-sm font-medium transition-colors">
+          <button className="flex items-center gap-2 btn-primary px-4 py-2.5 rounded-xl text-sm font-medium transition-colors">
             <Plus size={16} /> Novo Projeto
           </button>
         </div>
@@ -393,18 +393,18 @@ export default function NucleoProjetos() {
             <div key={s.label} className="bg-white/5 rounded-xl p-3 border border-white/10">
               <div className="flex items-center gap-2 mb-1">
                 <s.icon size={14} style={{ color: s.color }} />
-                <span className="text-xs text-gray-500">{s.label}</span>
+                <span className="text-xs text-slate-500">{s.label}</span>
               </div>
               <div className="text-xl font-bold text-white">{s.value}</div>
-              {s.sub && <div className="text-xs text-gray-600">{s.sub}</div>}
+              {s.sub && <div className="text-xs text-slate-400">{s.sub}</div>}
             </div>
           ))}
         </div>
       </div>
 
       {/* Member productivity strip */}
-      <div className="rounded-xl p-4 border border-blue-900/30 flex items-center gap-4 overflow-x-auto" style={{ background: 'rgba(15,22,35,0.8)' }}>
-        <span className="text-xs text-gray-500 font-medium whitespace-nowrap flex items-center gap-1.5">
+      <div className="rounded-xl p-4 border border-slate-200 flex items-center gap-4 overflow-x-auto" style={{ background: 'rgba(15,22,35,0.8)' }}>
+        <span className="text-xs text-slate-500 font-medium whitespace-nowrap flex items-center gap-1.5">
           <Users size={12} /> Produtividade da Equipe:
         </span>
         {MEMBERS.map(m => {
@@ -412,11 +412,11 @@ export default function NucleoProjetos() {
           const done = memberTasks.filter(t => t.status === 'concluida').length;
           const pct = memberTasks.length ? Math.round(done / memberTasks.length * 100) : 0;
           return (
-            <div key={m.id} className="flex items-center gap-2 bg-blue-900/20 px-3 py-2 rounded-xl border border-blue-800/20 flex-shrink-0">
+            <div key={m.id} className="flex items-center gap-2 bg-slate-50 px-3 py-2 rounded-xl border border-blue-800/20 flex-shrink-0">
               <div className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold text-white" style={{ background: m.color }}>{m.id}</div>
               <div>
-                <div className="text-xs font-medium text-gray-300">{m.name.split(' ')[1]}</div>
-                <div className="text-xs text-gray-500">{done}/{memberTasks.length} · {pct}%</div>
+                <div className="text-xs font-medium text-slate-700">{m.name.split(' ')[1]}</div>
+                <div className="text-xs text-slate-500">{done}/{memberTasks.length} · {pct}%</div>
               </div>
               <div className="w-12 bg-blue-900/40 rounded-full h-1">
                 <div className="h-full rounded-full" style={{ width: `${pct}%`, background: m.color }} />
@@ -429,13 +429,13 @@ export default function NucleoProjetos() {
       {/* Filters */}
       <div className="flex items-center gap-3 flex-wrap">
         <div className="relative">
-          <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
+          <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" />
           <input value={searchQ} onChange={e => setSearchQ(e.target.value)}
             placeholder="Buscar projeto..."
-            className="bg-blue-900/20 border border-blue-900/30 rounded-xl pl-9 pr-4 py-2 text-sm text-gray-300 placeholder-gray-600 focus:outline-none focus:border-blue-500 w-52" />
+            className="bg-slate-50 border border-slate-200 rounded-xl pl-9 pr-4 py-2 text-sm text-slate-700 placeholder-slate-400 focus:outline-none focus:border-blue-500 w-52" />
         </div>
         <select value={filterStatus} onChange={e => setFilterStatus(e.target.value)}
-          className="bg-blue-900/20 border border-blue-900/30 text-gray-300 text-sm rounded-xl px-3 py-2 focus:outline-none focus:border-blue-500">
+          className="bg-slate-50 border border-slate-200 text-slate-700 text-sm rounded-xl px-3 py-2 focus:outline-none focus:border-blue-500">
           <option value="all">Todos os status</option>
           <option value="planejamento">Planejamento</option>
           <option value="em_andamento">Em Andamento</option>
@@ -444,14 +444,14 @@ export default function NucleoProjetos() {
           <option value="pausado">Pausado</option>
         </select>
         <select value={filterMember} onChange={e => setFilterMember(e.target.value)}
-          className="bg-blue-900/20 border border-blue-900/30 text-gray-300 text-sm rounded-xl px-3 py-2 focus:outline-none focus:border-blue-500">
+          className="bg-slate-50 border border-slate-200 text-slate-700 text-sm rounded-xl px-3 py-2 focus:outline-none focus:border-blue-500">
           <option value="all">Toda a equipe</option>
           {MEMBERS.map(m => <option key={m.id} value={m.id}>{m.name}</option>)}
         </select>
         <div className="ml-auto flex gap-1 bg-blue-950/30 p-0.5 rounded-lg">
           {[{ id: 'grid', icon: LayoutGrid }, { id: 'list', icon: List }].map(v => (
             <button key={v.id} onClick={() => setViewMode(v.id as any)}
-              className={`p-1.5 rounded-md transition-all ${viewMode === v.id ? 'bg-blue-600 text-white' : 'text-gray-400 hover:text-gray-200'}`}>
+              className={`p-1.5 rounded-md transition-all ${viewMode === v.id ? 'bg-blue-600 text-white' : 'text-slate-500 hover:text-slate-800'}`}>
               <v.icon size={14} />
             </button>
           ))}
@@ -467,7 +467,7 @@ export default function NucleoProjetos() {
             const aiCount = project.tasks.filter(t => t.aiSuggested).length;
             return (
               <div key={project.id}
-                className="rounded-xl border border-blue-900/30 hover:border-blue-700/50 transition-all cursor-pointer group overflow-hidden"
+                className="rounded-xl border border-slate-200 hover:border-blue-700/50 transition-all cursor-pointer group overflow-hidden"
                 style={{ background: 'rgba(15,22,35,0.8)' }}
                 onClick={() => setSelectedProject(project)}>
                 {/* Priority bar */}
@@ -483,15 +483,15 @@ export default function NucleoProjetos() {
                       <h3 className="font-semibold text-sm text-gray-100 leading-snug group-hover:text-white transition-colors">{project.name}</h3>
                     </div>
                   </div>
-                  <div className="text-xs text-gray-500 mb-3">{project.client} · {project.type}</div>
+                  <div className="text-xs text-slate-500 mb-3">{project.client} · {project.type}</div>
 
                   {/* Progress */}
                   <div className="mb-3">
-                    <div className="flex justify-between text-xs text-gray-500 mb-1">
+                    <div className="flex justify-between text-xs text-slate-500 mb-1">
                       <span>{completedCount}/{project.tasks.length} tarefas</span>
-                      <span className="text-gray-300 font-medium">{project.progress}%</span>
+                      <span className="text-slate-700 font-medium">{project.progress}%</span>
                     </div>
-                    <div className="bg-blue-900/30 rounded-full h-1.5">
+                    <div className="bg-slate-100 rounded-full h-1.5">
                       <div className="h-full rounded-full bg-gradient-to-r from-blue-500 to-purple-500" style={{ width: `${project.progress}%` }} />
                     </div>
                   </div>
@@ -501,12 +501,12 @@ export default function NucleoProjetos() {
                     <div className="flex gap-1">
                       {project.team.map(m => <MemberAvatar key={m} id={m} />)}
                     </div>
-                    <div className="flex items-center gap-3 text-xs text-gray-500">
+                    <div className="flex items-center gap-3 text-xs text-slate-500">
                       {aiCount > 0 && <span className="flex items-center gap-1 text-purple-400"><Brain size={10} />{aiCount} IA</span>}
                       <span className="flex items-center gap-1"><Calendar size={10} />{new Date(project.deadline).toLocaleDateString('pt-BR')}</span>
                     </div>
                   </div>
-                  <div className="mt-3 pt-3 border-t border-blue-900/20 flex items-center justify-between">
+                  <div className="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between">
                     <span className="text-xs font-semibold text-green-400">R$ {(project.value / 1000).toFixed(0)}k</span>
                     <button className="text-xs text-blue-400 flex items-center gap-1 hover:text-blue-300 transition-colors">
                       Abrir projeto <ChevronRight size={11} />
@@ -518,7 +518,7 @@ export default function NucleoProjetos() {
           })}
 
           {/* New project card */}
-          <button className="rounded-xl border-2 border-dashed border-blue-900/30 hover:border-blue-700/50 transition-all p-6 flex flex-col items-center justify-center gap-3 text-gray-600 hover:text-gray-400 min-h-48">
+          <button className="rounded-xl border-2 border-dashed border-slate-200 hover:border-blue-700/50 transition-all p-6 flex flex-col items-center justify-center gap-3 text-slate-400 hover:text-slate-500 min-h-48">
             <div className="w-12 h-12 rounded-xl border-2 border-dashed border-gray-700 flex items-center justify-center">
               <Plus size={22} />
             </div>
@@ -526,12 +526,12 @@ export default function NucleoProjetos() {
           </button>
         </div>
       ) : (
-        <div className="rounded-xl border border-blue-900/30 overflow-hidden" style={{ background: 'rgba(15,22,35,0.8)' }}>
+        <div className="rounded-xl border border-slate-200 overflow-hidden" style={{ background: 'rgba(15,22,35,0.8)' }}>
           <table className="w-full">
             <thead>
-              <tr className="border-b border-blue-900/20">
+              <tr className="border-b border-slate-100">
                 {['Projeto', 'Cliente', 'Status', 'Prioridade', 'Progresso', 'Tarefas', 'Equipe', 'Prazo', 'Valor', 'IA'].map(h => (
-                  <th key={h} className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase">{h}</th>
+                  <th key={h} className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase">{h}</th>
                 ))}
               </tr>
             </thead>
@@ -540,27 +540,27 @@ export default function NucleoProjetos() {
                 const done = project.tasks.filter(t => t.status === 'concluida').length;
                 const aiCount = project.tasks.filter(t => t.aiSuggested).length;
                 return (
-                  <tr key={project.id} className="border-b border-blue-900/10 hover:bg-blue-900/10 cursor-pointer transition-colors" onClick={() => setSelectedProject(project)}>
+                  <tr key={project.id} className="border-b border-blue-900/10 hover:bg-amber-50/40 cursor-pointer transition-colors" onClick={() => setSelectedProject(project)}>
                     <td className="px-4 py-3">
-                      <div className="text-sm font-medium text-gray-200">{project.name}</div>
-                      <div className="text-xs text-gray-500">{project.type}</div>
+                      <div className="text-sm font-medium text-slate-800">{project.name}</div>
+                      <div className="text-xs text-slate-500">{project.type}</div>
                     </td>
-                    <td className="px-4 py-3 text-xs text-gray-400">{project.client}</td>
+                    <td className="px-4 py-3 text-xs text-slate-500">{project.client}</td>
                     <td className="px-4 py-3"><StatusBadge status={project.status} /></td>
                     <td className="px-4 py-3"><PriorityBadge priority={project.priority} /></td>
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-2">
-                        <div className="w-16 bg-blue-900/30 rounded-full h-1.5">
+                        <div className="w-16 bg-slate-100 rounded-full h-1.5">
                           <div className="h-full rounded-full bg-blue-500" style={{ width: `${project.progress}%` }} />
                         </div>
-                        <span className="text-xs text-gray-400">{project.progress}%</span>
+                        <span className="text-xs text-slate-500">{project.progress}%</span>
                       </div>
                     </td>
-                    <td className="px-4 py-3 text-xs text-gray-400">{done}/{project.tasks.length}</td>
+                    <td className="px-4 py-3 text-xs text-slate-500">{done}/{project.tasks.length}</td>
                     <td className="px-4 py-3">
                       <div className="flex gap-1">{project.team.map(m => <MemberAvatar key={m} id={m} />)}</div>
                     </td>
-                    <td className="px-4 py-3 text-xs text-gray-400">{new Date(project.deadline).toLocaleDateString('pt-BR')}</td>
+                    <td className="px-4 py-3 text-xs text-slate-500">{new Date(project.deadline).toLocaleDateString('pt-BR')}</td>
                     <td className="px-4 py-3 text-xs font-medium text-green-400">R$ {(project.value / 1000).toFixed(0)}k</td>
                     <td className="px-4 py-3">
                       {aiCount > 0 && <span className="flex items-center gap-1 text-xs text-purple-400"><Brain size={11} />{aiCount}</span>}

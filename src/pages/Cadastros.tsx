@@ -30,14 +30,14 @@ interface Cadastro {
 }
 
 const TIPOS: Record<TipoEntidade, { label: string; color: string; icon: string }> = {
-  municipio: { label: 'Município', color: 'bg-blue-500/20 text-blue-400 border-blue-500/30', icon: '🏛️' },
-  camara: { label: 'Câmara Municipal', color: 'bg-purple-500/20 text-purple-400 border-purple-500/30', icon: '⚖️' },
+  municipio: { label: 'Município', color: 'bg-navy-mid/10 text-navy font-semibold border-navy-mid/30', icon: '🏛️' },
+  camara: { label: 'Câmara Municipal', color: 'bg-violet/10 text-violet border-violet/30', icon: '⚖️' },
   secretaria: { label: 'Secretaria', color: 'bg-indigo-500/20 text-indigo-400 border-indigo-500/30', icon: '📋' },
-  empresa_privada: { label: 'Empresa Privada', color: 'bg-green-500/20 text-green-400 border-green-500/30', icon: '🏢' },
-  agencia: { label: 'Agência/Fundação', color: 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30', icon: '🏗️' },
-  ministerio_publico: { label: 'Ministério Público', color: 'bg-red-500/20 text-red-400 border-red-500/30', icon: '🔏' },
-  pessoa_fisica: { label: 'Pessoa Física', color: 'bg-teal-500/20 text-teal-400 border-teal-500/30', icon: '👤' },
-  fundacao: { label: 'Fundação', color: 'bg-orange-500/20 text-orange-400 border-orange-500/30', icon: '🎓' },
+  empresa_privada: { label: 'Empresa Privada', color: 'bg-emerald/10 text-emerald border-emerald/25', icon: '🏢' },
+  agencia: { label: 'Agência/Fundação', color: 'bg-amber/10 text-amber-700 border-amber/30', icon: '🏗️' },
+  ministerio_publico: { label: 'Ministério Público', color: 'bg-crimson/10 text-crimson border-crimson/25', icon: '🔏' },
+  pessoa_fisica: { label: 'Pessoa Física', color: 'bg-cyan/10 text-cyan border-cyan/25', icon: '👤' },
+  fundacao: { label: 'Fundação', color: 'bg-amber/15 text-amber-800 border-amber/40', icon: '🎓' },
 };
 
 const mockCadastros: Cadastro[] = [
@@ -111,14 +111,14 @@ export default function Cadastros() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white flex items-center gap-2">
+          <h1 className="text-2xl font-bold font-serif flex items-center gap-2" style={{ color: '#0f2044' }}>
             <Building2 size={24} className="text-blue-400" />
             Cadastros Institucionais
           </h1>
-          <p className="text-gray-500 text-sm mt-0.5">Municípios, câmaras, secretarias, empresas e entidades</p>
+          <p className="text-slate-500 text-sm mt-0.5">Municípios, câmaras, secretarias, empresas e entidades</p>
         </div>
         <button onClick={() => setShowModal(true)}
-          className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-lg transition-colors">
+          className="btn-primary">
           <Plus size={16} />Novo Cadastro
         </button>
       </div>
@@ -126,20 +126,20 @@ export default function Cadastros() {
       {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total de Clientes', value: cadastros.length, icon: Building2, color: 'text-blue-400', bg: 'bg-blue-500/10' },
-          { label: 'Processos Ativos', value: totalProcessos, icon: FileText, color: 'text-green-400', bg: 'bg-green-500/10' },
-          { label: 'Honorários/Mês', value: `R$ ${(totalHonorarios / 1000).toFixed(0)}K`, icon: Star, color: 'text-yellow-400', bg: 'bg-yellow-500/10' },
-          { label: 'Com Cert. Digital', value: cadastros.filter(c => c.certificado_digital).length, icon: Shield, color: 'text-purple-400', bg: 'bg-purple-500/10' },
+          { label: 'Total de Clientes', value: cadastros.length, icon: Building2, color: '#0f2044', bg: 'bg-blue-500/10' },
+          { label: 'Processos Ativos', value: totalProcessos, icon: FileText, color: '#00b37e', bg: 'bg-green-500/10' },
+          { label: 'Honorários/Mês', value: `R$ ${(totalHonorarios / 1000).toFixed(0)}K`, icon: Star, color: '#D4A017', bg: 'bg-yellow-500/10' },
+          { label: 'Com Cert. Digital', value: cadastros.filter(c => c.certificado_digital).length, icon: Shield, color: '#7c3aed', bg: 'bg-purple-500/10' },
         ].map(s => {
           const Icon = s.icon;
           return (
-            <div key={s.label} className="bg-[#1a2744] border border-blue-900/30 rounded-xl p-4 flex items-center gap-3">
+            <div key={s.label} className="bg-white border border-slate-200 rounded-xl p-4 flex items-center gap-3">
               <div className={`w-10 h-10 rounded-xl ${s.bg} flex items-center justify-center flex-shrink-0`}>
                 <Icon size={20} className={s.color} />
               </div>
               <div>
                 <div className="text-xl font-bold text-white">{s.value}</div>
-                <div className="text-xs text-gray-500">{s.label}</div>
+                <div className="text-xs text-slate-500">{s.label}</div>
               </div>
             </div>
           );
@@ -147,28 +147,28 @@ export default function Cadastros() {
       </div>
 
       {/* Filters */}
-      <div className="bg-[#1a2744] border border-blue-900/30 rounded-xl p-4 flex flex-wrap gap-3">
+      <div className="bg-white border border-slate-200 rounded-xl p-4 flex flex-wrap gap-3">
         <div className="relative flex-1 min-w-48">
-          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
+          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" />
           <input value={busca} onChange={e => setBusca(e.target.value)}
-            className="w-full bg-[#0f1623] border border-blue-900/40 text-gray-200 rounded-lg pl-9 pr-4 py-2 text-sm focus:outline-none focus:border-blue-500 placeholder-gray-600"
+            className="w-full bg-white border border-slate-200 text-slate-800 rounded-lg pl-9 pr-4 py-2 text-sm focus:outline-none focus:border-blue-500 placeholder-slate-400"
             placeholder="Buscar por nome, CNPJ, cidade..." />
         </div>
         <select value={filtroTipo} onChange={e => setFiltroTipo(e.target.value as any)}
-          className="bg-[#0f1623] border border-blue-900/40 text-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500">
+          className="bg-white border border-slate-200 text-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500">
           <option value="todos">Todos os tipos</option>
           {Object.entries(TIPOS).map(([k, v]) => <option key={k} value={k}>{v.label}</option>)}
         </select>
         <select value={filtroStatus} onChange={e => setFiltroStatus(e.target.value as any)}
-          className="bg-[#0f1623] border border-blue-900/40 text-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500">
+          className="bg-white border border-slate-200 text-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500">
           <option value="todos">Todos os status</option>
           <option value="ativo">Ativos</option>
           <option value="inativo">Inativos</option>
           <option value="prospecto">Prospectos</option>
         </select>
         <div className="flex gap-1">
-          <button onClick={() => setView('grid')} className={`px-3 py-2 rounded-lg text-sm transition-colors ${view === 'grid' ? 'bg-blue-600 text-white' : 'bg-[#0f1623] text-gray-400 border border-blue-900/40 hover:text-gray-200'}`}>Grade</button>
-          <button onClick={() => setView('table')} className={`px-3 py-2 rounded-lg text-sm transition-colors ${view === 'table' ? 'bg-blue-600 text-white' : 'bg-[#0f1623] text-gray-400 border border-blue-900/40 hover:text-gray-200'}`}>Tabela</button>
+          <button onClick={() => setView('grid')} className={`px-3 py-2 rounded-lg text-sm transition-colors ${view === 'grid' ? 'bg-blue-600 text-white' : 'bg-white text-slate-500 border border-slate-200 hover:text-slate-800'}`}>Grade</button>
+          <button onClick={() => setView('table')} className={`px-3 py-2 rounded-lg text-sm transition-colors ${view === 'table' ? 'bg-blue-600 text-white' : 'bg-white text-slate-500 border border-slate-200 hover:text-slate-800'}`}>Tabela</button>
         </div>
       </div>
 
@@ -178,7 +178,7 @@ export default function Cadastros() {
           {filtrados.map(c => {
             const tipo = TIPOS[c.tipo];
             return (
-              <div key={c.id} className="bg-[#1a2744] border border-blue-900/30 rounded-xl p-4 hover:border-blue-500/50 transition-all cursor-pointer"
+              <div key={c.id} className="bg-white border border-slate-200 rounded-xl p-4 hover:border-blue-500/50 transition-all cursor-pointer"
                 onClick={() => setSelecionado(c)}>
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex items-center gap-2">
@@ -187,40 +187,40 @@ export default function Cadastros() {
                   </div>
                   <div className="flex items-center gap-1">
                     {c.certificado_digital && <span title="Certificado Digital"><Shield size={14} className="text-green-400" /></span>}
-                    <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${c.status === 'ativo' ? 'bg-green-500/20 text-green-400' : c.status === 'inativo' ? 'bg-red-500/20 text-red-400' : 'bg-yellow-500/20 text-yellow-400'}`}>
+                    <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${c.status === 'ativo' ? 'bg-emerald/10 text-emerald' : c.status === 'inativo' ? 'bg-crimson/10 text-crimson' : 'bg-amber/10 text-amber-700'}`}>
                       {c.status.charAt(0).toUpperCase() + c.status.slice(1)}
                     </span>
                   </div>
                 </div>
                 <h3 className="font-semibold text-gray-100 text-sm leading-tight mb-1">{c.nome}</h3>
-                <p className="text-xs text-gray-500 mb-3">{c.cnpj_cpf} • {c.cidade}/{c.estado}</p>
+                <p className="text-xs text-slate-500 mb-3">{c.cnpj_cpf} • {c.cidade}/{c.estado}</p>
                 <div className="space-y-1.5 mb-3">
-                  <div className="flex items-center gap-1.5 text-xs text-gray-400">
+                  <div className="flex items-center gap-1.5 text-xs text-slate-500">
                     <User size={12} /><span>{c.responsavel} — {c.cargo}</span>
                   </div>
-                  <div className="flex items-center gap-1.5 text-xs text-gray-400">
+                  <div className="flex items-center gap-1.5 text-xs text-slate-500">
                     <Mail size={12} /><span>{c.email}</span>
                   </div>
                 </div>
-                <div className="grid grid-cols-3 gap-2 pt-3 border-t border-blue-900/20">
+                <div className="grid grid-cols-3 gap-2 pt-3 border-t border-slate-100">
                   <div className="text-center">
                     <div className="text-sm font-bold text-white">{c.processos_ativos}</div>
-                    <div className="text-xs text-gray-500">Processos</div>
+                    <div className="text-xs text-slate-500">Processos</div>
                   </div>
                   <div className="text-center">
                     <div className="text-sm font-bold text-green-400">R${(c.honorarios_mensais / 1000).toFixed(0)}K</div>
-                    <div className="text-xs text-gray-500">Honorários</div>
+                    <div className="text-xs text-slate-500">Honorários</div>
                   </div>
                   <div className="text-center">
                     <div className="text-sm font-bold text-blue-400">{c.sla_horas}h</div>
-                    <div className="text-xs text-gray-500">SLA</div>
+                    <div className="text-xs text-slate-500">SLA</div>
                   </div>
                 </div>
                 <div className="flex gap-2 mt-3">
                   <button className="flex-1 text-xs bg-blue-600/20 text-blue-400 border border-blue-600/30 rounded-lg py-1.5 hover:bg-blue-600/30 transition-colors flex items-center justify-center gap-1">
                     <Eye size={12} />Ver Detalhes
                   </button>
-                  <button className="text-xs bg-blue-900/20 text-gray-400 border border-blue-900/30 rounded-lg px-3 py-1.5 hover:text-gray-200 transition-colors">
+                  <button className="text-xs bg-slate-50 text-slate-500 border border-slate-200 rounded-lg px-3 py-1.5 hover:text-slate-800 transition-colors">
                     <Edit size={12} />
                   </button>
                 </div>
@@ -229,12 +229,12 @@ export default function Cadastros() {
           })}
         </div>
       ) : (
-        <div className="bg-[#1a2744] border border-blue-900/30 rounded-xl overflow-hidden">
+        <div className="bg-white border border-slate-200 rounded-xl overflow-hidden">
           <table className="w-full">
             <thead>
               <tr>
                 {['Entidade', 'Tipo', 'Cidade/UF', 'Responsável', 'Processos', 'Honorários', 'SLA', 'Status', 'Ações'].map(h => (
-                  <th key={h} className="bg-[#0f1623]/60 text-blue-300 text-xs font-semibold uppercase tracking-wider px-4 py-3 text-left whitespace-nowrap">{h}</th>
+                  <th key={h} className="bg-white/60 table-header whitespace-nowrap">{h}</th>
                 ))}
               </tr>
             </thead>
@@ -242,28 +242,28 @@ export default function Cadastros() {
               {filtrados.map(c => {
                 const tipo = TIPOS[c.tipo];
                 return (
-                  <tr key={c.id} className="border-t border-blue-900/20 hover:bg-blue-900/10 transition-colors cursor-pointer" onClick={() => setSelecionado(c)}>
+                  <tr key={c.id} className="border-t border-slate-100 hover:bg-amber-50/40 transition-colors cursor-pointer" onClick={() => setSelecionado(c)}>
                     <td className="px-4 py-3">
-                      <div className="font-medium text-sm text-gray-200">{c.nome}</div>
-                      <div className="text-xs text-gray-500">{c.cnpj_cpf}</div>
+                      <div className="font-medium text-sm text-slate-800">{c.nome}</div>
+                      <div className="text-xs text-slate-500">{c.cnpj_cpf}</div>
                     </td>
                     <td className="px-4 py-3">
                       <span className={`text-xs font-medium px-2 py-0.5 rounded-full border ${tipo.color}`}>{tipo.icon} {tipo.label}</span>
                     </td>
-                    <td className="px-4 py-3 text-sm text-gray-400">{c.cidade}/{c.estado}</td>
-                    <td className="px-4 py-3 text-sm text-gray-400">{c.responsavel}</td>
+                    <td className="px-4 py-3 text-sm text-slate-500">{c.cidade}/{c.estado}</td>
+                    <td className="px-4 py-3 text-sm text-slate-500">{c.responsavel}</td>
                     <td className="px-4 py-3 text-sm font-bold text-white">{c.processos_ativos}</td>
                     <td className="px-4 py-3 text-sm font-bold text-green-400">R$ {c.honorarios_mensais.toLocaleString('pt-BR')}</td>
                     <td className="px-4 py-3 text-sm text-blue-400">{c.sla_horas}h</td>
                     <td className="px-4 py-3">
-                      <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${c.status === 'ativo' ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'}`}>
+                      <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${c.status === 'ativo' ? 'bg-emerald/10 text-emerald' : 'bg-crimson/10 text-crimson'}`}>
                         {c.status.charAt(0).toUpperCase() + c.status.slice(1)}
                       </span>
                     </td>
                     <td className="px-4 py-3">
                       <div className="flex gap-2">
                         <button className="text-blue-400 hover:text-blue-300 transition-colors"><Eye size={14} /></button>
-                        <button className="text-gray-400 hover:text-gray-200 transition-colors"><Edit size={14} /></button>
+                        <button className="text-slate-500 hover:text-slate-800 transition-colors"><Edit size={14} /></button>
                       </div>
                     </td>
                   </tr>
@@ -277,16 +277,16 @@ export default function Cadastros() {
       {/* Detail Modal */}
       {selecionado && (
         <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={() => setSelecionado(null)}>
-          <div className="bg-[#1a2744] border border-blue-900/50 rounded-2xl shadow-2xl w-full max-w-2xl" onClick={e => e.stopPropagation()}>
-            <div className="flex items-center justify-between px-6 py-4 border-b border-blue-900/30">
+          <div className="bg-white border border-slate-200 rounded-2xl shadow-2xl w-full max-w-2xl" onClick={e => e.stopPropagation()}>
+            <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200">
               <div className="flex items-center gap-3">
                 <span className="text-2xl">{TIPOS[selecionado.tipo].icon}</span>
                 <div>
                   <h2 className="font-bold text-gray-100 text-base">{selecionado.nome}</h2>
-                  <p className="text-xs text-gray-500">{selecionado.cnpj_cpf}</p>
+                  <p className="text-xs text-slate-500">{selecionado.cnpj_cpf}</p>
                 </div>
               </div>
-              <button onClick={() => setSelecionado(null)} className="text-gray-500 hover:text-gray-300 transition-colors">
+              <button onClick={() => setSelecionado(null)} className="text-slate-500 hover:text-slate-700 transition-colors">
                 <X size={20} />
               </button>
             </div>
@@ -306,19 +306,19 @@ export default function Cadastros() {
                 { label: 'Início do Contrato', value: new Date(selecionado.data_inicio).toLocaleDateString('pt-BR') },
               ].map(f => (
                 <div key={f.label}>
-                  <div className="text-xs text-gray-500 font-semibold uppercase tracking-wider mb-0.5">{f.label}</div>
-                  <div className="text-sm text-gray-200">{f.value}</div>
+                  <div className="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-0.5">{f.label}</div>
+                  <div className="text-sm text-slate-800">{f.value}</div>
                 </div>
               ))}
               {selecionado.observacoes && (
                 <div className="col-span-2">
-                  <div className="text-xs text-gray-500 font-semibold uppercase tracking-wider mb-1">Observações</div>
-                  <div className="text-sm text-gray-300 bg-[#0f1623] rounded-lg p-3 border border-blue-900/30">{selecionado.observacoes}</div>
+                  <div className="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-1">Observações</div>
+                  <div className="text-sm text-slate-700 bg-white rounded-lg p-3 border border-slate-200">{selecionado.observacoes}</div>
                 </div>
               )}
             </div>
-            <div className="flex gap-3 px-6 py-4 border-t border-blue-900/30">
-              <button className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors">
+            <div className="flex gap-3 px-6 py-4 border-t border-slate-200">
+              <button className="btn-primary">
                 <Edit size={14} />Editar Cadastro
               </button>
               <button className="flex items-center gap-2 bg-purple-600/20 text-purple-400 border border-purple-600/30 text-sm font-medium px-4 py-2 rounded-lg hover:bg-purple-600/30 transition-colors">

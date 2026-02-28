@@ -233,26 +233,26 @@ const ACTIVE_PROJECTS = [
 // ─── Helper components ─────────────────────────────────────────────────────────
 const StatusBadge = ({ status }: { status: string }) => {
   const map: Record<string, { label: string; cls: string }> = {
-    online: { label: 'Online', cls: 'bg-green-500/20 text-green-400 border-green-500/30' },
-    beta: { label: 'Beta', cls: 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30' },
-    offline: { label: 'Offline', cls: 'bg-red-500/20 text-red-400 border-red-500/30' },
-    em_andamento: { label: 'Em Andamento', cls: 'bg-blue-500/20 text-blue-400 border-blue-500/30' },
-    revisao: { label: 'Em Revisão', cls: 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30' },
-    planejamento: { label: 'Planejamento', cls: 'bg-purple-500/20 text-purple-400 border-purple-500/30' },
-    concluido: { label: 'Concluído', cls: 'bg-green-500/20 text-green-400 border-green-500/30' },
+    online: { label: 'Online', cls: 'badge-emerald' },
+    beta: { label: 'Beta', cls: 'badge-amber' },
+    offline: { label: 'Offline', cls: 'badge-urgente' },
+    em_andamento: { label: 'Em Andamento', cls: 'badge-navy' },
+    revisao: { label: 'Em Revisão', cls: 'badge-amber' },
+    planejamento: { label: 'Planejamento', cls: 'badge-violet' },
+    concluido: { label: 'Concluído', cls: 'badge-emerald' },
   };
-  const item = map[status] || { label: status, cls: 'bg-gray-500/20 text-gray-400' };
+  const item = map[status] || { label: status, cls: 'bg-gray-500/20 text-slate-500' };
   return <span className={`text-xs px-2 py-0.5 rounded-full border ${item.cls}`}>{item.label}</span>;
 };
 
 const PriorityBadge = ({ priority }: { priority: string }) => {
   const map: Record<string, { label: string; cls: string }> = {
-    critica: { label: 'Crítica', cls: 'bg-red-500/20 text-red-400 border-red-500/30' },
-    alta: { label: 'Alta', cls: 'bg-orange-500/20 text-orange-400 border-orange-500/30' },
-    media: { label: 'Média', cls: 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30' },
-    baixa: { label: 'Baixa', cls: 'bg-gray-500/20 text-gray-400 border-gray-500/30' },
+    critica: { label: 'Crítica', cls: 'bg-crimson/10 text-crimson border-crimson/25' },
+    alta: { label: 'Alta', cls: 'badge-alta' },
+    media: { label: 'Média', cls: 'badge-media' },
+    baixa: { label: 'Baixa', cls: 'bg-gray-500/20 text-slate-500 border-gray-500/30' },
   };
-  const item = map[priority] || { label: priority, cls: 'bg-gray-500/20 text-gray-400' };
+  const item = map[priority] || { label: priority, cls: 'bg-gray-500/20 text-slate-500' };
   return <span className={`text-xs px-2 py-0.5 rounded-full border ${item.cls}`}>{item.label}</span>;
 };
 
@@ -295,9 +295,9 @@ function AgentChatModal({ agent, onClose }: { agent: typeof DR_BEN_AGENTS[0]; on
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ background: 'rgba(0,0,0,0.8)', backdropFilter: 'blur(8px)' }}>
-      <div className="w-full max-w-3xl rounded-2xl flex flex-col" style={{ background: '#0f1623', border: '1px solid rgba(30,58,138,0.4)', maxHeight: '90vh' }}>
+      <div className="w-full max-w-3xl rounded-2xl flex flex-col" style={{ background: '#fff', border: '1px solid rgba(30,58,138,0.4)', maxHeight: '90vh' }}>
         {/* Header */}
-        <div className="flex items-center gap-3 p-5 border-b border-blue-900/30" style={{ background: agent.gradient, borderRadius: '1rem 1rem 0 0' }}>
+        <div className="flex items-center gap-3 p-5 border-b border-slate-200" style={{ background: agent.gradient, borderRadius: '1rem 1rem 0 0' }}>
           <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center text-white font-bold text-sm">{agent.avatar}</div>
           <div className="flex-1">
             <div className="text-white font-bold">{agent.name}</div>
@@ -311,10 +311,10 @@ function AgentChatModal({ agent, onClose }: { agent: typeof DR_BEN_AGENTS[0]; on
         </div>
 
         {/* Quick Prompts */}
-        <div className="p-3 border-b border-blue-900/20 flex gap-2 flex-wrap" style={{ background: 'rgba(30,58,138,0.1)' }}>
+        <div className="p-3 border-b border-slate-100 flex gap-2 flex-wrap" style={{ background: 'rgba(15,32,68,0.06)' }}>
           {agent.prompts.slice(0, 2).map((p, i) => (
             <button key={i} onClick={() => setInput(p)}
-              className="text-xs bg-blue-900/30 hover:bg-blue-800/40 text-blue-300 border border-blue-700/30 rounded-lg px-3 py-1.5 transition-colors text-left">
+              className="text-xs bg-slate-100 hover:bg-slate-100 text-blue-300 border border-blue-700/30 rounded-lg px-3 py-1.5 transition-colors text-left">
               ⚡ {p.substring(0, 55)}...
             </button>
           ))}
@@ -328,13 +328,13 @@ function AgentChatModal({ agent, onClose }: { agent: typeof DR_BEN_AGENTS[0]; on
                 style={msg.role === 'assistant' ? { background: agent.gradient } : {}}>
                 {msg.role === 'assistant' ? agent.avatar : 'EU'}
               </div>
-              <div className={`max-w-lg rounded-xl p-3 ${msg.role === 'assistant' ? 'bg-blue-900/20 border border-blue-900/30' : 'bg-blue-600'}`}>
-                <div className="text-sm text-gray-200 whitespace-pre-line">{msg.content}</div>
-                <div className="text-xs text-gray-500 mt-1">{msg.time}</div>
+              <div className={`max-w-lg rounded-xl p-3 ${msg.role === 'assistant' ? 'bg-slate-50 border border-slate-200' : 'bg-blue-600'}`}>
+                <div className="text-sm text-slate-800 whitespace-pre-line">{msg.content}</div>
+                <div className="text-xs text-slate-500 mt-1">{msg.time}</div>
                 {msg.role === 'assistant' && (
                   <div className="flex gap-2 mt-2">
-                    <button className="text-xs text-gray-500 hover:text-gray-300 flex items-center gap-1"><Copy size={10} /> Copiar</button>
-                    <button className="text-xs text-gray-500 hover:text-gray-300 flex items-center gap-1"><Download size={10} /> Exportar</button>
+                    <button className="text-xs text-slate-500 hover:text-slate-700 flex items-center gap-1"><Copy size={10} /> Copiar</button>
+                    <button className="text-xs text-slate-500 hover:text-slate-700 flex items-center gap-1"><Download size={10} /> Exportar</button>
                     <button className="text-xs text-green-500 hover:text-green-400 flex items-center gap-1"><ThumbsUp size={10} /></button>
                     <button className="text-xs text-red-500 hover:text-red-400 flex items-center gap-1"><ThumbsDown size={10} /></button>
                   </div>
@@ -345,9 +345,9 @@ function AgentChatModal({ agent, onClose }: { agent: typeof DR_BEN_AGENTS[0]; on
           {loading && (
             <div className="flex gap-3">
               <div className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold" style={{ background: agent.gradient }}>{agent.avatar}</div>
-              <div className="bg-blue-900/20 border border-blue-900/30 rounded-xl p-3">
+              <div className="bg-slate-50 border border-slate-200 rounded-xl p-3">
                 <div className="flex gap-1">
-                  {[0, 1, 2].map(i => <div key={i} className="w-2 h-2 rounded-full bg-blue-400 animate-bounce" style={{ animationDelay: `${i * 0.15}s` }} />)}
+                  {[0, 1, 2].map(i => <div key={i} className="w-2 h-2 rounded-full animate-bounce" style={{ background: '#D4A017', animationDelay: `${i * 0.15}s` }} />)}
                 </div>
               </div>
             </div>
@@ -355,19 +355,19 @@ function AgentChatModal({ agent, onClose }: { agent: typeof DR_BEN_AGENTS[0]; on
         </div>
 
         {/* Input */}
-        <div className="p-4 border-t border-blue-900/30">
+        <div className="p-4 border-t border-slate-200">
           <div className="flex gap-3">
             <input value={input} onChange={e => setInput(e.target.value)}
               onKeyDown={e => e.key === 'Enter' && !e.shiftKey && sendMessage()}
               placeholder={`Pergunte ao ${agent.name}...`}
-              className="flex-1 bg-blue-900/20 border border-blue-900/40 rounded-xl px-4 py-2.5 text-sm text-gray-200 placeholder-gray-600 focus:outline-none focus:border-blue-500" />
+              className="flex-1 rounded-xl px-4 py-2.5 text-sm text-slate-200 placeholder-slate-500 focus:outline-none" style={{ background: 'rgba(212,160,23,0.08)', border: '1px solid rgba(212,160,23,0.25)' }} />
             <button onClick={sendMessage} disabled={loading || !input.trim()}
               className="px-4 py-2.5 rounded-xl text-white font-medium text-sm disabled:opacity-50 transition-all hover:opacity-90"
               style={{ background: agent.gradient }}>
               <Send size={16} />
             </button>
           </div>
-          <div className="text-xs text-gray-600 mt-2 text-center">
+          <div className="text-xs text-slate-400 mt-2 text-center">
             Powered by Genspark IA · {agent.name} · Alta Performance · Dados criptografados
           </div>
         </div>
@@ -393,34 +393,34 @@ export default function NucleoIA() {
   return (
     <div className="space-y-6">
       {/* ── Header ─────────────────────────────────────────────────────────── */}
-      <div className="rounded-2xl p-6 relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #0f1623 0%, #1e3a8a 50%, #1e1b4b 100%)', border: '1px solid rgba(30,58,138,0.4)' }}>
+      <div className="rounded-2xl p-6 relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #0f2044 0%, #1e3470 50%, #0f2044 100%)', border: '1px solid rgba(212,160,23,0.25)' }}>
         <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 20% 50%, #3b82f6 0%, transparent 50%), radial-gradient(circle at 80% 50%, #7c3aed 0%, transparent 50%)' }} />
         <div className="relative flex items-start justify-between">
           <div className="flex items-center gap-4">
-            <div className="w-16 h-16 rounded-2xl flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #2563eb, #7c3aed)', boxShadow: '0 0 40px rgba(37,99,235,0.5)' }}>
-              <Brain size={30} className="text-white" />
+            <div className="w-16 h-16 rounded-2xl flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #C8960E, #F0C040)', boxShadow: '0 0 28px rgba(212,160,23,0.45)' }}>
+              <Brain size={30} style={{ color: '#0f2044' }} />
             </div>
             <div>
               <div className="flex items-center gap-2 mb-1">
                 <h1 className="text-2xl font-bold text-white">Núcleo Operacional IA</h1>
-                <span className="text-xs bg-blue-500/20 text-blue-300 border border-blue-500/30 px-2 py-0.5 rounded-full">Dr. Ben IA</span>
-                <span className="text-xs bg-purple-500/20 text-purple-300 border border-purple-500/30 px-2 py-0.5 rounded-full">Genspark Ecosystem</span>
+                <span className="text-xs font-semibold px-2 py-0.5 rounded-full" style={{ background: "rgba(212,160,23,0.18)", color: "#D4A017", border: "1px solid rgba(212,160,23,0.40)" }}>Dr. Ben IA</span>
+                <span className="text-xs font-semibold px-2 py-0.5 rounded-full" style={{ background: "rgba(124,58,237,0.14)", color: "#7c3aed", border: "1px solid rgba(124,58,237,0.35)" }}>Genspark Ecosystem</span>
               </div>
-              <p className="text-gray-400 text-sm max-w-2xl">Agentes especialistas de alta performance integrados ao ecossistema Genspark IA. Petições, contratos, análise processual, auditoria fiscal, compliance e muito mais — automatizados com precisão jurídica.</p>
+              <p className="text-slate-500 text-sm max-w-2xl">Agentes especialistas de alta performance integrados ao ecossistema Genspark IA. Petições, contratos, análise processual, auditoria fiscal, compliance e muito mais — automatizados com precisão jurídica.</p>
             </div>
           </div>
           <div className="flex gap-3">
             <div className="text-center bg-white/5 rounded-xl px-4 py-2 border border-white/10">
               <div className="text-2xl font-bold text-white">{DR_BEN_AGENTS.length}</div>
-              <div className="text-xs text-gray-400">Agentes</div>
+              <div className="text-xs text-slate-500">Agentes</div>
             </div>
             <div className="text-center bg-white/5 rounded-xl px-4 py-2 border border-white/10">
               <div className="text-2xl font-bold text-green-400">{totalRequests.toLocaleString()}</div>
-              <div className="text-xs text-gray-400">Solicitações</div>
+              <div className="text-xs text-slate-500">Solicitações</div>
             </div>
             <div className="text-center bg-white/5 rounded-xl px-4 py-2 border border-white/10">
               <div className="text-2xl font-bold text-blue-400">{avgAccuracy}%</div>
-              <div className="text-xs text-gray-400">Precisão Média</div>
+              <div className="text-xs text-slate-500">Precisão Média</div>
             </div>
           </div>
         </div>
@@ -436,14 +436,14 @@ export default function NucleoIA() {
           ].map((item) => (
             <div key={item.label} className="flex items-center gap-1.5 bg-white/5 px-3 py-1.5 rounded-full border border-white/10">
               <item.icon size={12} style={{ color: item.color }} />
-              <span className="text-xs text-gray-400">{item.label}</span>
+              <span className="text-xs text-slate-500">{item.label}</span>
             </div>
           ))}
         </div>
       </div>
 
       {/* ── Tabs ───────────────────────────────────────────────────────────── */}
-      <div className="flex gap-1 bg-blue-950/30 p-1 rounded-xl border border-blue-900/30 w-fit">
+      <div className="flex gap-1 bg-slate-100 p-1 rounded-xl border border-slate-200 w-fit">
         {[
           { id: 'agents', label: 'Agentes Dr. Ben IA', icon: Bot },
           { id: 'projetos', label: 'Núcleo de Projetos', icon: Target },
@@ -451,7 +451,7 @@ export default function NucleoIA() {
           { id: 'insights', label: 'Insights IA', icon: Lightbulb },
         ].map(tab => (
           <button key={tab.id} onClick={() => setActiveTab(tab.id as any)}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${activeTab === tab.id ? 'bg-blue-600 text-white shadow-lg' : 'text-gray-400 hover:text-gray-200'}`}>
+            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${activeTab === tab.id ? 'bg-blue-600 text-white shadow-lg' : 'text-slate-500 hover:text-slate-800'}`}>
             <tab.icon size={14} />
             {tab.label}
           </button>
@@ -466,12 +466,12 @@ export default function NucleoIA() {
           {/* Search */}
           <div className="flex items-center gap-4">
             <div className="relative flex-1 max-w-md">
-              <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
+              <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" />
               <input value={filterAgent} onChange={e => setFilterAgent(e.target.value)}
                 placeholder="Buscar agente por especialidade..."
-                className="w-full bg-blue-900/20 border border-blue-900/30 rounded-xl pl-9 pr-4 py-2.5 text-sm text-gray-300 placeholder-gray-600 focus:outline-none focus:border-blue-500" />
+                className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-9 pr-4 py-2.5 text-sm text-slate-700 placeholder-slate-400 focus:outline-none focus:border-blue-500" />
             </div>
-            <div className="text-sm text-gray-500">{filteredAgents.length} agentes disponíveis</div>
+            <div className="text-sm text-slate-500">{filteredAgents.length} agentes disponíveis</div>
           </div>
 
           {/* Agents Grid */}
@@ -479,8 +479,8 @@ export default function NucleoIA() {
             {filteredAgents.map(agent => {
               const Icon = agent.icon;
               return (
-                <div key={agent.id} className="rounded-xl border border-blue-900/30 overflow-hidden hover:border-blue-700/50 transition-all group cursor-pointer"
-                  style={{ background: 'rgba(15,22,35,0.8)' }}
+                <div key={agent.id} className="rounded-xl border border-slate-200 overflow-hidden hover:border-blue-700/50 transition-all group cursor-pointer"
+                  style={{ background: '#fff' }}
                   onClick={() => setSelectedAgent(agent)}>
                   {/* Card Header */}
                   <div className="p-4 relative" style={{ background: agent.gradient }}>
@@ -509,7 +509,7 @@ export default function NucleoIA() {
                       <div className="ml-auto">
                         <div className="flex">
                           {[1, 2, 3, 4, 5].map(i => (
-                            <Star key={i} size={12} className={i <= 5 ? 'text-yellow-300 fill-yellow-300' : 'text-gray-400'} />
+                            <Star key={i} size={12} className={i <= 5 ? 'text-yellow-300 fill-yellow-300' : 'text-slate-500'} />
                           ))}
                         </div>
                       </div>
@@ -518,17 +518,17 @@ export default function NucleoIA() {
 
                   {/* Card Body */}
                   <div className="p-4 space-y-3">
-                    <p className="text-xs text-gray-400 leading-relaxed">{agent.description}</p>
+                    <p className="text-xs text-slate-600 leading-relaxed font-sans">{agent.description}</p>
 
                     {/* Capabilities */}
                     <div>
-                      <div className="text-xs text-gray-500 font-medium mb-1.5">Capacidades:</div>
+                      <div className="text-xs text-slate-400 font-semibold uppercase tracking-wide mb-1.5 font-sans">Capacidades:</div>
                       <div className="flex flex-wrap gap-1">
                         {agent.capabilities.slice(0, 4).map(cap => (
-                          <span key={cap} className="text-xs bg-blue-900/30 text-blue-300 border border-blue-800/30 rounded px-1.5 py-0.5">{cap}</span>
+                          <span key={cap} className="text-xs bg-slate-100 text-blue-300 border border-blue-800/30 rounded px-1.5 py-0.5">{cap}</span>
                         ))}
                         {agent.capabilities.length > 4 && (
-                          <span className="text-xs bg-gray-800 text-gray-500 rounded px-1.5 py-0.5">+{agent.capabilities.length - 4}</span>
+                          <span className="text-xs bg-slate-100 text-slate-500 rounded px-1.5 py-0.5">+{agent.capabilities.length - 4}</span>
                         )}
                       </div>
                     </div>
@@ -563,61 +563,61 @@ export default function NucleoIA() {
               { label: 'Tarefas Totais', value: ACTIVE_PROJECTS.reduce((a, p) => a + p.tasks, 0), icon: CheckCircle, color: '#7c3aed', sub: `${ACTIVE_PROJECTS.reduce((a, p) => a + p.completed_tasks, 0)} concluídas` },
               { label: 'Prazo Crítico', value: '2', icon: AlertTriangle, color: '#dc2626', sub: 'próximos 7 dias' },
             ].map(card => (
-              <div key={card.label} className="rounded-xl p-4 border border-blue-900/30" style={{ background: 'rgba(15,22,35,0.8)' }}>
+              <div key={card.label} className="card-compact">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-xs text-gray-500">{card.label}</span>
+                  <span className="text-xs text-slate-400 font-semibold uppercase tracking-wider font-sans">{card.label}</span>
                   <card.icon size={16} style={{ color: card.color }} />
                 </div>
-                <div className="text-2xl font-bold text-white">{card.value}</div>
-                <div className="text-xs text-gray-500 mt-0.5">{card.sub}</div>
+                <div className="text-2xl font-bold font-serif" style={{ color: '#0f2044' }}>{card.value}</div>
+                <div className="text-xs text-slate-400 font-sans mt-0.5">{card.sub}</div>
               </div>
             ))}
           </div>
 
           {/* Projects table */}
-          <div className="rounded-xl border border-blue-900/30 overflow-hidden" style={{ background: 'rgba(15,22,35,0.8)' }}>
-            <div className="p-4 border-b border-blue-900/20 flex items-center justify-between">
+          <div className="card overflow-hidden p-0">
+            <div className="p-4 border-b border-slate-100 flex items-center justify-between">
               <h3 className="font-semibold text-white flex items-center gap-2"><Target size={16} className="text-blue-400" /> Projetos em Andamento</h3>
-              <button className="flex items-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs px-3 py-1.5 rounded-lg transition-colors">
+              <button className="flex items-center gap-1.5 btn-primary text-xs px-3 py-1.5 rounded-lg transition-colors">
                 <Plus size={12} /> Novo Projeto
               </button>
             </div>
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
-                  <tr className="border-b border-blue-900/20">
+                  <tr className="border-b border-slate-100">
                     {['Projeto', 'Cliente', 'Status', 'Prioridade', 'Progresso', 'Equipe', 'Prazo', 'Valor', 'IA'].map(h => (
-                      <th key={h} className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase">{h}</th>
+                      <th key={h} className="table-header">{h}</th>
                     ))}
                   </tr>
                 </thead>
                 <tbody>
                   {ACTIVE_PROJECTS.map(proj => (
-                    <tr key={proj.id} className="border-b border-blue-900/10 hover:bg-blue-900/10 transition-colors">
+                    <tr key={proj.id} className="table-row">
                       <td className="px-4 py-3">
-                        <div className="text-sm font-medium text-gray-200">{proj.name}</div>
-                        <div className="text-xs text-gray-500">{proj.completed_tasks}/{proj.tasks} tarefas</div>
+                        <div className="text-sm font-semibold text-slate-800">{proj.name}</div>
+                        <div className="text-xs text-slate-400 font-sans">{proj.completed_tasks}/{proj.tasks} tarefas</div>
                       </td>
-                      <td className="px-4 py-3 text-xs text-gray-400">{proj.client}</td>
+                      <td className="px-4 py-3 text-xs text-slate-600 font-medium">{proj.client}</td>
                       <td className="px-4 py-3"><StatusBadge status={proj.status} /></td>
                       <td className="px-4 py-3"><PriorityBadge priority={proj.priority} /></td>
                       <td className="px-4 py-3">
                         <div className="flex items-center gap-2">
-                          <div className="flex-1 bg-blue-900/30 rounded-full h-1.5 w-20">
+                          <div className="flex-1 bg-slate-100 rounded-full h-1.5 w-20">
                             <div className="h-full rounded-full" style={{ width: `${proj.progress}%`, background: proj.progress >= 75 ? '#059669' : proj.progress >= 40 ? '#2563eb' : '#d97706' }} />
                           </div>
-                          <span className="text-xs text-gray-400">{proj.progress}%</span>
+                          <span className="text-xs text-slate-500">{proj.progress}%</span>
                         </div>
                       </td>
                       <td className="px-4 py-3">
                         <div className="flex gap-1">
                           {proj.team.map(m => (
-                            <div key={m} className="w-6 h-6 rounded-full bg-blue-700 flex items-center justify-center text-xs font-bold text-white">{m}</div>
+                            <div key={m} className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-white rounded-full">{m}</div>
                           ))}
                         </div>
                       </td>
-                      <td className="px-4 py-3 text-xs text-gray-400">{new Date(proj.deadline).toLocaleDateString('pt-BR')}</td>
-                      <td className="px-4 py-3 text-xs text-gray-300 font-medium">R$ {(proj.value / 1000).toFixed(0)}k</td>
+                      <td className="px-4 py-3 text-xs text-slate-500">{new Date(proj.deadline).toLocaleDateString('pt-BR')}</td>
+                      <td className="px-4 py-3 text-xs text-slate-700 font-medium">R$ {(proj.value / 1000).toFixed(0)}k</td>
                       <td className="px-4 py-3">
                         <button className="text-xs bg-blue-600/20 hover:bg-blue-600/40 text-blue-400 border border-blue-600/30 px-2 py-1 rounded transition-colors flex items-center gap-1">
                           <Brain size={10} /> IA
@@ -640,7 +640,7 @@ export default function NucleoIA() {
           {/* Team performance header */}
           <div className="grid grid-cols-3 md:grid-cols-5 gap-4">
             {TEAM_MEMBERS.map(member => (
-              <div key={member.id} className="rounded-xl p-4 border border-blue-900/30 text-center" style={{ background: 'rgba(15,22,35,0.8)' }}>
+              <div key={member.id} className="card-compact text-center">
                 <div className="w-12 h-12 rounded-full mx-auto flex items-center justify-center text-sm font-bold text-white mb-2 relative"
                   style={{ background: member.color }}>
                   {member.avatar}
@@ -650,62 +650,62 @@ export default function NucleoIA() {
                     </span>
                   )}
                 </div>
-                <div className="text-xs font-semibold text-gray-200">{member.name.split(' ')[1]}</div>
-                <div className="text-xs text-gray-500 mb-2">{member.role.split(' ')[0]}</div>
-                <div className="text-2xl font-bold text-white">{member.performance}%</div>
-                <div className="text-xs text-gray-500">Performance</div>
-                <div className="mt-2 bg-blue-900/30 rounded-full h-1">
-                  <div className="h-full rounded-full bg-blue-500" style={{ width: `${member.performance}%` }} />
+                <div className="text-xs font-semibold text-slate-800">{member.name.split(' ')[1]}</div>
+                <div className="text-xs text-slate-500 mb-2">{member.role.split(' ')[0]}</div>
+                <div className="text-2xl font-bold font-serif" style={{ color: '#0f2044' }}>{member.performance}%</div>
+                <div className="text-xs text-slate-500">Performance</div>
+                <div className="mt-2 bg-slate-100 rounded-full h-1">
+                  <div className="progress-gold" style={{ width: `${member.performance}%` }} />
                 </div>
               </div>
             ))}
           </div>
 
           {/* Detailed table */}
-          <div className="rounded-xl border border-blue-900/30 overflow-hidden" style={{ background: 'rgba(15,22,35,0.8)' }}>
-            <div className="p-4 border-b border-blue-900/20">
-              <h3 className="font-semibold text-white flex items-center gap-2"><Users size={16} className="text-blue-400" /> Desempenho da Equipe – Fevereiro 2026</h3>
+          <div className="card overflow-hidden p-0">
+            <div className="p-4 border-b border-slate-100">
+              <h3 className="font-semibold text-sm font-sans flex items-center gap-2" style={{ color: '#0f2044' }}><Users size={16} style={{ color: '#D4A017' }} /> Desempenho da Equipe – Fevereiro 2026</h3>
             </div>
             <table className="w-full">
               <thead>
-                <tr className="border-b border-blue-900/20">
+                <tr style={{ borderBottom: '1px solid #f1f5f9' }}>
                   {['Rank', 'Membro', 'Cargo', 'Tarefas', 'Concluídas', 'Horas', 'Faturável', 'Performance', 'IA Utilizada'].map(h => (
-                    <th key={h} className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase">{h}</th>
+                    <th key={h} className="table-header">{h}</th>
                   ))}
                 </tr>
               </thead>
               <tbody>
                 {TEAM_MEMBERS.sort((a, b) => b.performance - a.performance).map((m, i) => (
-                  <tr key={m.id} className="border-b border-blue-900/10 hover:bg-blue-900/10 transition-colors">
+                  <tr key={m.id} className="table-row">
                     <td className="px-4 py-3">
-                      <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold ${i === 0 ? 'bg-yellow-500 text-black' : i === 1 ? 'bg-gray-300 text-black' : i === 2 ? 'bg-orange-600 text-white' : 'bg-gray-700 text-gray-400'}`}>
+                      <div className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold" style={{ background: i === 0 ? '#D4A017' : i === 1 ? '#cbd5e1' : i === 2 ? '#cd7f32' : '#f1f5f9', color: i === 0 ? '#0f2044' : i === 1 ? '#475569' : i === 2 ? '#fff' : '#64748b' }}>
                         {i + 1}
                       </div>
                     </td>
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-2">
                         <div className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold text-white" style={{ background: m.color }}>{m.avatar}</div>
-                        <span className="text-sm text-gray-200">{m.name}</span>
+                        <span className="text-sm text-slate-800">{m.name}</span>
                       </div>
                     </td>
-                    <td className="px-4 py-3 text-xs text-gray-400">{m.role}</td>
-                    <td className="px-4 py-3 text-sm text-gray-300">{m.tasks}</td>
+                    <td className="px-4 py-3 text-xs text-slate-500">{m.role}</td>
+                    <td className="px-4 py-3 text-sm text-slate-700">{m.tasks}</td>
                     <td className="px-4 py-3">
-                      <span className="text-sm text-green-400 font-medium">{m.completed}</span>
-                      <span className="text-xs text-gray-500">/{m.tasks}</span>
+                      <span className="text-sm font-semibold" style={{ color: '#00b37e' }}>{m.completed}</span>
+                      <span className="text-xs text-slate-500">/{m.tasks}</span>
                     </td>
-                    <td className="px-4 py-3 text-sm text-gray-300">{m.hours}h</td>
-                    <td className="px-4 py-3 text-sm text-gray-300">{m.billable > 0 ? `${m.billable}h` : '—'}</td>
+                    <td className="px-4 py-3 text-sm text-slate-700">{m.hours}h</td>
+                    <td className="px-4 py-3 text-sm text-slate-700">{m.billable > 0 ? `${m.billable}h` : '—'}</td>
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-2">
-                        <div className="flex-1 bg-blue-900/30 rounded-full h-1.5 w-16">
-                          <div className="h-full rounded-full bg-blue-500" style={{ width: `${m.performance}%` }} />
+                        <div className="flex-1 bg-slate-100 rounded-full h-1.5 w-16">
+                          <div className="progress-navy" style={{ width: `${m.performance}%` }} />
                         </div>
-                        <span className="text-sm font-bold text-white">{m.performance}%</span>
+                        <span className="text-sm font-bold" style={{ color: '#0f2044' }}>{m.performance}%</span>
                       </div>
                     </td>
                     <td className="px-4 py-3">
-                      <div className="flex items-center gap-1 text-xs text-blue-400">
+                      <div className="flex items-center gap-1 text-xs" style={{ color: '#1e3470' }}>
                         <Brain size={12} />
                         <span>{Math.floor(m.hours * 0.3)}h com IA</span>
                       </div>
@@ -747,17 +747,17 @@ export default function NucleoIA() {
                 ]
               }
             ].map(card => (
-              <div key={card.title} className="rounded-xl p-4 border border-blue-900/30" style={{ background: 'rgba(15,22,35,0.8)' }}>
-                <h4 className="font-semibold text-sm text-gray-200 mb-3">{card.title}</h4>
+              <div key={card.title} className="card-compact">
+                <h4 className="font-semibold text-sm text-slate-800 mb-3">{card.title}</h4>
                 <div className="space-y-2.5">
                   {card.items.map((item, i) => (
                     <div key={i}>
                       <div className="flex justify-between text-xs mb-0.5">
-                        <span className="text-gray-400">{item.name}</span>
-                        <span className="text-gray-300">{('extra' in item ? item.extra : undefined) || item.usage}</span>
+                        <span className="text-slate-500">{item.name}</span>
+                        <span className="text-slate-700">{('extra' in item ? item.extra : undefined) || item.usage}</span>
                       </div>
-                      <div className="bg-blue-900/30 rounded-full h-1.5">
-                        <div className="h-full rounded-full bg-gradient-to-r from-blue-500 to-purple-500" style={{ width: `${item.pct}%` }} />
+                      <div className="bg-slate-100 rounded-full h-1.5">
+                        <div className="progress-gold" style={{ width: `${item.pct}%` }} />
                       </div>
                     </div>
                   ))}
@@ -775,14 +775,14 @@ export default function NucleoIA() {
         <div className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* AI Daily Briefing */}
-            <div className="rounded-xl border border-blue-900/30 p-5" style={{ background: 'rgba(15,22,35,0.8)' }}>
+            <div className="card">
               <div className="flex items-center gap-2 mb-4">
-                <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #2563eb, #7c3aed)' }}>
+                <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #C8960E, #F0C040)' }}>
                   <Sparkles size={14} className="text-white" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-sm text-white">Briefing Diário – Dr. Ben IA</h3>
-                  <div className="text-xs text-gray-500">28/02/2026 · Genspark Ecosystem</div>
+                  <h3 className="font-semibold text-sm font-sans" style={{ color: '#0f2044' }}>Briefing Diário – Dr. Ben IA</h3>
+                  <div className="text-xs text-slate-500">28/02/2026 · Genspark Ecosystem</div>
                 </div>
               </div>
               <div className="space-y-3">
@@ -793,9 +793,9 @@ export default function NucleoIA() {
                   { type: 'success', icon: CheckCircle, msg: 'Contrato Empresa ABC assinado via ZapSign. Receivable de R$ 48.000 gerado automaticamente.' },
                   { type: 'info', icon: Brain, msg: 'Nova súmula STJ (nº 668) impacta 4 processos ativos. Dr. Ben – Estratégia analisará e sugerirá petições.' },
                 ].map((item, i) => {
-                  const colorMap = { danger: 'text-red-400 bg-red-500/10 border-red-500/30', warning: 'text-yellow-400 bg-yellow-500/10 border-yellow-500/30', info: 'text-blue-400 bg-blue-500/10 border-blue-500/30', success: 'text-green-400 bg-green-500/10 border-green-500/30' };
+                  const colorMap = { danger: 'alert-crimson text-crimson', warning: 'alert-amber text-amber-700', info: 'alert-navy text-navy', success: 'alert-emerald text-emerald' };
                   return (
-                    <div key={i} className={`flex items-start gap-2 p-2.5 rounded-lg border text-xs ${colorMap[item.type as keyof typeof colorMap]}`}>
+                    <div key={i} className={`flex items-start gap-2 p-2.5 rounded-lg text-xs ${colorMap[item.type as keyof typeof colorMap]}`}>
                       <item.icon size={13} className="flex-shrink-0 mt-0.5" />
                       <span>{item.msg}</span>
                     </div>
@@ -805,12 +805,12 @@ export default function NucleoIA() {
             </div>
 
             {/* AI Recommendations */}
-            <div className="rounded-xl border border-blue-900/30 p-5" style={{ background: 'rgba(15,22,35,0.8)' }}>
+            <div className="card">
               <div className="flex items-center gap-2 mb-4">
-                <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #059669, #0891b2)' }}>
+                <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #00b37e, #0891b2)' }}>
                   <Lightbulb size={14} className="text-white" />
                 </div>
-                <h3 className="font-semibold text-sm text-white">Recomendações Estratégicas IA</h3>
+                <h3 className="font-semibold text-sm font-sans" style={{ color: '#0f2044' }}>Recomendações Estratégicas IA</h3>
               </div>
               <div className="space-y-3">
                 {[
@@ -839,11 +839,11 @@ export default function NucleoIA() {
                     action: 'Ver plano de adequação'
                   },
                 ].map((item, i) => (
-                  <div key={i} className="p-3 rounded-lg border border-blue-900/20 bg-blue-900/10">
+                  <div key={i} className="p-3 rounded-lg border border-slate-100 bg-blue-900/10">
                     <div className="flex items-center justify-between mb-1.5">
                       <span className="text-xs font-medium px-2 py-0.5 rounded-full text-white" style={{ background: item.color + '40', border: `1px solid ${item.color}60`, color: item.color }}>{item.agent}</span>
                     </div>
-                    <p className="text-xs text-gray-300 mb-2">{item.rec}</p>
+                    <p className="text-xs text-slate-700 mb-2">{item.rec}</p>
                     <button className="text-xs text-blue-400 hover:text-blue-300 flex items-center gap-1 transition-colors">
                       <Zap size={10} /> {item.action} <ChevronRight size={10} />
                     </button>
@@ -861,14 +861,14 @@ export default function NucleoIA() {
               { label: 'Prazos Monitorados', value: '187', sub: 'ativos', icon: AlertTriangle, color: '#d97706', change: 'Em dia' },
               { label: 'Economia Financeira', value: 'R$ 94k', sub: 'em produtividade', icon: TrendingUp, color: '#7c3aed', change: '+18%' },
             ].map(card => (
-              <div key={card.label} className="rounded-xl p-4 border border-blue-900/30" style={{ background: 'rgba(15,22,35,0.8)' }}>
+              <div key={card.label} className="card-compact">
                 <div className="flex items-center justify-between mb-2">
                   <card.icon size={18} style={{ color: card.color }} />
                   <span className="text-xs text-green-400 font-medium">{card.change}</span>
                 </div>
-                <div className="text-2xl font-bold text-white">{card.value}</div>
-                <div className="text-xs text-gray-500">{card.label}</div>
-                <div className="text-xs text-gray-600">{card.sub}</div>
+                <div className="text-2xl font-bold font-serif" style={{ color: '#0f2044' }}>{card.value}</div>
+                <div className="text-xs text-slate-400 font-semibold uppercase tracking-wider font-sans">{card.label}</div>
+                <div className="text-xs text-slate-400">{card.sub}</div>
               </div>
             ))}
           </div>
@@ -894,7 +894,7 @@ export default function NucleoIA() {
               ].map(item => (
                 <div key={item.name} className="bg-white/5 rounded-xl p-3 border border-white/10 text-center">
                   <item.icon size={20} className="mx-auto mb-2" style={{ color: item.color }} />
-                  <div className="text-xs font-medium text-gray-200 mb-1">{item.name}</div>
+                  <div className="text-xs font-medium text-slate-800 mb-1">{item.name}</div>
                   <div className="flex items-center justify-center gap-1">
                     <div className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse"></div>
                     <span className="text-xs text-green-400">{item.status}</span>

@@ -20,10 +20,10 @@ const notificacoes = [
 
 const tipoIcone: Record<string, string> = { intimacao: '📬', citacao: '⚖️', pauta: '📅', despacho: '📄', sentenca: '🏛️' };
 const urgCor: Record<string, string> = {
-  urgente: 'bg-red-500/20 text-red-400 border-red-500/30',
-  alta: 'bg-orange-500/20 text-orange-400 border-orange-500/30',
-  media: 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30',
-  baixa: 'bg-green-500/20 text-green-400 border-green-500/30',
+  urgente: 'bg-crimson/10 text-crimson border-crimson/25',
+  alta: 'bg-amber/15 text-amber-800 border-amber/40',
+  media: 'bg-amber/10 text-amber-700 border-amber/30',
+  baixa: 'bg-emerald/10 text-emerald border-emerald/25',
 };
 
 export default function IntegracaoCNJ() {
@@ -38,12 +38,12 @@ export default function IntegracaoCNJ() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white flex items-center gap-2">
+          <h1 className="text-2xl font-bold font-serif flex items-center gap-2" style={{ color: '#0f2044' }}>
             <Scale size={24} className="text-blue-400" />Integração CNJ
           </h1>
-          <p className="text-gray-500 text-sm mt-0.5">DJEN, MNI, DataJud, PJe — Recepção automática de notificações</p>
+          <p className="text-slate-500 text-sm mt-0.5">DJEN, MNI, DataJud, PJe — Recepção automática de notificações</p>
         </div>
-        <button className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors">
+        <button className="btn-primary">
           <RefreshCw size={14} />Sincronizar Todos
         </button>
       </div>
@@ -51,25 +51,25 @@ export default function IntegracaoCNJ() {
       {/* Status dos sistemas */}
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
         {sistemas.map(s => (
-          <div key={s.id} className="bg-[#1a2744] border border-blue-900/30 rounded-xl p-4">
+          <div key={s.id} className="bg-white border border-slate-200 rounded-xl p-4">
             <div className="flex items-start justify-between mb-3">
               <div>
-                <div className="text-sm font-semibold text-gray-200 leading-tight">{s.nome}</div>
-                <div className="text-xs text-gray-500 mt-0.5">{s.tribunal}</div>
+                <div className="text-sm font-semibold text-slate-800 leading-tight">{s.nome}</div>
+                <div className="text-xs text-slate-500 mt-0.5">{s.tribunal}</div>
               </div>
-              <div className={`flex items-center gap-1.5 text-xs px-2 py-1 rounded-full font-medium ${s.status === 'online' ? 'bg-green-500/20 text-green-400' : 'bg-yellow-500/20 text-yellow-400'}`}>
-                <div className={`w-1.5 h-1.5 rounded-full ${s.status === 'online' ? 'bg-green-400' : 'bg-yellow-400'} animate-pulse`}></div>
+              <div className={`flex items-center gap-1.5 text-xs px-2 py-1 rounded-full font-medium ${s.status === 'online' ? 'bg-emerald/10 text-emerald' : 'bg-amber/10 text-amber-700'}`}>
+                <div className={`w-1.5 h-1.5 rounded-full ${s.status === 'online' ? 'bg-emerald' : 'bg-yellow-400'} animate-pulse`}></div>
                 {s.status === 'online' ? 'Online' : 'Degradado'}
               </div>
             </div>
             <div className="grid grid-cols-2 gap-2 mb-3">
-              <div className="bg-[#0f1623] rounded-lg p-2 border border-blue-900/20">
-                <div className="text-xs text-gray-500">Última Sync</div>
-                <div className="text-xs text-gray-300 font-medium mt-0.5">{s.ultima_sync}</div>
+              <div className="bg-white rounded-lg p-2 border border-slate-100">
+                <div className="text-xs text-slate-500">Última Sync</div>
+                <div className="text-xs text-slate-700 font-medium mt-0.5">{s.ultima_sync}</div>
               </div>
-              <div className="bg-[#0f1623] rounded-lg p-2 border border-blue-900/20">
-                <div className="text-xs text-gray-500">Intimações Hoje</div>
-                <div className={`text-sm font-bold mt-0.5 ${s.intimacoes_hoje > 0 ? 'text-blue-400' : 'text-gray-500'}`}>{s.intimacoes_hoje}</div>
+              <div className="bg-white rounded-lg p-2 border border-slate-100">
+                <div className="text-xs text-slate-500">Intimações Hoje</div>
+                <div className={`text-sm font-bold mt-0.5 ${s.intimacoes_hoje > 0 ? '#0f2044' : 'text-slate-500'}`}>{s.intimacoes_hoje}</div>
               </div>
             </div>
             <button onClick={() => handleSync(s.id)}
@@ -82,26 +82,26 @@ export default function IntegracaoCNJ() {
       </div>
 
       {/* Notificações recebidas */}
-      <div className="bg-[#1a2744] border border-blue-900/30 rounded-xl overflow-hidden">
-        <div className="px-4 py-3 border-b border-blue-900/30 flex items-center gap-2">
+      <div className="bg-white border border-slate-200 rounded-xl overflow-hidden">
+        <div className="px-4 py-3 border-b border-slate-200 flex items-center gap-2">
           <Bell size={16} className="text-blue-400" />
-          <span className="font-semibold text-gray-200 text-sm">Notificações Recebidas — Último Ciclo</span>
-          <span className="ml-auto text-xs bg-blue-500/20 text-blue-400 border border-blue-500/30 px-2 py-0.5 rounded-full">{notificacoes.filter(n => n.status === 'novo').length} novas</span>
+          <span className="font-semibold text-slate-800 text-sm">Notificações Recebidas — Último Ciclo</span>
+          <span className="ml-auto text-xs bg-navy-mid/10 text-navy font-semibold border border-blue-500/30 px-2 py-0.5 rounded-full">{notificacoes.filter(n => n.status === 'novo').length} novas</span>
         </div>
         <div className="divide-y divide-blue-900/20">
           {notificacoes.map(n => (
-            <div key={n.id} className={`flex items-start gap-4 px-4 py-4 hover:bg-blue-900/10 transition-colors cursor-pointer ${n.status === 'novo' ? 'border-l-2 border-l-blue-500' : ''}`}>
+            <div key={n.id} className={`flex items-start gap-4 px-4 py-4 hover:bg-amber-50/40 transition-colors cursor-pointer ${n.status === 'novo' ? 'border-l-2 border-l-blue-500' : ''}`}>
               <span className="text-2xl">{tipoIcone[n.tipo]}</span>
               <div className="flex-1">
                 <div className="flex items-center gap-2 flex-wrap mb-1">
                   <span className="text-xs text-blue-400 font-mono">{n.processo}</span>
-                  <span className="text-xs bg-blue-900/40 text-blue-300 px-2 py-0.5 rounded">{n.tribunal}</span>
+                  <span className="text-xs bg-slate-100 text-blue-300 px-2 py-0.5 rounded">{n.tribunal}</span>
                   <span className={`text-xs px-2 py-0.5 rounded-full border ${urgCor[n.urgencia]}`}>{n.urgencia.charAt(0).toUpperCase() + n.urgencia.slice(1)}</span>
                   {n.status === 'novo' && <span className="text-xs bg-blue-600 text-white px-2 py-0.5 rounded-full font-medium">NOVO</span>}
                 </div>
-                <p className="text-sm text-gray-300">{n.descricao}</p>
+                <p className="text-sm text-slate-700">{n.descricao}</p>
                 <div className="flex items-center gap-4 mt-1.5">
-                  <span className="text-xs text-gray-600">{n.data}</span>
+                  <span className="text-xs text-slate-400">{n.data}</span>
                   {n.prazo !== '—' && <span className="text-xs text-yellow-400 flex items-center gap-1"><Clock size={10} />Prazo: {n.prazo}</span>}
                 </div>
               </div>

@@ -326,7 +326,7 @@ export default function EngenheiroPrompts() {
 
       {/* ── Header ─────────────────────────────────────────────────── */}
       <div className="rounded-2xl p-6 shadow-lg relative overflow-hidden"
-        style={{ background: 'linear-gradient(135deg, #1e1b4b 0%, #4c1d95 50%, #7c3aed 100%)' }}>
+        style={{ background: 'linear-gradient(135deg, #0f2044 0%, #1e3470 40%, #7c3aed 100%)' }}>
         <div className="absolute inset-0 opacity-10"
           style={{ backgroundImage: 'radial-gradient(circle at 20% 60%, #a78bfa 0%, transparent 40%), radial-gradient(circle at 80% 20%, #60a5fa 0%, transparent 40%)' }} />
         <div className="relative flex items-start justify-between flex-wrap gap-4">
@@ -349,7 +349,7 @@ export default function EngenheiroPrompts() {
                   { icon: Cpu,       label: 'Genspark Meta LLM' },
                 ].map(s => (
                   <div key={s.label} className="flex items-center gap-1.5 text-xs text-purple-200">
-                    <s.icon size={12} className="text-purple-300" />{s.label}
+                    <s.icon size={12} className="text-[#9f7aea]" />{s.label}
                   </div>
                 ))}
               </div>
@@ -372,7 +372,7 @@ export default function EngenheiroPrompts() {
         ].map(t => (
           <button key={t.id} onClick={() => setTab(t.id as any)}
             className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all ${tab === t.id
-              ? 'bg-purple-600 text-white shadow-md'
+              ? 'bg-[#0f2044] text-white shadow-md'
               : 'text-slate-500 hover:text-slate-700 hover:bg-slate-50'}`}>
             <t.icon size={14}/>{t.label}
           </button>
@@ -396,7 +396,7 @@ export default function EngenheiroPrompts() {
               {CATEGORIAS.map(cat => (
                 <button key={cat} onClick={() => setCatFilter(cat)}
                   className={`text-xs px-3 py-1.5 rounded-xl font-semibold transition-all border ${catFilter === cat
-                    ? 'bg-purple-600 text-white border-purple-600 shadow-sm'
+                    ? 'bg-[#0f2044] text-white border-[#D4A017] shadow-sm'
                     : 'bg-white text-slate-500 border-slate-200 hover:border-purple-300 hover:text-purple-600'}`}>
                   {cat}
                 </button>
@@ -586,7 +586,7 @@ export default function EngenheiroPrompts() {
                   'Inclua exemplos (few-shot) para maior precisão',
                   'Adicione "passo a passo" para chain-of-thought',
                 ].map((tip, i) => (
-                  <li key={i} className="flex items-start gap-1.5"><span className="text-blue-400 mt-0.5">•</span>{tip}</li>
+                  <li key={i} className="flex items-start gap-1.5"><span className="text-[#1e3470] mt-0.5">•</span>{tip}</li>
                 ))}
               </ul>
             </div>
@@ -668,7 +668,7 @@ export default function EngenheiroPrompts() {
                 <div className="flex items-center justify-center h-full text-center">
                   <div className="space-y-2">
                     <div className="w-14 h-14 rounded-2xl mx-auto flex items-center justify-center" style={{ background: '#f5f3ff' }}>
-                      <Wand2 size={26} className="text-purple-400"/>
+                      <Wand2 size={26} className="text-[#7c3aed]"/>
                     </div>
                     <div className="text-sm text-slate-400">Digite um prompt e clique em Executar</div>
                   </div>

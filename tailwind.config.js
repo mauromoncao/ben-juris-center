@@ -58,6 +58,15 @@ export default {
           danger:  '#ef4444',
           muted:   '#64748b',
         },
+        // ── Design token shortcuts (matches CSS vars in index.css) ──
+        navy:    '#0f2044',
+        'navy-mid': '#1e3470',
+        'navy-light': '#2d4a8a',
+        emerald: '#00b37e',
+        amber:   '#f59e0b',
+        crimson: '#e11d48',
+        violet:  '#7c3aed',
+        cyan:    '#0891b2',
       },
       fontFamily: {
         // ── Fontes do site www.mauromoncao.adv.br ─────────────────

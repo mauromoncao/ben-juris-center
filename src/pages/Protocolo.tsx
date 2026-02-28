@@ -27,19 +27,19 @@ interface Demanda {
 }
 
 const URGENCIAS: Record<Urgencia, { label: string; color: string }> = {
-  urgente: { label: 'Urgente', color: 'bg-red-500/20 text-red-400 border-red-500/30' },
-  alta: { label: 'Alta', color: 'bg-orange-500/20 text-orange-400 border-orange-500/30' },
-  media: { label: 'Média', color: 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30' },
-  baixa: { label: 'Baixa', color: 'bg-green-500/20 text-green-400 border-green-500/30' },
+  urgente: { label: 'Urgente', color: 'bg-crimson/10 text-crimson border-crimson/25' },
+  alta: { label: 'Alta', color: 'bg-amber/15 text-amber-800 border-amber/40' },
+  media: { label: 'Média', color: 'bg-amber/10 text-amber-700 border-amber/30' },
+  baixa: { label: 'Baixa', color: 'bg-emerald/10 text-emerald border-emerald/25' },
 };
 
 const STATUS: Record<StatusDemanda, { label: string; color: string; dot: string }> = {
-  recebida: { label: 'Recebida', color: 'bg-blue-500/20 text-blue-400', dot: 'bg-blue-400' },
-  triagem: { label: 'Em Triagem', color: 'bg-purple-500/20 text-purple-400', dot: 'bg-purple-400' },
-  em_andamento: { label: 'Em Andamento', color: 'bg-yellow-500/20 text-yellow-400', dot: 'bg-yellow-400' },
-  aguardando_info: { label: 'Aguard. Info', color: 'bg-orange-500/20 text-orange-400', dot: 'bg-orange-400' },
-  concluida: { label: 'Concluída', color: 'bg-green-500/20 text-green-400', dot: 'bg-green-400' },
-  arquivada: { label: 'Arquivada', color: 'bg-gray-500/20 text-gray-400', dot: 'bg-gray-400' },
+  recebida: { label: 'Recebida', color: 'bg-navy-mid/10 text-navy font-semibold', dot: 'bg-navy-mid' },
+  triagem: { label: 'Em Triagem', color: 'bg-violet/10 text-violet', dot: 'bg-violet' },
+  em_andamento: { label: 'Em Andamento', color: 'bg-amber/10 text-amber-700', dot: 'bg-yellow-400' },
+  aguardando_info: { label: 'Aguard. Info', color: 'bg-amber/15 text-amber-800', dot: 'bg-orange-400' },
+  concluida: { label: 'Concluída', color: 'bg-emerald/10 text-emerald', dot: 'bg-emerald' },
+  arquivada: { label: 'Arquivada', color: 'bg-gray-500/20 text-slate-500', dot: 'bg-gray-400' },
 };
 
 const TIPOS: Record<TipoDemanda, string> = {
@@ -133,14 +133,14 @@ export default function Protocolo() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white flex items-center gap-2">
+          <h1 className="text-2xl font-bold font-serif flex items-center gap-2" style={{ color: '#0f2044' }}>
             <FileText size={24} className="text-blue-400" />
             Protocolo Digital de Demandas
           </h1>
-          <p className="text-gray-500 text-sm mt-0.5">Recepção, triagem e acompanhamento de demandas jurídicas</p>
+          <p className="text-slate-500 text-sm mt-0.5">Recepção, triagem e acompanhamento de demandas jurídicas</p>
         </div>
         <button onClick={() => setShowNova(true)}
-          className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-lg transition-colors">
+          className="btn-primary">
           <Plus size={16} />Abrir Demanda
         </button>
       </div>
@@ -153,9 +153,9 @@ export default function Protocolo() {
           { label: 'Em Andamento', value: contadores.em_andamento, color: 'yellow', dot: '🟡' },
           { label: 'Urgentes (Hoje)', value: contadores.urgente, color: 'red', dot: '🔴' },
         ].map(s => (
-          <div key={s.label} className="bg-[#1a2744] border border-blue-900/30 rounded-xl p-4">
-            <div className="text-2xl font-bold text-white mb-1">{s.dot} {s.value}</div>
-            <div className="text-xs text-gray-500">{s.label}</div>
+          <div key={s.label} className="bg-white border border-slate-200 rounded-xl p-4">
+            <div className="text-2xl font-bold font-serif mb-1" style={{ color: '#0f2044' }}>{s.dot} {s.value}</div>
+            <div className="text-xs text-slate-500">{s.label}</div>
           </div>
         ))}
       </div>
@@ -166,25 +166,25 @@ export default function Protocolo() {
           const info = STATUS[st];
           const items = demandas.filter(d => d.status === st);
           return (
-            <div key={st} className="bg-[#1a2744] border border-blue-900/30 rounded-xl overflow-hidden">
-              <div className="px-3 py-2 border-b border-blue-900/30 flex items-center gap-2">
+            <div key={st} className="bg-white border border-slate-200 rounded-xl overflow-hidden">
+              <div className="px-3 py-2 border-b border-slate-200 flex items-center gap-2">
                 <div className={`w-2 h-2 rounded-full ${info.dot}`}></div>
-                <span className="text-xs font-semibold text-gray-300">{info.label}</span>
-                <span className="ml-auto text-xs text-gray-500">{items.length}</span>
+                <span className="text-xs font-semibold text-slate-700">{info.label}</span>
+                <span className="ml-auto text-xs text-slate-500">{items.length}</span>
               </div>
               <div className="p-2 space-y-2 min-h-[100px]">
                 {items.map(d => {
                   const urg = URGENCIAS[d.urgencia];
                   return (
                     <div key={d.id}
-                      className="bg-[#0f1623] border border-blue-900/30 rounded-lg p-2 cursor-pointer hover:border-blue-500/50 transition-all"
+                      className="bg-white border border-slate-200 rounded-lg p-2 cursor-pointer hover:border-blue-500/50 transition-all"
                       onClick={() => setSelecionada(d)}>
                       <div className="flex items-center justify-between mb-1">
                         <span className="text-xs text-blue-400 font-mono">{d.protocolo.slice(-6)}</span>
                         <span className={`text-xs px-1.5 py-0.5 rounded border ${urg.color}`}>{urg.label}</span>
                       </div>
-                      <p className="text-xs text-gray-300 leading-tight font-medium">{d.titulo.slice(0, 45)}...</p>
-                      <p className="text-xs text-gray-600 mt-1">{d.cliente.slice(0, 25)}</p>
+                      <p className="text-xs text-slate-700 leading-tight font-medium">{d.titulo.slice(0, 45)}...</p>
+                      <p className="text-xs text-slate-400 mt-1">{d.cliente.slice(0, 25)}</p>
                     </div>
                   );
                 })}
@@ -195,21 +195,21 @@ export default function Protocolo() {
       </div>
 
       {/* Filters and List */}
-      <div className="bg-[#1a2744] border border-blue-900/30 rounded-xl overflow-hidden">
-        <div className="p-4 border-b border-blue-900/30 flex flex-wrap gap-3">
+      <div className="bg-white border border-slate-200 rounded-xl overflow-hidden">
+        <div className="p-4 border-b border-slate-200 flex flex-wrap gap-3">
           <div className="relative flex-1 min-w-48">
-            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
+            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" />
             <input value={busca} onChange={e => setBusca(e.target.value)}
-              className="w-full bg-[#0f1623] border border-blue-900/40 text-gray-200 rounded-lg pl-9 pr-4 py-2 text-sm focus:outline-none focus:border-blue-500 placeholder-gray-600"
+              className="w-full bg-white border border-slate-200 text-slate-800 rounded-lg pl-9 pr-4 py-2 text-sm focus:outline-none focus:border-blue-500 placeholder-slate-400"
               placeholder="Buscar protocolo, cliente, título..." />
           </div>
           <select value={filtroStatus} onChange={e => setFiltroStatus(e.target.value as any)}
-            className="bg-[#0f1623] border border-blue-900/40 text-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500">
+            className="bg-white border border-slate-200 text-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500">
             <option value="todos">Todos os status</option>
             {Object.entries(STATUS).map(([k, v]) => <option key={k} value={k}>{v.label}</option>)}
           </select>
           <select value={filtroUrgencia} onChange={e => setFiltroUrgencia(e.target.value as any)}
-            className="bg-[#0f1623] border border-blue-900/40 text-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500">
+            className="bg-white border border-slate-200 text-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500">
             <option value="todos">Todas as urgências</option>
             {Object.entries(URGENCIAS).map(([k, v]) => <option key={k} value={k}>{v.label}</option>)}
           </select>
@@ -218,7 +218,7 @@ export default function Protocolo() {
           <thead>
             <tr>
               {['Protocolo', 'Título', 'Tipo', 'Cliente', 'Urgência', 'Status', 'Prazo SLA', 'Advogado', 'Ações'].map(h => (
-                <th key={h} className="bg-[#0f1623]/60 text-blue-300 text-xs font-semibold uppercase tracking-wider px-4 py-3 text-left whitespace-nowrap">{h}</th>
+                <th key={h} className="bg-white/60 table-header whitespace-nowrap">{h}</th>
               ))}
             </tr>
           </thead>
@@ -228,14 +228,14 @@ export default function Protocolo() {
               const st = STATUS[d.status];
               const isVencendo = new Date(d.prazo_sla) < new Date();
               return (
-                <tr key={d.id} className="border-t border-blue-900/20 hover:bg-blue-900/10 transition-colors cursor-pointer" onClick={() => setSelecionada(d)}>
+                <tr key={d.id} className="border-t border-slate-100 hover:bg-amber-50/40 transition-colors cursor-pointer" onClick={() => setSelecionada(d)}>
                   <td className="px-4 py-3 text-xs text-blue-400 font-mono">{d.protocolo}</td>
                   <td className="px-4 py-3">
-                    <div className="text-sm text-gray-200 font-medium">{d.titulo}</div>
-                    <div className="text-xs text-gray-500">{d.data_abertura}</div>
+                    <div className="text-sm text-slate-800 font-medium">{d.titulo}</div>
+                    <div className="text-xs text-slate-500">{d.data_abertura}</div>
                   </td>
-                  <td className="px-4 py-3 text-xs text-gray-400">{TIPOS[d.tipo]}</td>
-                  <td className="px-4 py-3 text-sm text-gray-400">{d.cliente}</td>
+                  <td className="px-4 py-3 text-xs text-slate-500">{TIPOS[d.tipo]}</td>
+                  <td className="px-4 py-3 text-sm text-slate-500">{d.cliente}</td>
                   <td className="px-4 py-3">
                     <span className={`text-xs px-2 py-0.5 rounded-full border font-medium ${urg.color}`}>{urg.label}</span>
                   </td>
@@ -246,12 +246,12 @@ export default function Protocolo() {
                     </div>
                   </td>
                   <td className="px-4 py-3">
-                    <span className={`text-xs font-medium ${isVencendo ? 'text-red-400' : 'text-gray-400'}`}>
+                    <span className={`text-xs font-medium ${isVencendo ? '#e11d48' : 'text-slate-500'}`}>
                       {isVencendo && <AlertTriangle size={10} className="inline mr-1" />}
                       {new Date(d.prazo_sla).toLocaleDateString('pt-BR')}
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-sm text-gray-400">{d.advogado}</td>
+                  <td className="px-4 py-3 text-sm text-slate-500">{d.advogado}</td>
                   <td className="px-4 py-3">
                     <button className="text-blue-400 hover:text-blue-300 transition-colors" onClick={e => { e.stopPropagation(); setSelecionada(d); }}>
                       <Eye size={14} />
@@ -267,8 +267,8 @@ export default function Protocolo() {
       {/* Detail Modal */}
       {selecionada && (
         <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={() => setSelecionada(null)}>
-          <div className="bg-[#1a2744] border border-blue-900/50 rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
-            <div className="flex items-center justify-between px-6 py-4 border-b border-blue-900/30 sticky top-0 bg-[#1a2744]">
+          <div className="bg-white border border-slate-200 rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
+            <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 sticky top-0 bg-white">
               <div>
                 <div className="flex items-center gap-2">
                   <span className="text-xs text-blue-400 font-mono">{selecionada.protocolo}</span>
@@ -277,29 +277,29 @@ export default function Protocolo() {
                 </div>
                 <h2 className="font-bold text-gray-100 text-base mt-1">{selecionada.titulo}</h2>
               </div>
-              <button onClick={() => setSelecionada(null)} className="text-gray-500 hover:text-gray-300">
+              <button onClick={() => setSelecionada(null)} className="text-slate-500 hover:text-slate-700">
                 <X size={20} />
               </button>
             </div>
             <div className="p-6 space-y-4">
               <div className="grid grid-cols-2 gap-4">
-                <div><div className="text-xs text-gray-500 uppercase font-semibold mb-1">Cliente</div><div className="text-sm text-gray-200">{selecionada.cliente}</div></div>
-                <div><div className="text-xs text-gray-500 uppercase font-semibold mb-1">Tipo</div><div className="text-sm text-gray-200">{TIPOS[selecionada.tipo]}</div></div>
-                <div><div className="text-xs text-gray-500 uppercase font-semibold mb-1">Abertura</div><div className="text-sm text-gray-200">{selecionada.data_abertura}</div></div>
-                <div><div className="text-xs text-gray-500 uppercase font-semibold mb-1">Prazo SLA</div><div className="text-sm text-red-400 font-medium">{selecionada.prazo_sla}</div></div>
-                <div><div className="text-xs text-gray-500 uppercase font-semibold mb-1">Secretaria</div><div className="text-sm text-gray-200">{selecionada.secretaria}</div></div>
-                <div><div className="text-xs text-gray-500 uppercase font-semibold mb-1">Advogado</div><div className="text-sm text-gray-200">{selecionada.advogado}</div></div>
+                <div><div className="text-xs text-slate-500 uppercase font-semibold mb-1">Cliente</div><div className="text-sm text-slate-800">{selecionada.cliente}</div></div>
+                <div><div className="text-xs text-slate-500 uppercase font-semibold mb-1">Tipo</div><div className="text-sm text-slate-800">{TIPOS[selecionada.tipo]}</div></div>
+                <div><div className="text-xs text-slate-500 uppercase font-semibold mb-1">Abertura</div><div className="text-sm text-slate-800">{selecionada.data_abertura}</div></div>
+                <div><div className="text-xs text-slate-500 uppercase font-semibold mb-1">Prazo SLA</div><div className="text-sm text-red-400 font-medium">{selecionada.prazo_sla}</div></div>
+                <div><div className="text-xs text-slate-500 uppercase font-semibold mb-1">Secretaria</div><div className="text-sm text-slate-800">{selecionada.secretaria}</div></div>
+                <div><div className="text-xs text-slate-500 uppercase font-semibold mb-1">Advogado</div><div className="text-sm text-slate-800">{selecionada.advogado}</div></div>
               </div>
               <div>
-                <div className="text-xs text-gray-500 uppercase font-semibold mb-2">Descrição</div>
-                <div className="text-sm text-gray-300 bg-[#0f1623] rounded-lg p-3 border border-blue-900/30 leading-relaxed">{selecionada.descricao}</div>
+                <div className="text-xs text-slate-500 uppercase font-semibold mb-2">Descrição</div>
+                <div className="text-sm text-slate-700 bg-white rounded-lg p-3 border border-slate-200 leading-relaxed">{selecionada.descricao}</div>
               </div>
               {selecionada.anexos.length > 0 && (
                 <div>
-                  <div className="text-xs text-gray-500 uppercase font-semibold mb-2 flex items-center gap-1"><Paperclip size={12} />Anexos</div>
+                  <div className="text-xs text-slate-500 uppercase font-semibold mb-2 flex items-center gap-1"><Paperclip size={12} />Anexos</div>
                   <div className="flex flex-wrap gap-2">
                     {selecionada.anexos.map(a => (
-                      <span key={a} className="flex items-center gap-1.5 text-xs bg-blue-900/30 text-blue-400 border border-blue-900/40 px-3 py-1.5 rounded-lg cursor-pointer hover:bg-blue-900/50 transition-colors">
+                      <span key={a} className="flex items-center gap-1.5 text-xs bg-slate-100 text-blue-400 border border-slate-200 px-3 py-1.5 rounded-lg cursor-pointer hover:bg-slate-100 transition-colors">
                         <Download size={12} />{a}
                       </span>
                     ))}
@@ -307,25 +307,25 @@ export default function Protocolo() {
                 </div>
               )}
               <div>
-                <div className="text-xs text-gray-500 uppercase font-semibold mb-2 flex items-center gap-1"><Clock size={12} />Histórico de Comunicação</div>
+                <div className="text-xs text-slate-500 uppercase font-semibold mb-2 flex items-center gap-1"><Clock size={12} />Histórico de Comunicação</div>
                 <div className="space-y-2">
                   {selecionada.historico.map((h, i) => (
                     <div key={i} className="flex gap-3">
                       <div className="flex flex-col items-center">
                         <div className="w-2 h-2 rounded-full bg-blue-500 mt-1.5 flex-shrink-0"></div>
-                        {i < selecionada.historico.length - 1 && <div className="w-0.5 h-full bg-blue-900/40 my-1"></div>}
+                        {i < selecionada.historico.length - 1 && <div className="w-0.5 h-full bg-slate-100 my-1"></div>}
                       </div>
                       <div className="pb-2">
-                        <div className="text-xs text-gray-300">{h.acao}</div>
-                        <div className="text-xs text-gray-600 mt-0.5">{h.data} — {h.usuario}</div>
+                        <div className="text-xs text-slate-700">{h.acao}</div>
+                        <div className="text-xs text-slate-400 mt-0.5">{h.data} — {h.usuario}</div>
                       </div>
                     </div>
                   ))}
                 </div>
               </div>
             </div>
-            <div className="flex gap-3 px-6 py-4 border-t border-blue-900/30">
-              <button className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors">
+            <div className="flex gap-3 px-6 py-4 border-t border-slate-200">
+              <button className="btn-primary">
                 <ArrowRight size={14} />Avançar Status
               </button>
               <button className="flex items-center gap-2 bg-purple-600/20 text-purple-400 border border-purple-600/30 text-sm font-medium px-4 py-2 rounded-lg hover:bg-purple-600/30 transition-colors">

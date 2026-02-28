@@ -33,14 +33,14 @@ interface Processo {
 }
 
 const AREAS: Record<AreaJuridica, { label: string; color: string }> = {
-  tributario: { label: 'Tributário', color: 'bg-blue-500/20 text-blue-400 border-blue-500/30' },
-  administrativo: { label: 'Administrativo', color: 'bg-purple-500/20 text-purple-400 border-purple-500/30' },
-  civil: { label: 'Civil', color: 'bg-green-500/20 text-green-400 border-green-500/30' },
-  trabalhista: { label: 'Trabalhista', color: 'bg-orange-500/20 text-orange-400 border-orange-500/30' },
-  previdenciario: { label: 'Previdenciário', color: 'bg-teal-500/20 text-teal-400 border-teal-500/30' },
-  constitucional: { label: 'Constitucional', color: 'bg-red-500/20 text-red-400 border-red-500/30' },
-  ambiental: { label: 'Ambiental', color: 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30' },
-  consumidor: { label: 'Consumidor', color: 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30' },
+  tributario: { label: 'Tributário', color: 'badge-navy' },
+  administrativo: { label: 'Administrativo', color: 'badge-violet' },
+  civil: { label: 'Civil', color: 'badge-emerald' },
+  trabalhista: { label: 'Trabalhista', color: 'badge-alta' },
+  previdenciario: { label: 'Previdenciário', color: 'badge-cyan' },
+  constitucional: { label: 'Constitucional', color: 'badge-urgente' },
+  ambiental: { label: 'Ambiental', color: 'badge-emerald' },
+  consumidor: { label: 'Consumidor', color: 'badge-amber' },
 };
 
 const INSTANCIAS: Record<Instancia, string> = {
@@ -55,20 +55,20 @@ const INSTANCIAS: Record<Instancia, string> = {
 };
 
 const STATUS: Record<StatusProcesso, { label: string; color: string }> = {
-  ativo: { label: 'Ativo', color: 'bg-blue-500/20 text-blue-400' },
-  recurso: { label: 'Recurso', color: 'bg-purple-500/20 text-purple-400' },
-  suspenso: { label: 'Suspenso', color: 'bg-yellow-500/20 text-yellow-400' },
-  aguardando_julgamento: { label: 'Ag. Julgamento', color: 'bg-orange-500/20 text-orange-400' },
-  encerrado_favoravel: { label: 'Encerrado ✓', color: 'bg-green-500/20 text-green-400' },
-  encerrado_desfavoravel: { label: 'Encerrado ✗', color: 'bg-red-500/20 text-red-400' },
-  arquivado: { label: 'Arquivado', color: 'bg-gray-500/20 text-gray-400' },
+  ativo: { label: 'Ativo', color: 'badge-navy' },
+  recurso: { label: 'Recurso', color: 'badge-violet' },
+  suspenso: { label: 'Suspenso', color: 'badge-amber' },
+  aguardando_julgamento: { label: 'Ag. Julgamento', color: 'badge-alta' },
+  encerrado_favoravel: { label: 'Encerrado ✓', color: 'badge-emerald' },
+  encerrado_desfavoravel: { label: 'Encerrado ✗', color: 'badge-urgente' },
+  arquivado: { label: 'Arquivado', color: 'bg-gray-500/20 text-slate-500' },
 };
 
 const RISCOS: Record<RiscoProcesso, { label: string; color: string }> = {
-  muito_alto: { label: 'Muito Alto', color: 'bg-red-600/20 text-red-500 border-red-600/30' },
-  alto: { label: 'Alto', color: 'bg-orange-500/20 text-orange-400 border-orange-500/30' },
-  medio: { label: 'Médio', color: 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30' },
-  baixo: { label: 'Baixo', color: 'bg-green-500/20 text-green-400 border-green-500/30' },
+  muito_alto: { label: 'Muito Alto', color: 'badge-urgente' },
+  alto: { label: 'Alto', color: 'badge-alta' },
+  medio: { label: 'Médio', color: 'badge-amber' },
+  baixo: { label: 'Baixo', color: 'badge-emerald' },
 };
 
 const mockProcessos: Processo[] = [
@@ -165,13 +165,13 @@ export default function Processos() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white flex items-center gap-2">
-            <Gavel size={24} className="text-blue-400" />
+          <h1 className="text-2xl font-bold font-serif flex items-center gap-2" style={{ color: '#0f2044' }}>
+            <Gavel size={24} style={{ color: '#D4A017' }} />
             Gestão Processual
           </h1>
-          <p className="text-gray-500 text-sm mt-0.5">Processos judiciais e administrativos — padrão CNJ</p>
+          <p className="text-slate-500 text-sm mt-0.5 font-sans">Processos judiciais e administrativos — padrão CNJ</p>
         </div>
-        <button className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-lg transition-colors">
+        <button className="btn-primary">
           <Plus size={16} />Novo Processo
         </button>
       </div>
@@ -179,47 +179,47 @@ export default function Processos() {
       {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
         {[
-          { label: 'Total', value: processos.length, color: 'text-blue-400' },
-          { label: 'Ativos', value: processos.filter(p => p.status === 'ativo').length, color: 'text-green-400' },
-          { label: 'Em Recurso', value: processos.filter(p => p.status === 'recurso').length, color: 'text-purple-400' },
-          { label: 'Risco Alto/+', value: processos.filter(p => ['alto', 'muito_alto'].includes(p.risco)).length, color: 'text-red-400' },
-          { label: 'Valor Total', value: `R$ ${(totalValor / 1000000).toFixed(1)}M`, color: 'text-yellow-400' },
+          { label: 'Total', value: processos.length, color: '#0f2044' },
+          { label: 'Ativos', value: processos.filter(p => p.status === 'ativo').length, color: '#00b37e' },
+          { label: 'Em Recurso', value: processos.filter(p => p.status === 'recurso').length, color: '#7c3aed' },
+          { label: 'Risco Alto/+', value: processos.filter(p => ['alto', 'muito_alto'].includes(p.risco)).length, color: '#e11d48' },
+          { label: 'Valor Total', value: `R$ ${(totalValor / 1000000).toFixed(1)}M`, color: '#D4A017' },
         ].map(s => (
-          <div key={s.label} className="bg-[#1a2744] border border-blue-900/30 rounded-xl p-3 text-center">
-            <div className={`text-xl font-bold ${s.color}`}>{s.value}</div>
-            <div className="text-xs text-gray-500 mt-0.5">{s.label}</div>
+          <div key={s.label} className="card-compact text-center">
+            <div className="text-xl font-bold font-serif" style={{ color: s.color }}>{s.value}</div>
+            <div className="text-xs text-slate-500 mt-0.5">{s.label}</div>
           </div>
         ))}
       </div>
 
       {/* Filters */}
-      <div className="bg-[#1a2744] border border-blue-900/30 rounded-xl p-4 flex flex-wrap gap-3">
+      <div className="card-compact flex flex-wrap gap-3">
         <div className="relative flex-1 min-w-48">
-          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
+          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
           <input value={busca} onChange={e => setBusca(e.target.value)}
-            className="w-full bg-[#0f1623] border border-blue-900/40 text-gray-200 rounded-lg pl-9 pr-4 py-2 text-sm focus:outline-none focus:border-blue-500 placeholder-gray-600"
+            className="input-field pl-9"
             placeholder="Buscar nº CNJ, cliente, título..." />
         </div>
         <select value={filtroArea} onChange={e => setFiltroArea(e.target.value as any)}
-          className="bg-[#0f1623] border border-blue-900/40 text-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500">
+          className="select-field">
           <option value="todos">Todas as áreas</option>
           {Object.entries(AREAS).map(([k, v]) => <option key={k} value={k}>{v.label}</option>)}
         </select>
         <select value={filtroStatus} onChange={e => setFiltroStatus(e.target.value as any)}
-          className="bg-[#0f1623] border border-blue-900/40 text-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500">
+          className="select-field">
           <option value="todos">Todos os status</option>
           {Object.entries(STATUS).map(([k, v]) => <option key={k} value={k}>{v.label}</option>)}
         </select>
       </div>
 
       {/* Table */}
-      <div className="bg-[#1a2744] border border-blue-900/30 rounded-xl overflow-hidden">
+      <div className="bg-white rounded-xl overflow-hidden shadow-sm border border-slate-100">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
               <tr>
                 {['Nº CNJ', 'Título / Cliente', 'Área', 'Instância', 'Status', 'Risco', 'Valor da Causa', 'Próx. Prazo', 'Ações'].map(h => (
-                  <th key={h} className="bg-[#0f1623]/60 text-blue-300 text-xs font-semibold uppercase tracking-wider px-4 py-3 text-left whitespace-nowrap">{h}</th>
+                  <th key={h} className="table-header whitespace-nowrap">{h}</th>
                 ))}
               </tr>
             </thead>
@@ -229,30 +229,30 @@ export default function Processos() {
                 const st = STATUS[p.status];
                 const risco = RISCOS[p.risco];
                 return (
-                  <tr key={p.id} className="border-t border-blue-900/20 hover:bg-blue-900/10 transition-colors cursor-pointer" onClick={() => setSelecionado(p)}>
-                    <td className="px-4 py-3 text-xs text-blue-400 font-mono whitespace-nowrap">{p.numero_cnj}</td>
+                  <tr key={p.id} className="table-row" onClick={() => setSelecionado(p)}>
+                    <td className="px-4 py-3 text-xs font-mono font-bold whitespace-nowrap" style={{ color: '#1e3470' }}>{p.numero_cnj}</td>
                     <td className="px-4 py-3">
-                      <div className="text-sm font-medium text-gray-200 max-w-xs">{p.titulo}</div>
-                      <div className="text-xs text-gray-500 mt-0.5">{p.cliente}</div>
+                      <div className="text-sm font-medium text-slate-800 max-w-xs">{p.titulo}</div>
+                      <div className="text-xs text-slate-500 mt-0.5">{p.cliente}</div>
                     </td>
                     <td className="px-4 py-3">
                       <span className={`text-xs px-2 py-0.5 rounded-full border whitespace-nowrap ${area.color}`}>{area.label}</span>
                     </td>
-                    <td className="px-4 py-3 text-xs text-gray-400 whitespace-nowrap">{INSTANCIAS[p.instancia]}</td>
+                    <td className="px-4 py-3 text-xs text-slate-500 whitespace-nowrap">{INSTANCIAS[p.instancia]}</td>
                     <td className="px-4 py-3">
                       <span className={`text-xs px-2 py-0.5 rounded-full whitespace-nowrap ${st.color}`}>{st.label}</span>
                     </td>
                     <td className="px-4 py-3">
                       <span className={`text-xs px-2 py-0.5 rounded-full border whitespace-nowrap ${risco.color}`}>{risco.label}</span>
                     </td>
-                    <td className="px-4 py-3 text-sm font-medium text-gray-300 whitespace-nowrap">
+                    <td className="px-4 py-3 text-sm font-semibold text-slate-700 whitespace-nowrap">
                       {p.valor_causa > 0 ? `R$ ${(p.valor_causa / 1000).toFixed(0)}K` : '—'}
                     </td>
-                    <td className="px-4 py-3 text-sm text-yellow-400 whitespace-nowrap font-medium">{new Date(p.proximo_prazo).toLocaleDateString('pt-BR')}</td>
+                    <td className="px-4 py-3 text-sm whitespace-nowrap font-bold" style={{ color: '#D4A017' }}>{new Date(p.proximo_prazo).toLocaleDateString('pt-BR')}</td>
                     <td className="px-4 py-3">
                       <div className="flex gap-2">
-                        <button className="text-blue-400 hover:text-blue-300 transition-colors"><Eye size={14} /></button>
-                        <button className="text-gray-400 hover:text-gray-200 transition-colors"><Edit size={14} /></button>
+                        <button className="transition-colors hover:opacity-70" style={{ color: '#1e3470' }}><Eye size={14} /></button>
+                        <button className="transition-colors hover:opacity-70 text-slate-400"><Edit size={14} /></button>
                       </div>
                     </td>
                   </tr>
@@ -266,17 +266,17 @@ export default function Processos() {
       {/* Detail Modal */}
       {selecionado && (
         <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={() => setSelecionado(null)}>
-          <div className="bg-[#1a2744] border border-blue-900/50 rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
-            <div className="flex items-center justify-between px-6 py-4 border-b border-blue-900/30 sticky top-0 bg-[#1a2744]">
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto border border-slate-200" onClick={e => e.stopPropagation()}>
+            <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 sticky top-0 bg-white">
               <div>
                 <div className="flex items-center gap-2 flex-wrap">
-                  <span className="text-xs text-blue-400 font-mono">{selecionado.numero_cnj}</span>
+                  <span className="text-xs font-mono font-bold" style={{ color: '#1e3470' }}>{selecionado.numero_cnj}</span>
                   <span className={`text-xs px-2 py-0.5 rounded-full border ${AREAS[selecionado.area].color}`}>{AREAS[selecionado.area].label}</span>
                   <span className={`text-xs px-2 py-0.5 rounded-full border ${RISCOS[selecionado.risco].color}`}>Risco {RISCOS[selecionado.risco].label}</span>
                 </div>
                 <h2 className="font-bold text-gray-100 text-base mt-1 leading-tight">{selecionado.titulo}</h2>
               </div>
-              <button onClick={() => setSelecionado(null)} className="text-gray-500 hover:text-gray-300 ml-4">
+              <button onClick={() => setSelecionado(null)} className="text-slate-500 hover:text-slate-700 ml-4">
                 <X size={20} />
               </button>
             </div>
@@ -295,33 +295,33 @@ export default function Processos() {
                   { label: 'Próximo Prazo', value: new Date(selecionado.proximo_prazo).toLocaleDateString('pt-BR') },
                 ].map(f => (
                   <div key={f.label}>
-                    <div className="text-xs text-gray-500 font-semibold uppercase tracking-wider mb-0.5">{f.label}</div>
-                    <div className="text-sm text-gray-200">{f.value}</div>
+                    <div className="section-label">{f.label}</div>
+                    <div className="text-sm text-slate-700 font-sans">{f.value}</div>
                   </div>
                 ))}
               </div>
               <div>
-                <div className="text-xs text-gray-500 uppercase font-semibold mb-2">Último Movimento</div>
-                <div className="text-sm text-gray-300 bg-[#0f1623] rounded-lg p-3 border border-blue-900/30">{selecionado.ultimo_movimento}</div>
+                <div className="section-label">Último Movimento</div>
+                <div className="text-sm text-slate-700 bg-white rounded-lg p-3 border border-slate-200">{selecionado.ultimo_movimento}</div>
               </div>
               <div>
-                <div className="text-xs text-gray-500 uppercase font-semibold mb-2">Partes do Processo</div>
+                <div className="section-label">Partes do Processo</div>
                 <div className="space-y-2">
                   {selecionado.partes.map((pt, i) => (
                     <div key={i} className="flex items-center gap-2">
-                      <span className="text-xs bg-blue-900/40 text-blue-400 px-2 py-0.5 rounded border border-blue-900/40 font-medium">{pt.tipo}</span>
-                      <span className="text-sm text-gray-300">{pt.nome}</span>
+                      <span className="text-xs bg-slate-100 text-blue-400 px-2 py-0.5 rounded border border-slate-200 font-medium">{pt.tipo}</span>
+                      <span className="text-sm text-slate-700 font-sans">{pt.nome}</span>
                     </div>
                   ))}
                 </div>
               </div>
               <div>
-                <div className="text-xs text-gray-500 uppercase font-semibold mb-2">Descrição</div>
-                <div className="text-sm text-gray-300 bg-[#0f1623] rounded-lg p-3 border border-blue-900/30">{selecionado.descricao}</div>
+                <div className="section-label">Descrição</div>
+                <div className="text-sm text-slate-700 bg-white rounded-lg p-3 border border-slate-200">{selecionado.descricao}</div>
               </div>
             </div>
-            <div className="flex gap-3 px-6 py-4 border-t border-blue-900/30 flex-wrap">
-              <button className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors">
+            <div className="flex gap-3 px-6 py-4 border-t border-slate-200 flex-wrap">
+              <button className="flex items-center gap-2 btn-primary text-sm font-medium px-4 py-2 rounded-lg transition-colors">
                 <Clock size={14} />Registrar Prazo
               </button>
               <button className="flex items-center gap-2 bg-purple-600/20 text-purple-400 border border-purple-600/30 text-sm font-medium px-4 py-2 rounded-lg hover:bg-purple-600/30 transition-colors">

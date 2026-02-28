@@ -10,17 +10,17 @@ const leads = [
 ];
 
 const statusCor: Record<string, string> = {
-  convertido: 'bg-green-500/20 text-green-400 border-green-500/30',
-  proposta: 'bg-blue-500/20 text-blue-400 border-blue-500/30',
-  negociacao: 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30',
+  convertido: 'bg-emerald/10 text-emerald border-emerald/25',
+  proposta: 'bg-navy-mid/10 text-navy font-semibold border-navy-mid/30',
+  negociacao: 'bg-amber/10 text-amber-700 border-amber/30',
 };
 
 export default function IntegracaoComercial() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-white flex items-center gap-2"><Link2 size={24} className="text-blue-400" />Integração Comercial</h1>
-        <p className="text-gray-500 text-sm mt-0.5">Ben Growth Center ↔ Lex Jurídico — Sincronização de leads e contratos</p>
+        <h1 className="text-2xl font-bold font-serif flex items-center gap-2" style={{ color: '#0f2044' }}><Link2 size={24} className="text-blue-400" />Integração Comercial</h1>
+        <p className="text-slate-500 text-sm mt-0.5">Ben Growth Center ↔ Lex Jurídico — Sincronização de leads e contratos</p>
       </div>
 
       {/* Status integração */}
@@ -28,18 +28,18 @@ export default function IntegracaoComercial() {
         <div className="flex items-center gap-4">
           <div className="text-center">
             <div className="text-lg font-bold text-white">Ben Growth Center</div>
-            <div className="text-xs text-gray-400">CRM Comercial</div>
+            <div className="text-xs text-slate-500">CRM Comercial</div>
           </div>
           <div className="flex-1 flex items-center justify-center gap-2">
             <div className="h-px flex-1 bg-gradient-to-r from-blue-500 to-green-500"></div>
-            <div className="flex items-center gap-1.5 bg-green-500/20 text-green-400 text-xs px-3 py-1.5 rounded-full border border-green-500/30 font-medium">
+            <div className="flex items-center gap-1.5 bg-emerald/10 text-emerald text-xs px-3 py-1.5 rounded-full border border-green-500/30 font-medium">
               <Activity size={12} className="animate-pulse" />API Ativa
             </div>
             <div className="h-px flex-1 bg-gradient-to-r from-green-500 to-purple-500"></div>
           </div>
           <div className="text-center">
             <div className="text-lg font-bold text-white">Lex Jurídico</div>
-            <div className="text-xs text-gray-400">Plataforma Jurídica</div>
+            <div className="text-xs text-slate-500">Plataforma Jurídica</div>
           </div>
         </div>
         <div className="grid grid-cols-3 gap-4 mt-4">
@@ -50,10 +50,10 @@ export default function IntegracaoComercial() {
           ].map(s => {
             const Icon = s.icon;
             return (
-              <div key={s.label} className="bg-[#0f1623]/40 rounded-lg p-3 text-center border border-blue-900/20">
+              <div key={s.label} className="bg-white/40 rounded-lg p-3 text-center border border-slate-100">
                 <Icon size={18} className="text-blue-400 mx-auto mb-1" />
                 <div className="text-xl font-bold text-white">{s.value}</div>
-                <div className="text-xs text-gray-500">{s.label}</div>
+                <div className="text-xs text-slate-500">{s.label}</div>
               </div>
             );
           })}
@@ -61,30 +61,30 @@ export default function IntegracaoComercial() {
       </div>
 
       {/* Leads convertidos */}
-      <div className="bg-[#1a2744] border border-blue-900/30 rounded-xl overflow-hidden">
-        <div className="px-4 py-3 border-b border-blue-900/30 flex items-center gap-2">
+      <div className="bg-white border border-slate-200 rounded-xl overflow-hidden">
+        <div className="px-4 py-3 border-b border-slate-200 flex items-center gap-2">
           <Zap size={16} className="text-yellow-400" />
-          <span className="font-semibold text-gray-200 text-sm">Leads Recentes — Ben Growth Center</span>
+          <span className="font-semibold text-slate-800 text-sm">Leads Recentes — Ben Growth Center</span>
         </div>
         <table className="w-full">
           <thead>
             <tr>
               {['Cliente/Lead', 'Origem', 'Score IA', 'Status', 'Valor/Mês', 'Data', 'Ação'].map(h => (
-                <th key={h} className="bg-[#0f1623]/60 text-blue-300 text-xs font-semibold uppercase tracking-wider px-4 py-3 text-left">{h}</th>
+                <th key={h} className="bg-white/60 table-header">{h}</th>
               ))}
             </tr>
           </thead>
           <tbody>
             {leads.map((l, i) => (
-              <tr key={i} className="border-t border-blue-900/20 hover:bg-blue-900/10 transition-colors">
-                <td className="px-4 py-3 text-sm font-medium text-gray-200">{l.nome}</td>
-                <td className="px-4 py-3 text-sm text-gray-400">{l.origem}</td>
+              <tr key={i} className="border-t border-slate-100 hover:bg-amber-50/40 transition-colors">
+                <td className="px-4 py-3 text-sm font-medium text-slate-800">{l.nome}</td>
+                <td className="px-4 py-3 text-sm text-slate-500">{l.origem}</td>
                 <td className="px-4 py-3">
                   <div className="flex items-center gap-2">
                     <div className="w-16 h-1.5 rounded-full bg-gray-700 overflow-hidden">
                       <div className="h-full rounded-full bg-blue-500" style={{ width: `${l.score}%` }}></div>
                     </div>
-                    <span className={`text-xs font-bold ${l.score >= 80 ? 'text-green-400' : l.score >= 70 ? 'text-blue-400' : 'text-yellow-400'}`}>{l.score}</span>
+                    <span className={`text-xs font-bold ${l.score >= 80 ? '#00b37e' : l.score >= 70 ? '#0f2044' : '#D4A017'}`}>{l.score}</span>
                   </div>
                 </td>
                 <td className="px-4 py-3">
@@ -93,7 +93,7 @@ export default function IntegracaoComercial() {
                   </span>
                 </td>
                 <td className="px-4 py-3 text-sm font-bold text-green-400">R$ {l.valor.toLocaleString('pt-BR')}</td>
-                <td className="px-4 py-3 text-sm text-gray-400">{l.data}</td>
+                <td className="px-4 py-3 text-sm text-slate-500">{l.data}</td>
                 <td className="px-4 py-3">
                   {l.status === 'convertido' ? (
                     <span className="text-xs text-green-400 flex items-center gap-1"><CheckCircle size={12} />Cadastrado</span>
@@ -110,15 +110,15 @@ export default function IntegracaoComercial() {
       </div>
 
       {/* Fluxo automático */}
-      <div className="bg-[#1a2744] border border-blue-900/30 rounded-xl p-5">
-        <h3 className="text-sm font-semibold text-gray-200 mb-4">Fluxo Automático de Integração</h3>
+      <div className="bg-white border border-slate-200 rounded-xl p-5">
+        <h3 className="text-sm font-semibold text-slate-800 mb-4">Fluxo Automático de Integração</h3>
         <div className="flex items-center gap-2 flex-wrap">
           {[
             'Lead no BGC', 'Score Dr. Ben ≥ 70', 'Proposta Aprovada', 'Contrato ZapSign', 'Recebível Asaas', 'Cadastro Lex Jurídico', 'Processo Aberto'
           ].map((step, i, arr) => (
             <React.Fragment key={step}>
-              <div className="bg-blue-900/30 border border-blue-500/30 rounded-lg px-3 py-2 text-xs text-blue-300 font-medium">{step}</div>
-              {i < arr.length - 1 && <ArrowRight size={14} className="text-gray-600 flex-shrink-0" />}
+              <div className="bg-slate-100 border border-blue-500/30 rounded-lg px-3 py-2 text-xs text-blue-300 font-medium">{step}</div>
+              {i < arr.length - 1 && <ArrowRight size={14} className="text-slate-400 flex-shrink-0" />}
             </React.Fragment>
           ))}
         </div>

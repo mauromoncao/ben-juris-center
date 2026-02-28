@@ -292,7 +292,7 @@ function PopModal({ pop, onClose }: { pop: POP; onClose: () => void }) {
         </div>
 
         <div className="px-6 pb-6 flex gap-3">
-          <button className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl text-sm font-semibold shadow-sm transition-colors">
+          <button className="flex items-center gap-2 btn-primary px-4 py-2 rounded-xl text-sm font-semibold shadow-sm transition-colors">
             <Download size={14}/>Exportar PDF
           </button>
           <button className="flex items-center gap-2 bg-white hover:bg-slate-50 text-slate-600 border border-slate-200 px-4 py-2 rounded-xl text-sm font-semibold shadow-sm transition-colors">
@@ -506,7 +506,7 @@ export default function GestaoEstrategica() {
           <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
             <div className="px-5 py-4 border-b border-slate-100 bg-slate-50 flex items-center justify-between">
               <h3 className="font-black text-slate-700 text-sm flex items-center gap-2"><ListChecks size={16} className="text-blue-500"/>Plano de Ação Estratégico</h3>
-              <button className="flex items-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs px-3 py-2 rounded-xl shadow-sm font-semibold transition-colors">
+              <button className="flex items-center gap-1.5 btn-primary text-xs px-3 py-2 rounded-xl shadow-sm font-semibold transition-colors">
                 <Plus size={12}/>Nova Ação
               </button>
             </div>
@@ -656,7 +656,7 @@ export default function GestaoEstrategica() {
               <span>·</span>
               <span className="text-yellow-600 font-semibold">{POPS.length - popsAprovados} pendentes</span>
             </div>
-            <button className="ml-auto flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-sm px-4 py-2.5 rounded-xl shadow-sm font-semibold transition-colors">
+            <button className="ml-auto flex items-center gap-2 btn-primary text-sm px-4 py-2.5 rounded-xl shadow-sm font-semibold transition-colors">
               <Plus size={14}/>Novo POP
             </button>
           </div>

@@ -8,14 +8,14 @@ const assinaturas = [
 ];
 
 const statusCor: Record<string, string> = {
-  assinado: 'bg-green-500/20 text-green-400',
-  pendente: 'bg-yellow-500/20 text-yellow-400',
+  assinado: 'bg-emerald/10 text-emerald',
+  pendente: 'bg-amber/10 text-amber-700',
 };
 
 const statusDocCor: Record<string, string> = {
-  aguardando: 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30',
-  concluido: 'bg-green-500/20 text-green-400 border-green-500/30',
-  cancelado: 'bg-red-500/20 text-red-400 border-red-500/30',
+  aguardando: 'bg-amber/10 text-amber-700 border-amber/30',
+  concluido: 'bg-emerald/10 text-emerald border-emerald/25',
+  cancelado: 'bg-crimson/10 text-crimson border-crimson/25',
 };
 
 export default function Assinaturas() {
@@ -23,10 +23,10 @@ export default function Assinaturas() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white flex items-center gap-2"><PenTool size={24} className="text-blue-400" />Assinatura Digital</h1>
-          <p className="text-gray-500 text-sm mt-0.5">ICP-Brasil A1/A3 — ClickSign, DocuSign, ZapSign</p>
+          <h1 className="text-2xl font-bold font-serif flex items-center gap-2" style={{ color: '#0f2044' }}><PenTool size={24} className="text-blue-400" />Assinatura Digital</h1>
+          <p className="text-slate-500 text-sm mt-0.5">ICP-Brasil A1/A3 — ClickSign, DocuSign, ZapSign</p>
         </div>
-        <button className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors">
+        <button className="btn-primary">
           <Plus size={16} />Novo Envelope
         </button>
       </div>
@@ -34,14 +34,14 @@ export default function Assinaturas() {
       {/* Stats */}
       <div className="grid grid-cols-4 gap-4">
         {[
-          { l: 'Aguardando', v: assinaturas.filter(a => a.status === 'aguardando').length, c: 'text-yellow-400' },
-          { l: 'Concluídos', v: assinaturas.filter(a => a.status === 'concluido').length, c: 'text-green-400' },
-          { l: 'Signatários Pendentes', v: assinaturas.flatMap(a => a.signatarios).filter(s => s.status === 'pendente').length, c: 'text-orange-400' },
-          { l: 'Plataformas', v: 3, c: 'text-blue-400' },
+          { l: 'Aguardando', v: assinaturas.filter(a => a.status === 'aguardando').length, c: '#D4A017' },
+          { l: 'Concluídos', v: assinaturas.filter(a => a.status === 'concluido').length, c: '#00b37e' },
+          { l: 'Signatários Pendentes', v: assinaturas.flatMap(a => a.signatarios).filter(s => s.status === 'pendente').length, c: '#f59e0b' },
+          { l: 'Plataformas', v: 3, c: '#0f2044' },
         ].map(s => (
-          <div key={s.l} className="bg-[#1a2744] border border-blue-900/30 rounded-xl p-4 text-center">
+          <div key={s.l} className="bg-white border border-slate-200 rounded-xl p-4 text-center">
             <div className={`text-2xl font-bold ${s.c}`}>{s.v}</div>
-            <div className="text-xs text-gray-500 mt-0.5">{s.l}</div>
+            <div className="text-xs text-slate-500 mt-0.5">{s.l}</div>
           </div>
         ))}
       </div>
@@ -49,15 +49,15 @@ export default function Assinaturas() {
       {/* Integration badges */}
       <div className="flex flex-wrap gap-3">
         {[
-          { nome: 'ClickSign', status: 'online', cor: 'text-green-400' },
-          { nome: 'DocuSign', status: 'online', cor: 'text-green-400' },
-          { nome: 'ZapSign', status: 'online', cor: 'text-green-400' },
-          { nome: 'ICP-Brasil A1', status: 'válido', cor: 'text-blue-400' },
-          { nome: 'ICP-Brasil A3', status: 'válido', cor: 'text-blue-400' },
+          { nome: 'ClickSign', status: 'online', cor: '#00b37e' },
+          { nome: 'DocuSign', status: 'online', cor: '#00b37e' },
+          { nome: 'ZapSign', status: 'online', cor: '#00b37e' },
+          { nome: 'ICP-Brasil A1', status: 'válido', cor: '#0f2044' },
+          { nome: 'ICP-Brasil A3', status: 'válido', cor: '#0f2044' },
         ].map(p => (
-          <div key={p.nome} className="flex items-center gap-2 bg-[#1a2744] border border-blue-900/30 rounded-lg px-3 py-2">
+          <div key={p.nome} className="flex items-center gap-2 bg-white border border-slate-200 rounded-lg px-3 py-2">
             <Shield size={14} className={p.cor} />
-            <span className="text-sm font-medium text-gray-300">{p.nome}</span>
+            <span className="text-sm font-medium text-slate-700">{p.nome}</span>
             <span className={`text-xs ${p.cor}`}>{p.status}</span>
           </div>
         ))}
@@ -66,19 +66,19 @@ export default function Assinaturas() {
       {/* Lista de assinaturas */}
       <div className="space-y-4">
         {assinaturas.map(a => (
-          <div key={a.id} className="bg-[#1a2744] border border-blue-900/30 rounded-xl p-5">
+          <div key={a.id} className="bg-white border border-slate-200 rounded-xl p-5">
             <div className="flex items-start justify-between mb-4">
               <div>
                 <div className="flex items-center gap-2 mb-1">
                   <span className={`text-xs px-2 py-0.5 rounded-full border font-medium ${statusDocCor[a.status]}`}>
                     {a.status === 'aguardando' ? '⏳ Aguardando' : '✅ Concluído'}
                   </span>
-                  <span className="text-xs text-gray-500">{a.plataforma}</span>
-                  <span className="text-xs text-gray-500">•</span>
-                  <span className="text-xs text-gray-500">{a.certificado}</span>
+                  <span className="text-xs text-slate-500">{a.plataforma}</span>
+                  <span className="text-xs text-slate-500">•</span>
+                  <span className="text-xs text-slate-500">{a.certificado}</span>
                 </div>
-                <h3 className="font-semibold text-gray-200 text-sm">{a.documento}</h3>
-                <div className="text-xs text-gray-500 mt-1">Criado {a.criado} • Prazo {a.prazo}</div>
+                <h3 className="font-semibold text-slate-800 text-sm">{a.documento}</h3>
+                <div className="text-xs text-slate-500 mt-1">Criado {a.criado} • Prazo {a.prazo}</div>
               </div>
               <div className="flex gap-2">
                 <button className="flex items-center gap-1 text-xs bg-blue-600/20 text-blue-400 border border-blue-600/30 px-3 py-1.5 rounded-lg hover:bg-blue-600/30 transition-colors">
@@ -92,12 +92,12 @@ export default function Assinaturas() {
               </div>
             </div>
             <div>
-              <div className="text-xs text-gray-500 uppercase font-semibold mb-2 flex items-center gap-1"><Users size={12} />Signatários</div>
+              <div className="text-xs text-slate-500 uppercase font-semibold mb-2 flex items-center gap-1"><Users size={12} />Signatários</div>
               <div className="space-y-2">
                 {a.signatarios.map((s, i) => (
                   <div key={i} className="flex items-center gap-3">
-                    <div className={`w-2 h-2 rounded-full ${s.status === 'assinado' ? 'bg-green-400' : 'bg-yellow-400'}`}></div>
-                    <span className="text-sm text-gray-300 flex-1">{s.nome}</span>
+                    <div className={`w-2 h-2 rounded-full ${s.status === 'assinado' ? 'bg-emerald' : 'bg-yellow-400'}`}></div>
+                    <span className="text-sm text-slate-700 flex-1">{s.nome}</span>
                     <span className={`text-xs px-2 py-0.5 rounded-full ${statusCor[s.status]}`}>
                       {s.status === 'assinado' ? `✓ Assinado ${s.data}` : '⏳ Pendente'}
                     </span>

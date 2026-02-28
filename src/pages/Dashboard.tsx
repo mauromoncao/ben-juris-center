@@ -19,11 +19,11 @@ const revenueData = [
 ];
 
 const areaData = [
-  { name: 'Tributário',     value: 35, color: '#2563eb' },
-  { name: 'Administrativo', value: 28, color: '#7c3aed' },
-  { name: 'Civil',          value: 20, color: '#059669' },
-  { name: 'Trabalhista',    value: 12, color: '#d97706' },
-  { name: 'Previdenciário', value:  5, color: '#dc2626' },
+  { name: 'Tributário',     value: 35, color: '#D4A017' },
+  { name: 'Administrativo', value: 28, color: '#0f2044' },
+  { name: 'Civil',          value: 20, color: '#00b37e' },
+  { name: 'Trabalhista',    value: 12, color: '#f59e0b' },
+  { name: 'Previdenciário', value:  5, color: '#e11d48' },
 ];
 
 const setorData = [
@@ -52,15 +52,15 @@ const processosList = [
 ];
 
 const urgCor: Record<string, string> = {
-  critico: 'bg-red-100 text-red-600 border border-red-200',
-  alta:    'bg-orange-100 text-orange-600 border border-orange-200',
-  media:   'bg-yellow-100 text-yellow-700 border border-yellow-200',
-  baixa:   'bg-green-100 text-green-700 border border-green-200',
+  critico: 'badge-urgente',
+  alta:    'badge-alta',
+  media:   'badge-media',
+  baixa:   'badge-baixa',
 };
 const statusCor: Record<string, string> = {
-  ativo:            'bg-blue-100 text-blue-700',
-  recurso:          'bg-purple-100 text-purple-700',
-  recurso_especial: 'bg-indigo-100 text-indigo-700',
+  ativo:            'badge-navy',
+  recurso:          'badge-amber',
+  recurso_especial: 'badge-violet',
 };
 const statusLabel: Record<string, string> = {
   ativo: 'Ativo', recurso: 'Recurso', recurso_especial: 'Rec. Especial',
@@ -77,9 +77,9 @@ export default function Dashboard() {
           <p className="text-slate-500 text-sm mt-1 font-sans">Gestão Jurídica · Operações · Setor Público · Processos · Financeiro</p>
         </div>
         <div className="flex items-center gap-3 flex-wrap">
-          <div className="flex items-center gap-1.5 bg-green-50 border border-green-200 rounded-full px-3 py-1.5">
-            <CheckCircle size={12} className="text-green-600" />
-            <span className="text-green-700 text-xs font-medium font-sans">CNJ Conectado</span>
+          <div className="flex items-center gap-1.5 rounded-full px-3 py-1.5 border" style={{ background: 'rgba(0,179,126,0.10)', borderColor: 'rgba(0,179,126,0.35)', color: '#00b37e', fontSize: '0.75rem', fontWeight: 500 }}>
+            <CheckCircle size={12} />
+            <span className="font-sans">CNJ Conectado</span>
           </div>
           <div className="flex items-center gap-1.5 rounded-full px-3 py-1.5 border font-sans"
             style={{ background: 'rgba(212,160,23,0.08)', borderColor: 'rgba(212,160,23,0.30)', color: '#92700a', fontSize: '0.75rem', fontWeight: 500 }}>
@@ -102,30 +102,30 @@ export default function Dashboard() {
           { label: 'Clientes Ativos',   value: '34',  icon: Building2,     change: '+2',  up: true,  color: 'purple', sub: '6 públicos, 28 privados' },
         ].map(card => {
           const Icon = card.icon;
-          const theme: Record<string, { bg: string; accent: string; iconBg: string; iconColor: string; border: string }> = {
-            blue:   { bg: 'bg-blue-50',   accent: 'text-blue-600',   iconBg: 'bg-blue-100',   iconColor: 'text-blue-600',   border: 'border-blue-200' },
-            red:    { bg: 'bg-red-50',    accent: 'text-red-600',    iconBg: 'bg-red-100',    iconColor: 'text-red-600',    border: 'border-red-200' },
-            green:  { bg: 'bg-green-50',  accent: 'text-green-600',  iconBg: 'bg-green-100',  iconColor: 'text-green-600',  border: 'border-green-200' },
-            purple: { bg: 'bg-purple-50', accent: 'text-purple-600', iconBg: 'bg-purple-100', iconColor: 'text-purple-600', border: 'border-purple-200' },
+          const kpiClass: Record<string, { card: string; icon: string; iconColor: string }> = {
+            blue:   { card: 'kpi-navy',    icon: 'icon-navy',    iconColor: '#0f2044' },
+            red:    { card: 'kpi-crimson', icon: 'icon-crimson', iconColor: '#e11d48' },
+            green:  { card: 'kpi-emerald', icon: 'icon-emerald', iconColor: '#00b37e' },
+            purple: { card: 'kpi-gold',    icon: 'icon-gold',    iconColor: '#C8960E' },
           };
-          const t = theme[card.color];
+          const k = kpiClass[card.color];
           return (
-            <div key={card.label} className="card hover:shadow-md transition-shadow">
+            <div key={card.label} className={k.card}>
               <div className="flex items-start justify-between">
                 <div>
                   <p className="text-slate-500 text-sm font-medium font-sans">{card.label}</p>
-                  <p className="text-2xl font-bold text-slate-800 mt-1 font-serif" style={{ letterSpacing: '-0.01em' }}>{card.value}</p>
+                  <p className="text-2xl font-bold mt-1 font-serif" style={{ color: '#0f172a', letterSpacing: '-0.01em' }}>{card.value}</p>
                   <p className="text-slate-400 text-xs mt-0.5 font-sans">{card.sub}</p>
                 </div>
-                <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${t.iconBg}`}>
-                  <Icon size={22} className={t.iconColor} />
+                <div className={k.icon}>
+                  <Icon size={22} style={{ color: k.iconColor }} />
                 </div>
               </div>
               <div className="flex items-center gap-1 mt-3">
                 {card.up
-                  ? <TrendingUp size={14} className="text-green-500" />
-                  : <TrendingDown size={14} className="text-red-500" />}
-                <span className={`text-sm font-medium font-sans ${card.up ? 'text-green-600' : 'text-red-600'}`}>{card.change}</span>
+                  ? <TrendingUp size={14} style={{ color: '#00b37e' }} />
+                  : <TrendingDown size={14} style={{ color: '#e11d48' }} />}
+                <span className="text-sm font-medium font-sans" style={{ color: card.up ? '#00b37e' : '#e11d48' }}>{card.change}</span>
                 <span className="text-slate-400 text-xs font-sans">vs. mês anterior</span>
               </div>
             </div>
@@ -136,49 +136,54 @@ export default function Dashboard() {
       {/* ── Módulos rápidos ──────────────────────────────────────────── */}
       <div className="grid grid-cols-3 md:grid-cols-6 gap-3">
         {[
-          { label: 'Gestão Jurídica',  icon: Scale,    color: '#2563eb', bg: '#eff6ff' },
-          { label: 'Operações',        icon: Activity,  color: '#7c3aed', bg: '#f5f3ff' },
-          { label: 'Setor Público',    icon: Building2, color: '#0891b2', bg: '#ecfeff' },
-          { label: 'Processos',        icon: Gavel,     color: '#059669', bg: '#f0fdf4' },
-          { label: 'Financeiro',       icon: DollarSign,color: '#d97706', bg: '#fffbeb' },
-          { label: 'Dr. Ben IA',       icon: Brain,     color: '#dc2626', bg: '#fef2f2' },
+          { label: 'Gestão Jurídica',  icon: Scale,     color: '#0f2044', bg: '' },
+          { label: 'Operações',        icon: Activity,  color: '#1e3470', bg: '' },
+          { label: 'Setor Público',    icon: Building2, color: '#007a6a', bg: '' },
+          { label: 'Processos',        icon: Gavel,     color: '#00917a', bg: '' },
+          { label: 'Financeiro',       icon: DollarSign,color: '#C8960E', bg: '' },
+          { label: 'Dr. Ben IA',       icon: Brain,     color: '#be123c', bg: '' },
         ].map(m => {
           const Icon = m.icon;
           return (
-            <div key={m.label} className="rounded-2xl p-4 border border-slate-200 bg-white hover:shadow-md hover:border-blue-300 transition-all cursor-pointer text-center shadow-sm group">
-              <div className="w-10 h-10 rounded-xl mx-auto mb-2 flex items-center justify-center transition-transform group-hover:scale-110"
-                style={{ background: m.bg }}>
-                <Icon size={20} style={{ color: m.color }} />
+            <div key={m.label}
+              className="rounded-xl p-4 cursor-pointer text-white hover:shadow-lg hover:-translate-y-0.5 transition-all text-center group shadow-md"
+              style={{ background: `linear-gradient(135deg, ${m.color}, ${m.color}cc)` }}>
+              <div className="w-10 h-10 rounded-xl mx-auto mb-2 flex items-center justify-center transition-transform group-hover:scale-110 bg-white/15">
+                <Icon size={20} className="text-white" />
               </div>
-              <div className="text-xs font-semibold text-slate-600">{m.label}</div>
+              <div className="text-xs font-bold text-white/95 leading-tight">{m.label}</div>
             </div>
           );
         })}
       </div>
 
       {/* ── Alertas Críticos ─────────────────────────────────────────── */}
-      <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
-        <div className="px-5 py-3.5 border-b border-slate-100 flex items-center gap-2 bg-slate-50">
-          <AlertTriangle size={16} className="text-red-500" />
-          <span className="font-bold text-slate-700 text-sm">Alertas & Prazos Críticos</span>
-          <span className="ml-auto text-xs bg-red-100 text-red-600 border border-red-200 px-2 py-0.5 rounded-full font-medium">5 alertas</span>
+      <div className="bg-white border border-slate-100 rounded-2xl overflow-hidden shadow-sm">
+        <div className="px-5 py-3.5 border-b flex items-center gap-2"
+          style={{ background: '#0f2044', borderColor: 'rgba(255,255,255,0.08)' }}>
+          <AlertTriangle size={16} style={{ color: '#e11d48' }} />
+          <span className="font-bold text-white text-sm font-sans">Alertas & Prazos Críticos</span>
+          <span className="ml-auto text-xs px-2.5 py-0.5 rounded-full font-bold"
+            style={{ background: 'rgba(225,29,72,0.20)', color: '#fca5a5', border: '1px solid rgba(225,29,72,0.40)' }}>
+            5 alertas
+          </span>
         </div>
         <div className="divide-y divide-slate-100">
           {alertas.map((a, i) => {
             const Icon = a.icon;
-            const styles: Record<string, string> = {
-              danger:  'bg-red-50    border-l-4 border-l-red-400',
-              warning: 'bg-yellow-50 border-l-4 border-l-yellow-400',
-              info:    'bg-blue-50   border-l-4 border-l-blue-400',
+            const styles: Record<string, { row: string; icon: string; badge: string }> = {
+              danger:  { row: 'border-l-4 hover:bg-red-50/60',    icon: '#e11d48', badge: 'bg-red-50 text-red-700 border border-red-200' },
+              warning: { row: 'border-l-4 hover:bg-amber-50/60',  icon: '#f59e0b', badge: 'bg-amber-50 text-amber-700 border border-amber-200' },
+              info:    { row: 'border-l-4 hover:bg-blue-50/40',   icon: '#1e3470', badge: 'badge-navy' },
             };
-            const iconCls: Record<string, string> = {
-              danger: 'text-red-500', warning: 'text-yellow-600', info: 'text-blue-500',
-            };
+            const borderCol: Record<string, string> = { danger: '#e11d48', warning: '#f59e0b', info: '#1e3470' };
+            const s = styles[a.tipo];
             return (
-              <div key={i} className={`flex items-center gap-3 px-5 py-3 ${styles[a.tipo]}`}>
-                <Icon size={15} className={iconCls[a.tipo]} />
-                <span className="text-sm text-slate-700 flex-1">{a.msg}</span>
-                <span className="text-xs bg-blue-50 text-blue-600 border border-blue-200 px-2 py-0.5 rounded-full font-medium">{a.area}</span>
+              <div key={i} className={`flex items-center gap-3 px-5 py-3 transition-colors cursor-pointer ${s.row}`}
+                style={{ borderLeftColor: borderCol[a.tipo] }}>
+                <Icon size={15} style={{ color: s.icon, flexShrink: 0 }} />
+                <span className="text-sm text-slate-700 flex-1 font-sans">{a.msg}</span>
+                <span className={`text-xs px-2 py-0.5 rounded-full font-semibold font-sans ${s.badge}`}>{a.area}</span>
               </div>
             );
           })}
@@ -188,19 +193,19 @@ export default function Dashboard() {
       {/* ── Charts Row ──────────────────────────────────────────────── */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
         {/* Revenue */}
-        <div className="md:col-span-2 bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+        <div className="md:col-span-2 card">
           <div className="flex items-center justify-between mb-4">
-            <span className="font-bold text-slate-700 text-sm flex items-center gap-2">
-              <TrendingUp size={16} className="text-green-500" />Receita vs Despesas
+            <span className="font-bold text-sm flex items-center gap-2 font-sans" style={{ color: '#0f2044' }}>
+              <TrendingUp size={16} style={{ color: '#00b37e' }} />Receita vs Despesas
             </span>
-            <span className="text-xs text-slate-400 bg-slate-50 px-2 py-1 rounded-lg border border-slate-200">Últimos 6 meses</span>
+            <span className="text-xs font-sans px-2 py-1 rounded-lg border" style={{ color: '#92700a', background: 'rgba(212,160,23,0.08)', borderColor: 'rgba(212,160,23,0.30)' }}>Últimos 6 meses</span>
           </div>
           <ResponsiveContainer width="100%" height={200}>
             <AreaChart data={revenueData}>
               <defs>
                 <linearGradient id="rec" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%"  stopColor="#2563eb" stopOpacity={0.15} />
-                  <stop offset="95%" stopColor="#2563eb" stopOpacity={0} />
+                  <stop offset="5%"  stopColor="#0f2044" stopOpacity={0.20} />
+                  <stop offset="95%" stopColor="#0f2044" stopOpacity={0} />
                 </linearGradient>
                 <linearGradient id="desp" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="5%"  stopColor="#ef4444" stopOpacity={0.15} />
@@ -214,16 +219,16 @@ export default function Dashboard() {
               <Tooltip
                 contentStyle={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: 12, color: '#1e293b', boxShadow: '0 4px 16px rgba(0,0,0,0.08)' }}
                 formatter={(v: number | undefined) => [`R$ ${(v ?? 0).toLocaleString('pt-BR')}`, '']} />
-              <Area type="monotone" dataKey="receita" stroke="#2563eb" strokeWidth={2.5} fill="url(#rec)" name="Receita" />
+              <Area type="monotone" dataKey="receita" stroke="#0f2044" strokeWidth={2.5} fill="url(#rec)" name="Receita" />
               <Area type="monotone" dataKey="despesa" stroke="#ef4444" strokeWidth={2.5} fill="url(#desp)" name="Despesas" />
             </AreaChart>
           </ResponsiveContainer>
         </div>
 
         {/* Pie */}
-        <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
-          <div className="font-bold text-slate-700 text-sm flex items-center gap-2 mb-4">
-            <Scale size={16} className="text-blue-500" />Processos por Área
+        <div className="card">
+          <div className="font-bold text-sm flex items-center gap-2 mb-4 font-sans" style={{ color: '#0f2044' }}>
+            <Scale size={16} style={{ color: '#D4A017' }} />Processos por Área
           </div>
           <ResponsiveContainer width="100%" height={160}>
             <PieChart>
@@ -248,10 +253,10 @@ export default function Dashboard() {
       </div>
 
       {/* ── Setor público bar ────────────────────────────────────────── */}
-      <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+      <div className="card">
         <div className="flex items-center justify-between mb-4">
-          <span className="font-bold text-slate-700 text-sm flex items-center gap-2">
-            <Building2 size={16} className="text-cyan-500" />Distribuição Setor Público
+          <span className="font-bold text-sm flex items-center gap-2 font-sans" style={{ color: '#0f2044' }}>
+            <Building2 size={16} style={{ color: '#D4A017' }} />Distribuição Setor Público
           </span>
           <span className="text-xs text-slate-400">Processos por segmento</span>
         </div>
@@ -264,7 +269,7 @@ export default function Dashboard() {
               contentStyle={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: 10, boxShadow: '0 4px 16px rgba(0,0,0,0.08)' }} />
             <Bar dataKey="processos" radius={[6, 6, 0, 0]}>
               {setorData.map((_, i) => (
-                <Cell key={i} fill={['#2563eb','#7c3aed','#0891b2','#059669','#d97706','#dc2626'][i % 6]} />
+                <Cell key={i} fill={['#0f2044','#D4A017','#00b37e','#f59e0b','#e11d48','#1e3470'][i % 6]} />
               ))}
             </Bar>
           </BarChart>
@@ -272,25 +277,25 @@ export default function Dashboard() {
       </div>
 
       {/* ── Processos Urgentes ───────────────────────────────────────── */}
-      <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
-        <div className="px-5 py-3.5 border-b border-slate-100 bg-slate-50 flex items-center gap-2">
-          <Gavel size={16} className="text-blue-500" />
-          <span className="font-bold text-slate-700 text-sm">Processos em Andamento — Mais Urgentes</span>
-          <span className="ml-auto text-xs text-blue-600 font-medium hover:text-blue-800 cursor-pointer">Ver todos →</span>
+      <div className="bg-white border border-slate-100 rounded-2xl overflow-hidden shadow-sm">
+        <div className="px-5 py-3.5 border-b flex items-center gap-2" style={{ background: '#0f2044', borderColor: 'rgba(255,255,255,0.08)' }}>
+          <Gavel size={16} style={{ color: '#D4A017' }} />
+          <span className="font-bold text-white text-sm font-sans">Processos em Andamento — Mais Urgentes</span>
+          <span className="ml-auto text-xs font-semibold cursor-pointer font-sans" style={{ color: '#D4A017' }}>Ver todos →</span>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
               <tr>
                 {['Nº Processo','Cliente','Área','Instância','Status','Próx. Prazo','Urgência'].map(h => (
-                  <th key={h} className="bg-slate-50 text-slate-500 text-xs font-semibold uppercase tracking-wider px-4 py-3 text-left">{h}</th>
+                  <th key={h} className="text-xs font-bold uppercase px-4 py-3 text-left font-sans" style={{ background: 'rgba(15,32,68,0.04)', color: '#0f2044', letterSpacing: '0.07em' }}>{h}</th>
                 ))}
               </tr>
             </thead>
             <tbody>
               {processosList.map((p, i) => (
-                <tr key={i} className="border-t border-slate-100 hover:bg-blue-50/50 transition-colors cursor-pointer">
-                  <td className="px-4 py-3 text-sm text-blue-600 font-mono font-semibold">{p.num}</td>
+                <tr key={i} className="border-t border-slate-100 hover:bg-amber-50/40 transition-colors cursor-pointer">
+                  <td className="px-4 py-3 text-sm font-mono font-bold" style={{ color: '#0f2044' }}>{p.num}</td>
                   <td className="px-4 py-3 text-sm text-slate-700 font-semibold">{p.cliente}</td>
                   <td className="px-4 py-3 text-sm text-slate-500">{p.area}</td>
                   <td className="px-4 py-3 text-sm text-slate-500">{p.instancia}</td>
@@ -313,20 +318,18 @@ export default function Dashboard() {
       {/* ── Bottom stats + IA metrics ────────────────────────────────── */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Docs Gerados IA',    value: '1.247', icon: FileText,    color: 'text-blue-600',   bg: 'bg-blue-50',   border: 'border-blue-200' },
-          { label: 'Assin. Pendentes',   value: '23',    icon: PenTool,     color: 'text-yellow-700', bg: 'bg-yellow-50', border: 'border-yellow-200' },
-          { label: 'Taxa de Sucesso',     value: '72%',   icon: TrendingUp,  color: 'text-green-600',  bg: 'bg-green-50',  border: 'border-green-200' },
-          { label: 'Audiências/Mês',      value: '18',    icon: Calendar,    color: 'text-purple-600', bg: 'bg-purple-50', border: 'border-purple-200' },
+          { label: 'Docs Gerados IA',  value: '1.247', icon: FileText,   kpi: 'kpi-violet', ico: 'icon-violet', icolor: '#7c3aed' },
+          { label: 'Assin. Pendentes', value: '23',    icon: PenTool,   kpi: 'kpi-amber',  ico: 'icon-amber',  icolor: '#f59e0b' },
+          { label: 'Taxa de Sucesso',  value: '72%',   icon: TrendingUp,kpi: 'kpi-emerald',ico: 'icon-emerald',icolor: '#00b37e' },
+          { label: 'Audiências/Mês',   value: '18',    icon: Calendar,  kpi: 'kpi-gold',   ico: 'icon-gold',   icolor: '#C8960E' },
         ].map(s => {
           const Icon = s.icon;
           return (
-            <div key={s.label} className={`${s.bg} border ${s.border} rounded-2xl p-4 flex items-center gap-3 shadow-sm hover:shadow-md transition-shadow`}>
-              <div className={`w-11 h-11 rounded-xl bg-white flex items-center justify-center flex-shrink-0 shadow-sm border ${s.border}`}>
-                <Icon size={20} className={s.color} />
-              </div>
+            <div key={s.label} className={`${s.kpi} flex items-center gap-4`}>
+              <div className={s.ico}><Icon size={22} style={{ color: s.icolor }} /></div>
               <div>
-                <div className="text-2xl font-black text-slate-800">{s.value}</div>
-                <div className="text-xs font-semibold text-slate-500">{s.label}</div>
+                <div className="text-2xl font-bold font-serif" style={{ color: '#0f172a', letterSpacing: '-0.01em' }}>{s.value}</div>
+                <div className="text-xs font-semibold text-slate-500 font-sans mt-0.5">{s.label}</div>
               </div>
             </div>
           );
@@ -334,33 +337,35 @@ export default function Dashboard() {
       </div>
 
       {/* ── Dr. Ben IA Quick Access ──────────────────────────────────── */}
-      <div className="rounded-2xl p-5 border border-purple-200 shadow-sm"
-        style={{ background: 'linear-gradient(135deg, #f5f3ff, #eff6ff)' }}>
+      <div className="rounded-2xl p-5 shadow-md" style={{ background: '#0f2044' }}>
         <div className="flex items-center gap-3 mb-4">
           <div className="w-10 h-10 rounded-xl flex items-center justify-center shadow-md"
-            style={{ background: 'linear-gradient(135deg, #7c3aed, #2563eb)' }}>
-            <Brain size={20} className="text-white" />
+            style={{ background: 'linear-gradient(135deg, #C8960E, #F0C040)', border: '1px solid rgba(212,160,23,0.50)' }}>
+            <Brain size={20} style={{ color: '#0f2044' }} />
           </div>
           <div>
-            <h3 className="font-black text-slate-800 text-sm">Acesso Rápido — Agentes Dr. Ben IA</h3>
-            <p className="text-xs text-slate-500">Selecione um agente especialista para iniciar</p>
+            <h3 className="font-bold text-white text-sm font-serif" style={{ letterSpacing: '-0.01em' }}>Acesso Rápido — Agentes Dr. Ben IA</h3>
+            <p className="text-xs font-sans" style={{ color: 'rgba(159,176,215,0.80)' }}>Selecione um agente especialista para iniciar</p>
           </div>
-          <div className="ml-auto flex items-center gap-1.5 text-xs text-green-600 font-medium">
-            <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />10 agentes online
+          <div className="ml-auto flex items-center gap-1.5 text-xs font-semibold font-sans" style={{ color: '#00d4a0' }}>
+            <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />10 agentes online
           </div>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
           {[
-            { label: 'Petições',          color: '#2563eb', emoji: '⚖️' },
-            { label: 'Contratos',         color: '#0891b2', emoji: '📋' },
-            { label: 'Análise Processual',color: '#059669', emoji: '🔍' },
-            { label: 'Auditoria Fiscal',  color: '#dc2626', emoji: '💰' },
-            { label: 'Eng. de Prompts',   color: '#7c3aed', emoji: '🤖' },
+            { label: 'Petições',          color: '#D4A017', bg: 'rgba(212,160,23,0.15)', emoji: '⚖️' },
+            { label: 'Contratos',         color: '#00d4a0', bg: 'rgba(0,212,160,0.15)',  emoji: '📋' },
+            { label: 'Análise Processual',color: '#38bdf8', bg: 'rgba(56,189,248,0.15)', emoji: '🔍' },
+            { label: 'Auditoria Fiscal',  color: '#fb923c', bg: 'rgba(251,146,60,0.15)', emoji: '💰' },
+            { label: 'Eng. de Prompts',   color: '#c084fc', bg: 'rgba(192,132,252,0.15)',emoji: '🤖' },
           ].map(a => (
             <div key={a.label}
-              className="bg-white border border-slate-200 rounded-xl p-3 flex items-center gap-2 cursor-pointer hover:shadow-md hover:border-blue-300 transition-all group shadow-sm">
+              className="rounded-xl p-3 flex items-center gap-2 cursor-pointer transition-all group"
+              style={{ background: a.bg, border: `1px solid ${a.color}40` }}
+              onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.borderColor = a.color; (e.currentTarget as HTMLDivElement).style.boxShadow = `0 0 14px ${a.color}35`; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.borderColor = `${a.color}40`; (e.currentTarget as HTMLDivElement).style.boxShadow = 'none'; }}>
               <span className="text-xl">{a.emoji}</span>
-              <span className="text-xs font-semibold text-slate-600 group-hover:text-blue-700 transition-colors">{a.label}</span>
+              <span className="text-xs font-bold font-sans" style={{ color: a.color }}>{a.label}</span>
             </div>
           ))}
         </div>

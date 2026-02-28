@@ -29,11 +29,11 @@ const lgpdItems = [
 ];
 
 const tipoLogCor: Record<string, string> = {
-  leitura: 'bg-blue-500/20 text-blue-400',
-  escrita: 'bg-green-500/20 text-green-400',
-  exportacao: 'bg-purple-500/20 text-purple-400',
-  autenticacao: 'bg-yellow-500/20 text-yellow-400',
-  negado: 'bg-red-500/20 text-red-400',
+  leitura: 'bg-navy-mid/10 text-navy font-semibold',
+  escrita: 'bg-emerald/10 text-emerald',
+  exportacao: 'bg-violet/10 text-violet',
+  autenticacao: 'bg-amber/10 text-amber-700',
+  negado: 'bg-crimson/10 text-crimson',
 };
 
 export default function Seguranca() {
@@ -42,27 +42,27 @@ export default function Seguranca() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-white flex items-center gap-2"><Shield size={24} className="text-green-400" />Segurança & LGPD</h1>
-        <p className="text-gray-500 text-sm mt-0.5">RBAC, auditoria completa, criptografia e conformidade LGPD</p>
+        <h1 className="text-2xl font-bold font-serif flex items-center gap-2" style={{ color: '#0f2044' }}><Shield size={24} className="text-green-400" />Segurança & LGPD</h1>
+        <p className="text-slate-500 text-sm mt-0.5">RBAC, auditoria completa, criptografia e conformidade LGPD</p>
       </div>
 
       {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { l: 'Usuários Ativos', v: perfis.filter(p => p.ativo).length, c: 'text-blue-400', icon: Users },
-          { l: 'Logs Hoje', v: '247', c: 'text-green-400', icon: Activity },
-          { l: 'Conformidade LGPD', v: `${lgpdScore}%`, c: lgpdScore >= 80 ? 'text-green-400' : 'text-yellow-400', icon: Shield },
-          { l: 'Acessos Negados', v: '1', c: 'text-red-400', icon: AlertTriangle },
+          { l: 'Usuários Ativos', v: perfis.filter(p => p.ativo).length, c: '#0f2044', icon: Users },
+          { l: 'Logs Hoje', v: '247', c: '#00b37e', icon: Activity },
+          { l: 'Conformidade LGPD', v: `${lgpdScore}%`, c: lgpdScore >= 80 ? '#00b37e' : '#D4A017', icon: Shield },
+          { l: 'Acessos Negados', v: '1', c: '#e11d48', icon: AlertTriangle },
         ].map(s => {
           const Icon = s.icon;
           return (
-            <div key={s.l} className="bg-[#1a2744] border border-blue-900/30 rounded-xl p-4 flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-blue-900/30 flex items-center justify-center">
+            <div key={s.l} className="bg-white border border-slate-200 rounded-xl p-4 flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center">
                 <Icon size={20} className={s.c} />
               </div>
               <div>
                 <div className={`text-xl font-bold ${s.c}`}>{s.v}</div>
-                <div className="text-xs text-gray-500">{s.l}</div>
+                <div className="text-xs text-slate-500">{s.l}</div>
               </div>
             </div>
           );
@@ -71,24 +71,24 @@ export default function Seguranca() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Perfis e RBAC */}
-        <div className="bg-[#1a2744] border border-blue-900/30 rounded-xl overflow-hidden">
-          <div className="px-4 py-3 border-b border-blue-900/30 flex items-center gap-2">
+        <div className="bg-white border border-slate-200 rounded-xl overflow-hidden">
+          <div className="px-4 py-3 border-b border-slate-200 flex items-center gap-2">
             <Key size={16} className="text-yellow-400" />
-            <span className="font-semibold text-gray-200 text-sm">Perfis de Acesso — RBAC</span>
+            <span className="font-semibold text-slate-800 text-sm">Perfis de Acesso — RBAC</span>
           </div>
           <div className="divide-y divide-blue-900/20">
             {perfis.map(p => (
               <div key={p.usuario} className="flex items-center gap-3 px-4 py-3">
-                <div className="w-8 h-8 rounded-full bg-blue-700 flex items-center justify-center text-xs font-bold text-white flex-shrink-0">
+                <div className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold text-white rounded-full flex-shrink-0">
                   {p.usuario.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase()}
                 </div>
                 <div className="flex-1">
-                  <div className="text-sm font-medium text-gray-200">{p.usuario}</div>
-                  <div className="text-xs text-gray-500">{p.nome} • {p.email}</div>
+                  <div className="text-sm font-medium text-slate-800">{p.usuario}</div>
+                  <div className="text-xs text-slate-500">{p.nome} • {p.email}</div>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className={`w-2 h-2 rounded-full ${p.ativo ? 'bg-green-400' : 'bg-gray-500'}`}></span>
-                  <span className="text-xs text-gray-500">Último: {p.ultimo_acesso.split(' ')[0]}</span>
+                  <span className={`w-2 h-2 rounded-full ${p.ativo ? 'bg-emerald' : 'bg-gray-500'}`}></span>
+                  <span className="text-xs text-slate-500">Último: {p.ultimo_acesso.split(' ')[0]}</span>
                 </div>
               </div>
             ))}
@@ -96,17 +96,17 @@ export default function Seguranca() {
         </div>
 
         {/* LGPD Checklist */}
-        <div className="bg-[#1a2744] border border-blue-900/30 rounded-xl overflow-hidden">
-          <div className="px-4 py-3 border-b border-blue-900/30 flex items-center justify-between">
+        <div className="bg-white border border-slate-200 rounded-xl overflow-hidden">
+          <div className="px-4 py-3 border-b border-slate-200 flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Lock size={16} className="text-green-400" />
-              <span className="font-semibold text-gray-200 text-sm">Conformidade LGPD</span>
+              <span className="font-semibold text-slate-800 text-sm">Conformidade LGPD</span>
             </div>
             <div className="flex items-center gap-2">
               <div className="w-16 h-2 rounded-full bg-gray-700 overflow-hidden">
                 <div className="h-full rounded-full bg-green-500 transition-all" style={{ width: `${lgpdScore}%` }}></div>
               </div>
-              <span className={`text-sm font-bold ${lgpdScore >= 80 ? 'text-green-400' : 'text-yellow-400'}`}>{lgpdScore}%</span>
+              <span className={`text-sm font-bold ${lgpdScore >= 80 ? '#00b37e' : '#D4A017'}`}>{lgpdScore}%</span>
             </div>
           </div>
           <div className="p-4 space-y-2">
@@ -115,7 +115,7 @@ export default function Seguranca() {
                 <div className={`w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 ${item.status ? 'bg-green-500/20 border border-green-500/50' : 'bg-red-500/20 border border-red-500/50'}`}>
                   {item.status ? <CheckCircle size={10} className="text-green-400" /> : <AlertTriangle size={10} className="text-red-400" />}
                 </div>
-                <span className={`text-xs ${item.status ? 'text-gray-300' : 'text-gray-500'}`}>{item.desc}</span>
+                <span className={`text-xs ${item.status ? 'text-slate-700' : 'text-slate-500'}`}>{item.desc}</span>
               </div>
             ))}
           </div>
@@ -123,28 +123,28 @@ export default function Seguranca() {
       </div>
 
       {/* Audit Log */}
-      <div className="bg-[#1a2744] border border-blue-900/30 rounded-xl overflow-hidden">
-        <div className="px-4 py-3 border-b border-blue-900/30 flex items-center gap-2">
+      <div className="bg-white border border-slate-200 rounded-xl overflow-hidden">
+        <div className="px-4 py-3 border-b border-slate-200 flex items-center gap-2">
           <Database size={16} className="text-blue-400" />
-          <span className="font-semibold text-gray-200 text-sm">Log de Auditoria — Últimas Atividades</span>
-          <span className="ml-auto text-xs text-gray-500">Armazenado por 5 anos (LGPD)</span>
+          <span className="font-semibold text-slate-800 text-sm">Log de Auditoria — Últimas Atividades</span>
+          <span className="ml-auto text-xs text-slate-500">Armazenado por 5 anos (LGPD)</span>
         </div>
         <table className="w-full">
           <thead>
             <tr>
               {['Usuário', 'Ação', 'Módulo', 'IP', 'Data/Hora', 'Tipo'].map(h => (
-                <th key={h} className="bg-[#0f1623]/60 text-blue-300 text-xs font-semibold uppercase tracking-wider px-4 py-3 text-left">{h}</th>
+                <th key={h} className="bg-white/60 table-header">{h}</th>
               ))}
             </tr>
           </thead>
           <tbody>
             {logs.map(l => (
-              <tr key={l.id} className={`border-t border-blue-900/20 hover:bg-blue-900/10 transition-colors ${l.tipo === 'negado' ? 'bg-red-900/10' : ''}`}>
-                <td className="px-4 py-3 text-sm font-medium text-gray-200">{l.usuario}</td>
-                <td className="px-4 py-3 text-sm text-gray-400">{l.acao}</td>
+              <tr key={l.id} className={`border-t border-slate-100 hover:bg-amber-50/40 transition-colors ${l.tipo === 'negado' ? 'bg-red-900/10' : ''}`}>
+                <td className="px-4 py-3 text-sm font-medium text-slate-800">{l.usuario}</td>
+                <td className="px-4 py-3 text-sm text-slate-500">{l.acao}</td>
                 <td className="px-4 py-3 text-sm text-blue-400">{l.modulo}</td>
-                <td className="px-4 py-3 text-xs text-gray-500 font-mono">{l.ip}</td>
-                <td className="px-4 py-3 text-xs text-gray-500">{l.data}</td>
+                <td className="px-4 py-3 text-xs text-slate-500 font-mono">{l.ip}</td>
+                <td className="px-4 py-3 text-xs text-slate-500">{l.data}</td>
                 <td className="px-4 py-3">
                   <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${tipoLogCor[l.tipo]}`}>
                     {l.tipo.charAt(0).toUpperCase() + l.tipo.slice(1)}

@@ -13,12 +13,12 @@ export default function Configuracoes() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-white flex items-center gap-2"><Settings size={24} className="text-blue-400" />Configurações do Sistema</h1>
-        <p className="text-gray-500 text-sm mt-0.5">Lex Jurídico — Configurações gerais, integrações e APIs</p>
+        <h1 className="text-2xl font-bold font-serif flex items-center gap-2" style={{ color: '#0f2044' }}><Settings size={24} className="text-blue-400" />Configurações do Sistema</h1>
+        <p className="text-slate-500 text-sm mt-0.5">Lex Jurídico — Configurações gerais, integrações e APIs</p>
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-1 bg-[#1a2744] border border-blue-900/30 p-1 rounded-xl w-fit flex-wrap">
+      <div className="flex gap-1 bg-white border border-slate-200 p-1 rounded-xl w-fit flex-wrap">
         {[
           { id: 'geral', label: '⚙️ Geral' },
           { id: 'integracoes', label: '🔗 Integrações' },
@@ -26,7 +26,7 @@ export default function Configuracoes() {
           { id: 'sistema', label: '🗄️ Sistema' },
         ].map(t => (
           <button key={t.id} onClick={() => setAba(t.id as any)}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${aba === t.id ? 'bg-blue-600 text-white' : 'text-gray-400 hover:text-gray-200'}`}>
+            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${aba === t.id ? 'bg-blue-600 text-white' : 'text-slate-500 hover:text-slate-800'}`}>
             {t.label}
           </button>
         ))}
@@ -34,8 +34,8 @@ export default function Configuracoes() {
 
       {aba === 'geral' && (
         <div className="space-y-4">
-          <div className="bg-[#1a2744] border border-blue-900/30 rounded-xl p-5 space-y-4">
-            <h3 className="text-sm font-semibold text-gray-200">Informações do Escritório</h3>
+          <div className="bg-white border border-slate-200 rounded-xl p-5 space-y-4">
+            <h3 className="text-sm font-semibold text-slate-800">Informações do Escritório</h3>
             <div className="grid grid-cols-2 gap-4">
               {[
                 { label: 'Nome do Escritório', placeholder: 'Mauro Monção Advogados', type: 'text' },
@@ -46,26 +46,26 @@ export default function Configuracoes() {
                 { label: 'SLA Padrão (horas)', placeholder: '48', type: 'number' },
               ].map(f => (
                 <div key={f.label}>
-                  <label className="text-xs text-gray-500 font-semibold uppercase tracking-wider mb-1 block">{f.label}</label>
+                  <label className="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-1 block">{f.label}</label>
                   <input type={f.type} placeholder={f.placeholder}
-                    className="w-full bg-[#0f1623] border border-blue-900/40 text-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500 placeholder-gray-600" />
+                    className="w-full bg-white border border-slate-200 text-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500 placeholder-slate-400" />
                 </div>
               ))}
             </div>
           </div>
-          <div className="bg-[#1a2744] border border-blue-900/30 rounded-xl p-5 space-y-4">
-            <h3 className="text-sm font-semibold text-gray-200">Módulo SaaS — Multi-tenant</h3>
+          <div className="bg-white border border-slate-200 rounded-xl p-5 space-y-4">
+            <h3 className="text-sm font-semibold text-slate-800">Módulo SaaS — Multi-tenant</h3>
             <div className="grid grid-cols-3 gap-4">
               {[
-                { label: 'Plano Atual', value: 'Enterprise', color: 'text-purple-400' },
-                { label: 'Usuários Ativos', value: '5/50', color: 'text-blue-400' },
-                { label: 'Armazenamento', value: '12 GB / 500 GB', color: 'text-green-400' },
-                { label: 'Instâncias Ativas', value: '1', color: 'text-yellow-400' },
-                { label: 'Licença Válida até', value: '31/12/2024', color: 'text-gray-300' },
-                { label: 'Módulos Ativos', value: '13/14', color: 'text-green-400' },
+                { label: 'Plano Atual', value: 'Enterprise', color: '#7c3aed' },
+                { label: 'Usuários Ativos', value: '5/50', color: '#0f2044' },
+                { label: 'Armazenamento', value: '12 GB / 500 GB', color: '#00b37e' },
+                { label: 'Instâncias Ativas', value: '1', color: '#D4A017' },
+                { label: 'Licença Válida até', value: '31/12/2024', color: 'text-slate-700' },
+                { label: 'Módulos Ativos', value: '13/14', color: '#00b37e' },
               ].map(s => (
-                <div key={s.label} className="bg-[#0f1623] rounded-lg p-3 border border-blue-900/20">
-                  <div className="text-xs text-gray-500 mb-0.5">{s.label}</div>
+                <div key={s.label} className="bg-white rounded-lg p-3 border border-slate-100">
+                  <div className="text-xs text-slate-500 mb-0.5">{s.label}</div>
                   <div className={`text-sm font-bold ${s.color}`}>{s.value}</div>
                 </div>
               ))}
@@ -86,13 +86,13 @@ export default function Configuracoes() {
             { nome: 'Ben Growth Center', desc: 'CRM Comercial — sincronização de leads', status: 'conectado', icon: '🚀' },
             { nome: 'WhatsApp Business', desc: 'Notificações e comunicação', status: 'pendente', icon: '💬' },
           ].map(int => (
-            <div key={int.nome} className="bg-[#1a2744] border border-blue-900/30 rounded-xl p-4 flex items-center gap-4">
+            <div key={int.nome} className="bg-white border border-slate-200 rounded-xl p-4 flex items-center gap-4">
               <span className="text-2xl">{int.icon}</span>
               <div className="flex-1">
-                <div className="text-sm font-semibold text-gray-200">{int.nome}</div>
-                <div className="text-xs text-gray-500">{int.desc}</div>
+                <div className="text-sm font-semibold text-slate-800">{int.nome}</div>
+                <div className="text-xs text-slate-500">{int.desc}</div>
               </div>
-              <div className={`flex items-center gap-1.5 text-xs px-2 py-1 rounded-full font-medium ${int.status === 'conectado' ? 'bg-green-500/20 text-green-400 border border-green-500/30' : 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30'}`}>
+              <div className={`flex items-center gap-1.5 text-xs px-2 py-1 rounded-full font-medium ${int.status === 'conectado' ? 'bg-emerald/10 text-emerald border border-green-500/30' : 'bg-amber/10 text-amber-700 border border-yellow-500/30'}`}>
                 {int.status === 'conectado' ? <CheckCircle size={11} /> : <AlertTriangle size={11} />}
                 {int.status === 'conectado' ? 'Conectado' : 'Configurar'}
               </div>
@@ -105,8 +105,8 @@ export default function Configuracoes() {
       )}
 
       {aba === 'notificacoes' && (
-        <div className="bg-[#1a2744] border border-blue-900/30 rounded-xl p-5 space-y-4">
-          <h3 className="text-sm font-semibold text-gray-200">Alertas & Notificações</h3>
+        <div className="bg-white border border-slate-200 rounded-xl p-5 space-y-4">
+          <h3 className="text-sm font-semibold text-slate-800">Alertas & Notificações</h3>
           {[
             { desc: 'Alertas D-5 (5 dias antes do prazo)', ativo: true },
             { desc: 'Alertas D-3 (3 dias antes do prazo)', ativo: true },
@@ -119,7 +119,7 @@ export default function Configuracoes() {
             { desc: 'Relatório semanal automático', ativo: false },
           ].map((n, i) => (
             <div key={i} className="flex items-center justify-between">
-              <span className="text-sm text-gray-300">{n.desc}</span>
+              <span className="text-sm text-slate-700">{n.desc}</span>
               <div className={`relative w-10 h-5 rounded-full cursor-pointer transition-colors ${n.ativo ? 'bg-blue-600' : 'bg-gray-600'}`}>
                 <div className={`absolute top-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform ${n.ativo ? 'translate-x-5' : 'translate-x-0.5'}`}></div>
               </div>
@@ -130,8 +130,8 @@ export default function Configuracoes() {
 
       {aba === 'sistema' && (
         <div className="space-y-4">
-          <div className="bg-[#1a2744] border border-blue-900/30 rounded-xl p-5">
-            <h3 className="text-sm font-semibold text-gray-200 mb-4 flex items-center gap-2"><Database size={16} className="text-blue-400" />Status do Banco de Dados</h3>
+          <div className="bg-white border border-slate-200 rounded-xl p-5">
+            <h3 className="text-sm font-semibold text-slate-800 mb-4 flex items-center gap-2"><Database size={16} className="text-blue-400" />Status do Banco de Dados</h3>
             <div className="grid grid-cols-3 gap-4">
               {[
                 { label: 'Banco de Dados', value: 'PostgreSQL 15', status: 'online' },
@@ -141,10 +141,10 @@ export default function Configuracoes() {
                 { label: 'Criptografia', value: 'AES-256', status: 'ativo' },
                 { label: 'Multi-tenant', value: 'Ativo — 1 instância', status: 'ativo' },
               ].map(s => (
-                <div key={s.label} className="bg-[#0f1623] rounded-lg p-3 border border-blue-900/20">
-                  <div className="text-xs text-gray-500 mb-0.5">{s.label}</div>
-                  <div className="text-sm font-medium text-gray-200">{s.value}</div>
-                  <div className={`text-xs mt-0.5 ${['online', 'ativo'].includes(s.status) ? 'text-green-400' : 'text-blue-400'}`}>{s.status}</div>
+                <div key={s.label} className="bg-white rounded-lg p-3 border border-slate-100">
+                  <div className="text-xs text-slate-500 mb-0.5">{s.label}</div>
+                  <div className="text-sm font-medium text-slate-800">{s.value}</div>
+                  <div className={`text-xs mt-0.5 ${['online', 'ativo'].includes(s.status) ? '#00b37e' : '#0f2044'}`}>{s.status}</div>
                 </div>
               ))}
             </div>
@@ -153,7 +153,7 @@ export default function Configuracoes() {
       )}
 
       <div className="flex justify-end">
-        <button onClick={salvar} className={`flex items-center gap-2 text-sm font-medium px-5 py-2.5 rounded-lg transition-colors ${saved ? 'bg-green-600 text-white' : 'bg-blue-600 hover:bg-blue-700 text-white'}`}>
+        <button onClick={salvar} className={`flex items-center gap-2 text-sm font-medium px-5 py-2.5 rounded-lg transition-colors ${saved ? 'bg-green-600 text-white' : 'btn-primary'}`}>
           {saved ? <><CheckCircle size={16} />Salvo!</> : <><Save size={16} />Salvar Configurações</>}
         </button>
       </div>

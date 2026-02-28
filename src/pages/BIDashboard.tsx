@@ -47,13 +47,13 @@ export default function BIDashboard() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white flex items-center gap-2"><BarChart3 size={24} className="text-blue-400" />BI & Dashboards Executivos</h1>
-          <p className="text-gray-500 text-sm mt-0.5">Receita, SLA, produtividade, instâncias e sucesso</p>
+          <h1 className="text-2xl font-bold font-serif flex items-center gap-2" style={{ color: '#0f2044' }}><BarChart3 size={24} className="text-blue-400" />BI & Dashboards Executivos</h1>
+          <p className="text-slate-500 text-sm mt-0.5">Receita, SLA, produtividade, instâncias e sucesso</p>
         </div>
-        <div className="flex gap-1 bg-[#1a2744] border border-blue-900/30 rounded-lg p-1">
+        <div className="flex gap-1 bg-white border border-slate-200 rounded-lg p-1">
           {(['mes', 'trimestre', 'ano'] as const).map(p => (
             <button key={p} onClick={() => setPeriodo(p)}
-              className={`px-3 py-1.5 rounded text-xs font-medium transition-colors ${periodo === p ? 'bg-blue-600 text-white' : 'text-gray-400 hover:text-gray-200'}`}>
+              className={`px-3 py-1.5 rounded text-xs font-medium transition-colors ${periodo === p ? 'bg-blue-600 text-white' : 'text-slate-500 hover:text-slate-800'}`}>
               {p === 'mes' ? 'Mês' : p === 'trimestre' ? 'Trimestre' : 'Ano'}
             </button>
           ))}
@@ -63,20 +63,20 @@ export default function BIDashboard() {
       {/* KPI Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { l: 'Receita Fev/24', v: 'R$ 125K', icon: DollarSign, c: 'text-green-400', delta: '+23%', up: true },
-          { l: 'Taxa de Sucesso', v: '72%', icon: Target, c: 'text-blue-400', delta: '+4%', up: true },
-          { l: 'SLA Cumprido', v: '95%', icon: Clock, c: 'text-yellow-400', delta: '-3%', up: false },
-          { l: 'Processos Ativos', v: '247', icon: Gavel, c: 'text-purple-400', delta: '+12', up: true },
+          { l: 'Receita Fev/24', v: 'R$ 125K', icon: DollarSign, c: '#00b37e', delta: '+23%', up: true },
+          { l: 'Taxa de Sucesso', v: '72%', icon: Target, c: '#0f2044', delta: '+4%', up: true },
+          { l: 'SLA Cumprido', v: '95%', icon: Clock, c: '#D4A017', delta: '-3%', up: false },
+          { l: 'Processos Ativos', v: '247', icon: Gavel, c: '#7c3aed', delta: '+12', up: true },
         ].map(k => {
           const Icon = k.icon;
           return (
-            <div key={k.l} className="bg-[#1a2744] border border-blue-900/30 rounded-xl p-4">
+            <div key={k.l} className="bg-white border border-slate-200 rounded-xl p-4">
               <div className="flex items-center gap-2 mb-2">
                 <Icon size={16} className={k.c} />
-                <span className="text-xs text-gray-500">{k.l}</span>
+                <span className="text-xs text-slate-500">{k.l}</span>
               </div>
               <div className={`text-2xl font-bold ${k.c}`}>{k.v}</div>
-              <div className={`text-xs mt-1 flex items-center gap-1 ${k.up ? 'text-green-400' : 'text-red-400'}`}>
+              <div className={`text-xs mt-1 flex items-center gap-1 ${k.up ? '#00b37e' : '#e11d48'}`}>
                 {k.up ? <TrendingUp size={11} /> : <TrendingDown size={11} />}{k.delta}
               </div>
             </div>
@@ -87,8 +87,8 @@ export default function BIDashboard() {
       {/* Charts grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Receita por Cliente */}
-        <div className="bg-[#1a2744] border border-blue-900/30 rounded-xl p-4">
-          <h3 className="text-sm font-semibold text-gray-200 mb-4">Receita por Cliente</h3>
+        <div className="bg-white border border-slate-200 rounded-xl p-4">
+          <h3 className="text-sm font-semibold text-slate-800 mb-4">Receita por Cliente</h3>
           <ResponsiveContainer width="100%" height={200}>
             <BarChart data={receitaCliente} layout="vertical">
               <CartesianGrid strokeDasharray="3 3" stroke="#1e3a8a30" horizontal={false} />
@@ -102,8 +102,8 @@ export default function BIDashboard() {
         </div>
 
         {/* Distribuição por Área */}
-        <div className="bg-[#1a2744] border border-blue-900/30 rounded-xl p-4">
-          <h3 className="text-sm font-semibold text-gray-200 mb-4">Processos por Área Jurídica</h3>
+        <div className="bg-white border border-slate-200 rounded-xl p-4">
+          <h3 className="text-sm font-semibold text-slate-800 mb-4">Processos por Área Jurídica</h3>
           <div className="flex items-center gap-4">
             <ResponsiveContainer width="50%" height={180}>
               <PieChart>
@@ -118,8 +118,8 @@ export default function BIDashboard() {
               {areaDistrib.map(a => (
                 <div key={a.name} className="flex items-center gap-2">
                   <div className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ background: a.color }} />
-                  <span className="text-xs text-gray-400 flex-1">{a.name}</span>
-                  <span className="text-xs font-semibold text-gray-200">{a.value}%</span>
+                  <span className="text-xs text-slate-500 flex-1">{a.name}</span>
+                  <span className="text-xs font-semibold text-slate-800">{a.value}%</span>
                 </div>
               ))}
             </div>
@@ -127,8 +127,8 @@ export default function BIDashboard() {
         </div>
 
         {/* SLA */}
-        <div className="bg-[#1a2744] border border-blue-900/30 rounded-xl p-4">
-          <h3 className="text-sm font-semibold text-gray-200 mb-4">Performance SLA — 6 meses (%)</h3>
+        <div className="bg-white border border-slate-200 rounded-xl p-4">
+          <h3 className="text-sm font-semibold text-slate-800 mb-4">Performance SLA — 6 meses (%)</h3>
           <ResponsiveContainer width="100%" height={180}>
             <AreaChart data={slaData}>
               <defs>
@@ -148,8 +148,8 @@ export default function BIDashboard() {
         </div>
 
         {/* Por instância */}
-        <div className="bg-[#1a2744] border border-blue-900/30 rounded-xl p-4">
-          <h3 className="text-sm font-semibold text-gray-200 mb-4">Processos por Instância</h3>
+        <div className="bg-white border border-slate-200 rounded-xl p-4">
+          <h3 className="text-sm font-semibold text-slate-800 mb-4">Processos por Instância</h3>
           <ResponsiveContainer width="100%" height={180}>
             <BarChart data={instanciaData}>
               <CartesianGrid strokeDasharray="3 3" stroke="#1e3a8a30" />
@@ -163,23 +163,23 @@ export default function BIDashboard() {
       </div>
 
       {/* Produtividade */}
-      <div className="bg-[#1a2744] border border-blue-900/30 rounded-xl overflow-hidden">
-        <div className="px-4 py-3 border-b border-blue-900/30">
-          <span className="font-semibold text-gray-200 text-sm flex items-center gap-2"><Users size={16} className="text-blue-400" />Produtividade — Equipe Jurídica</span>
+      <div className="bg-white border border-slate-200 rounded-xl overflow-hidden">
+        <div className="px-4 py-3 border-b border-slate-200">
+          <span className="font-semibold text-slate-800 text-sm flex items-center gap-2"><Users size={16} className="text-blue-400" />Produtividade — Equipe Jurídica</span>
         </div>
         <table className="w-full">
           <thead>
             <tr>
               {['Advogado', 'Cargo', 'Processos', 'Pareceres', 'Honorários Gerados', 'Taxa Sucesso'].map(h => (
-                <th key={h} className="bg-[#0f1623]/60 text-blue-300 text-xs font-semibold uppercase tracking-wider px-4 py-3 text-left">{h}</th>
+                <th key={h} className="bg-white/60 table-header">{h}</th>
               ))}
             </tr>
           </thead>
           <tbody>
             {producaoAdv.map(a => (
-              <tr key={a.nome} className="border-t border-blue-900/20">
-                <td className="px-4 py-3 text-sm font-medium text-gray-200">{a.nome}</td>
-                <td className="px-4 py-3 text-sm text-gray-400">{a.area}</td>
+              <tr key={a.nome} className="border-t border-slate-100">
+                <td className="px-4 py-3 text-sm font-medium text-slate-800">{a.nome}</td>
+                <td className="px-4 py-3 text-sm text-slate-500">{a.area}</td>
                 <td className="px-4 py-3 text-sm font-bold text-white">{a.processos}</td>
                 <td className="px-4 py-3 text-sm font-bold text-white">{a.pareceres}</td>
                 <td className="px-4 py-3 text-sm font-bold text-green-400">R$ {a.honorarios.toLocaleString('pt-BR')}</td>

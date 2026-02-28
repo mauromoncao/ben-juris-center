@@ -20,10 +20,10 @@ export default function Agenda() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white flex items-center gap-2"><Calendar size={24} className="text-blue-400" />Agenda & Audiências</h1>
-          <p className="text-gray-500 text-sm mt-0.5">Calendário integrado com Google Calendar, audiências e prazos</p>
+          <h1 className="text-2xl font-bold font-serif flex items-center gap-2" style={{ color: '#0f2044' }}><Calendar size={24} className="text-blue-400" />Agenda & Audiências</h1>
+          <p className="text-slate-500 text-sm mt-0.5">Calendário integrado com Google Calendar, audiências e prazos</p>
         </div>
-        <button className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors">
+        <button className="btn-primary">
           <Plus size={16} />Novo Evento
         </button>
       </div>
@@ -31,11 +31,11 @@ export default function Agenda() {
       {/* Cards dos próximos eventos */}
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
         {eventos.map(e => (
-          <div key={e.id} className="bg-[#1a2744] border border-blue-900/30 rounded-xl overflow-hidden hover:border-blue-500/50 transition-all cursor-pointer" onClick={() => setSelecionado(e)}>
+          <div key={e.id} className="bg-white border border-slate-200 rounded-xl overflow-hidden hover:border-blue-500/50 transition-all cursor-pointer" onClick={() => setSelecionado(e)}>
             <div className={`h-1.5 ${e.cor}`}></div>
             <div className="p-4">
               <div className="flex items-start justify-between mb-2">
-                <span className="text-xs text-gray-500">{tipoLabel[e.tipo]}</span>
+                <span className="text-xs text-slate-500">{tipoLabel[e.tipo]}</span>
                 <div className="text-right">
                   <div className="text-sm font-bold text-white">{new Date(e.data).toLocaleDateString('pt-BR', { day: '2-digit', month: 'short' })}</div>
                   <div className="text-xs text-blue-400">{e.hora}</div>
@@ -43,16 +43,16 @@ export default function Agenda() {
               </div>
               <h3 className="font-semibold text-gray-100 text-sm mb-2 leading-tight">{e.titulo}</h3>
               <div className="space-y-1">
-                <div className="flex items-center gap-1.5 text-xs text-gray-500">
+                <div className="flex items-center gap-1.5 text-xs text-slate-500">
                   <MapPin size={11} />{e.local}
                 </div>
-                <div className="flex items-center gap-1.5 text-xs text-gray-500">
+                <div className="flex items-center gap-1.5 text-xs text-slate-500">
                   <Users size={11} />{e.cliente}
                 </div>
               </div>
-              <div className="mt-3 pt-3 border-t border-blue-900/20 flex items-center gap-2">
-                <div className="flex-1 text-xs text-gray-600">{e.checklist.length} itens no checklist</div>
-                <span className={`text-xs px-2 py-0.5 rounded font-medium ${e.docs.length > 0 ? 'text-blue-400' : 'text-gray-600'}`}>
+              <div className="mt-3 pt-3 border-t border-slate-100 flex items-center gap-2">
+                <div className="flex-1 text-xs text-slate-400">{e.checklist.length} itens no checklist</div>
+                <span className={`text-xs px-2 py-0.5 rounded font-medium ${e.docs.length > 0 ? '#0f2044' : 'text-slate-400'}`}>
                   {e.docs.length} docs
                 </span>
               </div>
@@ -64,15 +64,15 @@ export default function Agenda() {
       {/* Detalhe do evento */}
       {selecionado && (
         <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={() => setSelecionado(null)}>
-          <div className="bg-[#1a2744] border border-blue-900/50 rounded-2xl shadow-2xl w-full max-w-xl max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
+          <div className="bg-white border border-slate-200 rounded-2xl shadow-2xl w-full max-w-xl max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
             <div className={`h-2 ${selecionado.cor} rounded-t-2xl`}></div>
             <div className="p-6">
               <div className="flex items-start justify-between mb-4">
                 <div>
-                  <div className="text-xs text-gray-500 mb-1">{tipoLabel[selecionado.tipo]}</div>
+                  <div className="text-xs text-slate-500 mb-1">{tipoLabel[selecionado.tipo]}</div>
                   <h2 className="font-bold text-gray-100 text-lg">{selecionado.titulo}</h2>
                 </div>
-                <button onClick={() => setSelecionado(null)} className="text-gray-500 hover:text-gray-300 ml-4">✕</button>
+                <button onClick={() => setSelecionado(null)} className="text-slate-500 hover:text-slate-700 ml-4">✕</button>
               </div>
               <div className="grid grid-cols-2 gap-3 mb-4">
                 {[
@@ -84,39 +84,39 @@ export default function Agenda() {
                   { label: 'Responsável', value: selecionado.responsavel },
                 ].map(f => (
                   <div key={f.label}>
-                    <div className="text-xs text-gray-500 uppercase font-semibold mb-0.5">{f.label}</div>
-                    <div className="text-sm text-gray-200">{f.value}</div>
+                    <div className="text-xs text-slate-500 uppercase font-semibold mb-0.5">{f.label}</div>
+                    <div className="text-sm text-slate-800">{f.value}</div>
                   </div>
                 ))}
               </div>
               <div className="mb-4">
-                <div className="text-xs text-gray-500 uppercase font-semibold mb-2">Checklist de Preparação</div>
+                <div className="text-xs text-slate-500 uppercase font-semibold mb-2">Checklist de Preparação</div>
                 <div className="space-y-2">
                   {selecionado.checklist.map((item, i) => (
                     <div key={i} className="flex items-center gap-2">
                       <div className="w-4 h-4 rounded border border-blue-500/50 flex items-center justify-center flex-shrink-0 cursor-pointer hover:bg-blue-500/20">
                         <CheckCircle size={12} className="text-blue-500 opacity-0 hover:opacity-100" />
                       </div>
-                      <span className="text-sm text-gray-300">{item}</span>
+                      <span className="text-sm text-slate-700">{item}</span>
                     </div>
                   ))}
                 </div>
               </div>
               {selecionado.docs.length > 0 && (
                 <div>
-                  <div className="text-xs text-gray-500 uppercase font-semibold mb-2">Documentos</div>
+                  <div className="text-xs text-slate-500 uppercase font-semibold mb-2">Documentos</div>
                   <div className="flex flex-wrap gap-2">
                     {selecionado.docs.map(d => (
-                      <span key={d} className="flex items-center gap-1.5 text-xs bg-blue-900/30 text-blue-400 border border-blue-900/40 px-3 py-1.5 rounded-lg cursor-pointer">
+                      <span key={d} className="flex items-center gap-1.5 text-xs bg-slate-100 text-blue-400 border border-slate-200 px-3 py-1.5 rounded-lg cursor-pointer">
                         <FileText size={12} />{d}
                       </span>
                     ))}
                   </div>
                 </div>
               )}
-              <div className="flex gap-2 mt-4 pt-4 border-t border-blue-900/30">
+              <div className="flex gap-2 mt-4 pt-4 border-t border-slate-200">
                 {selecionado.tipo === 'reuniao_virtual' && (
-                  <button className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors">
+                  <button className="btn-primary">
                     <Video size={14} />Entrar no Meet
                   </button>
                 )}

@@ -21,52 +21,52 @@ export default function PortalCliente() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-white flex items-center gap-2"><Users size={24} className="text-blue-400" />Portal do Cliente</h1>
-        <p className="text-gray-500 text-sm mt-0.5">Acesso institucional — processos, pareceres, financeiro e comunicação</p>
+        <h1 className="text-2xl font-bold font-serif flex items-center gap-2" style={{ color: '#0f2044' }}><Users size={24} className="text-blue-400" />Portal do Cliente</h1>
+        <p className="text-slate-500 text-sm mt-0.5">Acesso institucional — processos, pareceres, financeiro e comunicação</p>
       </div>
 
       {/* Stats */}
       <div className="grid grid-cols-4 gap-4">
         {[
-          { l: 'Clientes com Acesso', v: clientes.length, c: 'text-blue-400' },
-          { l: 'Acessos Hoje', v: 7, c: 'text-green-400' },
-          { l: 'Docs Publicados', v: 12, c: 'text-purple-400' },
-          { l: 'Mensagens Pendentes', v: 6, c: 'text-yellow-400' },
+          { l: 'Clientes com Acesso', v: clientes.length, c: '#0f2044' },
+          { l: 'Acessos Hoje', v: 7, c: '#00b37e' },
+          { l: 'Docs Publicados', v: 12, c: '#7c3aed' },
+          { l: 'Mensagens Pendentes', v: 6, c: '#D4A017' },
         ].map(s => (
-          <div key={s.l} className="bg-[#1a2744] border border-blue-900/30 rounded-xl p-4 text-center">
+          <div key={s.l} className="bg-white border border-slate-200 rounded-xl p-4 text-center">
             <div className={`text-2xl font-bold ${s.c}`}>{s.v}</div>
-            <div className="text-xs text-gray-500 mt-0.5">{s.l}</div>
+            <div className="text-xs text-slate-500 mt-0.5">{s.l}</div>
           </div>
         ))}
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Clientes */}
-        <div className="md:col-span-2 bg-[#1a2744] border border-blue-900/30 rounded-xl overflow-hidden">
-          <div className="px-4 py-3 border-b border-blue-900/30 flex items-center gap-2">
+        <div className="md:col-span-2 bg-white border border-slate-200 rounded-xl overflow-hidden">
+          <div className="px-4 py-3 border-b border-slate-200 flex items-center gap-2">
             <Building2 size={16} className="text-blue-400" />
-            <span className="font-semibold text-gray-200 text-sm">Acessos Recentes dos Clientes</span>
+            <span className="font-semibold text-slate-800 text-sm">Acessos Recentes dos Clientes</span>
           </div>
           <div className="divide-y divide-blue-900/20">
             {clientes.map(c => (
-              <div key={c.id} className="flex items-center gap-4 px-4 py-3 hover:bg-blue-900/10 transition-colors cursor-pointer" onClick={() => setSelecionado(c)}>
-                <div className="w-10 h-10 rounded-xl bg-blue-900/40 flex items-center justify-center text-lg flex-shrink-0">
+              <div key={c.id} className="flex items-center gap-4 px-4 py-3 hover:bg-amber-50/40 transition-colors cursor-pointer" onClick={() => setSelecionado(c)}>
+                <div className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center text-lg flex-shrink-0">
                   {c.tipo === 'municipio' ? '🏛️' : c.tipo === 'camara' ? '⚖️' : c.tipo === 'empresa' ? '🏢' : '📋'}
                 </div>
                 <div className="flex-1">
-                  <div className="text-sm font-medium text-gray-200">{c.nome}</div>
-                  <div className="text-xs text-gray-500">Último acesso: {c.ultimo_acesso}</div>
+                  <div className="text-sm font-medium text-slate-800">{c.nome}</div>
+                  <div className="text-xs text-slate-500">Último acesso: {c.ultimo_acesso}</div>
                 </div>
                 <div className="flex items-center gap-3">
                   <div className="text-center">
                     <div className="text-sm font-bold text-white">{c.processos}</div>
-                    <div className="text-xs text-gray-600">proc.</div>
+                    <div className="text-xs text-slate-400">proc.</div>
                   </div>
                   {c.documentos_novos > 0 && (
-                    <span className="bg-blue-500/20 text-blue-400 text-xs px-1.5 py-0.5 rounded-full border border-blue-500/30">{c.documentos_novos} docs</span>
+                    <span className="bg-navy-mid/10 text-navy font-semibold text-xs px-1.5 py-0.5 rounded-full border border-blue-500/30">{c.documentos_novos} docs</span>
                   )}
                   {c.mensagens > 0 && (
-                    <span className="bg-yellow-500/20 text-yellow-400 text-xs px-1.5 py-0.5 rounded-full border border-yellow-500/30">{c.mensagens} msg</span>
+                    <span className="bg-amber/10 text-amber-700 text-xs px-1.5 py-0.5 rounded-full border border-yellow-500/30">{c.mensagens} msg</span>
                   )}
                   <button className="text-blue-400 hover:text-blue-300 transition-colors"><Eye size={14} /></button>
                 </div>
@@ -76,10 +76,10 @@ export default function PortalCliente() {
         </div>
 
         {/* Atividades */}
-        <div className="bg-[#1a2744] border border-blue-900/30 rounded-xl overflow-hidden">
-          <div className="px-4 py-3 border-b border-blue-900/30 flex items-center gap-2">
+        <div className="bg-white border border-slate-200 rounded-xl overflow-hidden">
+          <div className="px-4 py-3 border-b border-slate-200 flex items-center gap-2">
             <Bell size={16} className="text-yellow-400" />
-            <span className="font-semibold text-gray-200 text-sm">Atividades do Portal</span>
+            <span className="font-semibold text-slate-800 text-sm">Atividades do Portal</span>
           </div>
           <div className="divide-y divide-blue-900/20">
             {atividades.map((a, i) => (
@@ -87,9 +87,9 @@ export default function PortalCliente() {
                 <div className="flex items-start gap-2">
                   <span className="text-xl">{a.icone}</span>
                   <div>
-                    <p className="text-xs text-gray-300 leading-tight">{a.descricao}</p>
+                    <p className="text-xs text-slate-700 leading-tight">{a.descricao}</p>
                     <div className="flex items-center gap-2 mt-1">
-                      <span className="text-xs text-gray-600">{a.hora}</span>
+                      <span className="text-xs text-slate-400">{a.hora}</span>
                       <span className="text-xs text-blue-400">{a.cliente}</span>
                     </div>
                   </div>
@@ -108,10 +108,10 @@ export default function PortalCliente() {
           { nome: 'Relatórios Mensais', icon: '📊', desc: 'Dashboard financeiro e processual' },
           { nome: 'Chat Direto', icon: '💬', desc: 'Comunicação segura e rastreada' },
         ].map(r => (
-          <div key={r.nome} className="bg-[#1a2744] border border-blue-900/30 rounded-xl p-4 text-center">
+          <div key={r.nome} className="bg-white border border-slate-200 rounded-xl p-4 text-center">
             <span className="text-3xl block mb-2">{r.icon}</span>
-            <h3 className="text-xs font-semibold text-gray-200 mb-1">{r.nome}</h3>
-            <p className="text-xs text-gray-500">{r.desc}</p>
+            <h3 className="text-xs font-semibold text-slate-800 mb-1">{r.nome}</h3>
+            <p className="text-xs text-slate-500">{r.desc}</p>
           </div>
         ))}
       </div>

@@ -16,11 +16,11 @@ interface Prazo {
 }
 
 const NIVEL: Record<NivelPrazo, { label: string; color: string; bg: string }> = {
-  fatal: { label: 'D-0 FATAL', color: 'text-red-400', bg: 'bg-red-500/10 border-l-4 border-l-red-500' },
-  d1: { label: 'D-1', color: 'text-orange-400', bg: 'bg-orange-500/10 border-l-4 border-l-orange-500' },
-  d3: { label: 'D-3', color: 'text-yellow-400', bg: 'bg-yellow-500/10 border-l-4 border-l-yellow-500' },
-  d5: { label: 'D-5', color: 'text-blue-400', bg: 'bg-blue-500/10 border-l-4 border-l-blue-400' },
-  normal: { label: 'Normal', color: 'text-gray-400', bg: '' },
+  fatal: { label: 'D-0 FATAL', color: 'text-crimson', bg: 'bg-crimson/08 border-l-4 border-l-crimson' },
+  d1: { label: 'D-1', color: 'text-amber-700', bg: 'bg-amber/10 border-l-4 border-l-amber' },
+  d3: { label: 'D-3', color: 'text-amber-600', bg: 'bg-yellow-50 border-l-4 border-l-amber' },
+  d5: { label: 'D-5', color: 'text-navy font-medium', bg: 'bg-slate-50 border-l-4 border-l-navy' },
+  normal: { label: 'Normal', color: 'text-slate-500', bg: 'bg-white' },
 };
 
 const prazos: Prazo[] = [
@@ -47,10 +47,10 @@ export default function Prazos() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white flex items-center gap-2"><Clock size={24} className="text-red-400" />Prazos & Controle</h1>
-          <p className="text-gray-500 text-sm mt-0.5">Contagem automática, alertas D-5/D-3/D-1, dupla conferência</p>
+          <h1 className="text-2xl font-bold font-serif flex items-center gap-2" style={{ color: '#0f2044' }}><Clock size={24} style={{ color: '#e11d48' }} />Prazos & Controle</h1>
+          <p className="text-slate-500 text-sm mt-0.5 font-sans">Contagem automática, alertas D-5/D-3/D-1, dupla conferência</p>
         </div>
-        <button className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors">
+        <button className="flex items-center gap-2 btn-primary text-sm font-medium px-4 py-2 rounded-lg transition-colors">
           <Plus size={16} />Adicionar Prazo
         </button>
       </div>
@@ -58,14 +58,14 @@ export default function Prazos() {
       {/* Resumo */}
       <div className="grid grid-cols-4 gap-4">
         {[
-          { label: 'FATAIS (Hoje)', value: lista.filter(p => p.nivel === 'fatal').length, color: 'text-red-400', bg: 'bg-red-500/10 border-red-500/30' },
-          { label: 'D-1 (Amanhã)', value: lista.filter(p => p.nivel === 'd1').length, color: 'text-orange-400', bg: 'bg-orange-500/10 border-orange-500/30' },
-          { label: 'D-3 (3 dias)', value: lista.filter(p => p.nivel === 'd3').length, color: 'text-yellow-400', bg: 'bg-yellow-500/10 border-yellow-500/30' },
-          { label: 'D-5 (5 dias)', value: lista.filter(p => p.nivel === 'd5').length, color: 'text-blue-400', bg: 'bg-blue-500/10 border-blue-500/30' },
+          { label: 'FATAIS (Hoje)', value: lista.filter(p => p.nivel === 'fatal').length, color: '#e11d48', bg: 'kpi-crimson' },
+          { label: 'D-1 (Amanhã)', value: lista.filter(p => p.nivel === 'd1').length, color: '#f59e0b', bg: 'kpi-amber' },
+          { label: 'D-3 (3 dias)', value: lista.filter(p => p.nivel === 'd3').length, color: '#D4A017', bg: 'kpi-gold' },
+          { label: 'D-5 (5 dias)', value: lista.filter(p => p.nivel === 'd5').length, color: '#0f2044', bg: 'kpi-navy' },
         ].map(s => (
-          <div key={s.label} className={`border rounded-xl p-4 text-center ${s.bg}`}>
-            <div className={`text-3xl font-bold ${s.color}`}>{s.value}</div>
-            <div className="text-xs text-gray-500 mt-1">{s.label}</div>
+          <div key={s.label} className={`${s.bg} text-center`}>
+            <div className="text-3xl font-bold font-serif" style={{ color: s.color }}>{s.value}</div>
+            <div className="text-xs text-slate-500 mt-1">{s.label}</div>
           </div>
         ))}
       </div>
@@ -73,7 +73,7 @@ export default function Prazos() {
       {/* Prazos críticos */}
       {criticos.length > 0 && (
         <div>
-          <h2 className="text-sm font-bold text-red-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+          <h2 className="section-label flex items-center gap-2 mb-3" style={{ color: '#e11d48', fontSize: '0.8rem' }}>
             <AlertTriangle size={14} />⚠ Prazos Críticos — Ação Imediata
           </h2>
           <div className="space-y-3">
@@ -85,20 +85,20 @@ export default function Prazos() {
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-1">
                         <span className={`text-xs font-bold px-2 py-0.5 rounded ${nv.color} bg-current/10`}>{nv.label}</span>
-                        <span className="text-xs text-blue-400 font-mono">{p.processo}</span>
-                        <span className="text-xs text-gray-500">{p.area}</span>
+                        <span className="text-xs font-mono font-bold" style={{ color: '#1e3470' }}>{p.processo}</span>
+                        <span className="text-xs text-slate-500">{p.area}</span>
                       </div>
-                      <div className="font-semibold text-gray-200 text-sm">{p.descricao}</div>
-                      <div className="text-xs text-gray-500 mt-1">{p.cliente} • {p.responsavel}</div>
+                      <div className="font-semibold text-slate-800 text-sm">{p.descricao}</div>
+                      <div className="text-xs text-slate-500 mt-1">{p.cliente} • {p.responsavel}</div>
                     </div>
                     <div className="flex items-center gap-3 ml-4">
                       <div className="text-right">
                         <div className={`text-sm font-bold ${nv.color}`}>{new Date(p.data_vencimento).toLocaleDateString('pt-BR')}</div>
-                        <div className="text-xs text-gray-600">Vencimento</div>
+                        <div className="text-xs text-slate-400">Vencimento</div>
                       </div>
                       <button
                         onClick={() => toggleConferido(p.id)}
-                        className={`flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg border transition-colors font-medium ${p.conferido ? 'bg-green-500/20 text-green-400 border-green-500/30' : 'bg-gray-800 text-gray-400 border-gray-600 hover:border-green-500/50 hover:text-green-400'}`}>
+                        className={`flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg border transition-colors font-medium ${p.conferido ? 'bg-emerald/10 text-emerald border-emerald/25' : 'bg-white text-slate-500 border-slate-300 hover:border-emerald hover:text-emerald'}`}>
                         <CheckCircle size={12} />{p.conferido ? 'Conferido' : 'Conferir'}
                       </button>
                     </div>
@@ -113,22 +113,22 @@ export default function Prazos() {
       {/* Atenção */}
       {atencao.length > 0 && (
         <div>
-          <h2 className="text-sm font-bold text-yellow-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+          <h2 className="section-label flex items-center gap-2 mb-3" style={{ color: '#D4A017', fontSize: '0.8rem' }}>
             <Clock size={14} />Atenção — Próximos Dias
           </h2>
           <div className="space-y-2">
             {atencao.map(p => {
               const nv = NIVEL[p.nivel];
               return (
-                <div key={p.id} className={`rounded-xl p-3 flex items-center gap-4 ${nv.bg || 'bg-[#1a2744] border border-blue-900/30'}`}>
+                <div key={p.id} className={`rounded-xl p-3 flex items-center gap-4 ${nv.bg || 'bg-white border border-slate-200'}`}>
                   <span className={`text-xs font-bold ${nv.color} whitespace-nowrap`}>{nv.label}</span>
                   <div className="flex-1">
-                    <div className="text-sm font-medium text-gray-200">{p.descricao}</div>
-                    <div className="text-xs text-gray-500">{p.cliente} • {p.processo}</div>
+                    <div className="text-sm font-medium text-slate-800">{p.descricao}</div>
+                    <div className="text-xs text-slate-500">{p.cliente} • {p.processo}</div>
                   </div>
                   <div className={`text-sm font-bold ${nv.color}`}>{new Date(p.data_vencimento).toLocaleDateString('pt-BR')}</div>
                   <button onClick={() => toggleConferido(p.id)}
-                    className={`text-xs px-2 py-1 rounded border ${p.conferido ? 'bg-green-500/20 text-green-400 border-green-500/30' : 'bg-gray-800 text-gray-500 border-gray-700 hover:text-green-400'}`}>
+                    className={`text-xs px-2 py-1 rounded border ${p.conferido ? 'bg-emerald/10 text-emerald border-emerald/25' : 'bg-white text-slate-500 border-slate-300 hover:text-emerald'}`}>
                     {p.conferido ? '✓' : 'Conferir'}
                   </button>
                 </div>
@@ -140,29 +140,29 @@ export default function Prazos() {
 
       {/* Normais */}
       <div>
-        <h2 className="text-sm font-bold text-gray-500 uppercase tracking-wider mb-3 flex items-center gap-2">
+        <h2 className="section-label flex items-center gap-2 mb-3">
           <Calendar size={14} />Prazos Futuros
         </h2>
-        <div className="bg-[#1a2744] border border-blue-900/30 rounded-xl overflow-hidden">
+        <div className="bg-white rounded-xl overflow-hidden shadow-sm border border-slate-100">
           <table className="w-full">
             <thead>
               <tr>
                 {['Processo', 'Descrição', 'Cliente', 'Área', 'Vencimento', 'Status'].map(h => (
-                  <th key={h} className="bg-[#0f1623]/60 text-blue-300 text-xs font-semibold uppercase tracking-wider px-4 py-3 text-left">{h}</th>
+                  <th key={h} className="table-header">{h}</th>
                 ))}
               </tr>
             </thead>
             <tbody>
               {normais.map(p => (
-                <tr key={p.id} className="border-t border-blue-900/20 hover:bg-blue-900/10 transition-colors">
-                  <td className="px-4 py-3 text-xs text-blue-400 font-mono">{p.processo.slice(-12)}</td>
-                  <td className="px-4 py-3 text-sm text-gray-300">{p.descricao}</td>
-                  <td className="px-4 py-3 text-sm text-gray-400">{p.cliente}</td>
-                  <td className="px-4 py-3 text-xs text-gray-500">{p.area}</td>
-                  <td className="px-4 py-3 text-sm text-gray-300">{new Date(p.data_vencimento).toLocaleDateString('pt-BR')}</td>
+                <tr key={p.id} className="table-row">
+                  <td className="px-4 py-3 text-xs font-mono font-bold" style={{ color: '#1e3470' }}>{p.processo.slice(-12)}</td>
+                  <td className="px-4 py-3 text-sm text-slate-700">{p.descricao}</td>
+                  <td className="px-4 py-3 text-sm text-slate-500">{p.cliente}</td>
+                  <td className="px-4 py-3 text-xs text-slate-500">{p.area}</td>
+                  <td className="px-4 py-3 text-sm text-slate-700">{new Date(p.data_vencimento).toLocaleDateString('pt-BR')}</td>
                   <td className="px-4 py-3">
                     <button onClick={() => toggleConferido(p.id)}
-                      className={`text-xs px-2 py-1 rounded border ${p.conferido ? 'bg-green-500/20 text-green-400 border-green-500/30' : 'bg-gray-800 text-gray-500 border-gray-700 hover:text-green-400'}`}>
+                      className={`text-xs px-2 py-1 rounded border ${p.conferido ? 'bg-emerald/10 text-emerald border-emerald/25' : 'bg-white text-slate-500 border-slate-300 hover:text-emerald'}`}>
                       {p.conferido ? '✓ Conferido' : 'Conferir'}
                     </button>
                   </td>
