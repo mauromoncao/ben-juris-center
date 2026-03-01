@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { BrowserRouter, Routes, Route, NavLink, useLocation } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, NavLink, useLocation, Navigate } from 'react-router-dom';
+import { AuthProvider, useAuth } from './context/AuthContext';
+import LoginPage from './pages/LoginPage';
 import {
   Scale, Building2, FileText, Gavel, Clock, Calendar, BookOpen,
   PenTool, DollarSign, Link2, Users, BarChart3, Shield, Bell,
@@ -275,9 +277,8 @@ function TopBar({ collapsed }: { collapsed: boolean }) {
           <Bell size={18} />
           <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full" />
         </button>
-        {/* Avatar */}
-        <div className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold"
-          style={{ background: '#0f2044', color: '#D4A017' }}>MM</div>
+        {/* Avatar + Logout */}
+        <LogoutButtonJuris />
       </div>
     </header>
   );
@@ -300,33 +301,82 @@ function Layout({ children }: { children: React.ReactNode }) {
   );
 }
 
+// ─── Logout Button ──────────────────────────────────────────────────────────
+function LogoutButtonJuris() {
+  const { user, logout } = useAuth();
+  const initials = user?.nome?.split(' ').map((n: string) => n[0]).slice(0, 2).join('') || 'MM';
+  return (
+    <div className="flex items-center gap-2">
+      <div className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold"
+        style={{ background: '#0f2044', color: '#D4A017' }}>{initials}</div>
+      <button
+        onClick={logout}
+        title="Sair"
+        className="p-1.5 rounded-lg text-slate-400 hover:text-red-500 hover:bg-red-50 transition-colors"
+      >
+        <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+          <polyline points="16 17 21 12 16 7"/>
+          <line x1="21" y1="12" x2="9" y2="12"/>
+        </svg>
+      </button>
+    </div>
+  );
+}
+
+// ─── Rota Privada ─────────────────────────────────────────────────────────────
+function PrivateRoute({ children }: { children: React.ReactNode }) {
+  const { isAuthenticated } = useAuth();
+  return isAuthenticated ? <>{children}</> : <Navigate to="/login" replace />;
+}
+
+// ─── Rotas da Aplicação ───────────────────────────────────────────────────────
+function AppRoutes() {
+  const { isAuthenticated } = useAuth();
+  return (
+    <Routes>
+      <Route path="/login" element={
+        isAuthenticated ? <Navigate to="/" replace /> : <LoginPage />
+      } />
+      <Route path="/*" element={
+        <PrivateRoute>
+          <Layout>
+            <Routes>
+              <Route path="/"                     element={<Dashboard />} />
+              <Route path="/cadastros"            element={<Cadastros />} />
+              <Route path="/protocolo"            element={<Protocolo />} />
+              <Route path="/processos"            element={<Processos />} />
+              <Route path="/cnj"                  element={<IntegracaoCNJ />} />
+              <Route path="/prazos"               element={<Prazos />} />
+              <Route path="/agenda"               element={<Agenda />} />
+              <Route path="/documentos"           element={<Documentos />} />
+              <Route path="/assinaturas"          element={<Assinaturas />} />
+              <Route path="/financeiro"           element={<Financeiro />} />
+              <Route path="/integracao-comercial" element={<IntegracaoComercial />} />
+              <Route path="/portal-cliente"       element={<PortalCliente />} />
+              <Route path="/bi"                   element={<BIDashboard />} />
+              <Route path="/seguranca"            element={<Seguranca />} />
+              <Route path="/configuracoes"        element={<Configuracoes />} />
+              <Route path="/nucleo-ia"            element={<NucleoIA />} />
+              <Route path="/nucleo-projetos"      element={<NucleoProjetos />} />
+              <Route path="/estrategia"           element={<GestaoEstrategica />} />
+              <Route path="/eng-prompts"          element={<EngenheiroPrompts />} />
+              <Route path="*"                     element={<Navigate to="/" replace />} />
+            </Routes>
+          </Layout>
+        </PrivateRoute>
+      } />
+    </Routes>
+  );
+}
+
 // ─── App ──────────────────────────────────────────────────────────────────────
 export default function App() {
   return (
     <BrowserRouter>
-      <Layout>
-        <Routes>
-          <Route path="/"                    element={<Dashboard />} />
-          <Route path="/cadastros"           element={<Cadastros />} />
-          <Route path="/protocolo"           element={<Protocolo />} />
-          <Route path="/processos"           element={<Processos />} />
-          <Route path="/cnj"                 element={<IntegracaoCNJ />} />
-          <Route path="/prazos"              element={<Prazos />} />
-          <Route path="/agenda"              element={<Agenda />} />
-          <Route path="/documentos"          element={<Documentos />} />
-          <Route path="/assinaturas"         element={<Assinaturas />} />
-          <Route path="/financeiro"          element={<Financeiro />} />
-          <Route path="/integracao-comercial"element={<IntegracaoComercial />} />
-          <Route path="/portal-cliente"      element={<PortalCliente />} />
-          <Route path="/bi"                  element={<BIDashboard />} />
-          <Route path="/seguranca"           element={<Seguranca />} />
-          <Route path="/configuracoes"       element={<Configuracoes />} />
-          <Route path="/nucleo-ia"           element={<NucleoIA />} />
-          <Route path="/nucleo-projetos"     element={<NucleoProjetos />} />
-          <Route path="/estrategia"          element={<GestaoEstrategica />} />
-          <Route path="/eng-prompts"         element={<EngenheiroPrompts />} />
-        </Routes>
-      </Layout>
+      <AuthProvider>
+        <AppRoutes />
+      </AuthProvider>
     </BrowserRouter>
   );
 }
