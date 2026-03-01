@@ -33,22 +33,14 @@ export interface TaskRecord {
   modelo: string;
 }
 
-// Genspark API endpoint (compatible with OpenAI format)
-const GENSPARK_BASE = 'https://api.genspark.ai/v1';
-const GENSPARK_KEY = import.meta.env.VITE_GENSPARK_API_KEY || '';
-
-// Gemini endpoint via OpenAI-compatible
-const GEMINI_BASE = 'https://generativelanguage.googleapis.com/v1beta/openai';
-const GEMINI_KEY = import.meta.env.VITE_GEMINI_API_KEY || import.meta.env.VITE_OPENAI_API_KEY || '';
+// ─── Enterprise API Stack ─────────────────────────────────────
+// Todos os agentes usam o endpoint serverless /api/agents/run
+// que roteia para: Claude Haiku · Gemini Pro · GPT-4o · Perplexity
+const AGENTS_API = '/api/agents/run';
 
 function getEndpointConfig(model: string): { base: string; key: string; modelName: string } {
-  if (model.startsWith('genspark') || model === 'gpt-5' || model === 'claude-opus-4') {
-    return { base: GENSPARK_BASE, key: GENSPARK_KEY, modelName: model === 'genspark-agent' ? 'genspark-agent' : model };
-  }
-  if (model.startsWith('gemini')) {
-    return { base: GEMINI_BASE, key: GEMINI_KEY, modelName: model };
-  }
-  return { base: GENSPARK_BASE, key: GENSPARK_KEY, modelName: model };
+  // Mantido para compatibilidade — roteamento real feito no serverless
+  return { base: AGENTS_API, key: 'serverless', modelName: model };
 }
 
 export async function callAIAgent(
@@ -57,50 +49,40 @@ export async function callAIAgent(
   onStream?: (chunk: string) => void
 ): Promise<AIResponse> {
   const start = Date.now();
-  const { base, key, modelName } = getEndpointConfig(agent.modelo);
-
-  if (!key) {
-    // Demo mode - return simulated response
-    return simulateAgentResponse(agent, messages);
-  }
+  const lastMsg = messages[messages.length - 1]?.content || '';
 
   try {
-    const systemMsg: AIMessage = { role: 'system', content: agent.system_prompt };
-    const allMessages = [systemMsg, ...messages];
-
-    const response = await fetch(`${base}/chat/completions`, {
+    // Chamar endpoint serverless Enterprise
+    const response = await fetch('/api/agents/run', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${key}`,
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model: modelName,
-        messages: allMessages,
-        temperature: agent.temperatura,
-        max_tokens: agent.max_tokens,
-        stream: false,
+        agentId: agent.id,
+        input: lastMsg,
+        context: {},
+        useSearch: ['dr-ben-peticoes', 'dr-ben-fiscal', 'dr-ben-previdenciario',
+          'dr-ben-analise-processo', 'dr-ben-trabalhista'].includes(agent.id),
       }),
     });
 
     if (!response.ok) {
-      const err = await response.text();
-      throw new Error(`API Error ${response.status}: ${err}`);
+      throw new Error(`API Error ${response.status}`);
     }
 
     const data = await response.json();
-    const content = data.choices?.[0]?.message?.content || '';
-    const latency_ms = Date.now() - start;
+
+    if (!data.success) throw new Error(data.error || 'Erro do agente');
 
     return {
-      content,
-      model: modelName,
-      tokens_used: data.usage?.total_tokens,
-      latency_ms,
+      content: data.output,
+      model: data.modelUsed || agent.modelo,
+      tokens_used: Math.floor(data.output.length / 4),
+      latency_ms: Date.now() - start,
     };
+
   } catch (err) {
     console.error('AI Service error:', err);
-    // Fallback to demo mode
+    // Fallback para modo demo
     return simulateAgentResponse(agent, messages);
   }
 }
