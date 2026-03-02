@@ -1,6 +1,6 @@
 // ============================================================
 // BEN JURIS CENTER — Auth Context
-// Acesso: mauromoncaoestudos@gmail.com / 12345678
+// Acesso: mauromoncaoestudos@gmail.com / BenJuris@2026!
 // ============================================================
 import { createContext, useContext, useState, type ReactNode } from 'react'
 
@@ -25,7 +25,13 @@ const STORAGE_KEY = 'ben_juris_auth'
 const CREDENCIAIS = [
   {
     email: 'mauromoncaoestudos@gmail.com',
-    senha: '12345678',
+    senha: 'BenJuris@2026!',
+    nome: 'Mauro Monção',
+    modulo: 'Ben Juris Center',
+  },
+  {
+    email: 'mauro@moncaoadvogados.com.br',
+    senha: 'BenJuris@2026!',
     nome: 'Mauro Monção',
     modulo: 'Ben Juris Center',
   },
