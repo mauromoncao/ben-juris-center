@@ -1,7 +1,77 @@
 // ============================================================
-// BEN ECOSYSTEM — Cross-Module Integration Bridge
+// BEN ECOSYSTEM — Cross-Module Integration Bridge (JURIS)
 // Comunicação bidirecional: Ben Growth Center ↔ Ben Juris Center
+// API real: /api/bridge  — Fallback: dados mock
 // ============================================================
+
+const BRIDGE_API = '/api/bridge'
+
+// ── Funções reais de comunicação ─────────────────────────────
+
+export async function listarEventosBridge(): Promise<CrossModuleEvent[]> {
+  try {
+    const r = await fetch(`${BRIDGE_API}?action=listar&modulo=juris`)
+    const data = await r.json()
+    return data.eventos || MOCK_CROSS_EVENTS
+  } catch {
+    return MOCK_CROSS_EVENTS
+  }
+}
+
+export async function enviarEventoBridge(
+  tipo: CrossModuleEventType,
+  payload: Record<string, unknown>,
+  agenteOrigem?: string
+): Promise<{ success: boolean }> {
+  try {
+    const r = await fetch(BRIDGE_API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'enviar_evento', tipo, destino: 'growth', payload, agenteOrigem }),
+    })
+    const data = await r.json()
+    return { success: data.success }
+  } catch {
+    return { success: false }
+  }
+}
+
+export async function notificarContratoAssinado(dados: {
+  cliente: string; contrato: string; honorario: number
+}): Promise<{ success: boolean }> {
+  return enviarEventoBridge('CONTRATO_ASSINADO', dados, 'Dr. Ben Contratos')
+}
+
+export async function notificarProcessoAberto(dados: {
+  processo: string; cliente: string; area: string; sugestaoConteudo?: string
+}): Promise<{ success: boolean }> {
+  return enviarEventoBridge('PROCESSO_ABERTO', dados, 'Dr. Ben Petições')
+}
+
+export async function notificarAlertaPrazo(dados: {
+  cliente: string; prazo: string; descricao: string; urgencia: string
+}): Promise<{ success: boolean }> {
+  return enviarEventoBridge('ALERTA_PRAZO', dados, 'Dr. Ben Auditoria')
+}
+
+export async function notificarHonorarioPago(dados: {
+  cliente: string; valor: number; referencia: string
+}): Promise<{ success: boolean }> {
+  return enviarEventoBridge('HONORARIO_PAGO', dados, 'Dr. Ben Financeiro')
+}
+
+export async function sincronizarComGrowth(): Promise<{ success: boolean; mensagem: string }> {
+  try {
+    const r = await fetch(BRIDGE_API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'sincronizar' }),
+    })
+    return r.json()
+  } catch {
+    return { success: false, mensagem: 'Falha na sincronização' }
+  }
+}
 
 export const BEN_MODULES = {
   GROWTH: {

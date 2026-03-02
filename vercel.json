@@ -3,6 +3,8 @@
   "outputDirectory": "dist",
   "framework": "vite",
   "rewrites": [
+    { "source": "/api/bridge", "destination": "/api/bridge.js" },
+    { "source": "/api/bridge/:path*", "destination": "/api/bridge.js" },
     { "source": "/api/agents/run", "destination": "/api/agents/run.js" },
     { "source": "/api/voice",      "destination": "/api/voice.js" },
     { "source": "/api/memory",     "destination": "/api/memory.js" },

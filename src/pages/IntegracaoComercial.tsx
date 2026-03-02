@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Link2, ArrowRight, ArrowLeft, TrendingUp, DollarSign,
   Users, CheckCircle, Zap, Activity, Scale, RefreshCw,
-  ExternalLink, Bell, ArrowLeftRight, FileText, AlertCircle
+  ExternalLink, Bell, ArrowLeftRight, FileText, AlertCircle, Send
 } from 'lucide-react';
 import {
   MOCK_CROSS_EVENTS, MOCK_LEADS_PIPELINE, MOCK_SINAIS_JURIS,
   BEN_MODULES, getCorEventType, getLabelEventType,
   calcularTaxaConversaoJuris, getEventosPendentes,
+  listarEventosBridge, sincronizarComGrowth,
+  notificarContratoAssinado, notificarAlertaPrazo,
   type CrossModuleEvent
 } from '../lib/crossModuleIntegration';
 
@@ -58,12 +60,29 @@ function EventoCard({ evento }: { evento: CrossModuleEvent }) {
 export default function IntegracaoComercial() {
   const [abaAtiva, setAbaAtiva] = useState<'fluxo' | 'leads' | 'processos'>('fluxo');
   const [sincronizando, setSincronizando] = useState(false);
-  const pendentes = getEventosPendentes();
+  const [eventos, setEventos] = useState<CrossModuleEvent[]>(MOCK_CROSS_EVENTS);
+  const [mensagemStatus, setMensagemStatus] = useState('');
+  const pendentes = eventos.filter(e => e.status === 'pendente');
   const taxaConversao = calcularTaxaConversaoJuris();
 
-  const handleSync = () => {
+  useEffect(() => {
+    listarEventosBridge().then(evts => { if (evts?.length) setEventos(evts); });
+  }, []);
+
+  const handleSync = async () => {
     setSincronizando(true);
-    setTimeout(() => setSincronizando(false), 2000);
+    setMensagemStatus('');
+    try {
+      const result = await sincronizarComGrowth();
+      setMensagemStatus(result.mensagem);
+      const evts = await listarEventosBridge();
+      if (evts?.length) setEventos(evts);
+    } catch {
+      setMensagemStatus('Erro ao sincronizar');
+    } finally {
+      setSincronizando(false);
+      setTimeout(() => setMensagemStatus(''), 4000);
+    }
   };
 
   return (
