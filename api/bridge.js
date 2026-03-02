@@ -217,24 +217,67 @@ export default async function handler(req, res) {
   }
 }
 
-// ── Processar evento recebido do Juris ────────────────────────
+// ── Enviar WhatsApp ao plantonista ──────────────────────────
+async function whatsappPlantonista(mensagem) {
+  const PLANTONISTA = process.env.PLANTONISTA_WHATSAPP
+  const WTOKEN      = process.env.WHATSAPP_TOKEN
+  const WID         = process.env.WHATSAPP_PHONE_NUMBER_ID
+  if (!PLANTONISTA || !WTOKEN || !WID) {
+    console.log('[Bridge Juris] WhatsApp plantonista não configurado — mensagem logada:', mensagem.slice(0, 80))
+    return
+  }
+  try {
+    await fetch(`https://graph.facebook.com/v21.0/${WID}/messages`, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${WTOKEN}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        messaging_product: 'whatsapp',
+        to: PLANTONISTA.replace(/\D/g, ''),
+        type: 'text',
+        text: { body: mensagem },
+      }),
+    })
+    console.log('[Bridge Juris] ✅ Plantonista notificado via WhatsApp:', PLANTONISTA)
+  } catch (e) {
+    console.error('[Bridge Juris] Erro WhatsApp plantonista:', e.message)
+  }
+}
+
+// ── Processar evento recebido do Growth ──────────────────────
 async function processarEventoRecebido(evento) {
   switch (evento.tipo) {
-    case 'CONTRATO_ASSINADO':
-      // Dispara e-mail de onboarding para o novo cliente
-      console.log('[Bridge] Contrato assinado — dispara onboarding:', evento.payload?.cliente)
+    case 'LEAD_QUALIFICADO':
+      console.log('[Bridge Juris] Lead qualificado recebido do Growth:', evento.payload?.nome)
+      await whatsappPlantonista(
+        `🎯 LEAD QUALIFICADO — BEN GROWTH\n\n` +
+        `👤 Nome: ${evento.payload?.nome || 'N/A'}\n` +
+        `📞 Telefone: ${evento.payload?.telefone || 'N/A'}\n` +
+        `⚖️ Área: ${evento.payload?.area || 'N/A'}\n` +
+        `⭐ Score: ${evento.payload?.score || 'N/A'}/100\n` +
+        `💰 Valor Est.: R$ ${Number(evento.payload?.valorEstimado || 0).toLocaleString('pt-BR')}\n\n` +
+        `⚡ Triagem jurídica iniciada no Juris Center.`
+      )
       break
-    case 'HONORARIO_PAGO':
-      // Atualiza financeiro no CRM
-      console.log('[Bridge] Honorário pago — atualiza CRM:', evento.payload?.valor)
+    case 'CAMPANHA_ATIVADA':
+      console.log('[Bridge Juris] Campanha ativada pelo Growth:', evento.payload?.campanha)
+      await whatsappPlantonista(
+        `📢 CAMPANHA ATIVA — BEN GROWTH\n\n` +
+        `📊 Campanha: ${evento.payload?.campanha || 'N/A'}\n` +
+        `🎯 Área alvo: ${evento.payload?.areaAlvo || 'N/A'}\n` +
+        `💵 Orçamento/dia: R$ ${evento.payload?.orcamentoDia || 0}\n` +
+        `👥 Leads esperados: ${evento.payload?.leadsEsperados || 'N/A'}`
+      )
       break
     case 'ALERTA_PRAZO':
-      // Notifica o plantonista
-      console.log('[Bridge] Alerta de prazo — notifica plantonista:', evento.payload?.prazo)
-      break
-    case 'PROCESSO_ABERTO':
-      // Sugere conteúdo ao Lex Conteúdo
-      console.log('[Bridge] Processo aberto — sugere conteúdo:', evento.payload?.sugestaoConteudo)
+      console.log('[Bridge Juris] Alerta de prazo:', evento.payload?.prazo)
+      await whatsappPlantonista(
+        `🔴 ALERTA DE PRAZO — BEN JURIS\n\n` +
+        `👤 Cliente: ${evento.payload?.cliente || 'N/A'}\n` +
+        `📅 Prazo: ${evento.payload?.prazo || 'N/A'}\n` +
+        `⚖️ ${evento.payload?.descricao || 'Prazo processual crítico'}\n` +
+        `🚨 Urgência: ${(evento.payload?.urgencia || 'ALTA').toUpperCase()}\n\n` +
+        `⚡ Ação imediata necessária!`
+      )
       break
     default:
       console.log('[Bridge] Evento recebido sem handler específico:', evento.tipo)
