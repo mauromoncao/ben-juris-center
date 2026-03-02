@@ -448,6 +448,45 @@ async function callWithFallback(agentConfig, input) {
 }
 
 // ════════════════════════════════════════════════════════════
+// ─── NOTIFICAÇÃO PLANTONISTA ─────────────────────────────────
+// ════════════════════════════════════════════════════════════
+async function notificarPlantonista(agentId, input, context) {
+  const PLANTONISTA = process.env.PLANTONISTA_WHATSAPP  // +5586999484761
+  const WTOKEN      = process.env.WHATSAPP_TOKEN
+  const WID         = process.env.WHATSAPP_PHONE_NUMBER_ID
+  if (!PLANTONISTA || !WTOKEN || !WID) return   // sem WhatsApp configurado, apenas loga
+  try {
+    const nome    = context?.cliente || context?.nome || 'N/A'
+    const proc    = context?.processo || context?.numeroProcesso || 'N/A'
+    const prazo   = context?.prazo || context?.deadline || 'não informado'
+    const alerta  =
+      `⚖️ CASO URGENTE — BEN JURIS CENTER\n\n` +
+      `🤖 Agente: ${agentId}\n` +
+      `👤 Cliente: ${nome}\n` +
+      `📁 Processo: ${proc}\n` +
+      `⏰ Prazo: ${prazo}\n\n` +
+      `📝 Solicitação:\n${input.slice(0, 300)}${input.length > 300 ? '...' : ''}\n\n` +
+      `⚡ Dr. Ben iniciou a análise. Revise e assine a peça gerada.`
+    await fetch(
+      `https://graph.facebook.com/v21.0/${WID}/messages`,
+      {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${WTOKEN}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          messaging_product: 'whatsapp',
+          to: PLANTONISTA.replace(/\D/g, ''),
+          type: 'text',
+          text: { body: alerta },
+        }),
+      }
+    )
+    console.log('[Juris] Plantonista notificado:', PLANTONISTA)
+  } catch (e) {
+    console.error('[Juris] Erro ao notificar plantonista:', e.message)
+  }
+}
+
+// ════════════════════════════════════════════════════════════
 // ─── HANDLER PRINCIPAL ───────────────────────────────────────
 // ════════════════════════════════════════════════════════════
 export default async function handler(req, res) {
@@ -498,6 +537,15 @@ export default async function handler(req, res) {
 
     const { output, modelUsed } = await callWithFallback(agentConfig, enrichedInput)
     const elapsed = Date.now() - startTime
+
+    // ── Notificar plantonista para agentes de prazo/urgência ──────
+    const agentesUrgentes = [
+      'dr-ben-peticoes', 'dr-ben-trabalhista', 'dr-ben-admin',
+      'dr-ben-previdenciario', 'dr-ben-analise-processo',
+    ]
+    if (agentesUrgentes.includes(agentId) && (context?.urgente || context?.prazo)) {
+      notificarPlantonista(agentId, input, context) // dispara sem await (não bloqueia a resposta)
+    }
 
     return res.status(200).json({
       success: true,
