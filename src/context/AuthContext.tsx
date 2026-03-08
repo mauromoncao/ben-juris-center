@@ -21,17 +21,17 @@ const AuthContext = createContext<AuthContextType | null>(null)
 
 const STORAGE_KEY = 'ben_juris_auth'
 
-// Credenciais válidas — alterar senha via painel de Configurações
+// Credenciais válidas — credencial única BEN Hub
 const CREDENCIAIS = [
   {
     email: 'mauromoncaoestudos@gmail.com',
-    senha: 'BenJuris@2026!',
+    senha: 'BenHub@Center2026',
     nome: 'Mauro Monção',
     modulo: 'Ben Juris Center',
   },
   {
-    email: 'mauro@moncaoadvogados.com.br',
-    senha: 'BenJuris@2026!',
+    email: 'mauromoncaoadv.escritorio@gmail.com',
+    senha: 'BenHub@Center2026',
     nome: 'Mauro Monção',
     modulo: 'Ben Juris Center',
   },
