@@ -1,6 +1,7 @@
 // ============================================================
 // BEN JURIS CENTER — Auth Context
-// Acesso: mauromoncaoestudos@gmail.com / BenJuris@2026!
+// Credencial: BenHub@Center2026
+// E-mails: mauromoncaoestudos@gmail.com | mauromoncaoadv.escritorio@gmail.com
 // ============================================================
 import { createContext, useContext, useState, type ReactNode } from 'react'
 
@@ -21,21 +22,22 @@ const AuthContext = createContext<AuthContextType | null>(null)
 
 const STORAGE_KEY = 'ben_juris_auth'
 
-// Credenciais válidas — credencial única BEN Hub
+// Credenciais — lidas de env vars Vercel com fallback hardcoded
+// VITE_AUTH_EMAIL_1 / VITE_AUTH_SENHA_1 / VITE_AUTH_EMAIL_2 / VITE_AUTH_SENHA_2
 const CREDENCIAIS = [
   {
-    email: 'mauromoncaoestudos@gmail.com',
-    senha: 'BenHub@Center2026',
+    email: (import.meta.env.VITE_AUTH_EMAIL_1 as string) || 'mauromoncaoestudos@gmail.com',
+    senha: (import.meta.env.VITE_AUTH_SENHA_1 as string) || 'BenHub@Center2026',
     nome: 'Mauro Monção',
     modulo: 'Ben Juris Center',
   },
   {
-    email: 'mauromoncaoadv.escritorio@gmail.com',
-    senha: 'BenHub@Center2026',
+    email: (import.meta.env.VITE_AUTH_EMAIL_2 as string) || 'mauromoncaoadv.escritorio@gmail.com',
+    senha: (import.meta.env.VITE_AUTH_SENHA_2 as string) || 'BenHub@Center2026',
     nome: 'Mauro Monção',
     modulo: 'Ben Juris Center',
   },
-]
+].filter(c => c.email && c.senha)
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<AuthUser | null>(() => {
