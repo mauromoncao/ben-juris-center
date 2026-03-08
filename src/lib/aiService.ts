@@ -60,8 +60,8 @@ export async function callAIAgent(
         agentId: agent.id,
         input: lastMsg,
         context: {},
-        useSearch: ['dr-ben-peticoes', 'dr-ben-fiscal', 'dr-ben-previdenciario',
-          'dr-ben-analise-processo', 'dr-ben-trabalhista'].includes(agent.id),
+        useSearch: ['ben-peticionista-juridico', 'ben-tributarista', 'ben-previdenciarista',
+          'ben-analista-processual', 'ben-trabalhista'].includes(agent.id),
       }),
     });
 
@@ -93,7 +93,7 @@ function simulateAgentResponse(agent: AgentConfig, messages: AIMessage[]): AIRes
   const start = Date.now();
 
   const demoResponses: Record<string, string> = {
-    'dr-ben-peticoes': `# Petição Elaborada — ${agent.nome}
+    'ben-peticionista-juridico': `# Petição Elaborada — ${agent.nome}
 
 ---
 
@@ -136,7 +136,7 @@ São Paulo, ${new Date().toLocaleDateString('pt-BR')}.
 **Dr. Mauro Monção**
 OAB/SP nº XXX.XXX`,
 
-    'dr-ben-analise-processo': `# Análise Processual — ${agent.nome}
+    'ben-analista-processual': `# Análise Processual — ${agent.nome}
 
 ---
 
@@ -180,7 +180,7 @@ Análise do processo identificado com base nos dados fornecidos. Abaixo os princ
 
 > **⚠️ Modo Demonstração** — Configure a API Genspark para análises completas com dados reais do processo, jurisprudência atualizada e estratégia personalizada.`,
 
-    'dr-ben-fiscal': `# Auditoria Fiscal — ${agent.nome}
+    'ben-tributarista': `# Auditoria Fiscal — ${agent.nome}
 
 ---
 

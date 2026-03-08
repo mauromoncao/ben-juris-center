@@ -299,7 +299,7 @@ export default function EngenheiroPrompts() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          agentId: 'dr-ben-engenheiro',
+          agentId: 'ben-engenheiro-prompt',
           input: filled,
           context: { modo: 'editor', template: selectedTemplate?.nome || 'custom' },
         }),
@@ -339,7 +339,7 @@ export default function EngenheiroPrompts() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          agentId: 'dr-ben-engenheiro',
+          agentId: 'ben-engenheiro-prompt',
           input: playgroundInput,
           context: { modo: 'playground' },
         }),
@@ -371,7 +371,7 @@ export default function EngenheiroPrompts() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          agentId: 'dr-ben-engenheiro',
+          agentId: 'ben-engenheiro-prompt',
           input: `${modeInstruction}\n\nPROMPT ORIGINAL:\n${oficinaInput}`,
           context: { modo: oficinaModo.toLowerCase() },
         }),

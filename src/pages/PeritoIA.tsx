@@ -22,7 +22,7 @@ interface PeritoResult {
 // ─── Sub-agentes do Perito IA ───────────────────────────────
 const PERITO_AGENTS = [
   {
-    id: 'dr-ben-perito-documentos',
+    id: 'ben-perito-forense',
     label: 'Análise de Documentos',
     icon: FileSearch,
     color: '#1a2a5e',
@@ -36,7 +36,7 @@ const PERITO_AGENTS = [
     ],
   },
   {
-    id: 'dr-ben-perito-digital',
+    id: 'ben-perito-forense-digital',
     label: 'Evidência Digital',
     icon: Monitor,
     color: '#6f42c1',
@@ -50,7 +50,7 @@ const PERITO_AGENTS = [
     ],
   },
   {
-    id: 'dr-ben-perito-laudo',
+    id: 'ben-perito-forense-laudo',
     label: 'Elaborar Laudo',
     icon: FileText,
     color: '#0f5132',
@@ -64,7 +64,7 @@ const PERITO_AGENTS = [
     ],
   },
   {
-    id: 'dr-ben-perito-contestar',
+    id: 'ben-perito-forense-contestar',
     label: 'Contestar Laudo',
     icon: XCircle,
     color: '#dc3545',
@@ -78,7 +78,7 @@ const PERITO_AGENTS = [
     ],
   },
   {
-    id: 'dr-ben-perito-relatorio',
+    id: 'ben-perito-forense-relatorio',
     label: 'Relatório Pericial',
     icon: BarChart3,
     color: '#0d6efd',

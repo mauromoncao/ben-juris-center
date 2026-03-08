@@ -1,23 +1,38 @@
 // ============================================================
-// LEX JURÍDICO — DR. BEN AI ECOSYSTEM
-// Agentes Especialistas de Alta Performance — Integração Genspark
+// BEN ECOSYSTEM — JURIS CENTER AI AGENTS
+// Nomenclatura Profissional BEN v1.0
+// 25 Agentes Especializados
 // ============================================================
 
 export type AgentID =
-  | 'dr-ben-peticoes'
-  | 'dr-ben-contratos'
-  | 'dr-ben-procuracoes'
-  | 'dr-ben-analise-processo'
-  | 'dr-ben-auditoria-processual'
-  | 'dr-ben-admin'
-  | 'dr-ben-fiscal'
-  | 'dr-ben-trabalhista'
-  | 'dr-ben-previdenciario'
-  | 'dr-ben-constitucional'
-  | 'dr-ben-compliance'
-  | 'dr-ben-pesquisa'
-  | 'dr-ben-relatorio'
-  | 'dr-ben-producao';
+  // Jurídicos core (15)
+  | 'ben-peticionista-juridico'
+  | 'ben-contratualista'
+  | 'ben-mandatario-juridico'
+  | 'ben-analista-processual'
+  | 'ben-auditor-processual'
+  | 'ben-gestor-juridico'
+  | 'ben-tributarista'
+  | 'ben-trabalhista'
+  | 'ben-previdenciarista'
+  | 'ben-constitucionalista'
+  | 'ben-especialista-compliance'
+  | 'ben-pesquisador-juridico'
+  | 'ben-relator-juridico'
+  | 'ben-redator-juridico'
+  | 'ben-engenheiro-prompt'
+  // Contador Tributarista (5)
+  | 'ben-contador-tributarista'
+  | 'ben-contador-tributarista-planejamento'
+  | 'ben-contador-tributarista-creditos'
+  | 'ben-contador-tributarista-auditoria'
+  | 'ben-contador-tributarista-relatorio'
+  // Perito Forense (5)
+  | 'ben-perito-forense'
+  | 'ben-perito-forense-digital'
+  | 'ben-perito-forense-laudo'
+  | 'ben-perito-forense-contestar'
+  | 'ben-perito-forense-relatorio';
 
 export type AreaAgent =
   | 'processual'
@@ -61,9 +76,9 @@ export interface AgentConfig {
 
 export const DR_BEN_AGENTS: Record<AgentID, AgentConfig> = {
 
-  'dr-ben-peticoes': {
-    id: 'dr-ben-peticoes',
-    nome: 'Dr. Ben Petições',
+  'ben-peticionista-juridico': {
+    id: 'ben-peticionista-juridico',
+    nome: 'BEN Peticionista Jurídico',
     titulo: 'Especialista em Peticionamento Judicial',
     emoji: '📝',
     area: 'processual',
@@ -84,7 +99,7 @@ export const DR_BEN_AGENTS: Record<AgentID, AgentConfig> = {
       'Sugestão de teses jurídicas alternativas',
       'Revisão e crítica de minuta existente',
     ],
-    system_prompt: `Você é Dr. Ben Petições, especialista em peticionamento judicial da plataforma Lex Jurídico do escritório Mauro Monção Advogados.
+    system_prompt: `Você é BEN Peticionista Jurídico, especialista em peticionamento judicial da plataforma Lex Jurídico do escritório Mauro Monção Advogados.
 
 MISSÃO: Redigir petições judiciais de alta qualidade, tecnicamente precisas, com fundamentação sólida e estratégia processual eficiente.
 
@@ -113,9 +128,9 @@ Ao receber uma demanda, sempre pergunte: processo, cliente, parte contrária, fa
     tempo_estimado_seg: 45,
   },
 
-  'dr-ben-contratos': {
-    id: 'dr-ben-contratos',
-    nome: 'Dr. Ben Contratos',
+  'ben-contratualista': {
+    id: 'ben-contratualista',
+    nome: 'BEN Contratualista',
     titulo: 'Especialista em Direito Contratual',
     emoji: '📋',
     area: 'documental',
@@ -136,7 +151,7 @@ Ao receber uma demanda, sempre pergunte: processo, cliente, parte contrária, fa
       'Cláusulas de compliance e anti-corrupção',
       'Formatação para assinatura digital (ICP-Brasil)',
     ],
-    system_prompt: `Você é Dr. Ben Contratos, especialista em elaboração e análise contratual da plataforma Lex Jurídico.
+    system_prompt: `Você é BEN Contratualista, especialista em elaboração e análise contratual da plataforma Lex Jurídico.
 
 MISSÃO: Elaborar contratos juridicamente seguros, equilibrados e adequados ao contexto do escritório Mauro Monção Advogados, com foco em clientes institucionais públicos e privados.
 
@@ -160,9 +175,9 @@ COMPLIANCE: Respeite o Código Civil, Lei 14.133/21, LGPD, Código do Consumidor
     tempo_estimado_seg: 40,
   },
 
-  'dr-ben-procuracoes': {
-    id: 'dr-ben-procuracoes',
-    nome: 'Dr. Ben Procurações',
+  'ben-mandatario-juridico': {
+    id: 'ben-mandatario-juridico',
+    nome: 'BEN Mandatário Jurídico',
     titulo: 'Especialista em Instrumentos de Representação',
     emoji: '🔏',
     area: 'documental',
@@ -182,7 +197,7 @@ COMPLIANCE: Respeite o Código Civil, Lei 14.133/21, LGPD, Código do Consumidor
       'Procurações para entes públicos (prefeito, secretário)',
       'Substabelecimentos com restrição de poderes',
     ],
-    system_prompt: `Você é Dr. Ben Procurações, especialista em instrumentos de representação jurídica.
+    system_prompt: `Você é BEN Mandatário Jurídico, especialista em instrumentos de representação jurídica.
 
 MISSÃO: Gerar procurações e instrumentos de representação precisos, com os poderes adequados ao caso.
 
@@ -204,8 +219,8 @@ INSTRUÇÕES:
     tempo_estimado_seg: 15,
   },
 
-  'dr-ben-analise-processo': {
-    id: 'dr-ben-analise-processo',
+  'ben-analista-processual': {
+    id: 'ben-analista-processual',
     nome: 'Dr. Ben Análise',
     titulo: 'Analista Processual com IA',
     emoji: '🔍',
@@ -260,8 +275,8 @@ Seja direto, objetivo e estratégico. Use tabelas para comparar cenários.`,
     tempo_estimado_seg: 60,
   },
 
-  'dr-ben-auditoria-processual': {
-    id: 'dr-ben-auditoria-processual',
+  'ben-auditor-processual': {
+    id: 'ben-auditor-processual',
     nome: 'Dr. Ben Auditoria',
     titulo: 'Auditor Processual Inteligente',
     emoji: '🏛️',
@@ -315,9 +330,9 @@ Seja preciso, imparcial e orientado a resultados mensuráveis.`,
     tempo_estimado_seg: 90,
   },
 
-  'dr-ben-admin': {
-    id: 'dr-ben-admin',
-    nome: 'Dr. Ben Administrativo',
+  'ben-gestor-juridico': {
+    id: 'ben-gestor-juridico',
+    nome: 'BEN Gestor Jurídicoistrativo',
     titulo: 'Especialista em Direito Administrativo e Público',
     emoji: '⚖️',
     area: 'administrativo',
@@ -338,7 +353,7 @@ Seja preciso, imparcial e orientado a resultados mensuráveis.`,
       'Análise de atos de improbidade',
       'Pareceres sobre contratos administrativos',
     ],
-    system_prompt: `Você é Dr. Ben Administrativo, especialista em Direito Administrativo e Público da plataforma Lex Jurídico.
+    system_prompt: `Você é BEN Gestor Jurídicoistrativo, especialista em Direito Administrativo e Público da plataforma Lex Jurídico.
 
 MISSÃO: Assessorar o escritório Mauro Monção em questões de Direito Público, com foco em clientes institucionais (municípios, câmaras, secretarias, agências).
 
@@ -367,9 +382,9 @@ ANÁLISE SEMPRE INCLUI:
     tempo_estimado_seg: 50,
   },
 
-  'dr-ben-fiscal': {
-    id: 'dr-ben-fiscal',
-    nome: 'Dr. Ben Fiscal',
+  'ben-tributarista': {
+    id: 'ben-tributarista',
+    nome: 'BEN Tributarista',
     titulo: 'Especialista em Auditoria Fiscal e Tributária',
     emoji: '💰',
     area: 'tributario',
@@ -390,7 +405,7 @@ ANÁLISE SEMPRE INCLUI:
       'Planejamento tributário para municípios',
       'Análise de viabilidade de ação de repetição de indébito',
     ],
-    system_prompt: `Você é Dr. Ben Fiscal, especialista em auditoria fiscal e tributária da plataforma Lex Jurídico.
+    system_prompt: `Você é BEN Tributarista, especialista em auditoria fiscal e tributária da plataforma Lex Jurídico.
 
 MISSÃO: Realizar auditorias fiscais precisas, identificar lançamentos indevidos e criar estratégias de defesa e recuperação de créditos para o escritório Mauro Monção.
 
@@ -419,9 +434,9 @@ Sempre calcule o potencial de recuperação em R$.`,
     tempo_estimado_seg: 70,
   },
 
-  'dr-ben-trabalhista': {
-    id: 'dr-ben-trabalhista',
-    nome: 'Dr. Ben Trabalhista',
+  'ben-trabalhista': {
+    id: 'ben-trabalhista',
+    nome: 'BEN Trabalhista',
     titulo: 'Especialista em Direito do Trabalho',
     emoji: '👷',
     area: 'trabalhista',
@@ -442,7 +457,7 @@ Sempre calcule o potencial de recuperação em R$.`,
       'Análise de risco de passivo trabalhista',
       'Teses da Reforma Trabalhista (13.467/17)',
     ],
-    system_prompt: `Você é Dr. Ben Trabalhista, especialista em Direito do Trabalho da plataforma Lex Jurídico.
+    system_prompt: `Você é BEN Trabalhista, especialista em Direito do Trabalho da plataforma Lex Jurídico.
 
 MISSÃO: Defender os clientes do escritório Mauro Monção em reclamações trabalhistas, com estratégia de custo-benefício otimizada.
 
@@ -471,9 +486,9 @@ Sempre indique: valor de risco total, proposta de acordo ideal, probabilidade de
     tempo_estimado_seg: 45,
   },
 
-  'dr-ben-previdenciario': {
-    id: 'dr-ben-previdenciario',
-    nome: 'Dr. Ben Previdenciário',
+  'ben-previdenciarista': {
+    id: 'ben-previdenciarista',
+    nome: 'BEN Previdenciarista',
     titulo: 'Especialista em Direito Previdenciário',
     emoji: '🛡️',
     area: 'administrativo',
@@ -493,7 +508,7 @@ Sempre indique: valor de risco total, proposta de acordo ideal, probabilidade de
       'Recursos de benefícios negados',
       'Regime Próprio de Previdência Social',
     ],
-    system_prompt: `Você é Dr. Ben Previdenciário, especialista em Direito Previdenciário da plataforma Lex Jurídico.
+    system_prompt: `Você é BEN Previdenciarista, especialista em Direito Previdenciário da plataforma Lex Jurídico.
 
 MISSÃO: Assessorar clientes em questões previdenciárias, especialmente servidores públicos municipais e estaduais que compõem a base de clientes do escritório.
 
@@ -519,9 +534,9 @@ ANÁLISE SEMPRE INCLUI:
     tempo_estimado_seg: 35,
   },
 
-  'dr-ben-constitucional': {
-    id: 'dr-ben-constitucional',
-    nome: 'Dr. Ben Constitucional',
+  'ben-constitucionalista': {
+    id: 'ben-constitucionalista',
+    nome: 'BEN Constitucionalista',
     titulo: 'Especialista em Direito Constitucional',
     emoji: '📜',
     area: 'processual',
@@ -541,7 +556,7 @@ ANÁLISE SEMPRE INCLUI:
       'Sobrestamento de processos por tema STF',
       'Estratégia de modulação de efeitos',
     ],
-    system_prompt: `Você é Dr. Ben Constitucional, especialista em Direito Constitucional e controle de constitucionalidade.
+    system_prompt: `Você é BEN Constitucionalista, especialista em Direito Constitucional e controle de constitucionalidade.
 
 MISSÃO: Identificar violações constitucionais, elaborar ações diretas e desenvolver estratégias para o STF.
 
@@ -563,9 +578,9 @@ Sempre identifique se existe Tema STF com repercussão geral que possa ser utili
     tempo_estimado_seg: 55,
   },
 
-  'dr-ben-compliance': {
-    id: 'dr-ben-compliance',
-    nome: 'Dr. Ben Compliance',
+  'ben-especialista-compliance': {
+    id: 'ben-especialista-compliance',
+    nome: 'BEN Especialista em Compliance',
     titulo: 'Especialista em Compliance e LGPD',
     emoji: '🔐',
     area: 'compliance',
@@ -586,7 +601,7 @@ Sempre identifique se existe Tema STF com repercussão geral que possa ser utili
       'Treinamento de equipes (conteúdo)',
       'Adequação de contratos à LGPD',
     ],
-    system_prompt: `Você é Dr. Ben Compliance, especialista em compliance jurídico e proteção de dados da plataforma Lex Jurídico.
+    system_prompt: `Você é BEN Especialista em Compliance, especialista em compliance jurídico e proteção de dados da plataforma Lex Jurídico.
 
 MISSÃO: Garantir conformidade legal dos clientes do escritório com LGPD, Lei Anti-Corrupção e regulamentos setoriais.
 
@@ -616,9 +631,9 @@ Classifique riscos como: CRÍTICO / ALTO / MÉDIO / BAIXO com prazo de regulariz
     tempo_estimado_seg: 40,
   },
 
-  'dr-ben-pesquisa': {
-    id: 'dr-ben-pesquisa',
-    nome: 'Dr. Ben Pesquisa',
+  'ben-pesquisador-juridico': {
+    id: 'ben-pesquisador-juridico',
+    nome: 'BEN Pesquisador Jurídico',
     titulo: 'Pesquisador Jurídico com IA',
     emoji: '🔬',
     area: 'pesquisa',
@@ -639,7 +654,7 @@ Classifique riscos como: CRÍTICO / ALTO / MÉDIO / BAIXO com prazo de regulariz
       'Monitoramento de alterações legislativas',
       'Comparativo de posições dos tribunais',
     ],
-    system_prompt: `Você é Dr. Ben Pesquisa, pesquisador jurídico de alta performance da plataforma Lex Jurídico.
+    system_prompt: `Você é BEN Pesquisador Jurídico, pesquisador jurídico de alta performance da plataforma Lex Jurídico.
 
 MISSÃO: Realizar pesquisas jurídicas profundas e precisas, fornecendo subsídios técnicos para as peças e estratégias do escritório Mauro Monção.
 
@@ -669,9 +684,9 @@ Cite sempre: tribunal, número, data, relator e ementa resumida.`,
     tempo_estimado_seg: 30,
   },
 
-  'dr-ben-relatorio': {
-    id: 'dr-ben-relatorio',
-    nome: 'Dr. Ben Relatórios',
+  'ben-relator-juridico': {
+    id: 'ben-relator-juridico',
+    nome: 'BEN Relator Jurídicos',
     titulo: 'Gerador de Relatórios Executivos',
     emoji: '📊',
     area: 'gestao',
@@ -691,7 +706,7 @@ Cite sempre: tribunal, número, data, relator e ementa resumida.`,
       'Dashboard narrativo em linguagem executiva',
       'Relatório para Câmara/Prefeitura com protocolo',
     ],
-    system_prompt: `Você é Dr. Ben Relatórios, especialista em comunicação executiva jurídica da plataforma Lex Jurídico.
+    system_prompt: `Você é BEN Relator Jurídicos, especialista em comunicação executiva jurídica da plataforma Lex Jurídico.
 
 MISSÃO: Gerar relatórios claros, objetivos e profissionais para clientes institucionais e gestão interna do escritório Mauro Monção.
 
@@ -715,9 +730,9 @@ Formato: use tabelas, bullets e destaque em negrito os alertas críticos.`,
     tempo_estimado_seg: 25,
   },
 
-  'dr-ben-producao': {
-    id: 'dr-ben-producao',
-    nome: 'Dr. Ben Produção',
+  'ben-redator-juridico': {
+    id: 'ben-redator-juridico',
+    nome: 'BEN Redator Jurídico',
     titulo: 'Gestor de Produtividade da Equipe',
     emoji: '📈',
     area: 'gestao',
@@ -738,7 +753,7 @@ Formato: use tabelas, bullets e destaque em negrito os alertas críticos.`,
       'Definição de metas realistas por cargo',
       'Alertas de sobrecarga de trabalho',
     ],
-    system_prompt: `Você é Dr. Ben Produção, gestor inteligente de produtividade jurídica da plataforma Lex Jurídico.
+    system_prompt: `Você é BEN Redator Jurídico, gestor inteligente de produtividade jurídica da plataforma Lex Jurídico.
 
 MISSÃO: Otimizar a produtividade da equipe do escritório Mauro Monção, garantindo que nenhum prazo seja perdido e que cada membro da equipe trabalhe com eficiência máxima.
 

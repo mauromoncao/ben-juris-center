@@ -12,7 +12,7 @@ import {
 const DR_BEN_AGENTS = [
   {
     id: 'peticoes',
-    name: 'Dr. Ben – Petições',
+    name: 'BEN Peticionista Jurídico',
     specialty: 'Redação de Petições Judiciais',
     avatar: 'PJ',
     color: '#2563eb',
@@ -721,7 +721,7 @@ export default function NucleoIA() {
             {[
               {
                 title: 'Top Agentes Utilizados', items: [
-                  { name: 'Dr. Ben – Petições', usage: 847, pct: 35 },
+                  { name: 'BEN Peticionista Jurídico', usage: 847, pct: 35 },
                   { name: 'Dr. Ben – Análise Processual', usage: 634, pct: 26 },
                   { name: 'Dr. Ben – Contratos', usage: 412, pct: 17 },
                   { name: 'Dr. Ben – Pareceres', usage: 298, pct: 12 },
@@ -788,7 +788,7 @@ export default function NucleoIA() {
               <div className="space-y-3">
                 {[
                   { type: 'danger', icon: AlertTriangle, msg: '3 prazos fatais em 48h: REsp 1.234.567, APL 0001234, MS 0009876. Ação imediata necessária.' },
-                  { type: 'warning', icon: Clock, msg: '2 audiências amanhã sem checklist concluído. Recomendo acionar Dr. Ben – Petições para memoriais.' },
+                  { type: 'warning', icon: Clock, msg: '2 audiências amanhã sem checklist concluído. Recomendo acionar BEN Peticionista Jurídico para memoriais.' },
                   { type: 'info', icon: TrendingUp, msg: 'Processo 0023456 teve movimentação: Acórdão publicado. Alta probabilidade de recurso favorável identificada.' },
                   { type: 'success', icon: CheckCircle, msg: 'Contrato Empresa ABC assinado via ZapSign. Receivable de R$ 48.000 gerado automaticamente.' },
                   { type: 'info', icon: Brain, msg: 'Nova súmula STJ (nº 668) impacta 4 processos ativos. Dr. Ben – Estratégia analisará e sugerirá petições.' },

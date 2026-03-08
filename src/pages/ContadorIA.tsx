@@ -22,7 +22,7 @@ interface AnalysisResult {
 // ─── Sub-agentes do Contador IA ────────────────────────────
 const CONTADOR_AGENTS = [
   {
-    id: 'dr-ben-contador-fiscal',
+    id: 'ben-contador-tributarista',
     label: 'Análise Fiscal',
     icon: FileSearch,
     color: '#1a2a5e',
@@ -36,7 +36,7 @@ const CONTADOR_AGENTS = [
     ],
   },
   {
-    id: 'dr-ben-contador-planejamento',
+    id: 'ben-contador-tributarista-planejamento',
     label: 'Planejamento Tributário',
     icon: Target,
     color: '#0f5132',
@@ -50,7 +50,7 @@ const CONTADOR_AGENTS = [
     ],
   },
   {
-    id: 'dr-ben-contador-creditos',
+    id: 'ben-contador-tributarista-creditos',
     label: 'Recuperação de Créditos',
     icon: CreditCard,
     color: '#6610f2',
@@ -64,7 +64,7 @@ const CONTADOR_AGENTS = [
     ],
   },
   {
-    id: 'dr-ben-contador-inconsistencias',
+    id: 'ben-contador-tributarista-auditoria',
     label: 'Inconsistências Contábeis',
     icon: AlertTriangle,
     color: '#dc3545',
@@ -78,7 +78,7 @@ const CONTADOR_AGENTS = [
     ],
   },
   {
-    id: 'dr-ben-contador-relatorio',
+    id: 'ben-contador-tributarista-relatorio',
     label: 'Relatório Contábil',
     icon: BarChart3,
     color: '#0d6efd',

@@ -1,7 +1,7 @@
 // ============================================================
-// BEN JURIS CENTER — Dr. Ben Jurídico Agents API v4.1
+// BEN JURIS CENTER — BEN Jurídico Agents API v5.0
 // Stack: Claude Haiku 4.5 · OpenAI GPT-4o · Perplexity
-//        15 Agentes Jurídicos Especializados (+ Engenheiro de Prompts)
+//        25 Agentes Especializados — Nomenclatura Profissional BEN
 // Rota: POST /api/agents/run
 // ============================================================
 
@@ -11,9 +11,9 @@ export const config = { maxDuration: 60 }
 const AGENT_PROMPTS = {
 
   // ── Petições — Claude Haiku ───────────────────────────────────
-  'dr-ben-peticoes': {
+  'ben-peticionista-juridico': {
     model: 'claude-haiku',
-    system: `Você é o Dr. Ben Petições, especialista em redação de peças processuais.
+    system: `Você é o BEN Peticionista Jurídico, especialista em redação de peças processuais.
 Escritório Mauro Monção Advogados — Teresina, PI. OAB/PI.
 
 ESPECIALIDADES: Petição Inicial, Contestação, Recurso de Apelação, Agravo de Instrumento,
@@ -37,9 +37,9 @@ NÍVEL: Peça processual pronta para protocolo após revisão do advogado.`,
   },
 
   // ── Contratos — Claude Haiku ──────────────────────────────────
-  'dr-ben-contratos': {
+  'ben-contratualista': {
     model: 'claude-haiku',
-    system: `Você é o Dr. Ben Contratos, especialista em elaboração de contratos empresariais.
+    system: `Você é o BEN Contratualista, especialista em elaboração de contratos empresariais.
 Escritório Mauro Monção Advogados — Teresina, PI.
 
 ESPECIALIDADES: Contratos de prestação de serviços, contratos societários, NDAs,
@@ -64,9 +64,9 @@ FINALIZAR: "MINUTA CONTRATUAL — Revisão obrigatória pelo Dr. Mauro Monção 
   },
 
   // ── Procurações — Claude Haiku ────────────────────────────────
-  'dr-ben-procuracoes': {
+  'ben-mandatario-juridico': {
     model: 'claude-haiku',
-    system: `Você é o Dr. Ben Procurações, especialista em elaboração de mandatos.
+    system: `Você é o BEN Mandatário Jurídico, especialista em elaboração de mandatos.
 Escritório Mauro Monção Advogados — Teresina, PI.
 
 TIPOS: Procuração Ad Judicia, Procuração Geral, Procuração Especial,
@@ -82,9 +82,9 @@ FINALIZAR: "MINUTA — Revisão pelo Dr. Mauro Monção (OAB/PI)"`,
   },
 
   // ── Análise Processual — GPT-4o ───────────────────────────────
-  'dr-ben-analise-processo': {
+  'ben-analista-processual': {
     model: 'gpt-4o',
-    system: `Você é o Dr. Ben Análise Processual, especialista em análise estratégica de processos.
+    system: `Você é o BEN Analista Processual, especialista em análise estratégica de processos.
 Escritório Mauro Monção Advogados — Teresina, PI.
 
 MISSÃO: Analisar o processo e gerar relatório estratégico completo.
@@ -104,9 +104,9 @@ FINALIZAR: "Análise preliminar — sujeita à revisão do Dr. Mauro Monção (O
   },
 
   // ── Auditoria Processual — Claude Haiku ──────────────────────
-  'dr-ben-auditoria-processual': {
+  'ben-auditor-processual': {
     model: 'claude-haiku',
-    system: `Você é o Dr. Ben Auditoria Processual, especialista em controle de prazos e riscos processuais.
+    system: `Você é o BEN Auditor Processual, especialista em controle de prazos e riscos processuais.
 Escritório Mauro Monção Advogados — Teresina, PI.
 
 MISSÃO: Auditar processos e identificar riscos, prazos críticos e pendências.
@@ -125,9 +125,9 @@ OUTPUT: Relatório de auditoria com semáforo de risco (🔴🟡🟢) por item.`
   },
 
   // ── Administrativo — GPT-4o ───────────────────────────────────
-  'dr-ben-admin': {
+  'ben-gestor-juridico': {
     model: 'gpt-4o',
-    system: `Você é o Dr. Ben Administrativo, especialista em Direito Administrativo e licitações.
+    system: `Você é o BEN Gestor Jurídico, especialista em Direito Administrativo e licitações.
 Escritório Mauro Monção Advogados — Teresina, PI.
 
 ESPECIALIDADES: Licitações (Lei 14.133/21), Contratos Administrativos, Impugnações,
@@ -143,9 +143,9 @@ FINALIZAR: "Revisão obrigatória pelo Dr. Mauro Monção (OAB/PI)"`,
   },
 
   // ── Fiscal/Tributário — Claude Haiku ─────────────────────────
-  'dr-ben-fiscal': {
+  'ben-tributarista': {
     model: 'claude-haiku',
-    system: `Você é o Dr. Ben Fiscal, especialista em Direito Tributário.
+    system: `Você é o BEN Tributarista, especialista em Direito Tributário.
 Escritório Mauro Monção Advogados — Teresina, PI.
 
 ESPECIALIDADES: ICMS, PIS/COFINS (Tema 69 STF), IRPJ/CSLL, ISS, IPTU/IPVA,
@@ -166,9 +166,9 @@ FINALIZAR: "Análise preliminar — Dr. Mauro Monção (OAB/PI)"`,
   },
 
   // ── Trabalhista — GPT-4o ──────────────────────────────────────
-  'dr-ben-trabalhista': {
+  'ben-trabalhista': {
     model: 'gpt-4o',
-    system: `Você é o Dr. Ben Trabalhista, especialista em Direito do Trabalho.
+    system: `Você é o BEN Trabalhista, especialista em Direito do Trabalho.
 Escritório Mauro Monção Advogados — Teresina, PI.
 
 ESPECIALIDADES: Rescisão contratual, verbas rescisórias, horas extras, assédio moral,
@@ -184,9 +184,9 @@ FINALIZAR: "MINUTA — Revisão pelo Dr. Mauro Monção (OAB/PI)"`,
   },
 
   // ── Previdenciário — Claude Haiku ─────────────────────────────
-  'dr-ben-previdenciario': {
+  'ben-previdenciarista': {
     model: 'claude-haiku',
-    system: `Você é o Dr. Ben Previdenciário, especialista em Direito Previdenciário.
+    system: `Você é o BEN Previdenciarista, especialista em Direito Previdenciário.
 Escritório Mauro Monção Advogados — Teresina, PI.
 
 ESPECIALIDADES: Aposentadoria especial (insalubridade/periculosidade), aposentadoria rural,
@@ -204,9 +204,9 @@ FINALIZAR: "Análise preliminar — Dr. Mauro Monção (OAB/PI)"`,
   },
 
   // ── Constitucional — GPT-4o ───────────────────────────────────
-  'dr-ben-constitucional': {
+  'ben-constitucionalista': {
     model: 'gpt-4o',
-    system: `Você é o Dr. Ben Constitucional, especialista em Direito Constitucional.
+    system: `Você é o BEN Constitucionalista, especialista em Direito Constitucional.
 Escritório Mauro Monção Advogados — Teresina, PI.
 
 ESPECIALIDADES: Mandado de Segurança, Habeas Corpus, Mandado de Injunção,
@@ -221,9 +221,9 @@ FINALIZAR: "MINUTA — Revisão pelo Dr. Mauro Monção (OAB/PI)"`,
   },
 
   // ── Compliance / LGPD — GPT-4o ────────────────────────────────
-  'dr-ben-compliance': {
+  'ben-especialista-compliance': {
     model: 'gpt-4o',
-    system: `Você é o Dr. Ben Compliance, especialista em compliance jurídico e LGPD.
+    system: `Você é o BEN Especialista em Compliance, especialista em compliance jurídico e LGPD.
 Escritório Mauro Monção Advogados — Teresina, PI.
 
 ESPECIALIDADES: LGPD (Lei 13.709/18), compliance empresarial, políticas de privacidade,
@@ -238,9 +238,9 @@ FINALIZAR: "MINUTA — Revisão pelo Dr. Mauro Monção (OAB/PI)"`,
   },
 
   // ── Pesquisa Jurídica — Perplexity (tempo real) ───────────────
-  'dr-ben-pesquisa': {
+  'ben-pesquisador-juridico': {
     model: 'perplexity',
-    system: `Você é o Dr. Ben Pesquisa, especialista em pesquisa jurídica em tempo real.
+    system: `Você é o BEN Pesquisador Jurídico, especialista em pesquisa jurídica em tempo real.
 Escritório Mauro Monção Advogados — Teresina, PI.
 
 MISSÃO: Buscar jurisprudência atualizada, legislação vigente e doutrina relevante.
@@ -260,9 +260,9 @@ Responda em português brasileiro, formato estruturado com markdown.`,
   },
 
   // ── Relatório Jurídico — GPT-4o ───────────────────────────────
-  'dr-ben-relatorio': {
+  'ben-relator-juridico': {
     model: 'gpt-4o',
-    system: `Você é o Dr. Ben Relatório Jurídico, analista de performance do escritório.
+    system: `Você é o BEN Relator Jurídico Jurídico, analista de performance do escritório.
 Escritório Mauro Monção Advogados — Teresina, PI.
 
 MISSÃO: Gerar relatórios gerenciais do escritório.
@@ -278,9 +278,9 @@ FORMATO: Markdown estruturado. Linguagem executiva. Dados concretos.`,
   },
 
   // ── Produção Intelectual — GPT-4o ─────────────────────────────
-  'dr-ben-producao': {
+  'ben-redator-juridico': {
     model: 'gpt-4o',
-    system: `Você é o Dr. Ben Produção Intelectual, especialista em escrita jurídica acadêmica.
+    system: `Você é o BEN Redator Jurídico Intelectual, especialista em escrita jurídica acadêmica.
 Escritório Mauro Monção Advogados — Teresina, PI.
 
 MISSÃO: Elaborar artigos jurídicos, pareceres doutrinários e conteúdo de alta qualidade.
@@ -300,7 +300,7 @@ FINALIZAR: "Dr. Mauro Monção — OAB/PI — mauromoncao.adv.br"`,
   },
 
   // ── Engenheiro de Prompts — GPT-4o (meta-agente) ─────────────
-  'dr-ben-engenheiro': {
+  'ben-engenheiro-prompt': {
     model: 'gpt-4o',
     system: `Você é o Dr. Ben Engenheiro de Prompts — Agente de alta performance especializado em criar, otimizar e auditar prompts jurídicos para o ecossistema BEN IA.
 
@@ -353,7 +353,7 @@ CONTEXTO: Escritório Mauro Monção Advogados — Teresina, PI. OAB/PI. Stack I
   // ══════════════════════════════════════════════════════════
 
   // Sub-agente 1: Análise Fiscal e Tributária
-  'dr-ben-contador-fiscal': {
+  'ben-contador-tributarista': {
     model: 'gpt-4o',
     system: `Você é o Dr. Ben Contador — Especialista em Inteligência Contábil e Fiscal integrado ao ecossistema Mauro Monção Advogados Associados (Teresina, PI).
 
@@ -388,7 +388,7 @@ FINALIZAR: "Análise Contábil Digital — Dr. Ben Contador IA · Revisão recom
   },
 
   // Sub-agente 2: Planejamento Tributário
-  'dr-ben-contador-planejamento': {
+  'ben-contador-tributarista-planejamento': {
     model: 'gpt-4o',
     system: `Você é o Dr. Ben Contador — Especialista em Planejamento Tributário Estratégico para o ecossistema Mauro Monção Advogados Associados.
 
@@ -430,7 +430,7 @@ CONTEXTO: Mauro Monção Advogados Associados — Teresina, PI.`,
   },
 
   // Sub-agente 3: Recuperação de Créditos Tributários
-  'dr-ben-contador-creditos': {
+  'ben-contador-tributarista-creditos': {
     model: 'claude-haiku',
     system: `Você é o Dr. Ben Contador — Especialista em Recuperação de Créditos Tributários e Restituições para o ecossistema Mauro Monção Advogados Associados.
 
@@ -477,7 +477,7 @@ CONTEXTO: Mauro Monção Advogados Associados — Teresina, PI.`,
   },
 
   // Sub-agente 4: Detecção de Inconsistências Contábeis
-  'dr-ben-contador-inconsistencias': {
+  'ben-contador-tributarista-auditoria': {
     model: 'gpt-4o',
     system: `Você é o Dr. Ben Contador — Auditor de Inconsistências Contábeis e Fiscais para o ecossistema Mauro Monção Advogados Associados.
 
@@ -533,7 +533,7 @@ CONTEXTO: Mauro Monção Advogados Associados — Teresina, PI.`,
   },
 
   // Sub-agente 5: Relatório Contábil Executivo
-  'dr-ben-contador-relatorio': {
+  'ben-contador-tributarista-relatorio': {
     model: 'claude-haiku',
     system: `Você é o Dr. Ben Contador — Especialista em Relatórios Contábeis e Financeiros Executivos para o ecossistema Mauro Monção Advogados Associados.
 
@@ -584,7 +584,7 @@ CONTEXTO: Mauro Monção Advogados Associados — Teresina, PI.`,
   // ══════════════════════════════════════════════════════════
 
   // Sub-agente 1: Análise de Documentos
-  'dr-ben-perito-documentos': {
+  'ben-perito-forense': {
     model: 'claude-haiku',
     system: `Você é o Dr. Ben Perito — Especialista em Análise Pericial de Documentos integrado ao ecossistema Mauro Monção Advogados Associados (Teresina, PI).
 
@@ -654,7 +654,7 @@ FINALIZAR: "Dr. Ben Perito — Laboratório Pericial Digital · Análise técnic
   },
 
   // Sub-agente 2: Análise de Evidências Digitais e Imagens
-  'dr-ben-perito-digital': {
+  'ben-perito-forense-digital': {
     model: 'gpt-4o',
     system: `Você é o Dr. Ben Perito Digital — Especialista em Análise de Evidências Digitais e Computação Forense para o ecossistema Mauro Monção Advogados Associados.
 
@@ -716,7 +716,7 @@ FINALIZAR: "Dr. Ben Perito Digital — Análise preliminar. Para uso judicial, o
   },
 
   // Sub-agente 3: Elaboração de Laudo Pericial
-  'dr-ben-perito-laudo': {
+  'ben-perito-forense-laudo': {
     model: 'claude-haiku',
     system: `Você é o Dr. Ben Perito — Especialista em Elaboração de Laudos Periciais e Pareceres Técnicos para o ecossistema Mauro Monção Advogados Associados.
 
@@ -772,7 +772,7 @@ CONTEXTO: Mauro Monção Advogados — Teresina, PI.`,
   },
 
   // Sub-agente 4: Contestação de Laudos
-  'dr-ben-perito-contestar': {
+  'ben-perito-forense-contestar': {
     model: 'gpt-4o',
     system: `Você é o Dr. Ben Perito Contestador — Especialista em Análise Crítica e Contestação de Laudos Periciais para o ecossistema Mauro Monção Advogados Associados.
 
@@ -841,7 +841,7 @@ CONTEXTO: Mauro Monção Advogados — Teresina, PI.`,
   },
 
   // Sub-agente 5: Relatório Pericial Final
-  'dr-ben-perito-relatorio': {
+  'ben-perito-forense-relatorio': {
     model: 'claude-haiku',
     system: `Você é o Dr. Ben Perito — Especialista em Relatórios Periciais Consolidados para o ecossistema Mauro Monção Advogados Associados.
 
@@ -1100,11 +1100,11 @@ export default async function handler(req, res) {
     let searchContext = null
 
     // ── Perplexity para agentes que precisam de jurisprudência ──
-    if (useSearch && ['dr-ben-peticoes','dr-ben-fiscal','dr-ben-previdenciario',
-        'dr-ben-analise-processo','dr-ben-trabalhista','dr-ben-pesquisa',
-        'dr-ben-engenheiro','dr-ben-contador-fiscal','dr-ben-contador-planejamento',
-        'dr-ben-contador-creditos','dr-ben-perito-documentos','dr-ben-perito-digital',
-        'dr-ben-perito-contestar'].includes(agentId)) {
+    if (useSearch && ['ben-peticionista-juridico','ben-tributarista','ben-previdenciarista',
+        'ben-analista-processual','ben-trabalhista','ben-pesquisador-juridico',
+        'ben-engenheiro-prompt','ben-contador-tributarista','ben-contador-tributarista-planejamento',
+        'ben-contador-tributarista-creditos','ben-perito-forense','ben-perito-forense-digital',
+        'ben-perito-forense-contestar'].includes(agentId)) {
       try {
         if (process.env.PERPLEXITY_API_KEY) {
           searchContext = await callPerplexity(
@@ -1127,8 +1127,8 @@ export default async function handler(req, res) {
     const elapsed = Date.now() - startTime
 
     // ── Notificar plantonista para casos urgentes ────────────────
-    const agentesUrgentes = ['dr-ben-peticoes','dr-ben-trabalhista','dr-ben-admin',
-      'dr-ben-previdenciario','dr-ben-analise-processo']
+    const agentesUrgentes = ['ben-peticionista-juridico','ben-trabalhista','ben-gestor-juridico',
+      'ben-previdenciarista','ben-analista-processual']
     if (agentesUrgentes.includes(agentId) && (context?.urgente || context?.prazo)) {
       notificarPlantonista(agentId, input, context)
     }
