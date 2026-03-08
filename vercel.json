@@ -3,18 +3,55 @@
   "outputDirectory": "dist",
   "framework": "vite",
   "rewrites": [
-    { "source": "/api/bridge", "destination": "/api/bridge.js" },
-    { "source": "/api/bridge/:path*", "destination": "/api/bridge.js" },
-    { "source": "/api/agents/run", "destination": "/api/agents/run.js" },
-    { "source": "/api/voice",      "destination": "/api/voice.js" },
-    { "source": "/api/memory",     "destination": "/api/memory.js" },
-    { "source": "/api/search",     "destination": "/api/search.js" },
-    { "source": "/api/email",      "destination": "/api/email.js" },
-    { "source": "/api/:path*",     "destination": "/api/index.js" },
-    { "source": "/(.*)",           "destination": "/index.html" }
+    {
+      "source": "/api/diag",
+      "destination": "/api/diag.js"
+    },
+    {
+      "source": "/api/bridge",
+      "destination": "/api/bridge.js"
+    },
+    {
+      "source": "/api/bridge/:path*",
+      "destination": "/api/bridge.js"
+    },
+    {
+      "source": "/api/agents/run",
+      "destination": "/api/agents/run.js"
+    },
+    {
+      "source": "/api/voice",
+      "destination": "/api/voice.js"
+    },
+    {
+      "source": "/api/memory",
+      "destination": "/api/memory.js"
+    },
+    {
+      "source": "/api/search",
+      "destination": "/api/search.js"
+    },
+    {
+      "source": "/api/email",
+      "destination": "/api/email.js"
+    },
+    {
+      "source": "/api/:path*",
+      "destination": "/api/index.js"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
   ],
   "crons": [
-    { "path": "/api/cron/lex-relatorio", "schedule": "0 9 * * 1" },
-    { "path": "/api/cron/lex-monitor",   "schedule": "0 */2 * * *" }
+    {
+      "path": "/api/cron/lex-relatorio",
+      "schedule": "0 9 * * 1"
+    },
+    {
+      "path": "/api/cron/lex-monitor",
+      "schedule": "0 */2 * * *"
+    }
   ]
 }
