@@ -7,7 +7,7 @@ import {
   PenTool, DollarSign, Link2, Users, BarChart3, Shield, Bell,
   Settings, ChevronDown, ChevronRight, Menu, X, Home, Search,
   LogOut, User, Zap, AlertTriangle, CheckCircle, Activity, Brain,
-  Target, Map, BookMarked, Wand2, Layers
+  Target, Map, BookMarked, Wand2, Layers, Calculator, Microscope
 } from 'lucide-react';
 
 // Pages
@@ -30,6 +30,8 @@ import NucleoIA from './pages/NucleoIA';
 import NucleoProjetos from './pages/NucleoProjetos';
 import GestaoEstrategica from './pages/GestaoEstrategica';
 import EngenheiroPrompts from './pages/EngenheiroPrompts';
+import ContadorIA from './pages/ContadorIA';
+import PeritoIA from './pages/PeritoIA';
 
 // ─── Navigation Structure ─────────────────────────────────────────────────────
 const NAV_GROUPS = [
@@ -45,7 +47,9 @@ const NAV_GROUPS = [
     items: [
       { path: '/nucleo-ia',       icon: Brain,  label: 'Agentes Dr. Ben IA',       badge: '10' },
       { path: '/nucleo-projetos', icon: Activity,label: 'Projetos & Produtividade' },
-      { path: '/eng-prompts',     icon: Wand2,  label: 'Engenheiro de Prompts',    badge: 'NEW' },
+      { path: '/eng-prompts',     icon: Wand2,       label: 'Engenheiro de Prompts',    badge: 'NEW' },
+      { path: '/contador-ia',     icon: Calculator,  label: 'Contador IA',              badge: 'NOVO' },
+      { path: '/perito-ia',       icon: Microscope,  label: 'Perito IA – Lab. Forense', badge: 'NOVO' },
     ]
   },
   {
@@ -361,6 +365,8 @@ function AppRoutes() {
               <Route path="/nucleo-projetos"      element={<NucleoProjetos />} />
               <Route path="/estrategia"           element={<GestaoEstrategica />} />
               <Route path="/eng-prompts"          element={<EngenheiroPrompts />} />
+              <Route path="/contador-ia"         element={<ContadorIA />} />
+              <Route path="/perito-ia"           element={<PeritoIA />} />
               <Route path="*"                     element={<Navigate to="/" replace />} />
             </Routes>
           </Layout>
