@@ -1,6 +1,6 @@
 // ============================================================
 // LEX JURÍDICO — AI SERVICE LAYER
-// Integração Genspark + Gemini + Claude
+// Integração OpenAI GPT-4o + Claude + Perplexity
 // ============================================================
 
 import type { AgentConfig } from './aiAgents';
@@ -35,7 +35,7 @@ export interface TaskRecord {
 
 // ─── Enterprise API Stack ─────────────────────────────────────
 // Todos os agentes usam o endpoint serverless /api/agents/run
-// que roteia para: Claude Haiku · Gemini Pro · GPT-4o · Perplexity
+// que roteia para: Claude Haiku 4.5 · GPT-4o · GPT-4o Mini · Perplexity
 const AGENTS_API = '/api/agents/run';
 
 function getEndpointConfig(model: string): { base: string; key: string; modelName: string } {
