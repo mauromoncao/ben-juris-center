@@ -4,10 +4,6 @@
   "framework": "vite",
   "rewrites": [
     {
-      "source": "/api/diag",
-      "destination": "/api/diag.js"
-    },
-    {
       "source": "/api/bridge",
       "destination": "/api/bridge.js"
     },
