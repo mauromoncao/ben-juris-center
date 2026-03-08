@@ -1,9 +1,8 @@
 // ============================================================
-// BEN JURIS CENTER — Dr. Ben Jurídico Agents API v3.0 ENTERPRISE
-// Stack: Gemini 2.5 Pro · Claude Haiku · OpenAI GPT-4o · Perplexity
-//        ElevenLabs Voice · Pinecone Memory
+// BEN JURIS CENTER — Dr. Ben Jurídico Agents API v4.0
+// Stack: Claude Haiku 4.5 · OpenAI GPT-4o · Perplexity
+//        14 Agentes Jurídicos Especializados
 // Rota: POST /api/agents/run
-// 14 Agentes Jurídicos Especializados
 // ============================================================
 
 export const config = { maxDuration: 60 }
@@ -11,7 +10,7 @@ export const config = { maxDuration: 60 }
 // ─── Configuração dos 14 Agentes Jurídicos ───────────────────
 const AGENT_PROMPTS = {
 
-  // ── Petições — Claude Haiku (redação jurídica formal) ────────
+  // ── Petições — Claude Haiku ───────────────────────────────────
   'dr-ben-peticoes': {
     model: 'claude-haiku',
     system: `Você é o Dr. Ben Petições, especialista em redação de peças processuais.
@@ -37,7 +36,7 @@ NÍVEL: Peça processual pronta para protocolo após revisão do advogado.`,
     maxTokens: 6000,
   },
 
-  // ── Contratos — Claude Haiku (precisão contratual) ───────────
+  // ── Contratos — Claude Haiku ──────────────────────────────────
   'dr-ben-contratos': {
     model: 'claude-haiku',
     system: `Você é o Dr. Ben Contratos, especialista em elaboração de contratos empresariais.
@@ -82,9 +81,9 @@ FINALIZAR: "MINUTA — Revisão pelo Dr. Mauro Monção (OAB/PI)"`,
     maxTokens: 2000,
   },
 
-  // ── Análise Processual — Gemini Pro + Perplexity ─────────────
+  // ── Análise Processual — GPT-4o ───────────────────────────────
   'dr-ben-analise-processo': {
-    model: 'gemini-pro',
+    model: 'gpt-4o',
     system: `Você é o Dr. Ben Análise Processual, especialista em análise estratégica de processos.
 Escritório Mauro Monção Advogados — Teresina, PI.
 
@@ -104,9 +103,9 @@ FINALIZAR: "Análise preliminar — sujeita à revisão do Dr. Mauro Monção (O
     maxTokens: 3000,
   },
 
-  // ── Auditoria Processual — Gemini Pro ────────────────────────
+  // ── Auditoria Processual — Claude Haiku ──────────────────────
   'dr-ben-auditoria-processual': {
-    model: 'gemini-pro',
+    model: 'claude-haiku',
     system: `Você é o Dr. Ben Auditoria Processual, especialista em controle de prazos e riscos processuais.
 Escritório Mauro Monção Advogados — Teresina, PI.
 
@@ -125,7 +124,7 @@ OUTPUT: Relatório de auditoria com semáforo de risco (🔴🟡🟢) por item.`
     maxTokens: 2500,
   },
 
-  // ── Administrativo — GPT-4o (criatividade estratégica) ───────
+  // ── Administrativo — GPT-4o ───────────────────────────────────
   'dr-ben-admin': {
     model: 'gpt-4o',
     system: `Você é o Dr. Ben Administrativo, especialista em Direito Administrativo e licitações.
@@ -143,7 +142,7 @@ FINALIZAR: "Revisão obrigatória pelo Dr. Mauro Monção (OAB/PI)"`,
     maxTokens: 4000,
   },
 
-  // ── Fiscal/Tributário — Claude Haiku (análise fiscal técnica) ─
+  // ── Fiscal/Tributário — Claude Haiku ─────────────────────────
   'dr-ben-fiscal': {
     model: 'claude-haiku',
     system: `Você é o Dr. Ben Fiscal, especialista em Direito Tributário.
@@ -184,9 +183,9 @@ FINALIZAR: "MINUTA — Revisão pelo Dr. Mauro Monção (OAB/PI)"`,
     maxTokens: 4000,
   },
 
-  // ── Previdenciário — Gemini Pro ───────────────────────────────
+  // ── Previdenciário — Claude Haiku ─────────────────────────────
   'dr-ben-previdenciario': {
-    model: 'gemini-pro',
+    model: 'claude-haiku',
     system: `Você é o Dr. Ben Previdenciário, especialista em Direito Previdenciário.
 Escritório Mauro Monção Advogados — Teresina, PI.
 
@@ -204,9 +203,9 @@ FINALIZAR: "Análise preliminar — Dr. Mauro Monção (OAB/PI)"`,
     maxTokens: 3000,
   },
 
-  // ── Constitucional — Gemini Pro ───────────────────────────────
+  // ── Constitucional — GPT-4o ───────────────────────────────────
   'dr-ben-constitucional': {
-    model: 'gemini-pro',
+    model: 'gpt-4o',
     system: `Você é o Dr. Ben Constitucional, especialista em Direito Constitucional.
 Escritório Mauro Monção Advogados — Teresina, PI.
 
@@ -221,7 +220,7 @@ FINALIZAR: "MINUTA — Revisão pelo Dr. Mauro Monção (OAB/PI)"`,
     maxTokens: 4000,
   },
 
-  // ── Compliance — GPT-4o ───────────────────────────────────────
+  // ── Compliance / LGPD — GPT-4o ────────────────────────────────
   'dr-ben-compliance': {
     model: 'gpt-4o',
     system: `Você é o Dr. Ben Compliance, especialista em compliance jurídico e LGPD.
@@ -260,9 +259,9 @@ Responda em português brasileiro, formato estruturado com markdown.`,
     maxTokens: 3000,
   },
 
-  // ── Relatório Jurídico — Gemini Pro ───────────────────────────
+  // ── Relatório Jurídico — GPT-4o ───────────────────────────────
   'dr-ben-relatorio': {
-    model: 'gemini-pro',
+    model: 'gpt-4o',
     system: `Você é o Dr. Ben Relatório Jurídico, analista de performance do escritório.
 Escritório Mauro Monção Advogados — Teresina, PI.
 
@@ -305,31 +304,6 @@ FINALIZAR: "Dr. Mauro Monção — OAB/PI — mauromoncao.adv.br"`,
 // ─── CALL FUNCTIONS ──────────────────────────────────────────
 // ════════════════════════════════════════════════════════════
 
-async function callGemini(variant, systemPrompt, userMessage, temperature, maxTokens) {
-  const apiKey = process.env.GEMINI_API_KEY
-  if (!apiKey) throw new Error('GEMINI_API_KEY não configurada')
-
-  const modelName = variant === 'gemini-pro'
-    ? 'gemini-2.5-pro-exp-03-25'
-    : 'gemini-2.0-flash-exp'
-
-  const res = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${apiKey}`,
-    {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        systemInstruction: { parts: [{ text: systemPrompt }] },
-        contents: [{ role: 'user', parts: [{ text: userMessage }] }],
-        generationConfig: { temperature, maxOutputTokens: maxTokens },
-      }),
-    }
-  )
-  if (!res.ok) throw new Error(`Gemini error: ${await res.text()}`)
-  const data = await res.json()
-  return data.candidates?.[0]?.content?.parts?.[0]?.text || 'Sem resposta'
-}
-
 async function callClaude(systemPrompt, userMessage, temperature, maxTokens) {
   const apiKey = process.env.ANTHROPIC_API_KEY
   if (!apiKey) throw new Error('ANTHROPIC_API_KEY não configurada')
@@ -349,7 +323,7 @@ async function callClaude(systemPrompt, userMessage, temperature, maxTokens) {
       max_tokens: maxTokens,
     }),
   })
-  if (!res.ok) throw new Error(`Claude error: ${await res.text()}`)
+  if (!res.ok) throw new Error(`Claude error ${res.status}: ${await res.text()}`)
   const data = await res.json()
   return data.content?.[0]?.text || 'Sem resposta'
 }
@@ -374,7 +348,32 @@ async function callOpenAI(systemPrompt, userMessage, temperature, maxTokens) {
       max_tokens: maxTokens,
     }),
   })
-  if (!res.ok) throw new Error(`OpenAI error: ${await res.text()}`)
+  if (!res.ok) throw new Error(`OpenAI error ${res.status}: ${await res.text()}`)
+  const data = await res.json()
+  return data.choices?.[0]?.message?.content || 'Sem resposta'
+}
+
+async function callOpenAIMini(systemPrompt, userMessage, temperature, maxTokens) {
+  const apiKey = process.env.OPENAI_API_KEY
+  if (!apiKey) throw new Error('OPENAI_API_KEY não configurada')
+
+  const res = await fetch('https://api.openai.com/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${apiKey}`,
+    },
+    body: JSON.stringify({
+      model: 'gpt-4o-mini',
+      messages: [
+        { role: 'system', content: systemPrompt },
+        { role: 'user', content: userMessage },
+      ],
+      temperature,
+      max_tokens: Math.min(maxTokens, 2000),
+    }),
+  })
+  if (!res.ok) throw new Error(`OpenAI-mini error ${res.status}: ${await res.text()}`)
   const data = await res.json()
   return data.choices?.[0]?.message?.content || 'Sem resposta'
 }
@@ -401,12 +400,12 @@ async function callPerplexity(systemPrompt, userMessage) {
       search_recency_filter: 'year',
     }),
   })
-  if (!res.ok) throw new Error(`Perplexity error: ${await res.text()}`)
+  if (!res.ok) throw new Error(`Perplexity error ${res.status}: ${await res.text()}`)
   const data = await res.json()
   return data.choices?.[0]?.message?.content || 'Sem resposta'
 }
 
-// ── Fallback em cascata ──────────────────────────────────────
+// ── Fallback: primário → secundário → gpt-4o-mini ────────────
 async function callWithFallback(agentConfig, input) {
   const { model, system, temperature, maxTokens } = agentConfig
 
@@ -414,27 +413,27 @@ async function callWithFallback(agentConfig, input) {
 
   if (model === 'claude-haiku') {
     chain.push(
-      { fn: () => callClaude(system, input, temperature, maxTokens), label: 'claude-haiku' },
-      { fn: () => callGemini('gemini-pro', system, input, temperature, maxTokens), label: 'gemini-pro-fallback' },
-    )
-  } else if (model === 'gemini-pro') {
-    chain.push(
-      { fn: () => callGemini('gemini-pro', system, input, temperature, maxTokens), label: 'gemini-pro' },
-      { fn: () => callClaude(system, input, temperature, maxTokens), label: 'claude-fallback' },
+      { fn: () => callClaude(system, input, temperature, maxTokens),              label: 'claude-haiku-4-5' },
+      { fn: () => callOpenAI(system, input, temperature, Math.min(maxTokens,4096)), label: 'gpt-4o-fallback' },
     )
   } else if (model === 'gpt-4o') {
     chain.push(
-      { fn: () => callOpenAI(system, input, temperature, maxTokens), label: 'gpt-4o' },
-      { fn: () => callGemini('gemini-pro', system, input, temperature, maxTokens), label: 'gemini-fallback' },
+      { fn: () => callOpenAI(system, input, temperature, maxTokens),              label: 'gpt-4o' },
+      { fn: () => callClaude(system, input, temperature, Math.min(maxTokens,4096)), label: 'claude-fallback' },
     )
   } else if (model === 'perplexity') {
     chain.push(
-      { fn: () => callPerplexity(system, input), label: 'perplexity' },
-      { fn: () => callGemini('gemini-pro', system, input, 0.2, 2000), label: 'gemini-fallback' },
+      { fn: () => callPerplexity(system, input),                                  label: 'perplexity' },
+      { fn: () => callOpenAI(system, input, 0.2, 2000),                           label: 'gpt-4o-fallback' },
     )
   } else {
-    chain.push({ fn: () => callGemini('gemini-flash', system, input, temperature, maxTokens), label: 'gemini-flash' })
+    chain.push(
+      { fn: () => callOpenAI(system, input, temperature, maxTokens),              label: 'gpt-4o' },
+    )
   }
+
+  // Fallback final sempre disponível
+  chain.push({ fn: () => callOpenAIMini(system, input, temperature, maxTokens), label: 'gpt-4o-mini-final' })
 
   for (const attempt of chain) {
     try {
@@ -444,22 +443,22 @@ async function callWithFallback(agentConfig, input) {
       console.warn(`[Juris Agents] Falha em ${attempt.label}:`, err.message)
     }
   }
-  throw new Error('Todos os modelos falharam. Verifique as API Keys no Vercel.')
+  throw new Error('Todos os modelos falharam. Verifique ANTHROPIC_API_KEY e OPENAI_API_KEY no Vercel.')
 }
 
 // ════════════════════════════════════════════════════════════
 // ─── NOTIFICAÇÃO PLANTONISTA ─────────────────────────────────
 // ════════════════════════════════════════════════════════════
 async function notificarPlantonista(agentId, input, context) {
-  const PLANTONISTA = process.env.PLANTONISTA_WHATSAPP  // +5586999484761
+  const PLANTONISTA = process.env.PLANTONISTA_WHATSAPP
   const WTOKEN      = process.env.WHATSAPP_TOKEN
   const WID         = process.env.WHATSAPP_PHONE_NUMBER_ID
-  if (!PLANTONISTA || !WTOKEN || !WID) return   // sem WhatsApp configurado, apenas loga
+  if (!PLANTONISTA || !WTOKEN || !WID) return
   try {
-    const nome    = context?.cliente || context?.nome || 'N/A'
-    const proc    = context?.processo || context?.numeroProcesso || 'N/A'
-    const prazo   = context?.prazo || context?.deadline || 'não informado'
-    const alerta  =
+    const nome  = context?.cliente || context?.nome || 'N/A'
+    const proc  = context?.processo || context?.numeroProcesso || 'N/A'
+    const prazo = context?.prazo || context?.deadline || 'não informado'
+    const alerta =
       `⚖️ CASO URGENTE — BEN JURIS CENTER\n\n` +
       `🤖 Agente: ${agentId}\n` +
       `👤 Cliente: ${nome}\n` +
@@ -467,19 +466,16 @@ async function notificarPlantonista(agentId, input, context) {
       `⏰ Prazo: ${prazo}\n\n` +
       `📝 Solicitação:\n${input.slice(0, 300)}${input.length > 300 ? '...' : ''}\n\n` +
       `⚡ Dr. Ben iniciou a análise. Revise e assine a peça gerada.`
-    await fetch(
-      `https://graph.facebook.com/v21.0/${WID}/messages`,
-      {
-        method: 'POST',
-        headers: { Authorization: `Bearer ${WTOKEN}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          messaging_product: 'whatsapp',
-          to: PLANTONISTA.replace(/\D/g, ''),
-          type: 'text',
-          text: { body: alerta },
-        }),
-      }
-    )
+    await fetch(`https://graph.facebook.com/v21.0/${WID}/messages`, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${WTOKEN}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        messaging_product: 'whatsapp',
+        to: PLANTONISTA.replace(/\D/g, ''),
+        type: 'text',
+        text: { body: alerta },
+      }),
+    })
     console.log('[Juris] Plantonista notificado:', PLANTONISTA)
   } catch (e) {
     console.error('[Juris] Erro ao notificar plantonista:', e.message)
@@ -513,12 +509,11 @@ export default async function handler(req, res) {
     let enrichedInput = input
     let searchContext = null
 
-    // Enriquecer com pesquisa Perplexity para agentes jurídicos principais
-    if (useSearch && ['dr-ben-peticoes', 'dr-ben-fiscal', 'dr-ben-previdenciario',
-        'dr-ben-analise-processo', 'dr-ben-trabalhista'].includes(agentId)) {
+    // ── Perplexity para agentes que precisam de jurisprudência ──
+    if (useSearch && ['dr-ben-peticoes','dr-ben-fiscal','dr-ben-previdenciario',
+        'dr-ben-analise-processo','dr-ben-trabalhista','dr-ben-pesquisa'].includes(agentId)) {
       try {
-        const perplexityKey = process.env.PERPLEXITY_API_KEY
-        if (perplexityKey) {
+        if (process.env.PERPLEXITY_API_KEY) {
           searchContext = await callPerplexity(
             'Pesquise jurisprudência brasileira recente (STJ, STF, TRF) sobre o tema.',
             `Busque precedentes recentes sobre: ${input.slice(0, 300)}`
@@ -530,7 +525,7 @@ export default async function handler(req, res) {
       }
     }
 
-    // Enriquecer com contexto adicional
+    // ── Enriquecer com dados do processo/caso ───────────────────
     if (context && Object.keys(context).length > 0) {
       enrichedInput = `${enrichedInput}\n\nDADOS DO PROCESSO/CASO:\n${JSON.stringify(context, null, 2)}`
     }
@@ -538,13 +533,11 @@ export default async function handler(req, res) {
     const { output, modelUsed } = await callWithFallback(agentConfig, enrichedInput)
     const elapsed = Date.now() - startTime
 
-    // ── Notificar plantonista para agentes de prazo/urgência ──────
-    const agentesUrgentes = [
-      'dr-ben-peticoes', 'dr-ben-trabalhista', 'dr-ben-admin',
-      'dr-ben-previdenciario', 'dr-ben-analise-processo',
-    ]
+    // ── Notificar plantonista para casos urgentes ────────────────
+    const agentesUrgentes = ['dr-ben-peticoes','dr-ben-trabalhista','dr-ben-admin',
+      'dr-ben-previdenciario','dr-ben-analise-processo']
     if (agentesUrgentes.includes(agentId) && (context?.urgente || context?.prazo)) {
-      notificarPlantonista(agentId, input, context) // dispara sem await (não bloqueia a resposta)
+      notificarPlantonista(agentId, input, context)
     }
 
     return res.status(200).json({
@@ -566,4 +559,3 @@ export default async function handler(req, res) {
     })
   }
 }
-// 20260308052727
