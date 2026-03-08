@@ -60,8 +60,9 @@ export async function callAIAgent(
         agentId: agent.id,
         input: lastMsg,
         context: {},
-        useSearch: ['ben-peticionista-juridico', 'ben-tributarista', 'ben-previdenciarista',
-          'ben-analista-processual', 'ben-trabalhista'].includes(agent.id),
+        useSearch: ['ben-super-agente-juridico', 'ben-peticionista-juridico', 'ben-tributarista',
+          'ben-previdenciarista', 'ben-analista-processual', 'ben-trabalhista',
+          'ben-contador-tributarista-especialista', 'ben-perito-forense', 'ben-perito-forense-profundo'].includes(agent.id),
       }),
     });
 

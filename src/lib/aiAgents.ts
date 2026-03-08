@@ -1,10 +1,12 @@
 // ============================================================
 // BEN ECOSYSTEM — JURIS CENTER AI AGENTS
-// Nomenclatura Profissional BEN v1.0
-// 25 Agentes Especializados
+// Nomenclatura Profissional BEN v2.0
+// 28 Agentes Especializados
 // ============================================================
 
 export type AgentID =
+  // SUPER AGENTE (1)
+  | 'ben-super-agente-juridico'
   // Jurídicos core (15)
   | 'ben-peticionista-juridico'
   | 'ben-contratualista'
@@ -21,14 +23,16 @@ export type AgentID =
   | 'ben-relator-juridico'
   | 'ben-redator-juridico'
   | 'ben-engenheiro-prompt'
-  // Contador Tributarista (5)
+  // Contador Tributarista (6) — Arquitetura 2 níveis
   | 'ben-contador-tributarista'
+  | 'ben-contador-tributarista-especialista'
   | 'ben-contador-tributarista-planejamento'
   | 'ben-contador-tributarista-creditos'
   | 'ben-contador-tributarista-auditoria'
   | 'ben-contador-tributarista-relatorio'
-  // Perito Forense (5)
+  // Perito Forense (6) — Arquitetura 2 níveis
   | 'ben-perito-forense'
+  | 'ben-perito-forense-profundo'
   | 'ben-perito-forense-digital'
   | 'ben-perito-forense-laudo'
   | 'ben-perito-forense-contestar'
@@ -42,14 +46,19 @@ export type AreaAgent =
   | 'trabalhista'
   | 'compliance'
   | 'gestao'
-  | 'pesquisa';
+  | 'pesquisa'
+  | 'forense'
+  | 'previdenciario'
+  | 'constitucional';
 
 export type ModelAgent =
   | 'genspark-agent'
   | 'gemini-2.5-pro'
   | 'gemini-2.5-flash'
   | 'gpt-5'
-  | 'claude-opus-4';
+  | 'claude-opus-4'
+  | 'claude-sonnet-4'
+  | 'claude-haiku-4';
 
 export interface AgentConfig {
   id: AgentID;
@@ -75,6 +84,55 @@ export interface AgentConfig {
 }
 
 export const DR_BEN_AGENTS: Record<AgentID, AgentConfig> = {
+
+  // ══════════════════════════════════════════════════════════
+  // SUPER AGENTE
+  // ══════════════════════════════════════════════════════════
+  'ben-super-agente-juridico': {
+    id: 'ben-super-agente-juridico',
+    nome: 'BEN Super Agente Jurídico',
+    titulo: 'Super Agente Jurídico de Alta Performance',
+    emoji: '⚡',
+    area: 'processual',
+    modelo: 'claude-opus-4',
+    modelo_fallback: 'claude-sonnet-4',
+    temperatura: 0.1,
+    max_tokens: 16000,
+    cor: 'text-purple-400',
+    cor_bg: 'bg-purple-500/10',
+    cor_border: 'border-purple-500/30',
+    descricao: 'Super Agente Jurídico com máxima performance. Claude Opus 4.6 com raciocínio adaptativo. Cobre todas as áreas do Direito com profundidade técnica máxima.',
+    especialidades: [
+      'Petições e recursos de alta complexidade',
+      'Direito Tributário e Reforma Tributária (EC 132/2023)',
+      'Direito Previdenciário',
+      'Direito Trabalhista',
+      'Direito Público e Administrativo',
+      'Direito Médico e da Saúde',
+      'Direito Constitucional',
+      'Direito Civil e Empresarial',
+      'Qualquer área do Direito Brasileiro',
+    ],
+    capacidades: [
+      'Raciocínio jurídico profundo em 5 etapas metodológicas',
+      'Fundamentação jurisprudencial STF/STJ com verificação',
+      'Construção de teses principais e subsidiárias',
+      'Distinção e superação de precedentes (distinguishing/overruling)',
+      'Análise de múltiplas áreas jurídicas simultaneamente',
+      'Peças processuais prontas para protocolo após revisão',
+    ],
+    system_prompt: 'Super agente jurídico com Claude Opus 4.6. Raciocínio adaptativo de alta performance para casos complexos.',
+    exemplos_uso: [
+      'Petição de mandado de segurança tributário complexo',
+      'Recurso extraordinário com múltiplas questões constitucionais',
+      'Defesa administrativa em auto de infração fiscal milionário',
+      'Reclamação trabalhista com temas complexos pós-reforma',
+      'Qualquer peça jurídica de alta complexidade',
+    ],
+    ativo: true,
+    premium: true,
+    tempo_estimado_seg: 45,
+  },
 
   'ben-peticionista-juridico': {
     id: 'ben-peticionista-juridico',
@@ -807,28 +865,72 @@ Use dados objetivos. Sugira metas SMART.`,
     tempo_estimado_seg: 15,
   },
 
-  // ── BEN Contador Tributarista ─────────────────────────────
+  // ══════════════════════════════════════════════════════════
+  // BEN CONTADOR TRIBUTARISTA — Arquitetura 2 Níveis
+  // ══════════════════════════════════════════════════════════
+
+  // Nível 1: Triagem (Haiku 4.5)
   'ben-contador-tributarista': {
     id: 'ben-contador-tributarista',
     nome: 'BEN Contador Tributarista',
-    titulo: 'Especialista em Análise Contábil e Tributária',
+    titulo: 'Triagem e Consultas Fiscais Rápidas',
     emoji: '📊',
     area: 'tributario',
-    modelo: 'genspark-agent',
-    modelo_fallback: 'gpt-5',
-    temperatura: 0.3,
-    max_tokens: 5000,
+    modelo: 'claude-haiku-4',
+    modelo_fallback: 'claude-sonnet-4',
+    temperatura: 0.2,
+    max_tokens: 2000,
     cor: 'text-emerald-400',
     cor_bg: 'bg-emerald-500/10',
     cor_border: 'border-emerald-500/30',
-    descricao: 'Análise fiscal, SPED, obrigações tributárias e identificação de oportunidades de economia.',
-    especialidades: ['SPED Fiscal', 'DCTF', 'IRPJ', 'ICMS', 'ISS', 'Simples Nacional', 'Lucro Presumido', 'Lucro Real'],
-    capacidades: ['Análise de obrigações fiscais', 'Verificação de inconsistências', 'Estratégias tributárias', 'Relatórios técnicos'],
-    system_prompt: `Você é o BEN Contador Tributarista, especialista em análise contábil e tributária para o escritório Mauro Monção Advogados.`,
-    exemplos_uso: ['Analisar obrigações Simples Nacional', 'Verificar inconsistências SPED'],
+    descricao: 'Nível 1 de triagem. Responde consultas simples diretamente e encaminha análises complexas ao Especialista Sonnet 4.6. Rápido e econômico.',
+    especialidades: ['Prazos tributários', 'Alíquotas padrão', 'CNAE e enquadramento', 'Obrigações acessórias básicas', 'Abertura de empresa e MEI'],
+    capacidades: ['Triagem inteligente simples/complexo', 'Respostas diretas a consultas simples', 'Encaminhamento ao Especialista para casos complexos'],
+    system_prompt: 'Nível 1 do BEN Contador Tributarista. Haiku 4.5 para triagem rápida.',
+    exemplos_uso: ['Qual o prazo do DAS de agosto?', 'Qual aliquota do ISS para advocacia?'],
     ativo: true,
     premium: false,
-    tempo_estimado_seg: 25,
+    tempo_estimado_seg: 8,
+  },
+
+  // Nível 2: Especialista (Sonnet 4.6)
+  'ben-contador-tributarista-especialista': {
+    id: 'ben-contador-tributarista-especialista',
+    nome: 'BEN Contador Tributarista Especialista',
+    titulo: 'Contador e Consultor Fiscal Sênior',
+    emoji: '💼',
+    area: 'tributario',
+    modelo: 'claude-sonnet-4',
+    modelo_fallback: 'claude-haiku-4',
+    temperatura: 0.2,
+    max_tokens: 8000,
+    cor: 'text-emerald-400',
+    cor_bg: 'bg-emerald-500/10',
+    cor_border: 'border-emerald-500/30',
+    descricao: 'Análise tributária profunda. Nível 2 da arquitetura Contador: Sonnet 4.6 com dominio total de Simples Nacional, Reforma Tributária e defesa fiscal.',
+    especialidades: [
+      'Simples Nacional (LC 123/2006)',
+      'Reforma Tributária (EC 132/2023, LC 214/2025)',
+      'Defesa Fiscal e Autos de Infração',
+      'Parcelamentos Especiais (PERT, REFIS)',
+      'Planejamento Tributário',
+      'Obrigações Acessórias PI/CE/MA',
+    ],
+    capacidades: [
+      'Análise tributária profunda com cenários comparativos',
+      'Identificação de fragilidades em autos de infração',
+      'Recomendação de agendamento com Dr. Mauro quando necessário',
+      'Aplicação de Reforma Tributária para clientes',
+    ],
+    system_prompt: 'Nível 2 do BEN Contador Tributarista. Sonnet 4.6 para análise fiscal profunda.',
+    exemplos_uso: [
+      'Análise comparativa de regimes tributários',
+      'Defesa em auto de infração ICMS',
+      'Orientação sobre Reforma Tributária 2026',
+    ],
+    ativo: true,
+    premium: false,
+    tempo_estimado_seg: 30,
   },
 
   'ben-contador-tributarista-planejamento': {
@@ -923,28 +1025,77 @@ Use dados objetivos. Sugira metas SMART.`,
     tempo_estimado_seg: 20,
   },
 
-  // ── BEN Perito Forense ────────────────────────────────────
+  // ══════════════════════════════════════════════════════════
+  // BEN PERITO FORENSE — Arquitetura 2 Níveis
+  // ══════════════════════════════════════════════════════════
+
+  // Nível 1: Padrão (Sonnet 4.6)
   'ben-perito-forense': {
     id: 'ben-perito-forense',
     nome: 'BEN Perito Forense',
-    titulo: 'Especialista em Análise Pericial de Documentos',
+    titulo: 'Perito Forense Multidisciplinar — 5 Módulos',
     emoji: '🔬',
-    area: 'documental',
-    modelo: 'genspark-agent',
-    modelo_fallback: 'gpt-5',
-    temperatura: 0.3,
-    max_tokens: 6000,
+    area: 'forense',
+    modelo: 'claude-sonnet-4',
+    modelo_fallback: 'claude-opus-4',
+    temperatura: 0.1,
+    max_tokens: 8000,
     cor: 'text-red-400',
     cor_bg: 'bg-red-500/10',
     cor_border: 'border-red-500/30',
-    descricao: 'Análise pericial de documentos — autenticidade, inconsistências e evidências em 7 camadas.',
-    especialidades: ['Análise de Autenticidade', 'Detecção de Adulteração', 'Análise Grafotécnica', 'Verificação de Selos e Carimbos'],
-    capacidades: ['Análise em 7 camadas de autenticidade', 'Identificação de inconsistências', 'Relatório técnico pericial'],
-    system_prompt: `Você é o BEN Perito Forense, especialista em análise pericial de documentos jurídicos e evidências.`,
-    exemplos_uso: ['Analisar autenticidade de contrato', 'Verificar inconsistências em documento público'],
+    descricao: 'Análise pericial multidisciplinar de 5 módulos: Perícia Contábil, COAF/UIF, Documentos (7 camadas), Vínculos (Link Analysis) e Conformidade Técnica. Nível 1 — Sonnet 4.6.',
+    especialidades: ['Perícia Contábil', 'Análise COAF/RIF', 'Documentos (7 camadas)', 'Análise de Vínculos', 'Conformidade Técnica CPP'],
+    capacidades: ['Análise pericial em 5 módulos', 'Contra-laudo COAF Nível 1', 'Detecção de violação de cadeia de custódia', 'Escalonação para Nível 2 quando necessário'],
+    system_prompt: 'Nível 1 do BEN Perito Forense. Sonnet 4.6 para análise pericial com 5 módulos.',
+    exemplos_uso: [
+      'Analisar RIF COAF e identificar falhas',
+      'Verificar autenticidade de documentos em 7 camadas',
+      'Mapear vínculos societários suspeitos',
+    ],
     ativo: true,
     premium: true,
-    tempo_estimado_seg: 30,
+    tempo_estimado_seg: 35,
+  },
+
+  // Nível 2: Profundo (Opus 4.6) — alerta automático ao Dr. Mauro
+  'ben-perito-forense-profundo': {
+    id: 'ben-perito-forense-profundo',
+    nome: 'BEN Perito Forense Profundo',
+    titulo: 'Perito Forense Multidisciplinar — Alta Complexidade',
+    emoji: '🔍',
+    area: 'forense',
+    modelo: 'claude-opus-4',
+    modelo_fallback: 'claude-sonnet-4',
+    temperatura: 0.05,
+    max_tokens: 16000,
+    cor: 'text-red-400',
+    cor_bg: 'bg-red-500/10',
+    cor_border: 'border-red-500/30',
+    descricao: '⚠️ Nível 2 — Opus 4.6 com raciocínio adaptativo máximo. Aciona ALERTA AUTOMÁTICO ao Dr. Mauro. Para RIF/COAF, laudos criminais, vínculos complexos, cadên de custódia.',
+    especialidades: [
+      'Análise RIF/COAF e Contra-Laudo',
+      'Laudos Criminais (IML, IC, Digital)',
+      'Análise de Vínculos (Link Analysis)',
+      'Cadeia de Custódia (Lei 13.964/2019)',
+      'Balística, Toxicologia, Forense Digital',
+      'Liquidação de Sentença Complexa',
+    ],
+    capacidades: [
+      'Análise pericial de altíssima complexidade',
+      'Contra-laudo COAF com tabela comparativa',
+      'Mapeamento de vínculos societários e financeiros',
+      'Alerta automático ao Dr. Mauro Monção',
+      'Construção de teses defensivas a partir da perícia',
+    ],
+    system_prompt: 'Nível 2 do BEN Perito Forense. Opus 4.6 para análise pericial de máxima complexidade.',
+    exemplos_uso: [
+      'Analisar RIF COAF e elaborar contra-laudo',
+      'Revisar laudo criminal com cadeia de custódia suspeita',
+      'Mapear vínculos financeiros em processo de lavagem',
+    ],
+    ativo: true,
+    premium: true,
+    tempo_estimado_seg: 60,
   },
 
   'ben-perito-forense-digital': {
@@ -1067,6 +1218,9 @@ export const AREA_LABELS: Record<AreaAgent, string> = {
   compliance: 'Compliance & LGPD',
   gestao: 'Gestão & Produção',
   pesquisa: 'Pesquisa Jurídica',
+  forense: 'Perícia Forense',
+  previdenciario: 'Previdenciário',
+  constitucional: 'Constitucional',
 };
 
 export const MODEL_LABELS: Record<ModelAgent, { label: string; color: string }> = {
@@ -1074,5 +1228,7 @@ export const MODEL_LABELS: Record<ModelAgent, { label: string; color: string }> 
   'gemini-2.5-pro': { label: 'Gemini 2.5 Pro', color: 'text-blue-400' },
   'gemini-2.5-flash': { label: 'Gemini 2.5 Flash', color: 'text-cyan-400' },
   'gpt-5': { label: 'GPT-5', color: 'text-green-400' },
-  'claude-opus-4': { label: 'Claude Opus 4', color: 'text-orange-400' },
+  'claude-opus-4': { label: 'Claude Opus 4.6', color: 'text-orange-400' },
+  'claude-sonnet-4': { label: 'Claude Sonnet 4.6', color: 'text-amber-400' },
+  'claude-haiku-4': { label: 'Claude Haiku 4.5', color: 'text-yellow-400' },
 };
