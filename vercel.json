@@ -16,6 +16,10 @@
       "destination": "/api/agents/run.js"
     },
     {
+      "source": "/api/monitor",
+      "destination": "/api/monitor.js"
+    },
+    {
       "source": "/api/voice",
       "destination": "/api/voice.js"
     },

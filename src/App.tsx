@@ -33,6 +33,7 @@ import EngenheiroPrompts from './pages/EngenheiroPrompts';
 import ContadorIA from './pages/ContadorIA';
 import PeritoIA from './pages/PeritoIA';
 import SuperAgenteJuridico from './pages/SuperAgenteJuridico';
+import MonitorCustos from './pages/MonitorCustos';
 
 // ─── Navigation Structure ─────────────────────────────────────────────────────
 const NAV_GROUPS = [
@@ -370,6 +371,8 @@ function AppRoutes() {
               <Route path="/eng-prompts"          element={<EngenheiroPrompts />} />
               <Route path="/contador-ia"         element={<ContadorIA />} />
               <Route path="/perito-ia"           element={<PeritoIA />} />
+              {/* Rota oculta — monitor admin privado, não aparece no menu */}
+              <Route path="/monitor-admin"       element={<MonitorCustos />} />
               <Route path="*"                     element={<Navigate to="/" replace />} />
             </Routes>
           </Layout>

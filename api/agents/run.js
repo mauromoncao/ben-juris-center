@@ -902,6 +902,38 @@ CONTEXTO: Mauro Monção Advogados Associados — Parnaíba, PI.`,
 // ─── CALL FUNCTIONS ──────────────────────────────────────────
 // ════════════════════════════════════════════════════════════
 
+// ── Preços por 1M tokens (USD) ───────────────────────────────
+const MODEL_PRICING = {
+  'claude-haiku-4-5':  { input: 0.80,  output: 4.00  },
+  'claude-sonnet-4-5': { input: 3.00,  output: 15.00 },
+  'claude-opus-4-5':   { input: 15.00, output: 75.00 },
+  'gpt-4o':            { input: 2.50,  output: 10.00 },
+  'gpt-4o-mini':       { input: 0.15,  output: 0.60  },
+  'perplexity':        { input: 1.00,  output: 1.00  },
+}
+
+function calcCost(modelKey, inputTokens, outputTokens) {
+  const p = MODEL_PRICING[modelKey] || { input: 2.50, output: 10.00 }
+  return ((inputTokens * p.input) + (outputTokens * p.output)) / 1_000_000
+}
+
+// ── Log assíncrono de custo no VPS ───────────────────────────
+async function logTokenUsage({ agentId, modelUsed, inputTokens, outputTokens, costUsd, elapsed_ms }) {
+  const VPS_URL = (process.env.VPS_LEADS_URL || 'http://181.215.135.202:3001').trim()
+  try {
+    await fetch(`${VPS_URL}/monitor/log`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        agentId, modelUsed, inputTokens, outputTokens, costUsd, elapsed_ms,
+        timestamp: new Date().toISOString(),
+        source: 'juris-center',
+      }),
+      signal: AbortSignal.timeout(3000),
+    })
+  } catch (_) { /* silencioso */ }
+}
+
 async function callClaude(systemPrompt, userMessage, temperature, maxTokens) {
   const apiKey = process.env.ANTHROPIC_API_KEY
   if (!apiKey) throw new Error('ANTHROPIC_API_KEY não configurada')
@@ -923,7 +955,9 @@ async function callClaude(systemPrompt, userMessage, temperature, maxTokens) {
   })
   if (!res.ok) throw new Error(`Claude error ${res.status}: ${await res.text()}`)
   const data = await res.json()
-  return data.content?.[0]?.text || 'Sem resposta'
+  const inputTok  = data.usage?.input_tokens  || 0
+  const outputTok = data.usage?.output_tokens || 0
+  return { text: data.content?.[0]?.text || 'Sem resposta', inputTokens: inputTok, outputTokens: outputTok, costUsd: calcCost('claude-haiku-4-5', inputTok, outputTok) }
 }
 
 async function callClaudeSonnet(systemPrompt, userMessage, temperature, maxTokens) {
@@ -947,7 +981,9 @@ async function callClaudeSonnet(systemPrompt, userMessage, temperature, maxToken
   })
   if (!res.ok) throw new Error(`Claude Sonnet error ${res.status}: ${await res.text()}`)
   const data = await res.json()
-  return data.content?.[0]?.text || 'Sem resposta'
+  const inputTok  = data.usage?.input_tokens  || 0
+  const outputTok = data.usage?.output_tokens || 0
+  return { text: data.content?.[0]?.text || 'Sem resposta', inputTokens: inputTok, outputTokens: outputTok, costUsd: calcCost('claude-sonnet-4-5', inputTok, outputTok) }
 }
 
 async function callClaudeOpus(systemPrompt, userMessage, temperature, maxTokens) {
@@ -971,7 +1007,9 @@ async function callClaudeOpus(systemPrompt, userMessage, temperature, maxTokens)
   })
   if (!res.ok) throw new Error(`Claude Opus error ${res.status}: ${await res.text()}`)
   const data = await res.json()
-  return data.content?.[0]?.text || 'Sem resposta'
+  const inputTok  = data.usage?.input_tokens  || 0
+  const outputTok = data.usage?.output_tokens || 0
+  return { text: data.content?.[0]?.text || 'Sem resposta', inputTokens: inputTok, outputTokens: outputTok, costUsd: calcCost('claude-opus-4-5', inputTok, outputTok) }
 }
 
 async function callOpenAI(systemPrompt, userMessage, temperature, maxTokens) {
@@ -996,7 +1034,9 @@ async function callOpenAI(systemPrompt, userMessage, temperature, maxTokens) {
   })
   if (!res.ok) throw new Error(`OpenAI error ${res.status}: ${await res.text()}`)
   const data = await res.json()
-  return data.choices?.[0]?.message?.content || 'Sem resposta'
+  const inputTok  = data.usage?.prompt_tokens     || 0
+  const outputTok = data.usage?.completion_tokens || 0
+  return { text: data.choices?.[0]?.message?.content || 'Sem resposta', inputTokens: inputTok, outputTokens: outputTok, costUsd: calcCost('gpt-4o', inputTok, outputTok) }
 }
 
 async function callOpenAIMini(systemPrompt, userMessage, temperature, maxTokens) {
@@ -1021,7 +1061,9 @@ async function callOpenAIMini(systemPrompt, userMessage, temperature, maxTokens)
   })
   if (!res.ok) throw new Error(`OpenAI-mini error ${res.status}: ${await res.text()}`)
   const data = await res.json()
-  return data.choices?.[0]?.message?.content || 'Sem resposta'
+  const inputTok  = data.usage?.prompt_tokens     || 0
+  const outputTok = data.usage?.completion_tokens || 0
+  return { text: data.choices?.[0]?.message?.content || 'Sem resposta', inputTokens: inputTok, outputTokens: outputTok, costUsd: calcCost('gpt-4o-mini', inputTok, outputTok) }
 }
 
 async function callPerplexity(systemPrompt, userMessage) {
@@ -1048,7 +1090,9 @@ async function callPerplexity(systemPrompt, userMessage) {
   })
   if (!res.ok) throw new Error(`Perplexity error ${res.status}: ${await res.text()}`)
   const data = await res.json()
-  return data.choices?.[0]?.message?.content || 'Sem resposta'
+  const inputTok  = data.usage?.prompt_tokens     || 0
+  const outputTok = data.usage?.completion_tokens || 0
+  return { text: data.choices?.[0]?.message?.content || 'Sem resposta', inputTokens: inputTok, outputTokens: outputTok, costUsd: calcCost('perplexity', inputTok, outputTok) }
 }
 
 // ── Fallback: primário → secundário → gpt-4o-mini ────────────
@@ -1059,34 +1103,34 @@ async function callWithFallback(agentConfig, input) {
 
   if (model === 'claude-opus') {
     chain.push(
-      { fn: () => callClaudeOpus(system, input, temperature, maxTokens),              label: 'claude-opus-4-5' },
+      { fn: () => callClaudeOpus(system, input, temperature, maxTokens),                   label: 'claude-opus-4-5' },
       { fn: () => callClaudeSonnet(system, input, temperature, Math.min(maxTokens, 8192)), label: 'claude-sonnet-fallback' },
-      { fn: () => callOpenAI(system, input, temperature, Math.min(maxTokens, 4096)),  label: 'gpt-4o-fallback' },
+      { fn: () => callOpenAI(system, input, temperature, Math.min(maxTokens, 4096)),       label: 'gpt-4o-fallback' },
     )
   } else if (model === 'claude-sonnet') {
     chain.push(
-      { fn: () => callClaudeSonnet(system, input, temperature, maxTokens),            label: 'claude-sonnet-4-5' },
-      { fn: () => callOpenAI(system, input, temperature, Math.min(maxTokens, 4096)),  label: 'gpt-4o-fallback' },
-      { fn: () => callClaude(system, input, temperature, Math.min(maxTokens, 4096)),  label: 'claude-haiku-fallback' },
+      { fn: () => callClaudeSonnet(system, input, temperature, maxTokens),           label: 'claude-sonnet-4-5' },
+      { fn: () => callOpenAI(system, input, temperature, Math.min(maxTokens, 4096)), label: 'gpt-4o-fallback' },
+      { fn: () => callClaude(system, input, temperature, Math.min(maxTokens, 4096)), label: 'claude-haiku-fallback' },
     )
   } else if (model === 'claude-haiku') {
     chain.push(
-      { fn: () => callClaude(system, input, temperature, maxTokens),              label: 'claude-haiku-4-5' },
-      { fn: () => callOpenAI(system, input, temperature, Math.min(maxTokens,4096)), label: 'gpt-4o-fallback' },
+      { fn: () => callClaude(system, input, temperature, maxTokens),                 label: 'claude-haiku-4-5' },
+      { fn: () => callOpenAI(system, input, temperature, Math.min(maxTokens, 4096)), label: 'gpt-4o-fallback' },
     )
   } else if (model === 'gpt-4o') {
     chain.push(
-      { fn: () => callOpenAI(system, input, temperature, maxTokens),              label: 'gpt-4o' },
-      { fn: () => callClaude(system, input, temperature, Math.min(maxTokens,4096)), label: 'claude-fallback' },
+      { fn: () => callOpenAI(system, input, temperature, maxTokens),                 label: 'gpt-4o' },
+      { fn: () => callClaude(system, input, temperature, Math.min(maxTokens, 4096)), label: 'claude-fallback' },
     )
   } else if (model === 'perplexity') {
     chain.push(
-      { fn: () => callPerplexity(system, input),                                  label: 'perplexity' },
-      { fn: () => callOpenAI(system, input, 0.2, 2000),                           label: 'gpt-4o-fallback' },
+      { fn: () => callPerplexity(system, input),            label: 'perplexity' },
+      { fn: () => callOpenAI(system, input, 0.2, 2000),     label: 'gpt-4o-fallback' },
     )
   } else {
     chain.push(
-      { fn: () => callOpenAI(system, input, temperature, maxTokens),              label: 'gpt-4o' },
+      { fn: () => callOpenAI(system, input, temperature, maxTokens), label: 'gpt-4o' },
     )
   }
 
@@ -1096,7 +1140,15 @@ async function callWithFallback(agentConfig, input) {
   for (const attempt of chain) {
     try {
       const result = await attempt.fn()
-      if (result) return { output: result, modelUsed: attempt.label }
+      if (result && result.text) {
+        return {
+          output: result.text,
+          modelUsed: attempt.label,
+          inputTokens:  result.inputTokens  || 0,
+          outputTokens: result.outputTokens || 0,
+          costUsd:      result.costUsd      || 0,
+        }
+      }
     } catch (err) {
       console.warn(`[Juris Agents] Falha em ${attempt.label}:`, err.message)
     }
@@ -1192,8 +1244,11 @@ export default async function handler(req, res) {
       enrichedInput = `${enrichedInput}\n\nDADOS DO PROCESSO/CASO:\n${JSON.stringify(context, null, 2)}`
     }
 
-    const { output, modelUsed } = await callWithFallback(agentConfig, enrichedInput)
+    const { output, modelUsed, inputTokens, outputTokens, costUsd } = await callWithFallback(agentConfig, enrichedInput)
     const elapsed = Date.now() - startTime
+
+    // ── Log assíncrono de custo ─────────────────────────────────
+    logTokenUsage({ agentId, modelUsed, inputTokens, outputTokens, costUsd, elapsed_ms: elapsed })
 
     // ── Notificar plantonista para casos urgentes ────────────────
     const agentesUrgentes = ['ben-super-agente-juridico','ben-peticionista-juridico',
@@ -1212,6 +1267,7 @@ export default async function handler(req, res) {
       elapsed_ms: elapsed,
       hasSearch: !!searchContext,
       timestamp: new Date().toISOString(),
+      usage: { inputTokens, outputTokens, costUsd },
     })
 
   } catch (error) {
