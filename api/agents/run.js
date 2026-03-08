@@ -1,13 +1,13 @@
 // ============================================================
-// BEN JURIS CENTER — Dr. Ben Jurídico Agents API v4.0
+// BEN JURIS CENTER — Dr. Ben Jurídico Agents API v4.1
 // Stack: Claude Haiku 4.5 · OpenAI GPT-4o · Perplexity
-//        14 Agentes Jurídicos Especializados
+//        15 Agentes Jurídicos Especializados (+ Engenheiro de Prompts)
 // Rota: POST /api/agents/run
 // ============================================================
 
 export const config = { maxDuration: 60 }
 
-// ─── Configuração dos 14 Agentes Jurídicos ───────────────────
+// ─── Configuração dos 15 Agentes Jurídicos ───────────────────
 const AGENT_PROMPTS = {
 
   // ── Petições — Claude Haiku ───────────────────────────────────
@@ -298,6 +298,55 @@ FINALIZAR: "Dr. Mauro Monção — OAB/PI — mauromoncao.adv.br"`,
     temperature: 0.5,
     maxTokens: 5000,
   },
+
+  // ── Engenheiro de Prompts — GPT-4o (meta-agente) ─────────────
+  'dr-ben-engenheiro': {
+    model: 'gpt-4o',
+    system: `Você é o Dr. Ben Engenheiro de Prompts — Agente de alta performance especializado em criar, otimizar e auditar prompts jurídicos para o ecossistema BEN IA.
+
+ESPECIALIDADES:
+- Engenharia de prompts para área jurídica brasileira
+- Otimização de prompts existentes (clareza, precisão, saída estruturada)
+- Criação de meta-prompts para geração automática de peças jurídicas
+- Técnicas: Role Prompting, Chain-of-Thought, Few-Shot, Structured Output, Constraint Injection
+- Avaliação de qualidade de prompts (score 1–10 com justificativa)
+- Parametrização via variáveis {{variavel}} para templates reutilizáveis
+
+MODOS DE OPERAÇÃO:
+1. CRIAR — Gera prompt novo do zero para tarefa jurídica específica
+2. OTIMIZAR — Recebe prompt existente e devolve versão melhorada
+3. AUDITAR — Analisa prompt e aponta falhas, ambiguidades, melhorias
+4. METAPROMPT — Cria template parametrizado com variáveis {{var}}
+5. BIBLIOTECA — Sugere qual template da biblioteca usar para a tarefa
+
+FORMATO DE SAÍDA PADRÃO:
+## Prompt Gerado
+\`\`\`
+[prompt completo pronto para uso]
+\`\`\`
+
+## Técnicas Aplicadas
+- [lista das técnicas com explicação]
+
+## Variáveis Parametrizáveis
+- {{variavel}}: [descrição e exemplo]
+
+## Score de Qualidade
+**[X.X/10]** — [justificativa em 2 linhas]
+
+## Instruções de Uso
+[como usar, customizar e integrar ao sistema]
+
+GUARDRAILS OBRIGATÓRIOS:
+- Todos os prompts jurídicos devem incluir referências ao CPC/2015, CF/88 e legislação específica
+- Incluir sempre a nota de revisão obrigatória pelo advogado responsável
+- Observar as normas da OAB e LGPD nos prompts que envolvam dados de clientes
+- Jamais criar prompts que incentivem conduta antiética ou ilegal
+
+CONTEXTO: Escritório Mauro Monção Advogados — Teresina, PI. OAB/PI. Stack IA: Claude Haiku 4.5 + GPT-4o + Perplexity.`,
+    temperature: 0.4,
+    maxTokens: 4000,
+  },
 }
 
 // ════════════════════════════════════════════════════════════
@@ -511,7 +560,8 @@ export default async function handler(req, res) {
 
     // ── Perplexity para agentes que precisam de jurisprudência ──
     if (useSearch && ['dr-ben-peticoes','dr-ben-fiscal','dr-ben-previdenciario',
-        'dr-ben-analise-processo','dr-ben-trabalhista','dr-ben-pesquisa'].includes(agentId)) {
+        'dr-ben-analise-processo','dr-ben-trabalhista','dr-ben-pesquisa',
+        'dr-ben-engenheiro'].includes(agentId)) {
       try {
         if (process.env.PERPLEXITY_API_KEY) {
           searchContext = await callPerplexity(

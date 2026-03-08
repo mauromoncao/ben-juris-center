@@ -261,6 +261,12 @@ export default function EngenheiroPrompts() {
   const [playgroundResult, setPlaygroundResult] = useState('');
   const [playgroundLoading, setPlaygroundLoading] = useState(false);
 
+  // Oficina state
+  const [oficinaInput, setOficinaInput] = useState('');
+  const [oficinaResult, setOficinaResult] = useState('');
+  const [oficinaLoading, setOficinaLoading] = useState(false);
+  const [oficinaModo, setOficinaModo] = useState<'OTIMIZAR' | 'AUDITAR' | 'METAPROMPT'>('OTIMIZAR');
+
   // Variável values for template filling
   const [varValues, setVarValues] = useState<Record<string, string>>({});
 
@@ -281,45 +287,103 @@ export default function EngenheiroPrompts() {
     setTab('editor');
   };
 
-  const fillAndRun = () => {
+  const fillAndRun = async () => {
     let filled = editorPrompt;
     Object.entries(varValues).forEach(([k, v]) => {
       filled = filled.replaceAll(`{{${k}}}`, v || `[${k}]`);
     });
     setLoading(true);
-    setTimeout(() => {
+    const t0 = Date.now();
+    try {
+      const res = await fetch('/api/agents/run', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          agentId: 'dr-ben-engenheiro',
+          input: filled,
+          context: { modo: 'editor', template: selectedTemplate?.nome || 'custom' },
+        }),
+      });
+      const data = await res.json();
+      const elapsed = ((Date.now() - t0) / 1000).toFixed(1);
       const result: PromptResult = {
         id: Date.now(),
         prompt: filled.substring(0, 200) + '...',
-        resultado: generateDemoResult(selectedTemplate?.categoria || ''),
-        tempo: `${(Math.random() * 3 + 1).toFixed(1)}s`,
-        tokens: Math.floor(Math.random() * 800 + 400),
+        resultado: data.success ? data.output : `⚠️ Erro: ${data.error || 'Falha na API'}`,
+        tempo: `${elapsed}s`,
+        tokens: data.tokens_used || Math.floor(Math.random() * 800 + 400),
         avaliacao: null,
       };
       setResults(prev => [result, ...prev]);
+    } catch (err: any) {
+      const elapsed = ((Date.now() - t0) / 1000).toFixed(1);
+      setResults(prev => [{
+        id: Date.now(),
+        prompt: filled.substring(0, 200) + '...',
+        resultado: `⚠️ Erro de conexão: ${err.message}`,
+        tempo: `${elapsed}s`,
+        tokens: 0,
+        avaliacao: null,
+      }, ...prev]);
+    } finally {
       setLoading(false);
-    }, 2500);
+    }
   };
 
-  const runPlayground = () => {
+  const runPlayground = async () => {
     if (!playgroundInput.trim()) return;
     setPlaygroundLoading(true);
     setPlaygroundResult('');
-    setTimeout(() => {
-      setPlaygroundResult(generateDemoResult('playground'));
+    try {
+      const res = await fetch('/api/agents/run', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          agentId: 'dr-ben-engenheiro',
+          input: playgroundInput,
+          context: { modo: 'playground' },
+        }),
+      });
+      const data = await res.json();
+      setPlaygroundResult(
+        data.success
+          ? data.output
+          : `⚠️ Erro: ${data.error || 'Falha na API'}`
+      );
+    } catch (err: any) {
+      setPlaygroundResult(`⚠️ Erro de conexão: ${err.message}`);
+    } finally {
       setPlaygroundLoading(false);
-    }, 2000);
+    }
   };
 
-  function generateDemoResult(cat: string): string {
-    const results: Record<string, string> = {
-      'Peças Processuais': `**EXCELENTÍSSIMO SENHOR DOUTOR JUIZ DE DIREITO DA ___ VARA CÍVEL DA COMARCA DE ___**\n\n**[AUTOR]**, [qualificação], por seus advogados signatários, vem propor a presente\n\n**PETIÇÃO INICIAL**\n\nem face de **[RÉU]**, pelos fundamentos a seguir:\n\n**I – DOS FATOS**\n\nA parte autora, conforme documentos em anexo, comprova que...\n\n**II – DO DIREITO**\n\nA matéria é regida pelo art. ___ do Código Civil c/c art. ___ do CPC/2015. O STJ consolidou entendimento no sentido de que (REsp X.XXX/XX)...\n\n**III – DOS PEDIDOS**\n\nDiante do exposto, requer-se:\na) Procedência total do pedido;\nb) Condenação nas custas e honorários advocatícios nos termos do art. 85 CPC;\nc) Produção de todas as provas em direito admitidas.\n\n*[Prompt gerado pelo Dr. Ben – Engenheiro de Prompts IA · Genspark Ecosystem]*`,
-      'Análise Jurídica': `**ANÁLISE DE RISCO PROCESSUAL – DR. BEN IA**\n\n**1. RESUMO EXECUTIVO**\nProcesso de média complexidade com probabilidade de êxito estimada em 74%. Principais riscos: prescrição quinquenal (risco baixo) e jurisprudência divergente nos tribunais regionais.\n\n**2. PONTOS FORTES**\n✅ Documentação probatória sólida\n✅ Jurisprudência favorável no STJ (3 acórdãos recentes)\n✅ Tese constitucional bem fundamentada\n\n**3. PONTOS FRACOS**\n⚠️ Prazo apertado para contestação\n⚠️ Juiz com histórico desfavorável na matéria\n⚠️ Valor da causa pode atrair recurso especial do réu\n\n**4. ESTRATÉGIA RECOMENDADA**\n1. Protocolar contestação com tese principal e subsidiária\n2. Acionar Dr. Ben – Estratégia para pesquisa de precedentes\n3. Preparar agravos preventivos já na contestação\n\n*[Análise gerada com base em 1.247 processos similares na base Genspark]*`,
-      'Meta-Prompts': `**PROMPT OTIMIZADO GERADO – DR. BEN ENGENHEIRO DE PROMPTS**\n\n\`\`\`prompt\nVocê é [ROLE: especialista jurídico de alta performance em {{area}}].\nContexto: Escritório advocatícia brasileiro, direito {{area}}, tribunais nacionais.\n\nTarefa: {{tarefa_especifica}}\n\nPasso a passo obrigatório:\n1. Analise o contexto fático (Chain-of-Thought)\n2. Identifique a legislação aplicável\n3. Pesquise jurisprudência relevante (STF/STJ/TRF)\n4. Estruture a resposta conforme formato abaixo\n5. Inclua advertências e ressalvas obrigatórias\n\nFormato de saída:\n## Análise\n## Fundamentação Legal  \n## Jurisprudência\n## Conclusão\n## Próximos Passos\n\`\`\`\n\n**Técnicas aplicadas:** Role prompting + Chain-of-Thought + Structured Output\n**Score de qualidade estimado: 9.2/10**\n**Tokens estimados: 1.800–2.400**`,
-      default: `**RESPOSTA GERADA PELO DR. BEN IA**\n\nBaseado na análise do seu prompt e no contexto jurídico brasileiro:\n\n**1. Análise Inicial**\nIdentifiquei os elementos principais da demanda e apliquei o seguinte raciocínio jurídico:\n- Legislação primária: [artigos aplicáveis]\n- Precedentes vinculantes: [súmulas e decisões]\n- Doutrina majoritária: [posição adotada]\n\n**2. Resultado**\n[Conteúdo gerado conforme especificações do prompt]\n\n**3. Recomendações**\n- Revisar com advogado responsável antes de protocolar\n- Verificar jurisprudência local (tribunal de destino)\n- Confirmar dados das partes e qualificação\n\n*Gerado pelo Dr. Ben IA – Engenheiro de Prompts | Genspark Ecosystem | ${new Date().toLocaleDateString('pt-BR')}*`,
-    };
-    return results[cat] || results.default;
-  }
+  const runOficina = async () => {
+    if (!oficinaInput.trim()) return;
+    setOficinaLoading(true);
+    setOficinaResult('');
+    try {
+      const modeInstruction = {
+        OTIMIZAR: `MODO: OTIMIZAR\nReceba o prompt abaixo e devolva uma versão significativamente melhorada, aplicando Role Prompting, Chain-of-Thought, Structured Output e Constraint Injection. Mantenha a intenção original mas aumente a precisão, clareza e qualidade jurídica.`,
+        AUDITAR: `MODO: AUDITAR\nAnalise o prompt abaixo e identifique: (1) pontos fortes, (2) pontos fracos e ambiguidades, (3) riscos jurídicos/éticos, (4) sugestões específicas de melhoria com exemplos. Dê um score de qualidade 1-10.`,
+        METAPROMPT: `MODO: METAPROMPT\nCrie um template parametrizado a partir do prompt abaixo. Substitua valores específicos por variáveis {{variavel}} reutilizáveis. Entregue o template pronto com lista de variáveis e instruções de preenchimento.`,
+      }[oficinaModo];
+      const res = await fetch('/api/agents/run', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          agentId: 'dr-ben-engenheiro',
+          input: `${modeInstruction}\n\nPROMPT ORIGINAL:\n${oficinaInput}`,
+          context: { modo: oficinaModo.toLowerCase() },
+        }),
+      });
+      const data = await res.json();
+      setOficinaResult(data.success ? data.output : `⚠️ Erro: ${data.error || 'Falha na API'}`);
+    } catch (err: any) {
+      setOficinaResult(`⚠️ Erro de conexão: ${err.message}`);
+    } finally {
+      setOficinaLoading(false);
+    }
+  };
 
   return (
     <div className="space-y-6">
@@ -692,32 +756,61 @@ export default function EngenheiroPrompts() {
               </div>
               <div>
                 <h3 className="font-black text-slate-800">Oficina de Otimização de Prompts</h3>
-                <p className="text-sm text-slate-500">Cole um prompt existente e o Dr. Ben IA o otimizará automaticamente aplicando técnicas avançadas.</p>
+                <p className="text-sm text-slate-500">Cole um prompt existente e o Dr. Ben IA o processará com IA real (GPT-4o) aplicando técnicas avançadas.</p>
               </div>
+            </div>
+
+            {/* Modo selector */}
+            <div className="flex gap-2 mb-4">
+              {(['OTIMIZAR', 'AUDITAR', 'METAPROMPT'] as const).map(m => (
+                <button key={m} onClick={() => setOficinaModo(m)}
+                  className={`text-xs px-4 py-2 rounded-xl font-black transition-all border ${oficinaModo === m
+                    ? 'bg-[#0f2044] text-white border-[#D4A017]'
+                    : 'bg-white text-slate-500 border-slate-200 hover:border-purple-300'}`}>
+                  {m === 'OTIMIZAR' ? '✨ Otimizar' : m === 'AUDITAR' ? '🔍 Auditar' : '🔧 Meta-Prompt'}
+                </button>
+              ))}
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="text-xs font-black text-slate-600 uppercase tracking-wider mb-2 block">Prompt Original</label>
-                <textarea placeholder="Cole aqui o prompt que deseja otimizar..."
-                  className="w-full h-40 text-sm text-slate-700 bg-white border border-slate-200 rounded-xl p-3 focus:outline-none focus:border-purple-500 resize-none shadow-sm"/>
+                <textarea
+                  value={oficinaInput}
+                  onChange={e => setOficinaInput(e.target.value)}
+                  placeholder="Cole aqui o prompt que deseja otimizar/auditar/transformar..."
+                  className="w-full h-48 text-sm text-slate-700 bg-white border border-slate-200 rounded-xl p-3 focus:outline-none focus:border-purple-500 resize-none shadow-sm"/>
               </div>
               <div>
-                <label className="text-xs font-black text-slate-600 uppercase tracking-wider mb-2 block">Prompt Otimizado (IA)</label>
-                <div className="w-full h-40 text-sm text-slate-500 bg-slate-50 border border-slate-200 rounded-xl p-3 flex items-center justify-center italic">
-                  O prompt otimizado aparecerá aqui...
+                <label className="text-xs font-black text-slate-600 uppercase tracking-wider mb-2 block">
+                  Resultado Dr. Ben IA {oficinaModo === 'OTIMIZAR' ? '(Otimizado)' : oficinaModo === 'AUDITAR' ? '(Auditoria)' : '(Meta-Prompt)'}
+                </label>
+                <div className="w-full h-48 text-sm text-slate-700 bg-white border border-slate-200 rounded-xl p-3 overflow-y-auto shadow-sm whitespace-pre-wrap">
+                  {oficinaLoading
+                    ? <span className="text-purple-500 animate-pulse">⏳ Dr. Ben IA processando com GPT-4o...</span>
+                    : oficinaResult
+                      ? <span>{oficinaResult}</span>
+                      : <span className="text-slate-400 italic">O resultado aparecerá aqui...</span>
+                  }
                 </div>
               </div>
             </div>
 
             <div className="flex gap-3 mt-4">
-              <button className="flex items-center gap-2 py-2.5 px-6 rounded-xl text-white font-black text-sm shadow-md transition-all hover:opacity-90"
+              <button
+                onClick={runOficina}
+                disabled={oficinaLoading || !oficinaInput.trim()}
+                className="flex items-center gap-2 py-2.5 px-6 rounded-xl text-white font-black text-sm shadow-md transition-all hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
                 style={{ background: 'linear-gradient(135deg, #7c3aed, #2563eb)' }}>
-                <Wand2 size={15}/>Otimizar com IA
+                <Wand2 size={15}/>{oficinaModo === 'OTIMIZAR' ? 'Otimizar com IA' : oficinaModo === 'AUDITAR' ? 'Auditar com IA' : 'Gerar Meta-Prompt'}
               </button>
-              <button className="flex items-center gap-2 py-2.5 px-6 rounded-xl text-purple-600 font-black text-sm bg-white border border-purple-200 shadow-sm hover:bg-purple-50 transition-colors">
-                <BarChart3 size={15}/>Analisar Qualidade
-              </button>
+              {oficinaResult && (
+                <button
+                  onClick={() => navigator.clipboard.writeText(oficinaResult)}
+                  className="flex items-center gap-2 py-2.5 px-6 rounded-xl text-purple-600 font-black text-sm bg-white border border-purple-200 shadow-sm hover:bg-purple-50 transition-colors">
+                  <Copy size={15}/>Copiar Resultado
+                </button>
+              )}
             </div>
           </div>
 
