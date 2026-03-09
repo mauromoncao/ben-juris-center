@@ -294,13 +294,14 @@ function TopBar({ collapsed }: { collapsed: boolean }) {
 // ─── Layout ──────────────────────────────────────────────────────────────────
 function Layout({ children }: { children: React.ReactNode }) {
   const [collapsed, setCollapsed] = useState(false);
+  const sidebarW = collapsed ? 64 : 256;
   return (
-    <div className="min-h-screen" style={{ background: '#FFFFFF' }}>
+    <div className="min-h-screen" style={{ background: '#FFFFFF', overflowX: 'hidden' }}>
       <Sidebar collapsed={collapsed} onToggle={() => setCollapsed(!collapsed)} />
       <TopBar collapsed={collapsed} />
-      <main className="pt-14 min-h-screen transition-all duration-300"
-        style={{ background: '#FFFFFF', marginLeft: collapsed ? '64px' : '256px' }}>
-        <div className="p-6">
+      <main className="pt-14 min-h-screen transition-all duration-300 min-w-0"
+        style={{ background: '#FFFFFF', marginLeft: `${sidebarW}px` }}>
+        <div className="p-6 max-w-full">
           {children}
         </div>
       </main>
