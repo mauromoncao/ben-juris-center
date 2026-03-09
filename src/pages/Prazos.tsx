@@ -47,7 +47,7 @@ export default function Prazos() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold font-serif flex items-center gap-2" style={{ color: '#0f2044' }}><Clock size={24} style={{ color: '#e11d48' }} />Prazos & Controle</h1>
+          <h1 className="text-2xl font-bold font-serif flex items-center gap-2" style={{ color: '#19385C' }}><Clock size={24} style={{ color: '#e11d48' }} />Prazos & Controle</h1>
           <p className="text-slate-500 text-sm mt-0.5 font-sans">Contagem automática, alertas D-5/D-3/D-1, dupla conferência</p>
         </div>
         <button className="flex items-center gap-2 btn-primary text-sm font-medium px-4 py-2 rounded-lg transition-colors">
@@ -60,8 +60,8 @@ export default function Prazos() {
         {[
           { label: 'FATAIS (Hoje)', value: lista.filter(p => p.nivel === 'fatal').length, color: '#e11d48', bg: 'kpi-crimson' },
           { label: 'D-1 (Amanhã)', value: lista.filter(p => p.nivel === 'd1').length, color: '#f59e0b', bg: 'kpi-amber' },
-          { label: 'D-3 (3 dias)', value: lista.filter(p => p.nivel === 'd3').length, color: '#D4A017', bg: 'kpi-gold' },
-          { label: 'D-5 (5 dias)', value: lista.filter(p => p.nivel === 'd5').length, color: '#0f2044', bg: 'kpi-navy' },
+          { label: 'D-3 (3 dias)', value: lista.filter(p => p.nivel === 'd3').length, color: '#DEC078', bg: 'kpi-gold' },
+          { label: 'D-5 (5 dias)', value: lista.filter(p => p.nivel === 'd5').length, color: '#19385C', bg: 'kpi-navy' },
         ].map(s => (
           <div key={s.label} className={`${s.bg} text-center`}>
             <div className="text-3xl font-bold font-serif" style={{ color: s.color }}>{s.value}</div>
@@ -85,7 +85,7 @@ export default function Prazos() {
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-1">
                         <span className={`text-xs font-bold px-2 py-0.5 rounded ${nv.color} bg-current/10`}>{nv.label}</span>
-                        <span className="text-xs font-mono font-bold" style={{ color: '#1e3470' }}>{p.processo}</span>
+                        <span className="text-xs font-mono font-bold" style={{ color: '#19385C' }}>{p.processo}</span>
                         <span className="text-xs text-slate-500">{p.area}</span>
                       </div>
                       <div className="font-semibold text-slate-800 text-sm">{p.descricao}</div>
@@ -113,7 +113,7 @@ export default function Prazos() {
       {/* Atenção */}
       {atencao.length > 0 && (
         <div>
-          <h2 className="section-label flex items-center gap-2 mb-3" style={{ color: '#D4A017', fontSize: '0.8rem' }}>
+          <h2 className="section-label flex items-center gap-2 mb-3" style={{ color: '#DEC078', fontSize: '0.8rem' }}>
             <Clock size={14} />Atenção — Próximos Dias
           </h2>
           <div className="space-y-2">
@@ -155,7 +155,7 @@ export default function Prazos() {
             <tbody>
               {normais.map(p => (
                 <tr key={p.id} className="table-row">
-                  <td className="px-4 py-3 text-xs font-mono font-bold" style={{ color: '#1e3470' }}>{p.processo.slice(-12)}</td>
+                  <td className="px-4 py-3 text-xs font-mono font-bold" style={{ color: '#19385C' }}>{p.processo.slice(-12)}</td>
                   <td className="px-4 py-3 text-sm text-slate-700">{p.descricao}</td>
                   <td className="px-4 py-3 text-sm text-slate-500">{p.cliente}</td>
                   <td className="px-4 py-3 text-xs text-slate-500">{p.area}</td>

@@ -13,7 +13,7 @@ export default function Configuracoes() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold font-serif flex items-center gap-2" style={{ color: '#0f2044' }}><Settings size={24} className="text-blue-400" />Configurações do Sistema</h1>
+        <h1 className="text-2xl font-bold font-serif flex items-center gap-2" style={{ color: '#19385C' }}><Settings size={24} className="text-blue-400" />Configurações do Sistema</h1>
         <p className="text-slate-500 text-sm mt-0.5">Lex Jurídico — Configurações gerais, integrações e APIs</p>
       </div>
 
@@ -58,9 +58,9 @@ export default function Configuracoes() {
             <div className="grid grid-cols-3 gap-4">
               {[
                 { label: 'Plano Atual', value: 'Enterprise', color: '#7c3aed' },
-                { label: 'Usuários Ativos', value: '5/50', color: '#0f2044' },
+                { label: 'Usuários Ativos', value: '5/50', color: '#19385C' },
                 { label: 'Armazenamento', value: '12 GB / 500 GB', color: '#00b37e' },
-                { label: 'Instâncias Ativas', value: '1', color: '#D4A017' },
+                { label: 'Instâncias Ativas', value: '1', color: '#DEC078' },
                 { label: 'Licença Válida até', value: '31/12/2024', color: 'text-slate-700' },
                 { label: 'Módulos Ativos', value: '13/14', color: '#00b37e' },
               ].map(s => (
@@ -144,7 +144,7 @@ export default function Configuracoes() {
                 <div key={s.label} className="bg-white rounded-lg p-3 border border-slate-100">
                   <div className="text-xs text-slate-500 mb-0.5">{s.label}</div>
                   <div className="text-sm font-medium text-slate-800">{s.value}</div>
-                  <div className={`text-xs mt-0.5 ${['online', 'ativo'].includes(s.status) ? '#00b37e' : '#0f2044'}`}>{s.status}</div>
+                  <div className={`text-xs mt-0.5 ${['online', 'ativo'].includes(s.status) ? '#00b37e' : '#19385C'}`}>{s.status}</div>
                 </div>
               ))}
             </div>

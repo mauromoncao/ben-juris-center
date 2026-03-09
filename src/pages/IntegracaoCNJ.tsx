@@ -38,7 +38,7 @@ export default function IntegracaoCNJ() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold font-serif flex items-center gap-2" style={{ color: '#0f2044' }}>
+          <h1 className="text-2xl font-bold font-serif flex items-center gap-2" style={{ color: '#19385C' }}>
             <Scale size={24} className="text-blue-400" />Integração CNJ
           </h1>
           <p className="text-slate-500 text-sm mt-0.5">DJEN, MNI, DataJud, PJe — Recepção automática de notificações</p>
@@ -69,7 +69,7 @@ export default function IntegracaoCNJ() {
               </div>
               <div className="bg-white rounded-lg p-2 border border-slate-100">
                 <div className="text-xs text-slate-500">Intimações Hoje</div>
-                <div className={`text-sm font-bold mt-0.5 ${s.intimacoes_hoje > 0 ? '#0f2044' : 'text-slate-500'}`}>{s.intimacoes_hoje}</div>
+                <div className={`text-sm font-bold mt-0.5 ${s.intimacoes_hoje > 0 ? '#19385C' : 'text-slate-500'}`}>{s.intimacoes_hoje}</div>
               </div>
             </div>
             <button onClick={() => handleSync(s.id)}

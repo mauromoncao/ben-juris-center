@@ -417,13 +417,13 @@ export default function SuperAgenteJuridico() {
 
               {messages.map((msg, i) => (
                 <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                  <div className={`max-w-[90%] ${
-                    msg.role === 'user'
-                      ? 'bg-purple-600/20 border border-purple-500/30 text-white'
-                      : 'bg-gray-800 border border-gray-700 text-gray-100'
-                  } rounded-xl p-4`}>
+                  <div className="max-w-[90%] rounded-xl p-4"
+                    style={msg.role === 'user'
+                      ? { background: '#E9F2FF', color: '#1A1A1A', borderRadius: '18px 18px 4px 18px', lineHeight: '1.6' }
+                      : { background: '#F5F5F5', color: '#222222', border: '1px solid #E5E7EB', borderRadius: '18px 18px 18px 4px', lineHeight: '1.6' }
+                    }>
                     {msg.role === 'assistant' && (
-                      <div className="flex items-center justify-between mb-2 text-xs text-gray-500">
+                      <div className="flex items-center justify-between mb-2 text-xs" style={{ color: '#6B7280' }}>
                         <span className="flex items-center gap-1">
                           <Sparkles className="w-3 h-3 text-purple-400" />
                           {msg.model || 'claude-opus-4-5'}
@@ -436,12 +436,12 @@ export default function SuperAgenteJuridico() {
                         )}
                       </div>
                     )}
-                    <div className="text-sm whitespace-pre-wrap leading-relaxed">{msg.content}</div>
+                    <div className="text-sm whitespace-pre-wrap" style={{ lineHeight: '1.6' }}>{msg.content}</div>
                     {msg.role === 'assistant' && msg.content.length > 500 && (
-                      <div className="mt-3 pt-2 border-t border-gray-700 flex gap-2">
+                      <div className="mt-3 pt-2 flex gap-2" style={{ borderTop: '1px solid #E5E7EB' }}>
                         <button
                           onClick={() => handleCopy(msg.content)}
-                          className="text-xs text-gray-500 hover:text-white flex items-center gap-1"
+                          className="text-xs flex items-center gap-1" style={{ color: '#6B7280' }}
                         >
                           <Copy className="w-3 h-3" /> Copiar
                         </button>
@@ -466,7 +466,7 @@ export default function SuperAgenteJuridico() {
 
               {loading && (
                 <div className="flex justify-start">
-                  <div className="bg-gray-800 border border-purple-500/30 rounded-xl p-4 max-w-sm">
+                  <div className="rounded-xl p-4 max-w-sm" style={{ background: '#F5F5F5', border: '1px solid #E5E7EB' }}>
                     <div className="flex items-center gap-3">
                       <div className="flex gap-1">
                         <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />

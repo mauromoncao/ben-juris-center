@@ -20,7 +20,7 @@ export default function Agenda() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold font-serif flex items-center gap-2" style={{ color: '#0f2044' }}><Calendar size={24} className="text-blue-400" />Agenda & Audiências</h1>
+          <h1 className="text-2xl font-bold font-serif flex items-center gap-2" style={{ color: '#19385C' }}><Calendar size={24} className="text-blue-400" />Agenda & Audiências</h1>
           <p className="text-slate-500 text-sm mt-0.5">Calendário integrado com Google Calendar, audiências e prazos</p>
         </div>
         <button className="btn-primary">
@@ -52,7 +52,7 @@ export default function Agenda() {
               </div>
               <div className="mt-3 pt-3 border-t border-slate-100 flex items-center gap-2">
                 <div className="flex-1 text-xs text-slate-400">{e.checklist.length} itens no checklist</div>
-                <span className={`text-xs px-2 py-0.5 rounded font-medium ${e.docs.length > 0 ? '#0f2044' : 'text-slate-400'}`}>
+                <span className={`text-xs px-2 py-0.5 rounded font-medium ${e.docs.length > 0 ? '#19385C' : 'text-slate-400'}`}>
                   {e.docs.length} docs
                 </span>
               </div>

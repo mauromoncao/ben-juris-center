@@ -21,17 +21,17 @@ export default function PortalCliente() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold font-serif flex items-center gap-2" style={{ color: '#0f2044' }}><Users size={24} className="text-blue-400" />Portal do Cliente</h1>
+        <h1 className="text-2xl font-bold font-serif flex items-center gap-2" style={{ color: '#19385C' }}><Users size={24} className="text-blue-400" />Portal do Cliente</h1>
         <p className="text-slate-500 text-sm mt-0.5">Acesso institucional — processos, pareceres, financeiro e comunicação</p>
       </div>
 
       {/* Stats */}
       <div className="grid grid-cols-4 gap-4">
         {[
-          { l: 'Clientes com Acesso', v: clientes.length, c: '#0f2044' },
+          { l: 'Clientes com Acesso', v: clientes.length, c: '#19385C' },
           { l: 'Acessos Hoje', v: 7, c: '#00b37e' },
           { l: 'Docs Publicados', v: 12, c: '#7c3aed' },
-          { l: 'Mensagens Pendentes', v: 6, c: '#D4A017' },
+          { l: 'Mensagens Pendentes', v: 6, c: '#DEC078' },
         ].map(s => (
           <div key={s.l} className="bg-white border border-slate-200 rounded-xl p-4 text-center">
             <div className={`text-2xl font-bold ${s.c}`}>{s.v}</div>

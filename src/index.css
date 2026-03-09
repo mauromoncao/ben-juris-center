@@ -1,12 +1,12 @@
 /*
   ══════════════════════════════════════════════════════════════════════
-  BEN JURIS CENTER — Design System
-  Paleta: Navy #0f2044 · Dourado #D4A017 · Esmeralda · Âmbar · Carmim
-  Tipografia: Outfit (sans) · Cormorant Garamond (serif)
+  BEN JURIS CENTER — Design System v4 (Padrão Institucional BEN)
+  Paleta: Azul #19385C · Branco #FFFFFF · Dourado #DEC078 · Texto #222222
+  Tipografia: Inter / Roboto — Base 18px / Line-height 1.6
   ══════════════════════════════════════════════════════════════════════
 */
 
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -14,17 +14,17 @@
 
 /* ── Tokens de cor ─────────────────────────────────────────────────── */
 :root {
-  /* Navy institucional */
-  --navy-deep   : #07182e;
-  --navy        : #0f2044;
+  /* Azul profundo institucional */
+  --navy-deep   : #0f2044;
+  --navy        : #19385C;
   --navy-mid    : #1e3470;
   --navy-light  : #2d4a8a;
 
   /* Dourado institucional */
-  --gold        : #D4A017;
-  --gold-light  : #F0C040;
-  --gold-dark   : #C8960E;
-  --gold-glow   : rgba(212,160,23,0.30);
+  --gold        : #DEC078;
+  --gold-light  : #F0D090;
+  --gold-dark   : #C8A052;
+  --gold-glow   : rgba(222,192,120,0.30);
 
   /* Acento Esmeralda — sucesso, aprovado, online */
   --emerald     : #00b37e;
@@ -52,44 +52,44 @@
   --cyan-border : rgba(8,145,178,0.30);
 
   /* Tipografia */
-  --font-sans   : 'Outfit', system-ui, sans-serif;
-  --font-serif  : 'Cormorant Garamond', Georgia, serif;
+  --font-sans   : 'Inter', system-ui, sans-serif;
+  --font-serif  : 'Inter', Georgia, serif;
 }
 
 /* ── Base ──────────────────────────────────────────────────────────── */
 * { box-sizing: border-box; }
-html { font-size: 16px; scroll-behavior: smooth; }
+html { font-size: 18px; scroll-behavior: smooth; }
 
 body {
   font-family: var(--font-sans);
-  background-color: #f1f5f9;
-  color: #1e293b;
+  background-color: #FFFFFF;
+  color: #222222;
   margin: 0; padding: 0;
   -webkit-font-smoothing: antialiased;
   line-height: 1.6;
 }
 
 h1, h2, h3, h4 {
-  font-family: var(--font-serif);
-  line-height: 1.15; font-weight: 700; letter-spacing: -0.01em; color: #0f172a;
+  font-family: var(--font-sans);
+  line-height: 1.3; font-weight: 700; letter-spacing: -0.01em; color: #222222;
 }
 h1 { font-size: clamp(1.6rem, 3.5vw, 2.5rem); }
 h2 { font-size: clamp(1.3rem, 2.5vw, 1.875rem); }
 h3 { font-size: clamp(1.1rem, 2vw, 1.5rem); }
 h4 { font-size: clamp(1rem, 1.5vw, 1.2rem); }
 
-p { font-family: var(--font-sans); line-height: 1.75; }
+p { font-family: var(--font-sans); line-height: 1.6; }
 input, select, textarea, button, nav a { font-family: var(--font-sans); }
 input, select, textarea { font-size: 0.9375rem; }
 
-.font-serif { font-family: var(--font-serif) !important; }
-.font-sans  { font-family: var(--font-sans)  !important; }
+.font-serif { font-family: var(--font-sans) !important; }
+.font-sans  { font-family: var(--font-sans) !important; }
 
 /* ── Scrollbar ─────────────────────────────────────────────────────── */
 ::-webkit-scrollbar       { width: 5px; height: 5px; }
-::-webkit-scrollbar-track { background: #e2e8f0; }
-::-webkit-scrollbar-thumb { background: var(--navy-mid); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+::-webkit-scrollbar-track { background: #f1f5f9; }
+::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--navy); }
 
 /* ══════════════════════════════════════════════════════════════════════
    CARDS
@@ -105,7 +105,7 @@ input, select, textarea { font-size: 0.9375rem; }
 }
 .card-hover:hover {
   @apply shadow-md;
-  border-color: rgba(212,160,23,0.40);
+  border-color: rgba(222,192,120,0.45);
   transform: translateY(-1px);
 }
 
@@ -125,10 +125,10 @@ input, select, textarea { font-size: 0.9375rem; }
 }
 
 /* ══════════════════════════════════════════════════════════════════════
-   BOTÕES — Cheios de personalidade
+   BOTÕES — Paleta Institucional
 ══════════════════════════════════════════════════════════════════════ */
 
-/* Primário — Navy sólido, hover dourado */
+/* Primário — Azul #19385C sólido, hover com borda dourada */
 .btn-primary {
   background: var(--navy);
   color: #ffffff;
@@ -138,12 +138,12 @@ input, select, textarea { font-size: 0.9375rem; }
   @apply px-4 py-2 rounded-lg transition-all duration-200 inline-flex items-center gap-2 text-sm;
 }
 .btn-primary:hover {
-  background: var(--navy-mid);
+  background: var(--navy-deep);
   border-color: var(--gold);
-  box-shadow: 0 0 16px rgba(212,160,23,0.25);
+  box-shadow: 0 0 16px rgba(222,192,120,0.25);
 }
 
-/* Dourado — CTA principal, ações destaque */
+/* Dourado — CTA principal */
 .btn-gold {
   background: linear-gradient(135deg, var(--gold-dark), var(--gold-light));
   color: var(--navy);
@@ -151,15 +151,15 @@ input, select, textarea { font-size: 0.9375rem; }
   font-weight: 700;
   border: none;
   @apply px-5 py-2 rounded-lg transition-all duration-200 inline-flex items-center gap-2 text-sm;
-  box-shadow: 0 0 18px rgba(212,160,23,0.35);
+  box-shadow: 0 0 18px rgba(222,192,120,0.35);
 }
 .btn-gold:hover {
   filter: brightness(1.08);
   transform: translateY(-1px);
-  box-shadow: 0 4px 20px rgba(212,160,23,0.50);
+  box-shadow: 0 4px 20px rgba(222,192,120,0.50);
 }
 
-/* Esmeralda — confirmar, aprovar, acionar IA */
+/* Esmeralda — confirmar, aprovar */
 .btn-emerald {
   background: var(--emerald);
   color: #ffffff;
@@ -173,7 +173,7 @@ input, select, textarea { font-size: 0.9375rem; }
   transform: translateY(-1px);
 }
 
-/* Violeta — agentes IA, Dr. Ben */
+/* Violeta — agentes IA */
 .btn-violet {
   background: var(--violet);
   color: #ffffff;
@@ -187,7 +187,7 @@ input, select, textarea { font-size: 0.9375rem; }
   transform: translateY(-1px);
 }
 
-/* Outline Gold — bordas douradas, ações secundárias */
+/* Outline Gold */
 .btn-outline {
   background: transparent;
   color: var(--navy);
@@ -198,10 +198,10 @@ input, select, textarea { font-size: 0.9375rem; }
 }
 .btn-outline:hover {
   background: var(--gold-glow);
-  box-shadow: 0 0 12px rgba(212,160,23,0.20);
+  box-shadow: 0 0 12px rgba(222,192,120,0.20);
 }
 
-/* Danger — ações destrutivas */
+/* Danger */
 .btn-danger {
   background: var(--crimson-bg);
   color: var(--crimson);
@@ -219,10 +219,42 @@ input, select, textarea { font-size: 0.9375rem; }
 .btn-secondary { @apply btn-gold; }
 
 /* ══════════════════════════════════════════════════════════════════════
-   BADGES / PILLS — Vibrantes e legíveis
+   CHAT BUBBLES — Padrão Internacional
 ══════════════════════════════════════════════════════════════════════ */
 
-/* Crítico / Urgente — Carmim */
+/* Bolha do advogado — direita, azul claro */
+.chat-bubble-user {
+  background: #E9F2FF;
+  color: #1A1A1A;
+  border-radius: 18px 18px 4px 18px;
+  padding: 0.75rem 1rem;
+  max-width: 80%;
+  align-self: flex-end;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+  font-family: var(--font-sans);
+}
+
+/* Bolha da IA — esquerda, cinza claro */
+.chat-bubble-ai {
+  background: #F5F5F5;
+  color: #222222;
+  border-radius: 18px 18px 18px 4px;
+  padding: 0.75rem 1rem;
+  max-width: 80%;
+  align-self: flex-start;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+  border: 1px solid #E5E7EB;
+  font-family: var(--font-sans);
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   BADGES / PILLS
+══════════════════════════════════════════════════════════════════════ */
+
 .badge-urgente, .badge-crimson {
   background: var(--crimson-bg);
   color: var(--crimson);
@@ -230,7 +262,6 @@ input, select, textarea { font-size: 0.9375rem; }
   @apply text-xs px-2.5 py-0.5 rounded-full font-semibold inline-flex items-center gap-1;
 }
 
-/* Alta — Âmbar vibrante */
 .badge-alta, .badge-amber {
   background: var(--amber-bg);
   color: #b45309;
@@ -238,7 +269,6 @@ input, select, textarea { font-size: 0.9375rem; }
   @apply text-xs px-2.5 py-0.5 rounded-full font-semibold inline-flex items-center gap-1;
 }
 
-/* Média / Warning */
 .badge-media, .badge-warning {
   background: rgba(234,179,8,0.12);
   color: #854d0e;
@@ -246,7 +276,6 @@ input, select, textarea { font-size: 0.9375rem; }
   @apply text-xs px-2.5 py-0.5 rounded-full font-semibold inline-flex items-center gap-1;
 }
 
-/* Baixa / Sucesso — Esmeralda */
 .badge-baixa, .badge-green, .badge-emerald {
   background: var(--emerald-bg);
   color: #065f46;
@@ -254,15 +283,13 @@ input, select, textarea { font-size: 0.9375rem; }
   @apply text-xs px-2.5 py-0.5 rounded-full font-semibold inline-flex items-center gap-1;
 }
 
-/* Dourado — destaque, novidade */
 .badge-gold {
-  background: rgba(212,160,23,0.14);
-  color: #92700a;
-  border: 1px solid rgba(212,160,23,0.40);
+  background: rgba(222,192,120,0.16);
+  color: #8C6B0A;
+  border: 1px solid rgba(222,192,120,0.40);
   @apply text-xs px-2.5 py-0.5 rounded-full font-semibold inline-flex items-center gap-1;
 }
 
-/* Violeta — IA, inteligência */
 .badge-violet, .badge-ia {
   background: var(--violet-bg);
   color: #5b21b6;
@@ -270,7 +297,6 @@ input, select, textarea { font-size: 0.9375rem; }
   @apply text-xs px-2.5 py-0.5 rounded-full font-semibold inline-flex items-center gap-1;
 }
 
-/* Ciano — CNJ, integração */
 .badge-cyan, .badge-cnj {
   background: var(--cyan-bg);
   color: #0e7490;
@@ -278,11 +304,10 @@ input, select, textarea { font-size: 0.9375rem; }
   @apply text-xs px-2.5 py-0.5 rounded-full font-semibold inline-flex items-center gap-1;
 }
 
-/* Navy — status ativo */
 .badge-navy {
-  background: rgba(15,32,68,0.10);
+  background: rgba(25,56,92,0.10);
   color: var(--navy);
-  border: 1px solid rgba(15,32,68,0.25);
+  border: 1px solid rgba(25,56,92,0.25);
   @apply text-xs px-2.5 py-0.5 rounded-full font-semibold inline-flex items-center gap-1;
 }
 
@@ -293,7 +318,7 @@ input, select, textarea { font-size: 0.9375rem; }
 .status-pill  { @apply inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold; }
 
 /* ══════════════════════════════════════════════════════════════════════
-   KPI CARDS — Cards de métrica com cor de acento
+   KPI CARDS
 ══════════════════════════════════════════════════════════════════════ */
 .kpi-navy {
   @apply bg-white rounded-xl shadow-sm border p-5 transition-all hover:shadow-md;
@@ -329,18 +354,18 @@ input, select, textarea { font-size: 0.9375rem; }
 }
 
 /* ══════════════════════════════════════════════════════════════════════
-   ICON BADGES — Círculos de ícone com cor
+   ICON BADGES
 ══════════════════════════════════════════════════════════════════════ */
-.icon-navy    { background: rgba(15,32,68,0.10);    color: var(--navy);    @apply w-12 h-12 rounded-xl flex items-center justify-center; }
-.icon-gold    { background: rgba(212,160,23,0.15);  color: var(--gold-dark); @apply w-12 h-12 rounded-xl flex items-center justify-center; }
-.icon-emerald { background: var(--emerald-bg);      color: var(--emerald); @apply w-12 h-12 rounded-xl flex items-center justify-center; }
-.icon-crimson { background: var(--crimson-bg);      color: var(--crimson); @apply w-12 h-12 rounded-xl flex items-center justify-center; }
-.icon-violet  { background: var(--violet-bg);       color: var(--violet);  @apply w-12 h-12 rounded-xl flex items-center justify-center; }
-.icon-amber   { background: var(--amber-bg);        color: var(--amber);   @apply w-12 h-12 rounded-xl flex items-center justify-center; }
-.icon-cyan    { background: var(--cyan-bg);         color: var(--cyan);    @apply w-12 h-12 rounded-xl flex items-center justify-center; }
+.icon-navy    { background: rgba(25,56,92,0.10);     color: var(--navy);    @apply w-12 h-12 rounded-xl flex items-center justify-center; }
+.icon-gold    { background: rgba(222,192,120,0.15);  color: var(--gold-dark); @apply w-12 h-12 rounded-xl flex items-center justify-center; }
+.icon-emerald { background: var(--emerald-bg);       color: var(--emerald); @apply w-12 h-12 rounded-xl flex items-center justify-center; }
+.icon-crimson { background: var(--crimson-bg);       color: var(--crimson); @apply w-12 h-12 rounded-xl flex items-center justify-center; }
+.icon-violet  { background: var(--violet-bg);        color: var(--violet);  @apply w-12 h-12 rounded-xl flex items-center justify-center; }
+.icon-amber   { background: var(--amber-bg);         color: var(--amber);   @apply w-12 h-12 rounded-xl flex items-center justify-center; }
+.icon-cyan    { background: var(--cyan-bg);          color: var(--cyan);    @apply w-12 h-12 rounded-xl flex items-center justify-center; }
 
 /* ══════════════════════════════════════════════════════════════════════
-   PROGRESS BARS — Barras de progresso com cores vivas
+   PROGRESS BARS
 ══════════════════════════════════════════════════════════════════════ */
 .progress-track {
   @apply w-full rounded-full overflow-hidden;
@@ -349,7 +374,7 @@ input, select, textarea { font-size: 0.9375rem; }
 }
 .progress-gold    { background: linear-gradient(90deg, var(--gold-dark), var(--gold-light)); height: 100%; border-radius: 9999px; transition: width 0.6s ease; }
 .progress-emerald { background: linear-gradient(90deg, #00917a, #00d4a0); height: 100%; border-radius: 9999px; transition: width 0.6s ease; }
-.progress-navy    { background: linear-gradient(90deg, var(--navy-mid), var(--navy-light)); height: 100%; border-radius: 9999px; transition: width 0.6s ease; }
+.progress-navy    { background: linear-gradient(90deg, var(--navy), var(--navy-light)); height: 100%; border-radius: 9999px; transition: width 0.6s ease; }
 .progress-violet  { background: linear-gradient(90deg, #5b21b6, #9333ea); height: 100%; border-radius: 9999px; transition: width 0.6s ease; }
 .progress-crimson { background: linear-gradient(90deg, #be123c, #f43f5e); height: 100%; border-radius: 9999px; transition: width 0.6s ease; }
 .progress-amber   { background: linear-gradient(90deg, #b45309, #fbbf24); height: 100%; border-radius: 9999px; transition: width 0.6s ease; }
@@ -379,9 +404,9 @@ input, select, textarea { font-size: 0.9375rem; }
   @apply rounded-xl p-4;
 }
 .alert-navy {
-  background: rgba(15,32,68,0.06);
+  background: rgba(25,56,92,0.06);
   border-left: 4px solid var(--navy);
-  border: 1px solid rgba(15,32,68,0.15);
+  border: 1px solid rgba(25,56,92,0.15);
   border-left-width: 4px;
   @apply rounded-xl p-4;
 }
@@ -392,20 +417,20 @@ input, select, textarea { font-size: 0.9375rem; }
 .input-field {
   background: #fff;
   border: 1.5px solid #e2e8f0;
-  color: #1e293b;
+  color: #222222;
   font-family: var(--font-sans);
   @apply rounded-lg px-3 py-2 w-full focus:outline-none placeholder-slate-400 text-sm transition-all;
 }
-.input-field:focus { border-color: var(--navy-mid); box-shadow: 0 0 0 3px rgba(30,52,112,0.10); }
+.input-field:focus { border-color: var(--navy); box-shadow: 0 0 0 3px rgba(25,56,92,0.10); }
 
 .select-field {
   background: #fff;
   border: 1.5px solid #e2e8f0;
-  color: #1e293b;
+  color: #222222;
   font-family: var(--font-sans);
   @apply rounded-lg px-3 py-2 w-full focus:outline-none text-sm transition-all;
 }
-.select-field:focus { border-color: var(--navy-mid); }
+.select-field:focus { border-color: var(--navy); }
 
 /* ══════════════════════════════════════════════════════════════════════
    TABELA
@@ -418,7 +443,7 @@ input, select, textarea { font-size: 0.9375rem; }
   letter-spacing: 0.08em;
 }
 .table-row { border-top: 1px solid #f1f5f9; @apply transition-colors cursor-pointer; }
-.table-row:hover { background: rgba(212,160,23,0.04); }
+.table-row:hover { background: rgba(222,192,120,0.05); }
 .table-cell { @apply px-4 py-3 text-sm text-slate-600; font-family: var(--font-sans); }
 
 /* ══════════════════════════════════════════════════════════════════════
@@ -439,9 +464,9 @@ input, select, textarea { font-size: 0.9375rem; }
    MISC UTILS
 ══════════════════════════════════════════════════════════════════════ */
 .section-title {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-weight: 700; font-size: 1.125rem; letter-spacing: -0.01em;
-  color: #0f172a;
+  color: #222222;
   @apply flex items-center gap-2;
 }
 .section-label {
@@ -451,12 +476,12 @@ input, select, textarea { font-size: 0.9375rem; }
 }
 .label { @apply section-label; }
 
-.stat-number      { font-family: var(--font-serif); font-weight: 700; color: #0f172a; line-height: 1; }
-.stat-number-gold { font-family: var(--font-serif); font-weight: 700; color: var(--gold); line-height: 1; }
+.stat-number      { font-family: var(--font-sans); font-weight: 700; color: #222222; line-height: 1; }
+.stat-number-gold { font-family: var(--font-sans); font-weight: 700; color: var(--gold-dark); line-height: 1; }
 
 /* Glow decorativo */
-.gold-glow-effect   { box-shadow: 0 0 28px rgba(212,160,23,0.22); }
-.navy-glow-effect   { box-shadow: 0 0 24px rgba(15,32,68,0.18); }
+.gold-glow-effect   { box-shadow: 0 0 28px rgba(222,192,120,0.22); }
+.navy-glow-effect   { box-shadow: 0 0 24px rgba(25,56,92,0.18); }
 .emerald-glow-effect{ box-shadow: 0 0 20px rgba(0,179,126,0.20); }
 .gold-border { border-color: var(--gold) !important; }
 

@@ -42,16 +42,16 @@ export default function Seguranca() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold font-serif flex items-center gap-2" style={{ color: '#0f2044' }}><Shield size={24} className="text-green-400" />Segurança & LGPD</h1>
+        <h1 className="text-2xl font-bold font-serif flex items-center gap-2" style={{ color: '#19385C' }}><Shield size={24} className="text-green-400" />Segurança & LGPD</h1>
         <p className="text-slate-500 text-sm mt-0.5">RBAC, auditoria completa, criptografia e conformidade LGPD</p>
       </div>
 
       {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { l: 'Usuários Ativos', v: perfis.filter(p => p.ativo).length, c: '#0f2044', icon: Users },
+          { l: 'Usuários Ativos', v: perfis.filter(p => p.ativo).length, c: '#19385C', icon: Users },
           { l: 'Logs Hoje', v: '247', c: '#00b37e', icon: Activity },
-          { l: 'Conformidade LGPD', v: `${lgpdScore}%`, c: lgpdScore >= 80 ? '#00b37e' : '#D4A017', icon: Shield },
+          { l: 'Conformidade LGPD', v: `${lgpdScore}%`, c: lgpdScore >= 80 ? '#00b37e' : '#DEC078', icon: Shield },
           { l: 'Acessos Negados', v: '1', c: '#e11d48', icon: AlertTriangle },
         ].map(s => {
           const Icon = s.icon;
@@ -106,7 +106,7 @@ export default function Seguranca() {
               <div className="w-16 h-2 rounded-full bg-gray-700 overflow-hidden">
                 <div className="h-full rounded-full bg-green-500 transition-all" style={{ width: `${lgpdScore}%` }}></div>
               </div>
-              <span className={`text-sm font-bold ${lgpdScore >= 80 ? '#00b37e' : '#D4A017'}`}>{lgpdScore}%</span>
+              <span className={`text-sm font-bold ${lgpdScore >= 80 ? '#00b37e' : '#DEC078'}`}>{lgpdScore}%</span>
             </div>
           </div>
           <div className="p-4 space-y-2">

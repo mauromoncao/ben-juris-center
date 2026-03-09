@@ -91,7 +91,7 @@ export default function IntegracaoComercial() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold font-serif flex items-center gap-2" style={{ color: '#0f2044' }}>
+          <h1 className="text-2xl font-bold font-serif flex items-center gap-2" style={{ color: '#19385C' }}>
             <ArrowLeftRight size={24} className="text-blue-400" />
             Integração Comercial — Ben Growth Center
           </h1>
@@ -110,7 +110,7 @@ export default function IntegracaoComercial() {
             onClick={handleSync}
             disabled={sincronizando}
             className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold text-white transition-all"
-            style={{ background: '#0f2044' }}
+            style={{ background: '#19385C' }}
           >
             <RefreshCw size={15} className={sincronizando ? 'animate-spin' : ''} />
             {sincronizando ? 'Sincronizando...' : 'Sincronizar'}

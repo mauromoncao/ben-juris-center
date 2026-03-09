@@ -165,8 +165,8 @@ export default function Processos() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold font-serif flex items-center gap-2" style={{ color: '#0f2044' }}>
-            <Gavel size={24} style={{ color: '#D4A017' }} />
+          <h1 className="text-2xl font-bold font-serif flex items-center gap-2" style={{ color: '#19385C' }}>
+            <Gavel size={24} style={{ color: '#DEC078' }} />
             Gestão Processual
           </h1>
           <p className="text-slate-500 text-sm mt-0.5 font-sans">Processos judiciais e administrativos — padrão CNJ</p>
@@ -179,11 +179,11 @@ export default function Processos() {
       {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
         {[
-          { label: 'Total', value: processos.length, color: '#0f2044' },
+          { label: 'Total', value: processos.length, color: '#19385C' },
           { label: 'Ativos', value: processos.filter(p => p.status === 'ativo').length, color: '#00b37e' },
           { label: 'Em Recurso', value: processos.filter(p => p.status === 'recurso').length, color: '#7c3aed' },
           { label: 'Risco Alto/+', value: processos.filter(p => ['alto', 'muito_alto'].includes(p.risco)).length, color: '#e11d48' },
-          { label: 'Valor Total', value: `R$ ${(totalValor / 1000000).toFixed(1)}M`, color: '#D4A017' },
+          { label: 'Valor Total', value: `R$ ${(totalValor / 1000000).toFixed(1)}M`, color: '#DEC078' },
         ].map(s => (
           <div key={s.label} className="card-compact text-center">
             <div className="text-xl font-bold font-serif" style={{ color: s.color }}>{s.value}</div>
@@ -230,7 +230,7 @@ export default function Processos() {
                 const risco = RISCOS[p.risco];
                 return (
                   <tr key={p.id} className="table-row" onClick={() => setSelecionado(p)}>
-                    <td className="px-4 py-3 text-xs font-mono font-bold whitespace-nowrap" style={{ color: '#1e3470' }}>{p.numero_cnj}</td>
+                    <td className="px-4 py-3 text-xs font-mono font-bold whitespace-nowrap" style={{ color: '#19385C' }}>{p.numero_cnj}</td>
                     <td className="px-4 py-3">
                       <div className="text-sm font-medium text-slate-800 max-w-xs">{p.titulo}</div>
                       <div className="text-xs text-slate-500 mt-0.5">{p.cliente}</div>
@@ -248,10 +248,10 @@ export default function Processos() {
                     <td className="px-4 py-3 text-sm font-semibold text-slate-700 whitespace-nowrap">
                       {p.valor_causa > 0 ? `R$ ${(p.valor_causa / 1000).toFixed(0)}K` : '—'}
                     </td>
-                    <td className="px-4 py-3 text-sm whitespace-nowrap font-bold" style={{ color: '#D4A017' }}>{new Date(p.proximo_prazo).toLocaleDateString('pt-BR')}</td>
+                    <td className="px-4 py-3 text-sm whitespace-nowrap font-bold" style={{ color: '#DEC078' }}>{new Date(p.proximo_prazo).toLocaleDateString('pt-BR')}</td>
                     <td className="px-4 py-3">
                       <div className="flex gap-2">
-                        <button className="transition-colors hover:opacity-70" style={{ color: '#1e3470' }}><Eye size={14} /></button>
+                        <button className="transition-colors hover:opacity-70" style={{ color: '#19385C' }}><Eye size={14} /></button>
                         <button className="transition-colors hover:opacity-70 text-slate-400"><Edit size={14} /></button>
                       </div>
                     </td>
@@ -270,7 +270,7 @@ export default function Processos() {
             <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 sticky top-0 bg-white">
               <div>
                 <div className="flex items-center gap-2 flex-wrap">
-                  <span className="text-xs font-mono font-bold" style={{ color: '#1e3470' }}>{selecionado.numero_cnj}</span>
+                  <span className="text-xs font-mono font-bold" style={{ color: '#19385C' }}>{selecionado.numero_cnj}</span>
                   <span className={`text-xs px-2 py-0.5 rounded-full border ${AREAS[selecionado.area].color}`}>{AREAS[selecionado.area].label}</span>
                   <span className={`text-xs px-2 py-0.5 rounded-full border ${RISCOS[selecionado.risco].color}`}>Risco {RISCOS[selecionado.risco].label}</span>
                 </div>

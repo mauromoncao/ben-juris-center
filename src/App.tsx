@@ -127,19 +127,19 @@ function Sidebar({ collapsed, onToggle }: { collapsed: boolean; onToggle: () => 
   return (
     <aside
       className={`fixed left-0 top-0 h-full z-40 flex flex-col transition-all duration-300 overflow-y-auto ${collapsed ? 'w-16' : 'w-64'}`}
-      style={{ background: '#0f2044', borderRight: '1px solid rgba(255,255,255,0.08)' }}>
+      style={{ background: '#19385C', borderRight: '1px solid rgba(255,255,255,0.08)' }}>
 
       {/* Logo – padrão Ben Growth */}
       <div className={`flex items-center gap-3 p-5 border-b flex-shrink-0 ${collapsed ? 'justify-center px-3' : ''}`}
         style={{ borderColor: 'rgba(255,255,255,0.10)' }}>
         <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg"
-          style={{ background: 'linear-gradient(135deg, #1e3470, #0f2044)', border: '1px solid rgba(212,160,23,0.40)' }}>
-          <Scale size={19} style={{ color: '#D4A017' }} />
+          style={{ background: 'linear-gradient(135deg, #19385C, #0f2044)', border: '1px solid rgba(222,192,120,0.40)' }}>
+          <Scale size={19} style={{ color: '#DEC078' }} />
         </div>
         {!collapsed && (
           <div className="flex-1 min-w-0">
             <div className="font-bold text-sm leading-tight font-serif text-white" style={{ letterSpacing: '-0.01em' }}>Ben Juris Center</div>
-            <div className="text-xs font-semibold font-sans" style={{ color: '#D4A017', letterSpacing: '0.06em' }}>Plataforma Jurídica IA</div>
+            <div className="text-xs font-semibold font-sans" style={{ color: '#DEC078', letterSpacing: '0.06em' }}>Plataforma Jurídica IA</div>
           </div>
         )}
         {!collapsed && (
@@ -182,7 +182,7 @@ function Sidebar({ collapsed, onToggle }: { collapsed: boolean; onToggle: () => 
                     <NavLink key={`${item.path}-${item.label}`} to={item.path}
                       className={`flex items-center gap-3 px-3 py-2.5 rounded-lg font-sans text-sm font-medium transition-all ${collapsed ? 'justify-center' : ''}`}
                       style={isActive
-                        ? { background: '#D4A017', color: '#0f2044', fontWeight: 700 }
+                        ? { background: '#DEC078', color: '#19385C', fontWeight: 700 }
                         : { color: '#9fb0d7' }
                       }
                       onMouseEnter={e => { if (!isActive) { e.currentTarget.style.background='rgba(255,255,255,0.07)'; e.currentTarget.style.color='#ffffff'; }}}
@@ -211,11 +211,11 @@ function Sidebar({ collapsed, onToggle }: { collapsed: boolean; onToggle: () => 
           <div className="flex items-center gap-2 rounded-lg px-3 py-1.5 mb-3"
             style={{ background: 'rgba(212,160,23,0.10)', border: '1px solid rgba(212,160,23,0.25)' }}>
             <div className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse flex-shrink-0" />
-            <span className="text-xs font-medium font-sans" style={{ color: '#D4A017' }}>Sistema Ativo</span>
+            <span className="text-xs font-medium font-sans" style={{ color: '#DEC078' }}>Sistema Ativo</span>
           </div>
           <div className="flex items-center gap-3 px-1">
             <div className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0"
-              style={{ background: '#D4A017', color: '#0f2044' }}>MM</div>
+              style={{ background: '#DEC078', color: '#19385C' }}>MM</div>
             <div className="flex-1 min-w-0">
               <p className="text-sm font-medium text-white truncate font-sans">Mauro Monção</p>
               <p className="text-xs font-sans" style={{ color: 'rgba(159,176,215,0.70)' }}>Sócio-Diretor · OAB/PI</p>
@@ -248,7 +248,7 @@ function TopBar({ collapsed }: { collapsed: boolean }) {
       {/* Título da página */}
       <div className="flex items-center gap-3">
         <div>
-          <p className="font-semibold text-sm font-serif" style={{ color: '#0f2044', letterSpacing: '-0.01em' }}>
+          <p className="font-semibold text-sm font-serif" style={{ color: '#19385C', letterSpacing: '-0.01em' }}>
             {current?.label || 'Ben Juris Center'}
           </p>
           <p className="text-slate-400 text-xs font-sans">
@@ -295,11 +295,11 @@ function TopBar({ collapsed }: { collapsed: boolean }) {
 function Layout({ children }: { children: React.ReactNode }) {
   const [collapsed, setCollapsed] = useState(false);
   return (
-    <div className="min-h-screen" style={{ background: '#0f2044' }}>
+    <div className="min-h-screen" style={{ background: '#FFFFFF' }}>
       <Sidebar collapsed={collapsed} onToggle={() => setCollapsed(!collapsed)} />
       <TopBar collapsed={collapsed} />
       <main className="pt-14 min-h-screen transition-all duration-300"
-        style={{ background: '#0f2044', marginLeft: collapsed ? '64px' : '256px' }}>
+        style={{ background: '#FFFFFF', marginLeft: collapsed ? '64px' : '256px' }}>
         <div className="p-6">
           {children}
         </div>
@@ -315,7 +315,7 @@ function LogoutButtonJuris() {
   return (
     <div className="flex items-center gap-2">
       <div className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold"
-        style={{ background: '#0f2044', color: '#D4A017' }}>{initials}</div>
+        style={{ background: '#19385C', color: '#DEC078' }}>{initials}</div>
       <button
         onClick={logout}
         title="Sair"

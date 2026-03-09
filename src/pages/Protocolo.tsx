@@ -133,7 +133,7 @@ export default function Protocolo() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold font-serif flex items-center gap-2" style={{ color: '#0f2044' }}>
+          <h1 className="text-2xl font-bold font-serif flex items-center gap-2" style={{ color: '#19385C' }}>
             <FileText size={24} className="text-blue-400" />
             Protocolo Digital de Demandas
           </h1>
@@ -154,7 +154,7 @@ export default function Protocolo() {
           { label: 'Urgentes (Hoje)', value: contadores.urgente, color: 'red', dot: '🔴' },
         ].map(s => (
           <div key={s.label} className="bg-white border border-slate-200 rounded-xl p-4">
-            <div className="text-2xl font-bold font-serif mb-1" style={{ color: '#0f2044' }}>{s.dot} {s.value}</div>
+            <div className="text-2xl font-bold font-serif mb-1" style={{ color: '#19385C' }}>{s.dot} {s.value}</div>
             <div className="text-xs text-slate-500">{s.label}</div>
           </div>
         ))}

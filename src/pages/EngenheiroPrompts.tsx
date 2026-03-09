@@ -390,7 +390,7 @@ export default function EngenheiroPrompts() {
 
       {/* ── Header ─────────────────────────────────────────────────── */}
       <div className="rounded-2xl p-6 shadow-lg relative overflow-hidden"
-        style={{ background: 'linear-gradient(135deg, #0f2044 0%, #1e3470 40%, #7c3aed 100%)' }}>
+        style={{ background: 'linear-gradient(135deg, #19385C 0%, #19385C 40%, #7c3aed 100%)' }}>
         <div className="absolute inset-0 opacity-10"
           style={{ backgroundImage: 'radial-gradient(circle at 20% 60%, #a78bfa 0%, transparent 40%), radial-gradient(circle at 80% 20%, #60a5fa 0%, transparent 40%)' }} />
         <div className="relative flex items-start justify-between flex-wrap gap-4">
@@ -436,7 +436,7 @@ export default function EngenheiroPrompts() {
         ].map(t => (
           <button key={t.id} onClick={() => setTab(t.id as any)}
             className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all ${tab === t.id
-              ? 'bg-[#0f2044] text-white shadow-md'
+              ? 'bg-[#19385C] text-white shadow-md'
               : 'text-slate-500 hover:text-slate-700 hover:bg-slate-50'}`}>
             <t.icon size={14}/>{t.label}
           </button>
@@ -460,7 +460,7 @@ export default function EngenheiroPrompts() {
               {CATEGORIAS.map(cat => (
                 <button key={cat} onClick={() => setCatFilter(cat)}
                   className={`text-xs px-3 py-1.5 rounded-xl font-semibold transition-all border ${catFilter === cat
-                    ? 'bg-[#0f2044] text-white border-[#D4A017] shadow-sm'
+                    ? 'bg-[#19385C] text-white border-[#DEC078] shadow-sm'
                     : 'bg-white text-slate-500 border-slate-200 hover:border-purple-300 hover:text-purple-600'}`}>
                   {cat}
                 </button>
@@ -650,7 +650,7 @@ export default function EngenheiroPrompts() {
                   'Inclua exemplos (few-shot) para maior precisão',
                   'Adicione "passo a passo" para chain-of-thought',
                 ].map((tip, i) => (
-                  <li key={i} className="flex items-start gap-1.5"><span className="text-[#1e3470] mt-0.5">•</span>{tip}</li>
+                  <li key={i} className="flex items-start gap-1.5"><span className="text-[#19385C] mt-0.5">•</span>{tip}</li>
                 ))}
               </ul>
             </div>
@@ -765,7 +765,7 @@ export default function EngenheiroPrompts() {
               {(['OTIMIZAR', 'AUDITAR', 'METAPROMPT'] as const).map(m => (
                 <button key={m} onClick={() => setOficinaModo(m)}
                   className={`text-xs px-4 py-2 rounded-xl font-black transition-all border ${oficinaModo === m
-                    ? 'bg-[#0f2044] text-white border-[#D4A017]'
+                    ? 'bg-[#19385C] text-white border-[#DEC078]'
                     : 'bg-white text-slate-500 border-slate-200 hover:border-purple-300'}`}>
                   {m === 'OTIMIZAR' ? '✨ Otimizar' : m === 'AUDITAR' ? '🔍 Auditar' : '🔧 Meta-Prompt'}
                 </button>
