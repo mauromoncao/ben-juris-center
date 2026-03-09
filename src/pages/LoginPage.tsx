@@ -43,7 +43,7 @@ export default function LoginPage() {
           <div
             className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-xl"
             style={{
-              background: 'linear-gradient(135deg, #0f2044, #1a3a6b)',
+              background: 'linear-gradient(135deg, #19385C, #1a3a6b)',
               border: '1px solid rgba(59,130,246,0.40)',
               boxShadow: '0 0 32px rgba(59,130,246,0.18)',
             }}

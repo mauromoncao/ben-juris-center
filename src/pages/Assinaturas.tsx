@@ -23,7 +23,7 @@ export default function Assinaturas() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold font-serif flex items-center gap-2" style={{ color: '#0f2044' }}><PenTool size={24} className="text-blue-400" />Assinatura Digital</h1>
+          <h1 className="text-2xl font-bold font-serif flex items-center gap-2" style={{ color: '#19385C' }}><PenTool size={24} className="text-blue-400" />Assinatura Digital</h1>
           <p className="text-slate-500 text-sm mt-0.5">ICP-Brasil A1/A3 — ClickSign, DocuSign, ZapSign</p>
         </div>
         <button className="btn-primary">
@@ -34,10 +34,10 @@ export default function Assinaturas() {
       {/* Stats */}
       <div className="grid grid-cols-4 gap-4">
         {[
-          { l: 'Aguardando', v: assinaturas.filter(a => a.status === 'aguardando').length, c: '#D4A017' },
+          { l: 'Aguardando', v: assinaturas.filter(a => a.status === 'aguardando').length, c: '#DEC078' },
           { l: 'Concluídos', v: assinaturas.filter(a => a.status === 'concluido').length, c: '#00b37e' },
           { l: 'Signatários Pendentes', v: assinaturas.flatMap(a => a.signatarios).filter(s => s.status === 'pendente').length, c: '#f59e0b' },
-          { l: 'Plataformas', v: 3, c: '#0f2044' },
+          { l: 'Plataformas', v: 3, c: '#19385C' },
         ].map(s => (
           <div key={s.l} className="bg-white border border-slate-200 rounded-xl p-4 text-center">
             <div className={`text-2xl font-bold ${s.c}`}>{s.v}</div>
@@ -52,8 +52,8 @@ export default function Assinaturas() {
           { nome: 'ClickSign', status: 'online', cor: '#00b37e' },
           { nome: 'DocuSign', status: 'online', cor: '#00b37e' },
           { nome: 'ZapSign', status: 'online', cor: '#00b37e' },
-          { nome: 'ICP-Brasil A1', status: 'válido', cor: '#0f2044' },
-          { nome: 'ICP-Brasil A3', status: 'válido', cor: '#0f2044' },
+          { nome: 'ICP-Brasil A1', status: 'válido', cor: '#19385C' },
+          { nome: 'ICP-Brasil A3', status: 'válido', cor: '#19385C' },
         ].map(p => (
           <div key={p.nome} className="flex items-center gap-2 bg-white border border-slate-200 rounded-lg px-3 py-2">
             <Shield size={14} className={p.cor} />

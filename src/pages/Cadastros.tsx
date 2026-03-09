@@ -111,7 +111,7 @@ export default function Cadastros() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold font-serif flex items-center gap-2" style={{ color: '#0f2044' }}>
+          <h1 className="text-2xl font-bold font-serif flex items-center gap-2" style={{ color: '#19385C' }}>
             <Building2 size={24} className="text-blue-400" />
             Cadastros Institucionais
           </h1>
@@ -126,9 +126,9 @@ export default function Cadastros() {
       {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total de Clientes', value: cadastros.length, icon: Building2, color: '#0f2044', bg: 'bg-blue-500/10' },
+          { label: 'Total de Clientes', value: cadastros.length, icon: Building2, color: '#19385C', bg: 'bg-blue-500/10' },
           { label: 'Processos Ativos', value: totalProcessos, icon: FileText, color: '#00b37e', bg: 'bg-green-500/10' },
-          { label: 'Honorários/Mês', value: `R$ ${(totalHonorarios / 1000).toFixed(0)}K`, icon: Star, color: '#D4A017', bg: 'bg-yellow-500/10' },
+          { label: 'Honorários/Mês', value: `R$ ${(totalHonorarios / 1000).toFixed(0)}K`, icon: Star, color: '#DEC078', bg: 'bg-yellow-500/10' },
           { label: 'Com Cert. Digital', value: cadastros.filter(c => c.certificado_digital).length, icon: Shield, color: '#7c3aed', bg: 'bg-purple-500/10' },
         ].map(s => {
           const Icon = s.icon;

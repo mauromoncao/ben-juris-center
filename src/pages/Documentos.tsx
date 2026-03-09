@@ -74,7 +74,7 @@ export default function Documentos() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold font-serif flex items-center gap-2" style={{ color: '#0f2044' }}><BookOpen size={24} className="text-blue-400" />Documentos & Pareceres</h1>
+          <h1 className="text-2xl font-bold font-serif flex items-center gap-2" style={{ color: '#19385C' }}><BookOpen size={24} className="text-blue-400" />Documentos & Pareceres</h1>
           <p className="text-slate-500 text-sm mt-0.5">Biblioteca de documentos, templates, versionamento e aprovação</p>
         </div>
         <button className="btn-primary">
@@ -85,8 +85,8 @@ export default function Documentos() {
       {/* Stats */}
       <div className="grid grid-cols-4 gap-4">
         {[
-          { label: 'Total de Docs', value: docs.length, c: '#0f2044' },
-          { label: 'Em Revisão', value: docs.filter(d => d.status === 'revisao').length, c: '#D4A017' },
+          { label: 'Total de Docs', value: docs.length, c: '#19385C' },
+          { label: 'Em Revisão', value: docs.filter(d => d.status === 'revisao').length, c: '#DEC078' },
           { label: 'Aprovados', value: docs.filter(d => d.status === 'aprovado').length, c: '#00b37e' },
           { label: 'Templates', value: templates.length, c: '#7c3aed' },
         ].map(s => (

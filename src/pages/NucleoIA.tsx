@@ -311,7 +311,7 @@ function AgentChatModal({ agent, onClose }: { agent: typeof DR_BEN_AGENTS[0]; on
         </div>
 
         {/* Quick Prompts */}
-        <div className="p-3 border-b border-slate-100 flex gap-2 flex-wrap" style={{ background: 'rgba(15,32,68,0.06)' }}>
+        <div className="p-3 border-b border-slate-100 flex gap-2 flex-wrap" style={{ background: 'rgba(25,56,92,0.06)' }}>
           {agent.prompts.slice(0, 2).map((p, i) => (
             <button key={i} onClick={() => setInput(p)}
               className="text-xs bg-slate-100 hover:bg-slate-100 text-blue-300 border border-blue-700/30 rounded-lg px-3 py-1.5 transition-colors text-left">
@@ -324,19 +324,25 @@ function AgentChatModal({ agent, onClose }: { agent: typeof DR_BEN_AGENTS[0]; on
         <div className="flex-1 overflow-y-auto p-5 space-y-4" style={{ minHeight: '300px' }}>
           {messages.map((msg, i) => (
             <div key={i} className={`flex gap-3 ${msg.role === 'user' ? 'flex-row-reverse' : ''}`}>
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 ${msg.role === 'assistant' ? '' : 'bg-blue-600'}`}
-                style={msg.role === 'assistant' ? { background: agent.gradient } : {}}>
+              <div className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0"
+                style={msg.role === 'assistant'
+                  ? { background: agent.gradient, color: '#fff' }
+                  : { background: '#19385C', color: '#DEC078' }}>
                 {msg.role === 'assistant' ? agent.avatar : 'EU'}
               </div>
-              <div className={`max-w-lg rounded-xl p-3 ${msg.role === 'assistant' ? 'bg-slate-50 border border-slate-200' : 'bg-blue-600'}`}>
-                <div className="text-sm text-slate-800 whitespace-pre-line">{msg.content}</div>
-                <div className="text-xs text-slate-500 mt-1">{msg.time}</div>
+              <div className="max-w-lg rounded-xl p-3"
+                style={msg.role === 'assistant'
+                  ? { background: '#F5F5F5', border: '1px solid #E5E7EB', color: '#222222', borderRadius: '18px 18px 18px 4px', lineHeight: '1.6' }
+                  : { background: '#E9F2FF', color: '#1A1A1A', borderRadius: '18px 18px 4px 18px', lineHeight: '1.6' }
+                }>
+                <div className="text-sm whitespace-pre-line" style={{ lineHeight: '1.6' }}>{msg.content}</div>
+                <div className="text-xs mt-1" style={{ color: '#9CA3AF' }}>{msg.time}</div>
                 {msg.role === 'assistant' && (
                   <div className="flex gap-2 mt-2">
-                    <button className="text-xs text-slate-500 hover:text-slate-700 flex items-center gap-1"><Copy size={10} /> Copiar</button>
-                    <button className="text-xs text-slate-500 hover:text-slate-700 flex items-center gap-1"><Download size={10} /> Exportar</button>
-                    <button className="text-xs text-green-500 hover:text-green-400 flex items-center gap-1"><ThumbsUp size={10} /></button>
-                    <button className="text-xs text-red-500 hover:text-red-400 flex items-center gap-1"><ThumbsDown size={10} /></button>
+                    <button className="text-xs flex items-center gap-1" style={{ color: '#6B7280' }}><Copy size={10} /> Copiar</button>
+                    <button className="text-xs flex items-center gap-1" style={{ color: '#6B7280' }}><Download size={10} /> Exportar</button>
+                    <button className="text-xs flex items-center gap-1" style={{ color: '#00b37e' }}><ThumbsUp size={10} /></button>
+                    <button className="text-xs flex items-center gap-1" style={{ color: '#e11d48' }}><ThumbsDown size={10} /></button>
                   </div>
                 )}
               </div>
@@ -347,7 +353,7 @@ function AgentChatModal({ agent, onClose }: { agent: typeof DR_BEN_AGENTS[0]; on
               <div className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold" style={{ background: agent.gradient }}>{agent.avatar}</div>
               <div className="bg-slate-50 border border-slate-200 rounded-xl p-3">
                 <div className="flex gap-1">
-                  {[0, 1, 2].map(i => <div key={i} className="w-2 h-2 rounded-full animate-bounce" style={{ background: '#D4A017', animationDelay: `${i * 0.15}s` }} />)}
+                  {[0, 1, 2].map(i => <div key={i} className="w-2 h-2 rounded-full animate-bounce" style={{ background: '#DEC078', animationDelay: `${i * 0.15}s` }} />)}
                 </div>
               </div>
             </div>
@@ -360,7 +366,7 @@ function AgentChatModal({ agent, onClose }: { agent: typeof DR_BEN_AGENTS[0]; on
             <input value={input} onChange={e => setInput(e.target.value)}
               onKeyDown={e => e.key === 'Enter' && !e.shiftKey && sendMessage()}
               placeholder={`Pergunte ao ${agent.name}...`}
-              className="flex-1 rounded-xl px-4 py-2.5 text-sm text-slate-200 placeholder-slate-500 focus:outline-none" style={{ background: 'rgba(212,160,23,0.08)', border: '1px solid rgba(212,160,23,0.25)' }} />
+              className="flex-1 rounded-xl px-4 py-2.5 text-sm text-slate-200 placeholder-slate-500 focus:outline-none" style={{ background: 'rgba(222,192,120,0.08)', border: '1px solid rgba(222,192,120,0.25)' }} />
             <button onClick={sendMessage} disabled={loading || !input.trim()}
               className="px-4 py-2.5 rounded-xl text-white font-medium text-sm disabled:opacity-50 transition-all hover:opacity-90"
               style={{ background: agent.gradient }}>
@@ -393,17 +399,17 @@ export default function NucleoIA() {
   return (
     <div className="space-y-6">
       {/* ── Header ─────────────────────────────────────────────────────────── */}
-      <div className="rounded-2xl p-6 relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #0f2044 0%, #1e3470 50%, #0f2044 100%)', border: '1px solid rgba(212,160,23,0.25)' }}>
+      <div className="rounded-2xl p-6 relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #19385C 0%, #19385C 50%, #19385C 100%)', border: '1px solid rgba(222,192,120,0.25)' }}>
         <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 20% 50%, #3b82f6 0%, transparent 50%), radial-gradient(circle at 80% 50%, #7c3aed 0%, transparent 50%)' }} />
         <div className="relative flex items-start justify-between">
           <div className="flex items-center gap-4">
-            <div className="w-16 h-16 rounded-2xl flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #C8960E, #F0C040)', boxShadow: '0 0 28px rgba(212,160,23,0.45)' }}>
-              <Brain size={30} style={{ color: '#0f2044' }} />
+            <div className="w-16 h-16 rounded-2xl flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #C8A052, #EDD090)', boxShadow: '0 0 28px rgba(222,192,120,0.45)' }}>
+              <Brain size={30} style={{ color: '#19385C' }} />
             </div>
             <div>
               <div className="flex items-center gap-2 mb-1">
                 <h1 className="text-2xl font-bold text-white">Núcleo Operacional IA</h1>
-                <span className="text-xs font-semibold px-2 py-0.5 rounded-full" style={{ background: "rgba(212,160,23,0.18)", color: "#D4A017", border: "1px solid rgba(212,160,23,0.40)" }}>Dr. Ben IA</span>
+                <span className="text-xs font-semibold px-2 py-0.5 rounded-full" style={{ background: "rgba(222,192,120,0.18)", color: "#DEC078", border: "1px solid rgba(222,192,120,0.40)" }}>Dr. Ben IA</span>
                 <span className="text-xs font-semibold px-2 py-0.5 rounded-full" style={{ background: "rgba(124,58,237,0.14)", color: "#7c3aed", border: "1px solid rgba(124,58,237,0.35)" }}>Genspark Ecosystem</span>
               </div>
               <p className="text-slate-500 text-sm max-w-2xl">Agentes especialistas de alta performance integrados ao ecossistema Genspark IA. Petições, contratos, análise processual, auditoria fiscal, compliance e muito mais — automatizados com precisão jurídica.</p>
@@ -568,7 +574,7 @@ export default function NucleoIA() {
                   <span className="text-xs text-slate-400 font-semibold uppercase tracking-wider font-sans">{card.label}</span>
                   <card.icon size={16} style={{ color: card.color }} />
                 </div>
-                <div className="text-2xl font-bold font-serif" style={{ color: '#0f2044' }}>{card.value}</div>
+                <div className="text-2xl font-bold font-serif" style={{ color: '#19385C' }}>{card.value}</div>
                 <div className="text-xs text-slate-400 font-sans mt-0.5">{card.sub}</div>
               </div>
             ))}
@@ -652,7 +658,7 @@ export default function NucleoIA() {
                 </div>
                 <div className="text-xs font-semibold text-slate-800">{member.name.split(' ')[1]}</div>
                 <div className="text-xs text-slate-500 mb-2">{member.role.split(' ')[0]}</div>
-                <div className="text-2xl font-bold font-serif" style={{ color: '#0f2044' }}>{member.performance}%</div>
+                <div className="text-2xl font-bold font-serif" style={{ color: '#19385C' }}>{member.performance}%</div>
                 <div className="text-xs text-slate-500">Performance</div>
                 <div className="mt-2 bg-slate-100 rounded-full h-1">
                   <div className="progress-gold" style={{ width: `${member.performance}%` }} />
@@ -664,7 +670,7 @@ export default function NucleoIA() {
           {/* Detailed table */}
           <div className="card overflow-hidden p-0">
             <div className="p-4 border-b border-slate-100">
-              <h3 className="font-semibold text-sm font-sans flex items-center gap-2" style={{ color: '#0f2044' }}><Users size={16} style={{ color: '#D4A017' }} /> Desempenho da Equipe – Fevereiro 2026</h3>
+              <h3 className="font-semibold text-sm font-sans flex items-center gap-2" style={{ color: '#19385C' }}><Users size={16} style={{ color: '#DEC078' }} /> Desempenho da Equipe – Fevereiro 2026</h3>
             </div>
             <table className="w-full">
               <thead>
@@ -678,7 +684,7 @@ export default function NucleoIA() {
                 {TEAM_MEMBERS.sort((a, b) => b.performance - a.performance).map((m, i) => (
                   <tr key={m.id} className="table-row">
                     <td className="px-4 py-3">
-                      <div className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold" style={{ background: i === 0 ? '#D4A017' : i === 1 ? '#cbd5e1' : i === 2 ? '#cd7f32' : '#f1f5f9', color: i === 0 ? '#0f2044' : i === 1 ? '#475569' : i === 2 ? '#fff' : '#64748b' }}>
+                      <div className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold" style={{ background: i === 0 ? '#DEC078' : i === 1 ? '#cbd5e1' : i === 2 ? '#cd7f32' : '#f1f5f9', color: i === 0 ? '#19385C' : i === 1 ? '#475569' : i === 2 ? '#fff' : '#64748b' }}>
                         {i + 1}
                       </div>
                     </td>
@@ -701,11 +707,11 @@ export default function NucleoIA() {
                         <div className="flex-1 bg-slate-100 rounded-full h-1.5 w-16">
                           <div className="progress-navy" style={{ width: `${m.performance}%` }} />
                         </div>
-                        <span className="text-sm font-bold" style={{ color: '#0f2044' }}>{m.performance}%</span>
+                        <span className="text-sm font-bold" style={{ color: '#19385C' }}>{m.performance}%</span>
                       </div>
                     </td>
                     <td className="px-4 py-3">
-                      <div className="flex items-center gap-1 text-xs" style={{ color: '#1e3470' }}>
+                      <div className="flex items-center gap-1 text-xs" style={{ color: '#19385C' }}>
                         <Brain size={12} />
                         <span>{Math.floor(m.hours * 0.3)}h com IA</span>
                       </div>
@@ -777,11 +783,11 @@ export default function NucleoIA() {
             {/* AI Daily Briefing */}
             <div className="card">
               <div className="flex items-center gap-2 mb-4">
-                <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #C8960E, #F0C040)' }}>
+                <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #C8A052, #EDD090)' }}>
                   <Sparkles size={14} className="text-white" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-sm font-sans" style={{ color: '#0f2044' }}>Briefing Diário – Dr. Ben IA</h3>
+                  <h3 className="font-semibold text-sm font-sans" style={{ color: '#19385C' }}>Briefing Diário – Dr. Ben IA</h3>
                   <div className="text-xs text-slate-500">28/02/2026 · Genspark Ecosystem</div>
                 </div>
               </div>
@@ -810,7 +816,7 @@ export default function NucleoIA() {
                 <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #00b37e, #0891b2)' }}>
                   <Lightbulb size={14} className="text-white" />
                 </div>
-                <h3 className="font-semibold text-sm font-sans" style={{ color: '#0f2044' }}>Recomendações Estratégicas IA</h3>
+                <h3 className="font-semibold text-sm font-sans" style={{ color: '#19385C' }}>Recomendações Estratégicas IA</h3>
               </div>
               <div className="space-y-3">
                 {[
@@ -866,7 +872,7 @@ export default function NucleoIA() {
                   <card.icon size={18} style={{ color: card.color }} />
                   <span className="text-xs text-green-400 font-medium">{card.change}</span>
                 </div>
-                <div className="text-2xl font-bold font-serif" style={{ color: '#0f2044' }}>{card.value}</div>
+                <div className="text-2xl font-bold font-serif" style={{ color: '#19385C' }}>{card.value}</div>
                 <div className="text-xs text-slate-400 font-semibold uppercase tracking-wider font-sans">{card.label}</div>
                 <div className="text-xs text-slate-400">{card.sub}</div>
               </div>

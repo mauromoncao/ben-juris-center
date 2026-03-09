@@ -37,7 +37,7 @@ export default function Financeiro() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold font-serif flex items-center gap-2" style={{ color: '#0f2044' }}><DollarSign size={24} className="text-green-400" />Financeiro Corporativo</h1>
+          <h1 className="text-2xl font-bold font-serif flex items-center gap-2" style={{ color: '#19385C' }}><DollarSign size={24} className="text-green-400" />Financeiro Corporativo</h1>
           <p className="text-slate-500 text-sm mt-0.5">Contratos, honorários, recebíveis, PIX/Boleto, conciliação</p>
         </div>
         <div className="flex gap-2">
@@ -54,9 +54,9 @@ export default function Financeiro() {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
           { label: 'Receita Fev/2024', value: 'R$ 125.000', icon: TrendingUp, color: '#00b37e', bg: 'bg-green-500/10', border: 'border-green-500/20' },
-          { label: 'A Receber (Mês)', value: `R$ ${totalHonorarios.toLocaleString('pt-BR')}`, icon: CreditCard, color: '#0f2044', bg: 'bg-blue-500/10', border: 'border-blue-500/20' },
+          { label: 'A Receber (Mês)', value: `R$ ${totalHonorarios.toLocaleString('pt-BR')}`, icon: CreditCard, color: '#19385C', bg: 'bg-blue-500/10', border: 'border-blue-500/20' },
           { label: 'Inadimplente', value: `R$ ${totalAtrasado.toLocaleString('pt-BR')}`, icon: AlertTriangle, color: '#e11d48', bg: 'bg-red-500/10', border: 'border-red-500/20' },
-          { label: 'Margem Líquida', value: '64%', icon: BarChart3, color: '#D4A017', bg: 'bg-yellow-500/10', border: 'border-yellow-500/20' },
+          { label: 'Margem Líquida', value: '64%', icon: BarChart3, color: '#DEC078', bg: 'bg-yellow-500/10', border: 'border-yellow-500/20' },
         ].map(k => {
           const Icon = k.icon;
           return (

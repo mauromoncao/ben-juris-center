@@ -47,7 +47,7 @@ export default function BIDashboard() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold font-serif flex items-center gap-2" style={{ color: '#0f2044' }}><BarChart3 size={24} className="text-blue-400" />BI & Dashboards Executivos</h1>
+          <h1 className="text-2xl font-bold font-serif flex items-center gap-2" style={{ color: '#19385C' }}><BarChart3 size={24} className="text-blue-400" />BI & Dashboards Executivos</h1>
           <p className="text-slate-500 text-sm mt-0.5">Receita, SLA, produtividade, instâncias e sucesso</p>
         </div>
         <div className="flex gap-1 bg-white border border-slate-200 rounded-lg p-1">
@@ -64,8 +64,8 @@ export default function BIDashboard() {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
           { l: 'Receita Fev/24', v: 'R$ 125K', icon: DollarSign, c: '#00b37e', delta: '+23%', up: true },
-          { l: 'Taxa de Sucesso', v: '72%', icon: Target, c: '#0f2044', delta: '+4%', up: true },
-          { l: 'SLA Cumprido', v: '95%', icon: Clock, c: '#D4A017', delta: '-3%', up: false },
+          { l: 'Taxa de Sucesso', v: '72%', icon: Target, c: '#19385C', delta: '+4%', up: true },
+          { l: 'SLA Cumprido', v: '95%', icon: Clock, c: '#DEC078', delta: '-3%', up: false },
           { l: 'Processos Ativos', v: '247', icon: Gavel, c: '#7c3aed', delta: '+12', up: true },
         ].map(k => {
           const Icon = k.icon;
@@ -180,8 +180,8 @@ export default function BIDashboard() {
               <tr key={a.nome} className="border-t border-slate-100">
                 <td className="px-4 py-3 text-sm font-medium text-slate-800">{a.nome}</td>
                 <td className="px-4 py-3 text-sm text-slate-500">{a.area}</td>
-                <td className="px-4 py-3 text-sm font-bold text-white">{a.processos}</td>
-                <td className="px-4 py-3 text-sm font-bold text-white">{a.pareceres}</td>
+                <td className="px-4 py-3 text-sm font-bold">{a.processos}</td>
+                <td className="px-4 py-3 text-sm font-bold">{a.pareceres}</td>
                 <td className="px-4 py-3 text-sm font-bold text-green-400">R$ {a.honorarios.toLocaleString('pt-BR')}</td>
                 <td className="px-4 py-3">
                   <div className="flex items-center gap-2">
