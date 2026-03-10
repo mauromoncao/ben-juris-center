@@ -44,6 +44,10 @@
       "destination": "/api/asaas.js"
     },
     {
+      "source": "/api/super-agente",
+      "destination": "/api/super-agente.js"
+    },
+    {
       "source": "/api/cron/lex-relatorio",
       "destination": "/api/cron/lex-relatorio.js"
     },
