@@ -34,6 +34,7 @@ import ContadorIA from './pages/ContadorIA';
 import PeritoIA from './pages/PeritoIA';
 import SuperAgenteJuridico from './pages/SuperAgenteJuridico';
 import MonitorCustos from './pages/MonitorCustos';
+import PortalClientePublico from './pages/PortalClientePublico';
 
 // ─── Navigation Structure ─────────────────────────────────────────────────────
 const NAV_GROUPS = [
@@ -343,6 +344,8 @@ function AppRoutes() {
   const { isAuthenticated } = useAuth();
   return (
     <Routes>
+      {/* Rota pública — Portal do Cliente (sem autenticação do escritório) */}
+      <Route path="/cliente" element={<PortalClientePublico />} />
       <Route path="/login" element={
         isAuthenticated ? <Navigate to="/" replace /> : <LoginPage />
       } />
