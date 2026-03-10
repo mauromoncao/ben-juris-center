@@ -162,9 +162,9 @@ function KanbanColumn({ title, tasks, color, count }: { title: string; tasks: Ta
       <div className="space-y-2">
         {tasks.map(task => (
           <div key={task.id} className="rounded-xl p-3 border border-slate-100 hover:border-blue-700/40 transition-all cursor-pointer group"
-            style={{ background: 'rgba(15,22,35,0.9)' }}>
+            style={{ background: '#FFFFFF' }}>
             <div className="flex items-start justify-between gap-2 mb-2">
-              <span className="text-xs text-slate-800 font-medium leading-snug flex-1">{task.title}</span>
+              <span className="text-xs font-medium leading-snug flex-1" style={{ color: '#222222' }}>{task.title}</span>
               {task.aiSuggested && <span title="Sugerido por IA"><Brain size={11} className="text-purple-400 flex-shrink-0 mt-0.5" /></span>}
             </div>
             <div className="flex items-center justify-between">
@@ -212,9 +212,9 @@ function ProjectDetail({ project, onClose }: { project: Project; onClose: () => 
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto" style={{ background: 'rgba(0,0,0,0.85)', backdropFilter: 'blur(8px)' }}>
       <div className="min-h-full p-4 flex items-start justify-center pt-8">
-        <div className="w-full max-w-6xl rounded-2xl overflow-hidden" style={{ background: '#0f1623', border: '1px solid rgba(30,58,138,0.4)' }}>
+        <div className="w-full max-w-6xl rounded-2xl overflow-hidden" style={{ background: '#FFFFFF', border: '1px solid #E5E7EB', boxShadow: '0 8px 32px rgba(25,56,92,0.12)' }}>
           {/* Header */}
-          <div className="p-6 border-b border-slate-200" style={{ background: 'linear-gradient(135deg, rgba(30,58,138,0.3), rgba(76,29,149,0.2))' }}>
+          <div className="p-6 border-b border-slate-200" style={{ background: '#F9FAFB' }}>
             <div className="flex items-start justify-between">
               <div>
                 <div className="flex items-center gap-2 mb-1">
@@ -222,7 +222,7 @@ function ProjectDetail({ project, onClose }: { project: Project; onClose: () => 
                   <PriorityBadge priority={project.priority} />
                   <span className="text-xs text-slate-500">{project.type}</span>
                 </div>
-                <h2 className="text-xl font-bold text-white mb-1">{project.name}</h2>
+                <h2 className="text-xl font-bold mb-1" style={{ color: '#19385C' }}>{project.name}</h2>
                 <div className="text-sm text-slate-500">{project.client}</div>
                 <p className="text-xs text-slate-500 mt-2 max-w-2xl">{project.description}</p>
               </div>
@@ -265,19 +265,22 @@ function ProjectDetail({ project, onClose }: { project: Project; onClose: () => 
 
           {/* View toggle */}
           <div className="px-6 py-3 border-b border-slate-100 flex items-center justify-between">
-            <div className="flex gap-1 bg-blue-950/30 p-0.5 rounded-lg">
+            <div className="flex gap-1 bg-slate-100 p-0.5 rounded-lg">
               {[{ id: 'kanban', label: 'Kanban', icon: LayoutGrid }, { id: 'list', label: 'Lista', icon: List }].map(v => (
                 <button key={v.id} onClick={() => setView(v.id as any)}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-all ${view === v.id ? 'bg-blue-600 text-white' : 'text-slate-500 hover:text-slate-800'}`}>
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-all ${view === v.id ? 'text-white' : 'text-slate-500 hover:text-slate-800'}`}
+                  style={view === v.id ? { background: '#19385C' } : {}}>
                   <v.icon size={12} />{v.label}
                 </button>
               ))}
             </div>
             <div className="flex gap-2">
-              <button className="flex items-center gap-1.5 text-xs text-purple-400 hover:text-purple-300 bg-purple-900/20 border border-purple-800/30 px-3 py-1.5 rounded-lg transition-colors">
+              <button className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg transition-colors border"
+                style={{ background: 'rgba(25,56,92,0.06)', color: '#19385C', borderColor: 'rgba(25,56,92,0.20)' }}>
                 <Brain size={12} /> Dr. Ben IA – Sugerir Tarefas
               </button>
-              <button className="flex items-center gap-1.5 text-xs text-blue-400 hover:text-blue-300 bg-slate-50 border border-blue-800/30 px-3 py-1.5 rounded-lg transition-colors">
+              <button className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg transition-colors border"
+                style={{ background: '#F9FAFB', color: '#19385C', borderColor: '#E5E7EB' }}>
                 <Plus size={12} /> Nova Tarefa
               </button>
             </div>
@@ -308,13 +311,14 @@ function ProjectDetail({ project, onClose }: { project: Project; onClose: () => 
               <div className="space-y-2">
                 {project.tasks.map(task => (
                   <div key={task.id} className="flex items-center gap-4 p-3 rounded-xl border border-slate-100 hover:border-blue-700/30 transition-all group"
-                    style={{ background: 'rgba(15,22,35,0.6)' }}>
+                    style={{ background: '#FFFFFF' }}>
                     <div className={`w-4 h-4 rounded flex items-center justify-center flex-shrink-0 ${task.status === 'concluida' ? 'bg-green-500' : 'border border-gray-600'}`}>
                       {task.status === 'concluida' && <CheckCircle size={12} className="text-white" />}
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2">
-                        <span className={`text-sm font-medium ${task.status === 'concluida' ? 'line-through text-slate-500' : 'text-slate-800'}`}>{task.title}</span>
+                        <span className={`text-sm font-medium ${task.status === 'concluida' ? 'line-through' : ''}`}
+                          style={{ color: task.status === 'concluida' ? '#9CA3AF' : '#222222' }}>{task.title}</span>
                         {task.aiSuggested && <span title="IA"><Brain size={11} className="text-purple-400" /></span>}
                       </div>
                       <div className="flex items-center gap-3 mt-0.5">
@@ -365,15 +369,16 @@ export default function NucleoProjetos() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="rounded-2xl p-6" style={{ background: 'linear-gradient(135deg, #0f1623, #1a2744)', border: '1px solid rgba(30,58,138,0.4)' }}>
+      <div className="rounded-2xl p-6" style={{ background: '#FFFFFF', border: '1px solid #E5E7EB', boxShadow: '0 1px 6px rgba(25,56,92,0.08)' }}>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <div className="w-14 h-14 rounded-2xl flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #059669, #0891b2)' }}>
-              <Target size={26} className="text-white" />
+            <div className="w-14 h-14 rounded-2xl overflow-hidden flex-shrink-0 shadow-lg"
+              style={{ border: '2px solid rgba(222,192,120,0.50)', boxShadow: '0 0 20px rgba(222,192,120,0.25)' }}>
+              <img src="/ben-logo.png" alt="BEN Logo" className="w-full h-full object-cover" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-white">Núcleo de Projetos</h1>
-              <p className="text-slate-500 text-sm">Gestão completa da produtividade do escritório com IA integrada</p>
+              <h1 className="text-2xl font-bold" style={{ color: '#19385C' }}>Núcleo de Projetos</h1>
+              <p className="text-sm" style={{ color: '#6B7280' }}>Gestão completa da produtividade do escritório com IA integrada</p>
             </div>
           </div>
           <button className="flex items-center gap-2 btn-primary px-4 py-2.5 rounded-xl text-sm font-medium transition-colors">
@@ -390,21 +395,21 @@ export default function NucleoProjetos() {
             { label: 'Carteira Total', value: `R$ ${(totalValue / 1000).toFixed(0)}k`, icon: DollarSign, color: '#059669' },
             { label: 'Eficiência IA', value: '38%', icon: TrendingUp, color: '#d97706', sub: 'economia de tempo' },
           ].map(s => (
-            <div key={s.label} className="bg-white/5 rounded-xl p-3 border border-white/10">
+            <div key={s.label} className="rounded-xl p-3" style={{ background: '#F9FAFB', border: '1px solid #E5E7EB' }}>
               <div className="flex items-center gap-2 mb-1">
                 <s.icon size={14} style={{ color: s.color }} />
-                <span className="text-xs text-slate-500">{s.label}</span>
+                <span className="text-xs" style={{ color: '#6B7280' }}>{s.label}</span>
               </div>
-              <div className="text-xl font-bold text-white">{s.value}</div>
-              {s.sub && <div className="text-xs text-slate-400">{s.sub}</div>}
+              <div className="text-xl font-bold" style={{ color: '#19385C' }}>{s.value}</div>
+              {s.sub && <div className="text-xs" style={{ color: '#9CA3AF' }}>{s.sub}</div>}
             </div>
           ))}
         </div>
       </div>
 
       {/* Member productivity strip */}
-      <div className="rounded-xl p-4 border border-slate-200 flex items-center gap-4 overflow-x-auto" style={{ background: 'rgba(15,22,35,0.8)' }}>
-        <span className="text-xs text-slate-500 font-medium whitespace-nowrap flex items-center gap-1.5">
+      <div className="rounded-xl p-4 border border-slate-200 flex items-center gap-4 overflow-x-auto" style={{ background: '#FFFFFF' }}>
+        <span className="text-xs font-medium whitespace-nowrap flex items-center gap-1.5" style={{ color: '#19385C' }}>
           <Users size={12} /> Produtividade da Equipe:
         </span>
         {MEMBERS.map(m => {
@@ -418,7 +423,7 @@ export default function NucleoProjetos() {
                 <div className="text-xs font-medium text-slate-700">{m.name.split(' ')[1]}</div>
                 <div className="text-xs text-slate-500">{done}/{memberTasks.length} · {pct}%</div>
               </div>
-              <div className="w-12 bg-blue-900/40 rounded-full h-1">
+              <div className="w-12 bg-slate-100 rounded-full h-1">
                 <div className="h-full rounded-full" style={{ width: `${pct}%`, background: m.color }} />
               </div>
             </div>
@@ -448,10 +453,11 @@ export default function NucleoProjetos() {
           <option value="all">Toda a equipe</option>
           {MEMBERS.map(m => <option key={m.id} value={m.id}>{m.name}</option>)}
         </select>
-        <div className="ml-auto flex gap-1 bg-blue-950/30 p-0.5 rounded-lg">
+        <div className="ml-auto flex gap-1 bg-slate-100 p-0.5 rounded-lg">
           {[{ id: 'grid', icon: LayoutGrid }, { id: 'list', icon: List }].map(v => (
             <button key={v.id} onClick={() => setViewMode(v.id as any)}
-              className={`p-1.5 rounded-md transition-all ${viewMode === v.id ? 'bg-blue-600 text-white' : 'text-slate-500 hover:text-slate-800'}`}>
+              className={`p-1.5 rounded-md transition-all ${viewMode === v.id ? 'text-white' : 'text-slate-500 hover:text-slate-800'}`}
+              style={viewMode === v.id ? { background: '#19385C' } : {}}>
               <v.icon size={14} />
             </button>
           ))}
@@ -468,7 +474,7 @@ export default function NucleoProjetos() {
             return (
               <div key={project.id}
                 className="rounded-xl border border-slate-200 hover:border-blue-700/50 transition-all cursor-pointer group overflow-hidden"
-                style={{ background: 'rgba(15,22,35,0.8)' }}
+                style={{ background: '#FFFFFF' }}
                 onClick={() => setSelectedProject(project)}>
                 {/* Priority bar */}
                 <div className="h-1" style={{ background: priorityCfg.color }} />
@@ -480,7 +486,7 @@ export default function NucleoProjetos() {
                         <StatusBadge status={project.status} />
                         <PriorityBadge priority={project.priority} />
                       </div>
-                      <h3 className="font-semibold text-sm text-gray-100 leading-snug group-hover:text-white transition-colors">{project.name}</h3>
+                      <h3 className="font-semibold text-sm leading-snug transition-colors" style={{ color: '#222222' }}>{project.name}</h3>
                     </div>
                   </div>
                   <div className="text-xs text-slate-500 mb-3">{project.client} · {project.type}</div>
@@ -507,7 +513,7 @@ export default function NucleoProjetos() {
                     </div>
                   </div>
                   <div className="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between">
-                    <span className="text-xs font-semibold text-green-400">R$ {(project.value / 1000).toFixed(0)}k</span>
+                    <span className="text-xs font-semibold" style={{ color: '#00b37e' }}>R$ {(project.value / 1000).toFixed(0)}k</span>
                     <button className="text-xs text-blue-400 flex items-center gap-1 hover:text-blue-300 transition-colors">
                       Abrir projeto <ChevronRight size={11} />
                     </button>
@@ -526,7 +532,7 @@ export default function NucleoProjetos() {
           </button>
         </div>
       ) : (
-        <div className="rounded-xl border border-slate-200 overflow-hidden" style={{ background: 'rgba(15,22,35,0.8)' }}>
+        <div className="rounded-xl border border-slate-200 overflow-hidden" style={{ background: '#FFFFFF' }}>
           <table className="w-full">
             <thead>
               <tr className="border-b border-slate-100">
@@ -561,7 +567,7 @@ export default function NucleoProjetos() {
                       <div className="flex gap-1">{project.team.map(m => <MemberAvatar key={m} id={m} />)}</div>
                     </td>
                     <td className="px-4 py-3 text-xs text-slate-500">{new Date(project.deadline).toLocaleDateString('pt-BR')}</td>
-                    <td className="px-4 py-3 text-xs font-medium text-green-400">R$ {(project.value / 1000).toFixed(0)}k</td>
+                    <td className="px-4 py-3 text-xs font-medium" style={{ color: '#00b37e' }}>R$ {(project.value / 1000).toFixed(0)}k</td>
                     <td className="px-4 py-3">
                       {aiCount > 0 && <span className="flex items-center gap-1 text-xs text-purple-400"><Brain size={11} />{aiCount}</span>}
                     </td>

@@ -129,12 +129,12 @@ function Sidebar({ collapsed, onToggle }: { collapsed: boolean; onToggle: () => 
       className={`fixed left-0 top-0 h-full z-40 flex flex-col transition-all duration-300 overflow-y-auto ${collapsed ? 'w-16' : 'w-64'}`}
       style={{ background: '#19385C', borderRight: '1px solid rgba(255,255,255,0.08)' }}>
 
-      {/* Logo – padrão Ben Growth */}
+      {/* Logo – BEN personalizado */}
       <div className={`flex items-center gap-3 p-5 border-b flex-shrink-0 ${collapsed ? 'justify-center px-3' : ''}`}
         style={{ borderColor: 'rgba(255,255,255,0.10)' }}>
-        <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg"
-          style={{ background: 'linear-gradient(135deg, #19385C, #0f2044)', border: '1px solid rgba(222,192,120,0.40)' }}>
-          <Scale size={19} style={{ color: '#DEC078' }} />
+        <div className="w-10 h-10 rounded-xl overflow-hidden flex-shrink-0 shadow-lg"
+          style={{ border: '1px solid rgba(222,192,120,0.40)' }}>
+          <img src="/ben-logo.png" alt="BEN Logo" className="w-full h-full object-cover" />
         </div>
         {!collapsed && (
           <div className="flex-1 min-w-0">
