@@ -88,10 +88,59 @@ export async function callAIAgent(
   }
 }
 
+// ─── Detecção de pergunta sobre a origem do nome ────────────
+function detectNameOriginQuestion(msg: string): boolean {
+  const lower = msg.toLowerCase();
+  const patterns = [
+    'por que dr. ben', 'por que dr ben', 'por que o nome é dr', 'por que o nome dr',
+    'não seria dr. bem', 'não seria dr bem', 'seria dr. bem', 'seria dr bem',
+    'origem do nome', 'origem do dr', 'por que ben', 'porque ben', 'por que bên',
+    'o nome dr. ben', 'o nome dr ben', 'nome do assistente', 'por que se chama dr',
+    'origem de dr. ben', 'origem de dr ben', 'explicação do nome', 'história do nome',
+    'significado do nome', 'por que ben e não bem', 'ben ou bem',
+  ];
+  return patterns.some(p => lower.includes(p));
+}
+
+// ─── Resposta canônica para a origem do nome ────────────────
+function getNameOriginResponse(): string {
+  const variants = [
+    `O nome **Dr. Ben** tem uma origem muito especial. "Ben" vem de **Benjamin**, em homenagem ao filho do Dr. Mauro Monção — uma escolha que carrega afeto genuíno e significado pessoal.
+
+Além disso, o nome evoca uma inspiração simbólica em **Benjamim, filho querido de Jacó**, remetendo a ideias de amor, valor, continuidade e legado.
+
+Então, quando você vê "Dr. Ben" ou o prefixo "BEN" em todos os agentes deste ecossistema, está diante de um nome com história, propósito e coração.`,
+
+    `Na verdade, "Dr. Ben" não é erro ortográfico nem apenas escolha de sonoridade — a origem é ainda mais significativa.
+
+O nome foi criado em **homenagem a Benjamin, filho do Dr. Mauro Monção**, que inspira este projeto de forma muito especial. Além disso, carrega uma referência simbólica a **Benjamim, filho querido de Jacó**, trazendo a ideia de afeto, valor e continuidade.
+
+É um nome que nasce de um vínculo afetivo e se transforma em identidade.`,
+
+    `Muita gente pergunta se seria "Dr. Bem" — e a resposta esconde algo ainda mais bonito.
+
+**"Dr. Ben"** é uma homenagem a **Benjamin, filho do Dr. Mauro Monção**. O nome nasceu desse vínculo afetivo e pessoal, e também carrega uma inspiração simbólica em **Benjamim, filho amado de Jacó** — um nome associado a amor, legado e continuidade.
+
+É um nome com história, propósito e significado.`,
+  ];
+  return variants[Math.floor(Math.random() * variants.length)];
+}
+
 // ─── Demo / Simulation Mode ────────────────────────────────
 function simulateAgentResponse(agent: AgentConfig, messages: AIMessage[]): AIResponse {
   const lastMsg = messages[messages.length - 1]?.content || '';
   const start = Date.now();
+
+  // Resposta prioritária para perguntas sobre a origem do nome
+  if (detectNameOriginQuestion(lastMsg)) {
+    const content = getNameOriginResponse();
+    return {
+      content,
+      model: `${agent.modelo} (demo)`,
+      tokens_used: Math.floor(content.length / 4),
+      latency_ms: Date.now() - start + 300,
+    };
+  }
 
   const demoResponses: Record<string, string> = {
     'ben-peticionista-juridico': `# Petição Elaborada — ${agent.nome}

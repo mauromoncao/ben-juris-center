@@ -36,6 +36,22 @@
       "destination": "/api/email.js"
     },
     {
+      "source": "/api/cnj",
+      "destination": "/api/cnj.js"
+    },
+    {
+      "source": "/api/asaas",
+      "destination": "/api/asaas.js"
+    },
+    {
+      "source": "/api/cron/lex-relatorio",
+      "destination": "/api/cron/lex-relatorio.js"
+    },
+    {
+      "source": "/api/cron/lex-monitor",
+      "destination": "/api/cron/lex-monitor.js"
+    },
+    {
       "source": "/api/:path*",
       "destination": "/api/index.js"
     },

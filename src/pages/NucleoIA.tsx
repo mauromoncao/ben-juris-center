@@ -314,7 +314,7 @@ function AgentChatModal({ agent, onClose }: { agent: typeof DR_BEN_AGENTS[0]; on
         <div className="p-3 border-b border-slate-100 flex gap-2 flex-wrap" style={{ background: 'rgba(25,56,92,0.06)' }}>
           {agent.prompts.slice(0, 2).map((p, i) => (
             <button key={i} onClick={() => setInput(p)}
-              className="text-xs bg-slate-100 hover:bg-slate-100 text-blue-300 border border-blue-700/30 rounded-lg px-3 py-1.5 transition-colors text-left">
+              className="text-xs bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 transition-colors text-left" style={{ color: '#19385C' }}>
               ⚡ {p.substring(0, 55)}...
             </button>
           ))}
@@ -399,34 +399,35 @@ export default function NucleoIA() {
   return (
     <div className="space-y-6">
       {/* ── Header ─────────────────────────────────────────────────────────── */}
-      <div className="rounded-2xl p-6 relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #19385C 0%, #19385C 50%, #19385C 100%)', border: '1px solid rgba(222,192,120,0.25)' }}>
-        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 20% 50%, #3b82f6 0%, transparent 50%), radial-gradient(circle at 80% 50%, #7c3aed 0%, transparent 50%)' }} />
+      <div className="rounded-2xl p-6 relative overflow-hidden" style={{ background: '#FFFFFF', border: '1px solid #E5E7EB', boxShadow: '0 1px 6px rgba(25,56,92,0.08)' }}>
+        <div className="absolute inset-0 opacity-0" />
         <div className="relative flex items-start justify-between">
           <div className="flex items-center gap-4">
-            <div className="w-16 h-16 rounded-2xl flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #C8A052, #EDD090)', boxShadow: '0 0 28px rgba(222,192,120,0.45)' }}>
-              <Brain size={30} style={{ color: '#19385C' }} />
+            <div className="w-16 h-16 rounded-2xl overflow-hidden flex-shrink-0 shadow-lg"
+              style={{ border: '2px solid rgba(222,192,120,0.50)', boxShadow: '0 0 28px rgba(222,192,120,0.35)' }}>
+              <img src="/ben-logo.png" alt="BEN Logo" className="w-full h-full object-cover" />
             </div>
             <div>
               <div className="flex items-center gap-2 mb-1">
-                <h1 className="text-2xl font-bold text-white">Núcleo Operacional IA</h1>
-                <span className="text-xs font-semibold px-2 py-0.5 rounded-full" style={{ background: "rgba(222,192,120,0.18)", color: "#DEC078", border: "1px solid rgba(222,192,120,0.40)" }}>Dr. Ben IA</span>
+                <h1 className="text-2xl font-bold" style={{ color: '#19385C' }}>Núcleo Operacional IA</h1>
+                <span className="text-xs font-semibold px-2 py-0.5 rounded-full" style={{ background: "rgba(25,56,92,0.08)", color: "#19385C", border: "1px solid rgba(25,56,92,0.20)" }}>Dr. Ben IA</span>
                 <span className="text-xs font-semibold px-2 py-0.5 rounded-full" style={{ background: "rgba(124,58,237,0.14)", color: "#7c3aed", border: "1px solid rgba(124,58,237,0.35)" }}>Genspark Ecosystem</span>
               </div>
-              <p className="text-slate-500 text-sm max-w-2xl">Agentes especialistas de alta performance integrados ao ecossistema Genspark IA. Petições, contratos, análise processual, auditoria fiscal, compliance e muito mais — automatizados com precisão jurídica.</p>
+              <p className="text-sm max-w-2xl" style={{ color: '#6B7280' }}>Agentes especialistas de alta performance integrados ao ecossistema Genspark IA. Petições, contratos, análise processual, auditoria fiscal, compliance e muito mais — automatizados com precisão jurídica.</p>
             </div>
           </div>
           <div className="flex gap-3">
-            <div className="text-center bg-white/5 rounded-xl px-4 py-2 border border-white/10">
-              <div className="text-2xl font-bold text-white">{DR_BEN_AGENTS.length}</div>
-              <div className="text-xs text-slate-500">Agentes</div>
+            <div className="text-center rounded-xl px-4 py-2 border" style={{ background: '#F9FAFB', borderColor: '#E5E7EB' }}>
+              <div className="text-2xl font-bold" style={{ color: '#19385C' }}>{DR_BEN_AGENTS.length}</div>
+              <div className="text-xs" style={{ color: '#9CA3AF' }}>Agentes</div>
             </div>
-            <div className="text-center bg-white/5 rounded-xl px-4 py-2 border border-white/10">
-              <div className="text-2xl font-bold text-green-400">{totalRequests.toLocaleString()}</div>
-              <div className="text-xs text-slate-500">Solicitações</div>
+            <div className="text-center rounded-xl px-4 py-2 border" style={{ background: '#F9FAFB', borderColor: '#E5E7EB' }}>
+              <div className="text-2xl font-bold" style={{ color: '#00b37e' }}>{totalRequests.toLocaleString()}</div>
+              <div className="text-xs" style={{ color: '#9CA3AF' }}>Solicitações</div>
             </div>
-            <div className="text-center bg-white/5 rounded-xl px-4 py-2 border border-white/10">
-              <div className="text-2xl font-bold text-blue-400">{avgAccuracy}%</div>
-              <div className="text-xs text-slate-500">Precisão Média</div>
+            <div className="text-center rounded-xl px-4 py-2 border" style={{ background: '#F9FAFB', borderColor: '#E5E7EB' }}>
+              <div className="text-2xl font-bold" style={{ color: '#19385C' }}>{avgAccuracy}%</div>
+              <div className="text-xs" style={{ color: '#9CA3AF' }}>Precisão Média</div>
             </div>
           </div>
         </div>
@@ -434,15 +435,15 @@ export default function NucleoIA() {
         {/* Genspark badge */}
         <div className="relative mt-4 flex items-center gap-6">
           {[
-            { icon: Cpu, label: 'Genspark LLM', color: '#2563eb' },
+            { icon: Cpu, label: 'Genspark LLM', color: '#19385C' },
             { icon: Database, label: 'Base CNJ/Tribunais', color: '#7c3aed' },
             { icon: Globe, label: 'Jurisprudência Live', color: '#059669' },
             { icon: Lock, label: 'Criptografia E2E', color: '#d97706' },
             { icon: Activity, label: '99.9% Uptime', color: '#0891b2' },
           ].map((item) => (
-            <div key={item.label} className="flex items-center gap-1.5 bg-white/5 px-3 py-1.5 rounded-full border border-white/10">
+            <div key={item.label} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border" style={{ background: '#F9FAFB', borderColor: '#E5E7EB' }}>
               <item.icon size={12} style={{ color: item.color }} />
-              <span className="text-xs text-slate-500">{item.label}</span>
+              <span className="text-xs" style={{ color: '#6B7280' }}>{item.label}</span>
             </div>
           ))}
         </div>
@@ -457,7 +458,8 @@ export default function NucleoIA() {
           { id: 'insights', label: 'Insights IA', icon: Lightbulb },
         ].map(tab => (
           <button key={tab.id} onClick={() => setActiveTab(tab.id as any)}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${activeTab === tab.id ? 'bg-blue-600 text-white shadow-lg' : 'text-slate-500 hover:text-slate-800'}`}>
+            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${activeTab === tab.id ? 'text-white shadow-lg' : 'text-slate-500 hover:text-slate-800'}`}
+            style={activeTab === tab.id ? { background: '#19385C' } : {}}>
             <tab.icon size={14} />
             {tab.label}
           </button>
@@ -531,7 +533,7 @@ export default function NucleoIA() {
                       <div className="text-xs text-slate-400 font-semibold uppercase tracking-wide mb-1.5 font-sans">Capacidades:</div>
                       <div className="flex flex-wrap gap-1">
                         {agent.capabilities.slice(0, 4).map(cap => (
-                          <span key={cap} className="text-xs bg-slate-100 text-blue-300 border border-blue-800/30 rounded px-1.5 py-0.5">{cap}</span>
+                          <span key={cap} className="text-xs bg-slate-100 border border-slate-200 rounded px-1.5 py-0.5" style={{ color: '#19385C' }}>{cap}</span>
                         ))}
                         {agent.capabilities.length > 4 && (
                           <span className="text-xs bg-slate-100 text-slate-500 rounded px-1.5 py-0.5">+{agent.capabilities.length - 4}</span>
@@ -583,7 +585,7 @@ export default function NucleoIA() {
           {/* Projects table */}
           <div className="card overflow-hidden p-0">
             <div className="p-4 border-b border-slate-100 flex items-center justify-between">
-              <h3 className="font-semibold text-white flex items-center gap-2"><Target size={16} className="text-blue-400" /> Projetos em Andamento</h3>
+              <h3 className="font-semibold flex items-center gap-2" style={{ color: '#19385C' }}><Target size={16} style={{ color: '#DEC078' }} /> Projetos em Andamento</h3>
               <button className="flex items-center gap-1.5 btn-primary text-xs px-3 py-1.5 rounded-lg transition-colors">
                 <Plus size={12} /> Novo Projeto
               </button>
@@ -625,7 +627,7 @@ export default function NucleoIA() {
                       <td className="px-4 py-3 text-xs text-slate-500">{new Date(proj.deadline).toLocaleDateString('pt-BR')}</td>
                       <td className="px-4 py-3 text-xs text-slate-700 font-medium">R$ {(proj.value / 1000).toFixed(0)}k</td>
                       <td className="px-4 py-3">
-                        <button className="text-xs bg-blue-600/20 hover:bg-blue-600/40 text-blue-400 border border-blue-600/30 px-2 py-1 rounded transition-colors flex items-center gap-1">
+                        <button className="text-xs rounded-lg px-2 py-1 transition-colors flex items-center gap-1 border" style={{ background: 'rgba(25,56,92,0.08)', color: '#19385C', borderColor: 'rgba(25,56,92,0.20)' }}>
                           <Brain size={10} /> IA
                         </button>
                       </td>
@@ -845,12 +847,12 @@ export default function NucleoIA() {
                     action: 'Ver plano de adequação'
                   },
                 ].map((item, i) => (
-                  <div key={i} className="p-3 rounded-lg border border-slate-100 bg-blue-900/10">
+                  <div key={i} className="p-3 rounded-lg border border-slate-100" style={{ background: '#F9FAFB' }}>
                     <div className="flex items-center justify-between mb-1.5">
                       <span className="text-xs font-medium px-2 py-0.5 rounded-full text-white" style={{ background: item.color + '40', border: `1px solid ${item.color}60`, color: item.color }}>{item.agent}</span>
                     </div>
-                    <p className="text-xs text-slate-700 mb-2">{item.rec}</p>
-                    <button className="text-xs text-blue-400 hover:text-blue-300 flex items-center gap-1 transition-colors">
+                    <p className="text-xs mb-2" style={{ color: '#222222' }}>{item.rec}</p>
+                    <button className="text-xs flex items-center gap-1 transition-colors" style={{ color: '#19385C' }}>
                       <Zap size={10} /> {item.action} <ChevronRight size={10} />
                     </button>
                   </div>
@@ -880,14 +882,14 @@ export default function NucleoIA() {
           </div>
 
           {/* Genspark Integration Panel */}
-          <div className="rounded-xl border border-purple-900/30 p-5" style={{ background: 'linear-gradient(135deg, rgba(76,29,149,0.15), rgba(30,27,75,0.15))' }}>
+          <div className="rounded-xl border border-slate-200 p-5" style={{ background: 'rgba(25,56,92,0.03)' }}>
             <div className="flex items-center gap-3 mb-4">
               <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #7c3aed, #2563eb)' }}>
                 <Globe size={18} className="text-white" />
               </div>
               <div>
-                <h3 className="font-semibold text-white">Ecossistema Genspark IA – Status de Integração</h3>
-                <div className="text-xs text-purple-400">Todos os módulos Dr. Ben IA conectados ao core Genspark</div>
+                <h3 className="font-semibold" style={{ color: '#19385C' }}>Ecossistema Genspark IA – Status de Integração</h3>
+                <div className="text-xs" style={{ color: '#7c3aed' }}>Todos os módulos Dr. Ben IA conectados ao core Genspark</div>
               </div>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
@@ -898,9 +900,9 @@ export default function NucleoIA() {
                 { name: 'ICP-Brasil Certs', status: 'Validado', icon: Lock, color: '#7c3aed' },
                 { name: 'Ben Growth Center', status: 'Integrado', icon: Link2, color: '#d97706' },
               ].map(item => (
-                <div key={item.name} className="bg-white/5 rounded-xl p-3 border border-white/10 text-center">
+                <div key={item.name} className="rounded-xl p-3 text-center border" style={{ background: '#FFFFFF', borderColor: '#E5E7EB' }}>
                   <item.icon size={20} className="mx-auto mb-2" style={{ color: item.color }} />
-                  <div className="text-xs font-medium text-slate-800 mb-1">{item.name}</div>
+                  <div className="text-xs font-medium mb-1" style={{ color: '#222222' }}>{item.name}</div>
                   <div className="flex items-center justify-center gap-1">
                     <div className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse"></div>
                     <span className="text-xs text-green-400">{item.status}</span>

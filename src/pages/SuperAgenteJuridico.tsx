@@ -218,25 +218,28 @@ export default function SuperAgenteJuridico() {
   const formatTime = (ms?: number) => ms ? `${(ms / 1000).toFixed(1)}s` : '';
 
   return (
-    <div className="min-h-screen bg-gray-950 text-white">
+    <div className="min-h-screen" style={{ background: '#FFFFFF', color: '#222222' }}>
       {/* ── Header ─────────────────────────────────────────────── */}
-      <div className="border-b border-purple-500/20 bg-gray-900/50 px-6 py-4">
+      <div className="px-6 py-5 border-b border-slate-200" style={{ background: '#FFFFFF' }}>
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-xl bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-2xl">
-              ⚡
+            <div className="w-14 h-14 rounded-2xl overflow-hidden flex-shrink-0 shadow-lg"
+              style={{ border: '2px solid rgba(222,192,120,0.50)', boxShadow: '0 0 18px rgba(222,192,120,0.30)' }}>
+              <img src="/ben-logo.png" alt="BEN Logo" className="w-full h-full object-cover" />
             </div>
             <div>
-              <h1 className="text-xl font-bold text-white flex items-center gap-2">
+              <h1 className="text-xl font-bold flex items-center gap-2" style={{ color: '#19385C' }}>
                 BEN SUPER AGENTE JURÍDICO
-                <span className="text-xs bg-purple-500/20 text-purple-300 px-2 py-0.5 rounded-full border border-purple-500/30">
+                <span className="text-xs px-2 py-0.5 rounded-full border"
+                  style={{ background: 'rgba(25,56,92,0.08)', color: '#19385C', borderColor: 'rgba(25,56,92,0.25)' }}>
                   Claude Opus 4.6
                 </span>
-                <span className="text-xs bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded-full border border-amber-500/30">
+                <span className="text-xs px-2 py-0.5 rounded-full border"
+                  style={{ background: 'rgba(222,192,120,0.15)', color: '#b8860b', borderColor: 'rgba(222,192,120,0.45)' }}>
                   PREMIUM
                 </span>
               </h1>
-              <p className="text-sm text-gray-400">
+              <p className="text-sm" style={{ color: '#6B7280' }}>
                 Super Agente Jurídico de Alta Performance — Todas as Áreas do Direito
               </p>
             </div>
@@ -245,16 +248,16 @@ export default function SuperAgenteJuridico() {
           {/* Stats */}
           <div className="hidden lg:flex items-center gap-6 text-sm">
             <div className="text-center">
-              <div className="text-purple-400 font-bold">{stats.totalPecas}</div>
-              <div className="text-gray-500 text-xs">Peças geradas</div>
+              <div className="font-bold" style={{ color: '#19385C' }}>{stats.totalPecas}</div>
+              <div className="text-xs" style={{ color: '#6B7280' }}>Peças geradas</div>
             </div>
             <div className="text-center">
-              <div className="text-green-400 font-bold">{stats.tempoMedio ? `${(stats.tempoMedio/1000).toFixed(0)}s` : '—'}</div>
-              <div className="text-gray-500 text-xs">Tempo médio</div>
+              <div className="font-bold" style={{ color: '#00b37e' }}>{stats.tempoMedio ? `${(stats.tempoMedio/1000).toFixed(0)}s` : '—'}</div>
+              <div className="text-xs" style={{ color: '#6B7280' }}>Tempo médio</div>
             </div>
             <div className="text-center">
-              <div className="text-blue-400 font-bold text-xs">{stats.modeloUsado}</div>
-              <div className="text-gray-500 text-xs">Modelo ativo</div>
+              <div className="font-bold text-xs" style={{ color: '#19385C' }}>{stats.modeloUsado}</div>
+              <div className="text-xs" style={{ color: '#6B7280' }}>Modelo ativo</div>
             </div>
           </div>
         </div>
@@ -265,41 +268,44 @@ export default function SuperAgenteJuridico() {
         {/* ── Sidebar ─────────────────────────────────────────────── */}
         <div className="lg:col-span-1 space-y-4">
           {/* Arquitetura */}
-          <div className="bg-gray-900 border border-gray-700 rounded-xl p-4">
-            <h3 className="text-sm font-semibold text-purple-400 mb-3 flex items-center gap-2">
-              <Brain className="w-4 h-4" /> Arquitetura
+          <div className="rounded-xl p-4 border border-slate-200" style={{ background: '#FFFFFF' }}>
+            <h3 className="text-sm font-semibold mb-3 flex items-center gap-2" style={{ color: '#19385C' }}>
+              <Brain className="w-4 h-4" style={{ color: '#19385C' }} /> Arquitetura
             </h3>
             <div className="space-y-2 text-xs">
-              <div className="flex items-center gap-2 p-2 bg-purple-500/10 rounded-lg border border-purple-500/20">
-                <Zap className="w-3 h-3 text-purple-400" />
+              <div className="flex items-center gap-2 p-2 rounded-lg border"
+                style={{ background: 'rgba(25,56,92,0.06)', borderColor: 'rgba(25,56,92,0.18)' }}>
+                <Zap className="w-3 h-3" style={{ color: '#19385C' }} />
                 <div>
-                  <div className="text-purple-300 font-medium">Claude Opus 4.6</div>
-                  <div className="text-gray-500">Raciocínio Adaptativo</div>
+                  <div className="font-medium" style={{ color: '#19385C' }}>Claude Opus 4.6</div>
+                  <div style={{ color: '#6B7280' }}>Raciocínio Adaptativo</div>
                 </div>
               </div>
-              <div className="flex items-center gap-2 p-2 bg-blue-500/10 rounded-lg border border-blue-500/20">
-                <Shield className="w-3 h-3 text-blue-400" />
+              <div className="flex items-center gap-2 p-2 rounded-lg border"
+                style={{ background: 'rgba(8,145,178,0.06)', borderColor: 'rgba(8,145,178,0.20)' }}>
+                <Shield className="w-3 h-3" style={{ color: '#0891b2' }} />
                 <div>
-                  <div className="text-blue-300 font-medium">Claude Sonnet 4.6</div>
-                  <div className="text-gray-500">Fallback automático</div>
+                  <div className="font-medium" style={{ color: '#0e5c7a' }}>Claude Sonnet 4.6</div>
+                  <div style={{ color: '#6B7280' }}>Fallback automático</div>
                 </div>
               </div>
-              <div className="flex items-center gap-2 p-2 bg-green-500/10 rounded-lg border border-green-500/20">
-                <Search className="w-3 h-3 text-green-400" />
+              <div className="flex items-center gap-2 p-2 rounded-lg border"
+                style={{ background: 'rgba(0,179,126,0.06)', borderColor: 'rgba(0,179,126,0.20)' }}>
+                <Search className="w-3 h-3" style={{ color: '#00b37e' }} />
                 <div>
-                  <div className="text-green-300 font-medium">Perplexity</div>
-                  <div className="text-gray-500">Jurisprudência em tempo real</div>
+                  <div className="font-medium" style={{ color: '#00664a' }}>Perplexity</div>
+                  <div style={{ color: '#6B7280' }}>Jurisprudência em tempo real</div>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Metodologia */}
-          <div className="bg-gray-900 border border-gray-700 rounded-xl p-4">
-            <h3 className="text-sm font-semibold text-amber-400 mb-3 flex items-center gap-2">
-              <Target className="w-4 h-4" /> Metodologia (5 Etapas)
+          <div className="rounded-xl p-4 border border-slate-200" style={{ background: '#FFFFFF' }}>
+            <h3 className="text-sm font-semibold mb-3 flex items-center gap-2" style={{ color: '#DEC078' }}>
+              <Target className="w-4 h-4" style={{ color: '#DEC078' }} /> Metodologia (5 Etapas)
             </h3>
-            <div className="space-y-2 text-xs text-gray-400">
+            <div className="space-y-2 text-xs">
               {[
                 { n: '1', t: 'Problema Jurídico', d: 'Identificação e questões acessórias' },
                 { n: '2', t: 'Enquadramento', d: 'CF/88, legislação, normativa infralegal' },
@@ -308,10 +314,11 @@ export default function SuperAgenteJuridico() {
                 { n: '5', t: 'Peça Estruturada', d: 'Pronta para protocolo após revisão' },
               ].map(e => (
                 <div key={e.n} className="flex gap-2">
-                  <span className="w-5 h-5 rounded-full bg-purple-500/20 text-purple-400 text-xs flex items-center justify-center flex-shrink-0">{e.n}</span>
+                  <span className="w-5 h-5 rounded-full text-xs flex items-center justify-center flex-shrink-0 font-bold"
+                    style={{ background: 'rgba(222,192,120,0.18)', color: '#b8860b', border: '1px solid rgba(222,192,120,0.40)' }}>{e.n}</span>
                   <div>
-                    <div className="text-white font-medium">{e.t}</div>
-                    <div className="text-gray-600">{e.d}</div>
+                    <div className="font-medium" style={{ color: '#222222' }}>{e.t}</div>
+                    <div style={{ color: '#6B7280' }}>{e.d}</div>
                   </div>
                 </div>
               ))}
@@ -319,13 +326,14 @@ export default function SuperAgenteJuridico() {
           </div>
 
           {/* Áreas */}
-          <div className="bg-gray-900 border border-gray-700 rounded-xl p-4">
-            <h3 className="text-sm font-semibold text-green-400 mb-3 flex items-center gap-2">
-              <Scale className="w-4 h-4" /> Áreas de Atuação
+          <div className="rounded-xl p-4 border border-slate-200" style={{ background: '#FFFFFF' }}>
+            <h3 className="text-sm font-semibold mb-3 flex items-center gap-2" style={{ color: '#00b37e' }}>
+              <Scale className="w-4 h-4" style={{ color: '#00b37e' }} /> Áreas de Atuação
             </h3>
             <div className="flex flex-wrap gap-1 text-xs">
               {['Tributário', 'Previdenciário', 'Trabalhista', 'Administrativo', 'Médico', 'Constitucional', 'Civil', 'Empresarial', 'Compliance', 'Penal', 'Ambiental', 'Qualquer área'].map(a => (
-                <span key={a} className="px-2 py-0.5 bg-gray-800 text-gray-300 rounded-md border border-gray-700">{a}</span>
+                <span key={a} className="px-2 py-0.5 rounded-md border"
+                  style={{ background: 'rgba(25,56,92,0.06)', color: '#19385C', borderColor: 'rgba(25,56,92,0.18)' }}>{a}</span>
               ))}
             </div>
           </div>
@@ -336,15 +344,15 @@ export default function SuperAgenteJuridico() {
 
           {/* Casos Preset */}
           {showPresets && messages.length === 0 && (
-            <div className="bg-gray-900 border border-gray-700 rounded-xl p-5">
+            <div className="rounded-xl p-5 border border-slate-200" style={{ background: '#FFFFFF' }}>
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-sm font-semibold text-white flex items-center gap-2">
-                  <BookOpen className="w-4 h-4 text-purple-400" />
+                <h3 className="text-sm font-semibold flex items-center gap-2" style={{ color: '#19385C' }}>
+                  <BookOpen className="w-4 h-4" style={{ color: '#DEC078' }} />
                   Casos de Exemplo — Clique para usar
                 </h3>
                 <button
                   onClick={() => setShowPresets(false)}
-                  className="text-xs text-gray-500 hover:text-gray-300"
+                  className="text-xs" style={{ color: '#6B7280' }}
                 >
                   Ocultar
                 </button>
@@ -354,24 +362,24 @@ export default function SuperAgenteJuridico() {
                   <button
                     key={preset.id}
                     onClick={() => handlePreset(preset)}
-                    className={`text-left p-3 rounded-lg border transition-all ${
-                      selectedPreset === preset.id
-                        ? 'border-purple-500/50 bg-purple-500/10'
-                        : 'border-gray-700 bg-gray-800 hover:border-purple-500/30 hover:bg-gray-750'
-                    }`}
+                    className="text-left p-3 rounded-lg border transition-all hover:shadow-sm"
+                    style={selectedPreset === preset.id
+                      ? { background: 'rgba(25,56,92,0.08)', borderColor: 'rgba(25,56,92,0.35)' }
+                      : { background: '#F9FAFB', borderColor: '#E5E7EB' }
+                    }
                   >
                     <div className="flex items-start justify-between gap-2 mb-1">
-                      <span className="text-xs font-medium text-white">{preset.titulo}</span>
-                      <span className={`text-xs px-1.5 py-0.5 rounded-full flex-shrink-0 ${
-                        preset.complexidade === 'maxima'
-                          ? 'bg-red-500/20 text-red-300'
-                          : 'bg-amber-500/20 text-amber-300'
-                      }`}>
+                      <span className="text-xs font-medium" style={{ color: '#222222' }}>{preset.titulo}</span>
+                      <span className="text-xs px-1.5 py-0.5 rounded-full flex-shrink-0"
+                        style={preset.complexidade === 'maxima'
+                          ? { background: 'rgba(220,38,38,0.10)', color: '#b91c1c' }
+                          : { background: 'rgba(222,192,120,0.18)', color: '#b8860b' }
+                        }>
                         {preset.complexidade === 'maxima' ? '🔴 Máxima' : '🟡 Alta'}
                       </span>
                     </div>
-                    <div className="text-xs text-gray-400 mb-2">{preset.descricao}</div>
-                    <div className="text-xs text-purple-400">{preset.area}</div>
+                    <div className="text-xs mb-2" style={{ color: '#6B7280' }}>{preset.descricao}</div>
+                    <div className="text-xs font-medium" style={{ color: '#19385C' }}>{preset.area}</div>
                   </button>
                 ))}
               </div>
@@ -379,10 +387,10 @@ export default function SuperAgenteJuridico() {
           )}
 
           {/* Messages */}
-          <div className="bg-gray-900 border border-gray-700 rounded-xl flex flex-col" style={{ minHeight: '400px', maxHeight: '600px' }}>
-            <div className="flex items-center justify-between px-4 py-3 border-b border-gray-700">
-              <div className="flex items-center gap-2 text-sm text-gray-400">
-                <MessageSquare className="w-4 h-4 text-purple-400" />
+          <div className="rounded-xl border border-slate-200 flex flex-col" style={{ minHeight: '400px', maxHeight: '600px', background: '#FFFFFF' }}>
+            <div className="flex items-center justify-between px-4 py-3 border-b border-slate-200">
+              <div className="flex items-center gap-2 text-sm" style={{ color: '#6B7280' }}>
+                <MessageSquare className="w-4 h-4" style={{ color: '#19385C' }} />
                 <span>{messages.length === 0 ? 'Aguardando solicitação...' : `${Math.ceil(messages.length / 2)} interação(ões)`}</span>
               </div>
               {messages.length > 0 && (
@@ -392,12 +400,15 @@ export default function SuperAgenteJuridico() {
                       const lastAssistant = [...messages].reverse().find(m => m.role === 'assistant');
                       if (lastAssistant) handleCopy(lastAssistant.content);
                     }}
-                    className="text-xs text-gray-500 hover:text-gray-300 flex items-center gap-1"
+                    className="text-xs flex items-center gap-1" style={{ color: '#6B7280' }}
                   >
-                    {copied ? <CheckCircle className="w-3 h-3 text-green-400" /> : <Copy className="w-3 h-3" />}
+                    {copied ? <CheckCircle className="w-3 h-3" style={{ color: '#00b37e' }} /> : <Copy className="w-3 h-3" />}
                     Copiar última
                   </button>
-                  <button onClick={handleClear} className="text-xs text-gray-500 hover:text-red-400 flex items-center gap-1">
+                  <button onClick={handleClear} className="text-xs flex items-center gap-1"
+                    style={{ color: '#6B7280' }}
+                    onMouseEnter={e => (e.currentTarget.style.color = '#dc2626')}
+                    onMouseLeave={e => (e.currentTarget.style.color = '#6B7280')}>
                     <RefreshCw className="w-3 h-3" /> Nova sessão
                   </button>
                 </div>
@@ -408,8 +419,8 @@ export default function SuperAgenteJuridico() {
               {messages.length === 0 && (
                 <div className="flex flex-col items-center justify-center h-48 text-center">
                   <div className="text-4xl mb-3">⚡</div>
-                  <div className="text-gray-400 text-sm mb-1">BEN SUPER AGENTE JURÍDICO pronto</div>
-                  <div className="text-gray-600 text-xs max-w-sm">
+                  <div className="text-sm mb-1 font-semibold" style={{ color: '#19385C' }}>BEN SUPER AGENTE JURÍDICO pronto</div>
+                  <div className="text-xs max-w-sm" style={{ color: '#6B7280' }}>
                     Descreva o caso, a peça necessária ou cole os dados do processo. O agente aplicará raciocínio jurídico profundo em 5 etapas.
                   </div>
                 </div>
@@ -454,7 +465,7 @@ export default function SuperAgenteJuridico() {
                             a.download = `peca-juridica-${Date.now()}.txt`;
                             a.click();
                           }}
-                          className="text-xs text-gray-500 hover:text-white flex items-center gap-1"
+                          className="text-xs flex items-center gap-1" style={{ color: '#6B7280' }}
                         >
                           <Download className="w-3 h-3" /> Baixar
                         </button>
@@ -469,13 +480,11 @@ export default function SuperAgenteJuridico() {
                   <div className="rounded-xl p-4 max-w-sm" style={{ background: '#F5F5F5', border: '1px solid #E5E7EB' }}>
                     <div className="flex items-center gap-3">
                       <div className="flex gap-1">
-                        <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-                        <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-                        <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                        {[0,1,2].map(i => <div key={i} className="w-2 h-2 rounded-full animate-bounce" style={{ background: '#DEC078', animationDelay: `${i*150}ms` }} />)}
                       </div>
-                      <span className="text-xs text-gray-400">Opus 4.6 analisando o caso...</span>
+                      <span className="text-xs" style={{ color: '#6B7280' }}>Opus 4.6 analisando o caso...</span>
                     </div>
-                    <div className="mt-2 text-xs text-gray-600 space-y-1">
+                    <div className="mt-2 text-xs space-y-1" style={{ color: '#9CA3AF' }}>
                       <div className="flex items-center gap-1"><ChevronRight className="w-3 h-3" /> Identificando problema jurídico...</div>
                       <div className="flex items-center gap-1"><ChevronRight className="w-3 h-3" /> Construindo fundamentação...</div>
                       <div className="flex items-center gap-1"><ChevronRight className="w-3 h-3" /> Verificando jurisprudência...</div>
@@ -488,7 +497,7 @@ export default function SuperAgenteJuridico() {
             </div>
 
             {/* Input */}
-            <div className="p-4 border-t border-gray-700">
+            <div className="p-4 border-t border-slate-200">
               <div className="flex gap-3">
                 <div className="flex-1 relative">
                   <textarea
@@ -500,28 +509,30 @@ export default function SuperAgenteJuridico() {
                     }}
                     placeholder="Descreva o caso, a peça jurídica necessária ou faça uma pergunta... (Ctrl+Enter para enviar)"
                     rows={4}
-                    className="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 resize-none"
+                    className="w-full rounded-lg px-4 py-3 text-sm resize-none focus:outline-none"
+                    style={{ background: '#F9FAFB', border: '1.5px solid #E5E7EB', color: '#222222' }}
                     disabled={loading}
                   />
-                  <div className="absolute bottom-2 right-2 text-xs text-gray-600">{input.length} chars</div>
+                  <div className="absolute bottom-2 right-2 text-xs" style={{ color: '#9CA3AF' }}>{input.length} chars</div>
                 </div>
                 <button
                   onClick={() => handleSend()}
                   disabled={!input.trim() || loading}
-                  className="px-4 py-2 bg-purple-600 hover:bg-purple-700 disabled:bg-gray-700 disabled:text-gray-500 text-white rounded-lg transition-colors flex flex-col items-center justify-center gap-1 self-stretch"
+                  className="px-4 py-2 rounded-lg transition-colors flex flex-col items-center justify-center gap-1 self-stretch font-medium text-white disabled:opacity-50"
+                  style={{ background: '#19385C' }}
                 >
                   {loading ? <RefreshCw className="w-5 h-5 animate-spin" /> : <Send className="w-5 h-5" />}
                   <span className="text-xs">Enviar</span>
                 </button>
               </div>
 
-              <div className="flex items-center gap-4 mt-2 text-xs text-gray-600">
+              <div className="flex items-center gap-4 mt-2 text-xs" style={{ color: '#9CA3AF' }}>
                 <span className="flex items-center gap-1">
-                  <Zap className="w-3 h-3 text-purple-400" />
+                  <Zap className="w-3 h-3" style={{ color: '#DEC078' }} />
                   Claude Opus 4.6 com raciocínio adaptativo
                 </span>
                 <span className="flex items-center gap-1">
-                  <AlertTriangle className="w-3 h-3 text-amber-400" />
+                  <AlertTriangle className="w-3 h-3" style={{ color: '#f59e0b' }} />
                   Peças são minutas — revisão obrigatória pelo Dr. Mauro Monção
                 </span>
               </div>
@@ -529,7 +540,7 @@ export default function SuperAgenteJuridico() {
           </div>
 
           {/* Compliance notice */}
-          <div className="bg-amber-500/5 border border-amber-500/20 rounded-xl p-4 text-xs text-amber-400/80">
+          <div className="rounded-xl p-4 text-xs" style={{ background: 'rgba(222,192,120,0.08)', border: '1px solid rgba(222,192,120,0.35)', color: '#8a6800' }}>
             <div className="flex items-start gap-2">
               <Shield className="w-4 h-4 flex-shrink-0 mt-0.5" />
               <div>

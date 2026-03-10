@@ -40,23 +40,17 @@ export default function LoginPage() {
 
         {/* Logo + Cabeçalho */}
         <div className="text-center mb-8">
-          <div
-            className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-xl"
-            style={{
-              background: 'linear-gradient(135deg, #19385C, #1a3a6b)',
-              border: '1px solid rgba(59,130,246,0.40)',
-              boxShadow: '0 0 32px rgba(59,130,246,0.18)',
-            }}
-          >
-            <Scale size={28} style={{ color: '#60a5fa' }} />
+          <div className="w-20 h-20 rounded-2xl overflow-hidden mx-auto mb-4 shadow-xl"
+            style={{ border: '1px solid rgba(222,192,120,0.45)', boxShadow: '0 0 32px rgba(222,192,120,0.25)' }}>
+            <img src="/ben-logo.png" alt="BEN Logo" className="w-full h-full object-cover" />
           </div>
           <h1
             className="text-2xl font-bold text-white mb-1"
-            style={{ fontFamily: 'Cormorant Garamond, Georgia, serif', letterSpacing: '-0.01em' }}
+            style={{ fontFamily: 'Inter, Georgia, serif', letterSpacing: '-0.01em' }}
           >
             Ben Juris Center
           </h1>
-          <p className="text-sm" style={{ color: 'rgba(96,165,250,0.85)' }}>
+          <p className="text-sm" style={{ color: 'rgba(222,192,120,0.85)' }}>
             Módulo 02 — Gestão Jurídica
           </p>
         </div>
