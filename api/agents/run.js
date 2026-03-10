@@ -155,7 +155,7 @@ FINALIZAR TODA PEÇA COM:
 Revisão, adaptação ao caso concreto e assinatura OBRIGATÓRIA pelo Dr. Mauro Monção (OAB/PI 7304-A | OAB/CE 22502 | OAB/MA 29037).
 Escritório Mauro Monção Advogados Associados — Parnaíba, PI — mauromoncao.adv.br"`,
     temperature: 0.1,
-    maxTokens: 16000,
+    maxTokens: 8000,
   },
 
   // ── Petições — Claude Haiku ───────────────────────────────────
@@ -844,7 +844,7 @@ FORMATO DE SAÍDA COMPLETO:
 REFERÊNCIAS: CPP arts. 158-184 e 158-A a 158-F, Lei 13.964/2019, Lei 9.613/98, LC 105/2001, Lei 12.850/2013, NBC TP 01, NBC PP 01, CF/88 art. 5º LVI.
 FINALIZAR: "⚠️ BEN Perito Forense Profundo (Nível 2) — Análise de altíssima complexidade. Alerta enviado ao Dr. Mauro Monção. Revisão técnica obrigatória antes do uso processual."`,
     temperature: 0.05,
-    maxTokens: 16000,
+    maxTokens: 8000,
   },
 
   // ─ Sub-agente: Análise de Evidências Digitais ─────────────
@@ -1012,6 +1012,7 @@ async function callClaude(systemPrompt, userMessage, temperature, maxTokens) {
       temperature,
       max_tokens: maxTokens,
     }),
+    signal: AbortSignal.timeout(55000),
   })
   if (!res.ok) throw new Error(`Claude error ${res.status}: ${await res.text()}`)
   const data = await res.json()
@@ -1038,6 +1039,7 @@ async function callClaudeSonnet(systemPrompt, userMessage, temperature, maxToken
       temperature,
       max_tokens: maxTokens,
     }),
+    signal: AbortSignal.timeout(90000),
   })
   if (!res.ok) throw new Error(`Claude Sonnet error ${res.status}: ${await res.text()}`)
   const data = await res.json()
@@ -1064,6 +1066,7 @@ async function callClaudeOpus(systemPrompt, userMessage, temperature, maxTokens)
       temperature,
       max_tokens: maxTokens,
     }),
+    signal: AbortSignal.timeout(100000),
   })
   if (!res.ok) throw new Error(`Claude Opus error ${res.status}: ${await res.text()}`)
   const data = await res.json()
