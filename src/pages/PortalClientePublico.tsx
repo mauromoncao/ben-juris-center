@@ -466,9 +466,9 @@ export default function PortalClientePublico({ cliente, onLogout }: Props) {
             {/* Boas-vindas */}
             <div className="rounded-2xl p-6 flex items-start gap-4"
               style={{ background: 'linear-gradient(135deg, #0f2044 0%, #19385C 100%)' }}>
-              <div className="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl flex-shrink-0"
-                style={{ background: 'rgba(212,160,23,0.2)', border: '1.5px solid rgba(212,160,23,0.3)' }}>
-                {cliente.tipo === 'municipio' ? '🏛️' : cliente.tipo === 'empresa' ? '🏢' : '⚖️'}
+              <div className="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0 overflow-hidden"
+                style={{ background: 'rgba(212,160,23,0.15)', border: '1.5px solid rgba(212,160,23,0.3)' }}>
+                <img src="/brasao-moncao.png" alt="brasão" className="w-full h-full object-contain" />
               </div>
               <div className="flex-1 min-w-0">
                 <h1 className="text-base font-bold text-white mb-0.5">Olá, {cliente.responsavel}</h1>
@@ -490,7 +490,7 @@ export default function PortalClientePublico({ cliente, onLogout }: Props) {
                   Plano {cliente.plano === 'premium' ? 'Premium' : cliente.plano === 'profissional' ? 'Profissional' : 'Básico'}
                 </div>
                 <p className="text-xs" style={{ color: '#6b7aaa' }}>Dr. Mauro Monção</p>
-                <p className="text-xs" style={{ color: '#4a5580' }}>OAB/PI 12.345</p>
+                <p className="text-xs font-semibold" style={{ color: '#D4A017' }}>OAB/PI 7304-A</p>
               </div>
             </div>
 
@@ -575,7 +575,7 @@ export default function PortalClientePublico({ cliente, onLogout }: Props) {
                 </div>
                 <div>
                   <p className="text-sm font-bold" style={{ color: '#0f2044' }}>Dr. Mauro Monção</p>
-                  <p className="text-xs mb-2" style={{ color: '#6B7280' }}>OAB/PI 12.345 · Monção Advogados Associados</p>
+                  <p className="text-xs mb-2" style={{ color: '#6B7280' }}>OAB/PI 7304-A · Mauro Monção Advogados Associados</p>
                   <div className="flex flex-wrap gap-2">
                     <button onClick={() => setTab('procedimentos')}
                       className="flex items-center gap-1.5 text-xs px-3 py-2 rounded-xl font-medium transition-all hover:opacity-80"
@@ -817,7 +817,7 @@ export default function PortalClientePublico({ cliente, onLogout }: Props) {
                           style={{ background: '#0f2044' }}>⚖️</div>
                         <div className="hidden sm:block text-xs">
                           <p className="font-bold" style={{ color: '#0f2044' }}>Dr. Mauro Monção</p>
-                          <p style={{ color: '#9CA3AF' }}>OAB/PI 12.345</p>
+                          <p style={{ color: '#9CA3AF' }}>OAB/PI 7304-A</p>
                         </div>
                         <div className="flex items-center gap-1">
                           <div className="w-2 h-2 rounded-full" style={{ background: '#059669' }} />
@@ -1092,7 +1092,7 @@ export default function PortalClientePublico({ cliente, onLogout }: Props) {
       {/* ── Rodapé ─────────────────────────────────────────────── */}
       <footer className="border-t py-4" style={{ borderColor: '#E5E7EB', background: '#fff' }}>
         <div className="max-w-5xl mx-auto px-4 flex items-center justify-between">
-          <p className="text-xs" style={{ color: '#9CA3AF' }}>© 2026 Monção Advogados Associados · OAB/PI 12.345</p>
+          <p className="text-xs" style={{ color: '#9CA3AF' }}>© 2026 Mauro Monção Advogados Associados · OAB/PI 7304-A</p>
           <p className="text-xs" style={{ color: '#9CA3AF' }}>Portal seguro · Dados protegidos pela LGPD</p>
         </div>
       </footer>
