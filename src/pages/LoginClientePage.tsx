@@ -134,7 +134,7 @@ export default function LoginClientePage({ onLogin }: Props) {
             Mauro Monção Advogados Associados
           </p>
           <p className="text-xs mt-1" style={{ color: 'rgba(255,255,255,0.5)' }}>
-            OAB/PI 12.345 · Teresina/PI
+            OAB/PI 7304-A · Teresina/PI
           </p>
         </div>
 
@@ -301,7 +301,7 @@ export default function LoginClientePage({ onLogin }: Props) {
 
         {/* Rodapé */}
         <p className="text-center text-xs mt-6" style={{ color: '#2d3a5c' }}>
-          © 2026 Mauro Monção Advogados Associados · OAB/PI 12.345
+          © 2026 Mauro Monção Advogados Associados · OAB/PI 7304-A
         </p>
       </div>
     </div>
