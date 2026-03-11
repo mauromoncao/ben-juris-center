@@ -124,14 +124,17 @@ export default function LoginClientePage({ onLogin }: Props) {
         {/* Logo + título */}
         <div className="text-center mb-8">
           <img
-            src="/logo-moncao.png"
+            src="/brasao-moncao.png"
             alt="Mauro Monção Advogados Associados"
-            className="h-20 mx-auto mb-4 object-contain"
-            style={{ filter: 'brightness(0) invert(1)' }}
+            className="mx-auto mb-4 object-contain"
+            style={{ height: '100px', width: '100px' }}
           />
-          <h1 className="text-xl font-bold text-white mb-1">Portal do Cliente</h1>
-          <p className="text-sm" style={{ color: '#6b7aaa' }}>
+          <h1 className="text-2xl font-bold text-white mb-1">Portal do Cliente</h1>
+          <p className="text-sm font-semibold" style={{ color: '#D4A017' }}>
             Mauro Monção Advogados Associados
+          </p>
+          <p className="text-xs mt-1" style={{ color: 'rgba(255,255,255,0.5)' }}>
+            OAB/PI 12.345 · Teresina/PI
           </p>
         </div>
 
@@ -143,7 +146,7 @@ export default function LoginClientePage({ onLogin }: Props) {
             <form onSubmit={handleLogin} className="space-y-4">
               {/* E-mail */}
               <div>
-                <label className="block text-xs font-medium mb-1.5" style={{ color: '#9ca3af' }}>
+                <label className="block text-xs font-medium mb-1.5" style={{ color: '#ffffff' }}>
                   E-mail institucional
                 </label>
                 <input
@@ -165,7 +168,7 @@ export default function LoginClientePage({ onLogin }: Props) {
 
               {/* Senha */}
               <div>
-                <label className="block text-xs font-medium mb-1.5" style={{ color: '#9ca3af' }}>
+                <label className="block text-xs font-medium mb-1.5" style={{ color: '#ffffff' }}>
                   Senha de acesso
                 </label>
                 <div className="relative">
@@ -188,7 +191,7 @@ export default function LoginClientePage({ onLogin }: Props) {
                     type="button"
                     onClick={() => setMostrarSenha(p => !p)}
                     className="absolute right-3 top-1/2 -translate-y-1/2 p-1 rounded transition-colors hover:text-white"
-                    style={{ color: '#6b7aaa' }}>
+                    style={{ color: 'rgba(255,255,255,0.6)' }}>
                     {mostrarSenha ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                   </button>
                 </div>

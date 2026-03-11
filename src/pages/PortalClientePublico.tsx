@@ -329,20 +329,23 @@ export default function PortalClientePublico({ cliente, onLogout }: Props) {
     <div className="min-h-screen flex flex-col" style={{ background: '#F4F6FA', fontFamily: 'Inter, system-ui, sans-serif' }}>
 
       {/* ── Header ─────────────────────────────────────────────── */}
-      <header className="sticky top-0 z-40 border-b shadow-sm" style={{ background: '#0f2044', borderColor: '#1a3060' }}>
-        <div className="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between">
+      <header className="sticky top-0 z-40 shadow-lg" style={{ background: '#0a1628', borderBottom: '1px solid #1a3060' }}>
+        <div className="max-w-5xl mx-auto px-4 h-18 flex items-center justify-between" style={{ height: '68px' }}>
 
-          {/* Logo + cliente */}
+          {/* Logo principal + nome do escritório */}
           <div className="flex items-center gap-3">
             <img
-              src="/logo-moncao.png"
+              src="/brasao-moncao.png"
               alt="Mauro Monção Advogados Associados"
-              className="h-9 object-contain flex-shrink-0"
-              style={{ filter: 'brightness(0) invert(1)' }}
+              className="object-contain flex-shrink-0"
+              style={{ height: '48px', width: '48px' }}
             />
-            <div className="hidden sm:block border-l pl-3" style={{ borderColor: 'rgba(255,255,255,0.15)' }}>
-              <p className="text-xs leading-none truncate max-w-[180px]" style={{ color: '#9ca3af' }}>
-                {cliente.nome}
+            <div className="hidden sm:block">
+              <p className="text-sm font-bold leading-tight" style={{ color: '#ffffff' }}>
+                Mauro Monção
+              </p>
+              <p className="text-xs leading-tight" style={{ color: '#D4A017' }}>
+                Advogados Associados
               </p>
             </div>
           </div>
@@ -353,10 +356,10 @@ export default function PortalClientePublico({ cliente, onLogout }: Props) {
               <button
                 onClick={() => setShowDepMenu(p => !p)}
                 className="flex items-center gap-2 px-3 py-2 rounded-xl transition-colors hover:bg-white/10"
-                style={{ color: '#e2e8f0', border: '1px solid rgba(255,255,255,0.15)' }}>
+                style={{ color: '#ffffff', border: '1px solid rgba(255,255,255,0.2)' }}>
                 <Building2 className="w-3.5 h-3.5" style={{ color: '#D4A017' }} />
-                <span className="text-xs font-medium max-w-[160px] truncate">{departamentoAtivo.nome}</span>
-                <ChevronDown className="w-3.5 h-3.5" style={{ color: '#6b7aaa' }} />
+                <span className="text-xs font-semibold max-w-[160px] truncate">{departamentoAtivo.nome}</span>
+                <ChevronDown className="w-3.5 h-3.5" style={{ color: '#ffffff' }} />
               </button>
               {showDepMenu && (
                 <div className="absolute top-full left-0 mt-1 w-64 rounded-xl shadow-xl z-50 overflow-hidden"
@@ -368,13 +371,13 @@ export default function PortalClientePublico({ cliente, onLogout }: Props) {
                         className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-left text-xs transition-all"
                         style={dep.id === departamentoAtivo.id
                           ? { background: 'rgba(212,160,23,0.2)', color: '#D4A017' }
-                          : { color: '#e2e8f0' }}
+                          : { color: '#ffffff' }}
                         onMouseEnter={e => { if (dep.id !== departamentoAtivo.id) e.currentTarget.style.background = 'rgba(255,255,255,0.08)' }}
                         onMouseLeave={e => { if (dep.id !== departamentoAtivo.id) e.currentTarget.style.background = 'transparent' }}>
-                        <Building2 className="w-3.5 h-3.5 flex-shrink-0" style={{ color: dep.id === departamentoAtivo.id ? '#D4A017' : '#6b7aaa' }} />
+                        <Building2 className="w-3.5 h-3.5 flex-shrink-0" style={{ color: dep.id === departamentoAtivo.id ? '#D4A017' : '#ffffff' }} />
                         <div className="min-w-0">
                           <p className="font-semibold truncate">{dep.nome}</p>
-                          {dep.descricao && <p className="truncate mt-0.5" style={{ color: '#6b7aaa' }}>{dep.descricao}</p>}
+                          {dep.descricao && <p className="truncate mt-0.5" style={{ color: 'rgba(255,255,255,0.6)' }}>{dep.descricao}</p>}
                         </div>
                         {dep.id === departamentoAtivo.id && <div className="w-1.5 h-1.5 rounded-full ml-auto flex-shrink-0" style={{ background: '#D4A017' }} />}
                       </button>
@@ -385,32 +388,46 @@ export default function PortalClientePublico({ cliente, onLogout }: Props) {
             </div>
           )}
 
-          {/* Ações */}
-          <div className="flex items-center gap-2">
+          {/* Ações direita */}
+          <div className="flex items-center gap-3">
+            {/* Sino de notificações */}
             <button className="relative p-2 rounded-lg hover:bg-white/10 transition-colors">
-              <Bell className="w-5 h-5" style={{ color: '#9ca3af' }} />
+              <Bell className="w-5 h-5" style={{ color: '#ffffff' }} />
               {notificacoes > 0 && (
                 <span className="absolute top-1 right-1 w-4 h-4 rounded-full text-xs font-bold flex items-center justify-center"
                   style={{ background: '#EF4444', color: '#fff', fontSize: '9px' }}>{notificacoes}</span>
               )}
             </button>
-            <div className="hidden sm:flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full flex items-center justify-center text-sm"
-                style={{ background: 'rgba(212,160,23,0.2)', color: '#D4A017', border: '1.5px solid rgba(212,160,23,0.4)' }}>
-                {cliente.tipo === 'municipio' ? '🏛️' : cliente.tipo === 'empresa' ? '🏢' : '⚖️'}
+
+            {/* Brasão + nome do responsável */}
+            <div className="hidden sm:flex items-center gap-2 px-2 py-1 rounded-xl" style={{ background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.12)' }}>
+              <img
+                src="/brasao-moncao.png"
+                alt="brasão"
+                className="object-contain flex-shrink-0 rounded-full"
+                style={{ height: '30px', width: '30px' }}
+              />
+              <div className="text-left">
+                <p className="text-xs font-bold leading-tight" style={{ color: '#ffffff' }}>
+                  {cliente.responsavel}
+                </p>
+                <p className="text-xs leading-tight" style={{ color: '#D4A017' }}>
+                  {cliente.nome}
+                </p>
               </div>
-              <span className="text-xs font-medium max-w-[100px] truncate" style={{ color: '#e2e8f0' }}>
-                {cliente.responsavel}
-              </span>
             </div>
+
+            {/* Mobile menu */}
             <button onClick={() => setMenuAberto(!menuAberto)}
               className="sm:hidden p-2 rounded-lg hover:bg-white/10 transition-colors">
               {menuAberto ? <X className="w-5 h-5 text-white" /> : <Menu className="w-5 h-5 text-white" />}
             </button>
+
+            {/* Sair */}
             <button
               onClick={onLogout}
               className="hidden sm:flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg hover:bg-white/10 transition-colors"
-              style={{ color: '#9ca3af' }}>
+              style={{ color: '#ffffff', border: '1px solid rgba(255,255,255,0.2)' }}>
               <LogOut className="w-3.5 h-3.5" /> Sair
             </button>
           </div>
@@ -421,10 +438,10 @@ export default function PortalClientePublico({ cliente, onLogout }: Props) {
           <div className="max-w-5xl mx-auto px-4 flex gap-0">
             {TABS.map(t => (
               <button key={t.id} onClick={() => { setTab(t.id); setProcessoAberto(null); setProcedimentoAberto(null); }}
-                className="flex items-center gap-1.5 px-4 py-3 text-xs font-medium whitespace-nowrap transition-all relative"
+                className="flex items-center gap-1.5 px-4 py-3 text-xs font-semibold whitespace-nowrap transition-all relative"
                 style={tab === t.id
                   ? { color: '#D4A017', borderBottom: '2px solid #D4A017' }
-                  : { color: '#6b7aaa', borderBottom: '2px solid transparent' }}>
+                  : { color: '#ffffff', borderBottom: '2px solid transparent', opacity: 0.75 }}>
                 {t.icon}
                 {t.label}
                 {t.badge !== undefined && t.badge > 0 && (
