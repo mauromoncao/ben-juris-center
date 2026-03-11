@@ -99,9 +99,11 @@ export default function LoginClientePage({ onLogin }: Props) {
       return;
     }
 
-    // Se tem múltiplos, pede para escolher
-    setClienteEncontrado(found);
-    setEtapa('departamento');
+    // Sempre entra direto com o primeiro departamento (sem tela de seleção)
+    onLogin({
+      ...found,
+      departamentoAtivo: found.departamentos[0],
+    });
   };
 
   const handleSelecionarDepartamento = (dep: Departamento) => {
@@ -121,13 +123,15 @@ export default function LoginClientePage({ onLogin }: Props) {
 
         {/* Logo + título */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-4"
-            style={{ background: 'rgba(212,160,23,0.15)', border: '1.5px solid rgba(212,160,23,0.4)' }}>
-            <Scale className="w-8 h-8" style={{ color: '#D4A017' }} />
-          </div>
-          <h1 className="text-2xl font-bold text-white mb-1">Portal do Cliente</h1>
+          <img
+            src="/logo-moncao.png"
+            alt="Mauro Monção Advogados Associados"
+            className="h-20 mx-auto mb-4 object-contain"
+            style={{ filter: 'brightness(0) invert(1)' }}
+          />
+          <h1 className="text-xl font-bold text-white mb-1">Portal do Cliente</h1>
           <p className="text-sm" style={{ color: '#6b7aaa' }}>
-            Monção Advogados Associados
+            Mauro Monção Advogados Associados
           </p>
         </div>
 
