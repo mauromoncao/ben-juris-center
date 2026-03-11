@@ -1,12 +1,41 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   Users, Eye, Download, FileText, MessageSquare, CheckCircle,
   Clock, Building2, Bell, Lock, Search, Filter, Plus,
   Gavel, CreditCard, AlertTriangle, ChevronRight, Star,
   BarChart3, Shield, Globe, Phone, Mail, Calendar,
   Briefcase, X, Check, ExternalLink, TrendingUp,
-  Hash, MapPin, UserCheck, Key, RefreshCw,
+  Hash, MapPin, UserCheck, Key, RefreshCw, Send,
+  Smartphone, AtSign, Wifi, WifiOff, Loader2,
 } from 'lucide-react';
+
+// ── VPS Portal API ─────────────────────────────────────────────
+const VPS_PORTAL = 'http://181.215.135.202:3600';
+
+async function portalAPI(path: string, options?: RequestInit, token?: string) {
+  const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+  if (token) headers['Authorization'] = `Bearer ${token}`;
+  const r = await fetch(`${VPS_PORTAL}${path}`, { ...options, headers: { ...headers, ...(options?.headers as Record<string, string> || {}) } });
+  if (!r.ok) throw new Error(`API ${path}: ${r.status}`);
+  return r.json();
+}
+
+interface WAMensagem {
+  id: string;
+  cliente_id: string;
+  cliente_nome: string;
+  whatsapp: string;
+  email: string;
+  texto: string;
+  de: 'cliente' | 'escritorio';
+  canal: string;
+  procedimento_id: string | null;
+  procedimento_titulo: string | null;
+  enviado_em: string;
+  lida: boolean;
+  enviado_whatsapp?: boolean;
+  enviado_email?: boolean;
+}
 
 // ── Tipos ─────────────────────────────────────────────────────
 type TabPortal = 'overview' | 'processos' | 'documentos' | 'financeiro' | 'mensagens' | 'acessos';
@@ -152,9 +181,118 @@ export default function PortalCliente() {
   const [novaMensagem, setNovaMensagem] = useState('');
   const [showConvidarModal, setShowConvidarModal] = useState(false);
 
+  // ── VPS / WhatsApp state ──────────────────────────────────────
+  const [adminToken, setAdminToken]         = useState<string | null>(() => localStorage.getItem('ben_portal_admin_token'));
+  const [vpsOnline, setVpsOnline]           = useState(false);
+  const [waHistorico, setWaHistorico]       = useState<WAMensagem[]>([]);
+  const [waCarregando, setWaCarregando]     = useState(false);
+  const [enviandoMsg, setEnviandoMsg]       = useState(false);
+  const [enviarWA, setEnviarWA]             = useState(true);
+  const [enviarEmail, setEnviarEmail]       = useState(false);
+  const [msgEnviada, setMsgEnviada]         = useState<string | null>(null);
+  const [vpsClientes, setVpsClientes]       = useState<ClientePortal[]>([]);
+  const [naolidas, setNaolidas]             = useState(0);
+  const chatEndRef = useRef<HTMLDivElement>(null);
+
+  // ── VPS login automático ──────────────────────────────────────
+  useEffect(() => {
+    async function loginVPS() {
+      try {
+        const r = await fetch(`${VPS_PORTAL}/auth/login`, {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: 'admin@mauromoncao.adv.br', senha: 'BenHub@Center2026' }),
+        });
+        if (r.ok) {
+          const d = await r.json();
+          setAdminToken(d.token);
+          localStorage.setItem('ben_portal_admin_token', d.token);
+          setVpsOnline(true);
+        }
+      } catch { setVpsOnline(false); }
+    }
+
+    async function healthCheck() {
+      try {
+        const r = await fetch(`${VPS_PORTAL}/health`);
+        if (r.ok) {
+          setVpsOnline(true);
+          if (!adminToken) loginVPS();
+        } else setVpsOnline(false);
+      } catch { setVpsOnline(false); }
+    }
+
+    healthCheck();
+    const iv = setInterval(healthCheck, 30000);
+    return () => clearInterval(iv);
+  }, []);
+
+  // ── Carregar histórico WA do cliente selecionado ──────────────
+  useEffect(() => {
+    if (!clienteSelecionado || !adminToken || tab !== 'mensagens') return;
+    async function carregarHistorico() {
+      setWaCarregando(true);
+      try {
+        const d = await portalAPI(`/mensagens/historico/${clienteSelecionado!.id}`, {}, adminToken ?? undefined);
+        setWaHistorico(d.mensagens || []);
+      } catch { setWaHistorico([]); }
+      setWaCarregando(false);
+    }
+    carregarHistorico();
+    const iv = setInterval(carregarHistorico, 5000);
+    return () => clearInterval(iv);
+  }, [clienteSelecionado, adminToken, tab]);
+
+  // ── Carregar não lidas ────────────────────────────────────────
+  useEffect(() => {
+    if (!adminToken) return;
+    async function carregarNaoLidas() {
+      try {
+        const d = await portalAPI('/mensagens/nao-lidas', {}, adminToken ?? undefined);
+        setNaolidas(d.total || 0);
+      } catch { /* silent */ }
+    }
+    carregarNaoLidas();
+    const iv = setInterval(carregarNaoLidas, 10000);
+    return () => clearInterval(iv);
+  }, [adminToken]);
+
+  // ── Scroll para o fim do chat ─────────────────────────────────
+  useEffect(() => {
+    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [waHistorico]);
+
+  // ── Enviar resposta ao cliente ────────────────────────────────
+  async function handleEnviarResposta() {
+    if (!novaMensagem.trim() || !clienteSelecionado || !adminToken) return;
+    setEnviandoMsg(true);
+    setMsgEnviada(null);
+    try {
+      const d = await portalAPI('/mensagens/enviar', {
+        method: 'POST',
+        body: JSON.stringify({
+          cliente_id: clienteSelecionado.id,
+          texto: novaMensagem.trim(),
+          enviar_whatsapp: enviarWA,
+          enviar_email: enviarEmail,
+        }),
+      }, adminToken ?? undefined);
+      setNovaMensagem('');
+      const canais = [enviarWA && '📱 WhatsApp', enviarEmail && '📧 E-mail'].filter(Boolean).join(' + ');
+      setMsgEnviada(`✅ Enviado${canais ? ' via ' + canais : ''}`);
+      // Recarregar histórico
+      const h = await portalAPI(`/mensagens/historico/${clienteSelecionado!.id}`, {}, adminToken ?? undefined);
+      setWaHistorico(h.mensagens || []);
+      setTimeout(() => setMsgEnviada(null), 3000);
+    } catch (e: any) {
+      setMsgEnviada('❌ Erro ao enviar. Verifique a conexão com o VPS.');
+      setTimeout(() => setMsgEnviada(null), 5000);
+    }
+    setEnviandoMsg(false);
+  }
+
   const totalProcessos = CLIENTES.reduce((s, c) => s + c.processos, 0);
   const totalPendentes = COBRANCAS_MOCK.filter(c => c.status === 'pendente' || c.status === 'atrasado').reduce((s, c) => s + c.valor, 0);
-  const msgNaoLidas = MENSAGENS_MOCK.filter(m => !m.lida && m.remetente === 'cliente').length;
+  const msgNaoLidas = naolidas || MENSAGENS_MOCK.filter(m => !m.lida && m.remetente === 'cliente').length;
   const docNaoLidos = DOCUMENTOS_MOCK.filter(d => !d.lido).length;
 
   const clientesFiltrados = CLIENTES.filter(c =>
@@ -185,7 +323,7 @@ export default function PortalCliente() {
     { id: 'processos', label: 'Processos', icon: <Gavel className="w-4 h-4" />, badge: clienteSelecionado?.processos },
     { id: 'documentos', label: 'Documentos', icon: <FileText className="w-4 h-4" />, badge: docNaoLidos > 0 ? docNaoLidos : undefined },
     { id: 'financeiro', label: 'Financeiro', icon: <CreditCard className="w-4 h-4" /> },
-    { id: 'mensagens', label: 'Mensagens', icon: <MessageSquare className="w-4 h-4" />, badge: msgNaoLidas > 0 ? msgNaoLidas : undefined },
+    { id: 'mensagens', label: 'Mensagens & WA', icon: <MessageSquare className="w-4 h-4" />, badge: msgNaoLidas > 0 ? msgNaoLidas : undefined },
     { id: 'acessos', label: 'Acessos', icon: <Key className="w-4 h-4" /> },
   ];
 
@@ -638,77 +776,182 @@ export default function PortalCliente() {
             </div>
           )}
 
-          {/* TAB: MENSAGENS */}
+          {/* TAB: MENSAGENS & WHATSAPP */}
           {tab === 'mensagens' && (
             <div className="max-w-2xl space-y-4">
+
+              {/* Header + status VPS */}
               <div className="flex items-center justify-between">
                 <h2 className="text-sm font-bold flex items-center gap-2" style={{ color: '#0f2044' }}>
                   <MessageSquare className="w-4 h-4" />
-                  {clienteSelecionado ? `Chat — ${clienteSelecionado.nome}` : 'Todas as Mensagens'}
+                  {clienteSelecionado ? `Mensagens — ${clienteSelecionado.nome}` : 'Mensagens & WhatsApp'}
                 </h2>
-                {msgNaoLidas > 0 && (
-                  <span className="text-xs px-2 py-0.5 rounded-full font-semibold" style={{ background: '#FEE2E2', color: '#991B1B' }}>
-                    {msgNaoLidas} não lida{msgNaoLidas > 1 ? 's' : ''}
-                  </span>
-                )}
-              </div>
-
-              {/* Mensagens */}
-              <div className="bg-white border rounded-2xl overflow-hidden" style={{ borderColor: '#EEEEEE' }}>
-                {/* Lista de mensagens */}
-                <div className="divide-y max-h-[400px] overflow-y-auto">
-                  {(msgsDoCLiente.length > 0 ? msgsDoCLiente : MENSAGENS_MOCK).map(m => (
-                    <div key={m.id} className="px-5 py-4"
-                      style={{ background: !m.lida && m.remetente === 'cliente' ? '#FFFBF0' : '#FFFFFF' }}>
-                      <div className="flex items-start gap-3">
-                        <div className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 text-sm"
-                          style={{ background: m.remetente === 'escritorio' ? '#0f2044' : '#EFF6FF', color: m.remetente === 'escritorio' ? '#D4A017' : '#1d4ed8' }}>
-                          {m.remetente === 'escritorio' ? '⚖️' : '👤'}
-                        </div>
-                        <div className="flex-1">
-                          <div className="flex items-center gap-2 mb-0.5">
-                            <span className="text-xs font-semibold" style={{ color: '#1A1A1A' }}>
-                              {m.remetente === 'escritorio' ? 'Dr. Mauro Monção' : (clienteSelecionado?.responsavel || 'Cliente')}
-                            </span>
-                            <span className="text-xs" style={{ color: '#9CA3AF' }}>{m.hora}</span>
-                            {!m.lida && m.remetente === 'cliente' && (
-                              <span className="text-xs px-1.5 py-0.5 rounded-full font-semibold" style={{ background: '#FEE2E2', color: '#991B1B' }}>Novo</span>
-                            )}
-                          </div>
-                          <p className="text-sm" style={{ color: '#374151', lineHeight: '1.6' }}>{m.texto}</p>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                  {msgsDoCLiente.length === 0 && clienteSelecionado && (
-                    <div className="text-center py-10">
-                      <MessageSquare className="w-10 h-10 mx-auto mb-2" style={{ color: '#D1D5DB' }} />
-                      <p className="text-sm" style={{ color: '#9CA3AF' }}>Nenhuma mensagem com este cliente.</p>
-                    </div>
+                <div className="flex items-center gap-2">
+                  {vpsOnline
+                    ? <span className="flex items-center gap-1 text-xs px-2 py-0.5 rounded-full" style={{ background: '#D1FAE5', color: '#065F46' }}><Wifi className="w-3 h-3" /> VPS Online</span>
+                    : <span className="flex items-center gap-1 text-xs px-2 py-0.5 rounded-full" style={{ background: '#FEE2E2', color: '#991B1B' }}><WifiOff className="w-3 h-3" /> VPS Offline</span>
+                  }
+                  {naolidas > 0 && (
+                    <span className="text-xs px-2 py-0.5 rounded-full font-semibold" style={{ background: '#FEE2E2', color: '#991B1B' }}>
+                      {naolidas} não lida{naolidas > 1 ? 's' : ''}
+                    </span>
                   )}
                 </div>
+              </div>
 
-                {/* Input resposta */}
-                <div className="p-4 border-t" style={{ borderColor: '#F0F0F0' }}>
-                  <div className="flex gap-3">
-                    <textarea
-                      value={novaMensagem}
-                      onChange={e => setNovaMensagem(e.target.value)}
-                      placeholder="Escrever resposta ao cliente..."
-                      rows={2}
-                      className="flex-1 px-4 py-3 text-sm border rounded-xl resize-none focus:outline-none focus:border-blue-400 transition-colors"
-                      style={{ background: '#F9FAFB', borderColor: '#E5E7EB', color: '#222' }}
-                    />
+              {/* Selecionar cliente prompt */}
+              {!clienteSelecionado && (
+                <div className="bg-white border rounded-2xl p-8 text-center" style={{ borderColor: '#EEEEEE' }}>
+                  <MessageSquare className="w-10 h-10 mx-auto mb-3" style={{ color: '#D1D5DB' }} />
+                  <p className="text-sm font-medium" style={{ color: '#6B7280' }}>Selecione um cliente para ver o histórico de mensagens</p>
+                  <p className="text-xs mt-1" style={{ color: '#9CA3AF' }}>As mensagens recebidas via WhatsApp aparecem automaticamente aqui</p>
+                </div>
+              )}
+
+              {/* Histórico de mensagens */}
+              {clienteSelecionado && (
+                <div className="bg-white border rounded-2xl overflow-hidden" style={{ borderColor: '#EEEEEE' }}>
+
+                  {/* Info do cliente */}
+                  <div className="px-5 py-3 border-b flex items-center justify-between" style={{ borderColor: '#F0F0F0', background: '#F9FAFB' }}>
+                    <div className="flex items-center gap-2 text-xs" style={{ color: '#6B7280' }}>
+                      {clienteSelecionado.telefone && (
+                        <span className="flex items-center gap-1">
+                          <Smartphone className="w-3 h-3" style={{ color: '#22c55e' }} />
+                          <span style={{ color: '#374151', fontWeight: 600 }}>WA: {clienteSelecionado.telefone}</span>
+                        </span>
+                      )}
+                      <span>·</span>
+                      <span className="flex items-center gap-1">
+                        <AtSign className="w-3 h-3" style={{ color: '#3b82f6' }} />
+                        {clienteSelecionado.email}
+                      </span>
+                    </div>
                     <button
-                      onClick={() => setNovaMensagem('')}
-                      disabled={!novaMensagem.trim()}
-                      className="px-4 py-2 rounded-xl font-medium text-sm disabled:opacity-40 transition-all hover:opacity-80"
-                      style={{ background: '#0f2044', color: '#D4A017' }}>
-                      Enviar
+                      onClick={async () => {
+                        if (!adminToken) return;
+                        setWaCarregando(true);
+                        try {
+                          const d = await portalAPI(`/mensagens/historico/${clienteSelecionado!.id}`, {}, adminToken ?? undefined);
+                          setWaHistorico(d.mensagens || []);
+                        } catch { /* */ }
+                        setWaCarregando(false);
+                      }}
+                      className="p-1.5 rounded-lg hover:bg-gray-100 transition-colors">
+                      <RefreshCw className={`w-3.5 h-3.5 ${waCarregando ? 'animate-spin' : ''}`} style={{ color: '#6B7280' }} />
                     </button>
                   </div>
+
+                  {/* Lista de mensagens */}
+                  <div className="max-h-[380px] overflow-y-auto px-5 py-3 space-y-3">
+                    {waCarregando && waHistorico.length === 0 && (
+                      <div className="text-center py-8">
+                        <Loader2 className="w-6 h-6 mx-auto animate-spin" style={{ color: '#D1D5DB' }} />
+                        <p className="text-xs mt-2" style={{ color: '#9CA3AF' }}>Carregando mensagens...</p>
+                      </div>
+                    )}
+                    {!waCarregando && waHistorico.length === 0 && (
+                      <div className="text-center py-8">
+                        <MessageSquare className="w-8 h-8 mx-auto mb-2" style={{ color: '#D1D5DB' }} />
+                        <p className="text-sm" style={{ color: '#9CA3AF' }}>Nenhuma mensagem ainda.</p>
+                        <p className="text-xs mt-1" style={{ color: '#9CA3AF' }}>Mensagens recebidas via WhatsApp aparecem aqui automaticamente.</p>
+                      </div>
+                    )}
+                    {waHistorico.map(m => (
+                      <div
+                        key={m.id}
+                        className={`flex ${m.de === 'escritorio' ? 'justify-end' : 'justify-start'}`}>
+                        <div
+                          className="max-w-[80%] rounded-2xl px-4 py-3 text-sm"
+                          style={{
+                            background: m.de === 'escritorio' ? '#0f2044' : '#F3F4F6',
+                            color: m.de === 'escritorio' ? '#ffffff' : '#1A1A1A',
+                          }}>
+                          {/* Canal indicador */}
+                          <div className="flex items-center gap-1.5 mb-1 text-xs" style={{ opacity: 0.75 }}>
+                            {m.canal === 'whatsapp'
+                              ? <Smartphone className="w-3 h-3" />
+                              : <AtSign className="w-3 h-3" />}
+                            <span>{m.de === 'escritorio' ? 'Dr. Mauro Monção' : (clienteSelecionado?.responsavel || m.cliente_nome)}</span>
+                            {m.procedimento_titulo && <span>· {m.procedimento_titulo}</span>}
+                          </div>
+                          <p style={{ lineHeight: '1.6', whiteSpace: 'pre-wrap' }}>{m.texto}</p>
+                          {/* Indicadores de envio */}
+                          <div className="flex items-center gap-2 mt-1.5 text-xs" style={{ opacity: 0.65 }}>
+                            <span>{new Date(m.enviado_em).toLocaleString('pt-BR', { day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit' })}</span>
+                            {m.enviado_whatsapp && <span>📱</span>}
+                            {m.enviado_email && <span>📧</span>}
+                            {!m.lida && m.de === 'cliente' && (
+                              <span className="px-1.5 py-0.5 rounded-full text-xs font-semibold" style={{ background: '#FEE2E2', color: '#991B1B' }}>Novo</span>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                    <div ref={chatEndRef} />
+                  </div>
+
+                  {/* Input de resposta + toggles */}
+                  <div className="p-4 border-t" style={{ borderColor: '#F0F0F0' }}>
+                    {/* Toggles de canal */}
+                    <div className="flex items-center gap-3 mb-3">
+                      <span className="text-xs font-semibold" style={{ color: '#374151' }}>Enviar via:</span>
+                      <button
+                        onClick={() => setEnviarWA(v => !v)}
+                        className={`flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg border font-medium transition-all`}
+                        style={enviarWA
+                          ? { background: '#dcfce7', borderColor: '#22c55e', color: '#15803d' }
+                          : { background: '#F9FAFB', borderColor: '#E5E7EB', color: '#6B7280' }}>
+                        <Smartphone className="w-3.5 h-3.5" />
+                        WhatsApp {enviarWA ? '✓' : ''}
+                      </button>
+                      <button
+                        onClick={() => setEnviarEmail(v => !v)}
+                        className={`flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg border font-medium transition-all`}
+                        style={enviarEmail
+                          ? { background: '#dbeafe', borderColor: '#3b82f6', color: '#1d4ed8' }
+                          : { background: '#F9FAFB', borderColor: '#E5E7EB', color: '#6B7280' }}>
+                        <AtSign className="w-3.5 h-3.5" />
+                        E-mail {enviarEmail ? '✓' : ''}
+                      </button>
+                      {!vpsOnline && (
+                        <span className="text-xs" style={{ color: '#f97316' }}>⚠️ VPS offline — mensagem pode não ser enviada</span>
+                      )}
+                    </div>
+
+                    {/* Feedback de envio */}
+                    {msgEnviada && (
+                      <div className="mb-2 text-xs px-3 py-2 rounded-lg" style={{
+                        background: msgEnviada.startsWith('✅') ? '#D1FAE5' : '#FEE2E2',
+                        color: msgEnviada.startsWith('✅') ? '#065F46' : '#991B1B',
+                      }}>{msgEnviada}</div>
+                    )}
+
+                    <div className="flex gap-3">
+                      <textarea
+                        value={novaMensagem}
+                        onChange={e => setNovaMensagem(e.target.value)}
+                        onKeyDown={e => { if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) handleEnviarResposta(); }}
+                        placeholder={`Escrever mensagem para ${clienteSelecionado.nome}... (Ctrl+Enter para enviar)`}
+                        rows={2}
+                        className="flex-1 px-4 py-3 text-sm border rounded-xl resize-none focus:outline-none focus:border-blue-400 transition-colors"
+                        style={{ background: '#F9FAFB', borderColor: '#E5E7EB', color: '#222' }}
+                      />
+                      <button
+                        onClick={handleEnviarResposta}
+                        disabled={!novaMensagem.trim() || enviandoMsg || !adminToken}
+                        className="flex items-center gap-1.5 px-4 py-2 rounded-xl font-medium text-sm disabled:opacity-40 transition-all hover:opacity-80"
+                        style={{ background: '#0f2044', color: '#D4A017' }}>
+                        {enviandoMsg
+                          ? <Loader2 className="w-4 h-4 animate-spin" />
+                          : <Send className="w-4 h-4" />}
+                        Enviar
+                      </button>
+                    </div>
+                    <p className="text-xs mt-1.5" style={{ color: '#9CA3AF' }}>Ctrl+Enter para enviar rápido</p>
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
           )}
 
