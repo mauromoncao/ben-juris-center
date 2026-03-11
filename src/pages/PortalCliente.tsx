@@ -334,16 +334,26 @@ export default function PortalCliente() {
       <div className="w-72 flex-shrink-0 flex flex-col border-r" style={{ background: '#FFFFFF', borderColor: '#EEEEEE' }}>
 
         {/* Header sidebar */}
-        <div className="p-4 border-b" style={{ borderColor: '#F0F0F0' }}>
+        <div className="border-b" style={{ borderColor: '#F0F0F0', background: '#0f2044' }}>
+          {/* Logo strip */}
+          <div className="px-4 py-3 flex items-center justify-center border-b" style={{ borderColor: 'rgba(255,255,255,0.1)' }}>
+            <img
+              src="/logo-moncao.png"
+              alt="Mauro Monção Advogados Associados"
+              className="h-8 object-contain"
+              style={{ filter: 'brightness(0) invert(1)' }}
+            />
+          </div>
+          <div className="p-4">
           <div className="flex items-center justify-between mb-3">
             <div>
-              <h2 className="text-sm font-bold" style={{ color: '#0f2044' }}>Portal do Cliente</h2>
-              <p className="text-xs" style={{ color: '#9CA3AF' }}>{CLIENTES.length} clientes · {CLIENTES.filter(c => c.status_acesso === 'ativo').length} ativos</p>
+              <h2 className="text-xs font-bold" style={{ color: '#D4A017' }}>Portal do Cliente</h2>
+              <p className="text-xs" style={{ color: 'rgba(255,255,255,0.5)' }}>{CLIENTES.length} clientes · {CLIENTES.filter(c => c.status_acesso === 'ativo').length} ativos</p>
             </div>
             <button
               onClick={() => setShowConvidarModal(true)}
               className="flex items-center gap-1 text-xs px-2.5 py-1.5 rounded-lg font-medium transition-all hover:opacity-80"
-              style={{ background: '#0f2044', color: '#D4A017' }}>
+              style={{ background: 'rgba(212,160,23,0.2)', color: '#D4A017', border: '1px solid rgba(212,160,23,0.3)' }}>
               <Plus className="w-3.5 h-3.5" /> Convidar
             </button>
           </div>
@@ -353,7 +363,8 @@ export default function PortalCliente() {
               value={buscaCliente} onChange={e => setBuscaCliente(e.target.value)}
               placeholder="Buscar cliente..."
               className="w-full pl-9 pr-3 py-2 rounded-xl text-xs border focus:outline-none"
-              style={{ background: '#F9FAFB', border: '1px solid #E5E7EB', color: '#222' }} />
+              style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.15)', color: '#fff' }} />
+          </div>
           </div>
         </div>
 
