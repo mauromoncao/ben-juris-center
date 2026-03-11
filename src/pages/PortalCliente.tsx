@@ -8,6 +8,7 @@ import {
   Hash, MapPin, UserCheck, Key, RefreshCw, Send,
   Smartphone, AtSign, Wifi, WifiOff, Loader2,
 } from 'lucide-react';
+import EscavadorPage from './EscavadorPage';
 
 // ── VPS Portal API ─────────────────────────────────────────────
 const VPS_PORTAL = 'https://portal-api.mauromoncao.adv.br';
@@ -38,7 +39,7 @@ interface WAMensagem {
 }
 
 // ── Tipos ─────────────────────────────────────────────────────
-type TabPortal = 'overview' | 'processos' | 'documentos' | 'financeiro' | 'mensagens' | 'acessos';
+type TabPortal = 'overview' | 'processos' | 'documentos' | 'financeiro' | 'mensagens' | 'acessos' | 'escavador';
 
 interface ClientePortal {
   id: string;
@@ -325,6 +326,7 @@ export default function PortalCliente() {
     { id: 'financeiro', label: 'Financeiro', icon: <CreditCard className="w-4 h-4" /> },
     { id: 'mensagens', label: 'Mensagens & WA', icon: <MessageSquare className="w-4 h-4" />, badge: msgNaoLidas > 0 ? msgNaoLidas : undefined },
     { id: 'acessos', label: 'Acessos', icon: <Key className="w-4 h-4" /> },
+    { id: 'escavador', label: 'Monitor Escavador', icon: <Search className="w-4 h-4" /> },
   ];
 
   return (
@@ -1075,6 +1077,11 @@ export default function PortalCliente() {
                 </div>
               </div>
             </div>
+          )}
+
+          {/* TAB: ESCAVADOR */}
+          {tab === 'escavador' && (
+            <EscavadorPage />
           )}
         </div>
       </div>
