@@ -1,18 +1,72 @@
 // ============================================================
-// BEN JURIS CENTER — Página de Login
+// BEN JURIS CENTER — Página de Login (Admin)
+// Suporta: email/senha + Google OAuth
 // ============================================================
-import React, { useState } from 'react';
-import { Scale, Mail, Lock, Eye, EyeOff, AlertCircle, Loader2 } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Mail, Lock, Eye, EyeOff, AlertCircle, Loader2 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
+const GOOGLE_CLIENT_ID = '9749981324-sv27al0lv1t7ikb2i1fpdq05k65hjaoe.apps.googleusercontent.com';
+
 export default function LoginPage() {
-  const { login } = useAuth();
+  const { login, loginWithGoogle } = useAuth();
   const [email, setEmail]             = useState('');
   const [senha, setSenha]             = useState('');
   const [mostrarSenha, setMostrarSenha] = useState(false);
   const [carregando, setCarregando]   = useState(false);
+  const [googleCarregando, setGoogleCarregando] = useState(false);
   const [erro, setErro]               = useState('');
+  const googleBtnRef = useRef<HTMLDivElement>(null);
+  const [googleReady, setGoogleReady] = useState(false);
 
+  // ── Inicializa Google GSI ────────────────────────────────
+  useEffect(() => {
+    const initGoogle = () => {
+      if (!window.google?.accounts?.id) return;
+      window.google.accounts.id.initialize({
+        client_id: GOOGLE_CLIENT_ID,
+        callback: async (response) => {
+          setGoogleCarregando(true);
+          setErro('');
+          const result = await loginWithGoogle(response.credential);
+          setGoogleCarregando(false);
+          if (!result.ok) setErro(result.erro || 'Erro ao autenticar com Google.');
+        },
+        auto_select: false,
+        cancel_on_tap_outside: true,
+      });
+      setGoogleReady(true);
+    };
+
+    // Aguarda o script GSI carregar
+    if (window.google?.accounts?.id) {
+      initGoogle();
+    } else {
+      const interval = setInterval(() => {
+        if (window.google?.accounts?.id) {
+          clearInterval(interval);
+          initGoogle();
+        }
+      }, 200);
+      return () => clearInterval(interval);
+    }
+  }, [loginWithGoogle]);
+
+  // ── Renderiza botão Google nativo ───────────────────────
+  useEffect(() => {
+    if (googleReady && googleBtnRef.current && window.google?.accounts?.id) {
+      window.google.accounts.id.renderButton(googleBtnRef.current, {
+        theme: 'filled_blue',
+        size: 'large',
+        width: '100%',
+        text: 'signin_with',
+        shape: 'rectangular',
+        logo_alignment: 'left',
+      });
+    }
+  }, [googleReady]);
+
+  // ── Login email/senha ────────────────────────────────────
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email || !senha) { setErro('Preencha e-mail e senha.'); return; }
@@ -67,6 +121,30 @@ export default function LoginPage() {
           <p className="text-white/60 text-sm text-center mb-6">
             Acesso restrito ao painel administrativo
           </p>
+
+          {/* ── Botão Google ── */}
+          <div className="mb-5">
+            {googleCarregando ? (
+              <div className="w-full py-3 rounded-xl flex items-center justify-center gap-2"
+                style={{ background: 'rgba(66,133,244,0.15)', border: '1px solid rgba(66,133,244,0.3)' }}>
+                <Loader2 size={16} className="animate-spin text-blue-400" />
+                <span className="text-sm text-blue-400">Autenticando com Google...</span>
+              </div>
+            ) : (
+              <div
+                ref={googleBtnRef}
+                className="w-full flex justify-center"
+                style={{ minHeight: '44px' }}
+              />
+            )}
+          </div>
+
+          {/* Separador */}
+          <div className="flex items-center gap-3 mb-5">
+            <div className="flex-1 h-px" style={{ background: 'rgba(255,255,255,0.10)' }} />
+            <span className="text-xs" style={{ color: 'rgba(255,255,255,0.35)' }}>ou entre com e-mail</span>
+            <div className="flex-1 h-px" style={{ background: 'rgba(255,255,255,0.10)' }} />
+          </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
 
