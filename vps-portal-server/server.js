@@ -83,9 +83,8 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }))
 // Para produção, substituir por SQLite/PostgreSQL
 const db = {
   admins: [
-    { id: 'adm001', email: 'admin@mauromoncao.adv.br', senha: bcrypt.hashSync('BenHub@Center2026', 10), nome: 'Dr. Mauro Monção', role: 'admin' },
-    { id: 'adm002', email: 'mauromoncaoestudos@gmail.com', senha: bcrypt.hashSync('BenHub@Center2026', 10), nome: 'Dr. Mauro (Estudos)', role: 'admin' },
-    { id: 'adm003', email: 'mauromoncaoadv.escritorio@gmail.com', senha: bcrypt.hashSync('BenHub@Center2026', 10), nome: 'Escritório Monção', role: 'admin' },
+    { id: 'adm001', email: 'mauromoncaoestudos@gmail.com', senha: bcrypt.hashSync('BenHub@Center2026', 10), nome: 'Dr. Mauro Monção', role: 'admin' },
+    { id: 'adm002', email: 'mauromoncaoadv.escritorio@gmail.com', senha: bcrypt.hashSync('BenHub@Center2026', 10), nome: 'Dr. Mauro Monção', role: 'admin' },
   ],
   clientes: [],
   departamentos: [],
