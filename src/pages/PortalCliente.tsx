@@ -10,7 +10,7 @@ import {
 } from 'lucide-react';
 
 // ── VPS Portal API ─────────────────────────────────────────────
-const VPS_PORTAL = 'http://181.215.135.202:3600';
+const VPS_PORTAL = 'https://portal-api.mauromoncao.adv.br';
 
 async function portalAPI(path: string, options?: RequestInit, token?: string) {
   const headers: Record<string, string> = { 'Content-Type': 'application/json' };
