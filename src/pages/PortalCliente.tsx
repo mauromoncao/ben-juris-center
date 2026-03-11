@@ -200,7 +200,7 @@ export default function PortalCliente() {
       try {
         const r = await fetch(`${VPS_PORTAL}/auth/login`, {
           method: 'POST', headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email: 'admin@mauromoncao.adv.br', senha: 'BenHub@Center2026' }),
+          body: JSON.stringify({ email: 'mauromoncaoadv.escritorio@gmail.com', senha: 'BenHub@Center2026' }),
         });
         if (r.ok) {
           const d = await r.json();
