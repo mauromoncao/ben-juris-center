@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import {
   FileText, Download, MessageSquare, CreditCard,
   Clock, Bell, LogOut, Eye, Send,
@@ -31,6 +31,17 @@ interface Procedimento {
   atualizado_em: string;
   mensagens: MensagemProc[];
   departamento_id: string;
+}
+
+// ── VPS Portal API (cliente) ────────────────────────────────
+const VPS_PORTAL = 'http://181.215.135.202:3600';
+
+async function clienteAPI(path: string, options?: RequestInit, token?: string) {
+  const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+  if (token) headers['Authorization'] = `Bearer ${token}`;
+  const r = await fetch(`${VPS_PORTAL}${path}`, { ...options, headers });
+  if (!r.ok) throw new Error(`API ${path}: ${r.status}`);
+  return r.json();
 }
 
 // ── Tipos de documentos (editável pelo escritório) ─────────────
@@ -157,6 +168,39 @@ export default function PortalClientePublico({ cliente, onLogout }: Props) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const chatBottomRef = useRef<HTMLDivElement>(null);
 
+  // VPS token do cliente (pode ser fornecido no login)
+  const clienteToken = typeof window !== 'undefined'
+    ? localStorage.getItem('ben_portal_cliente_auth')
+    : null;
+
+  // Carregar procedimentos do VPS
+  const carregarProcedimentos = useCallback(async () => {
+    if (!clienteToken) return;
+    try {
+      const d = await clienteAPI(`/cliente/procedimentos?departamento_id=${departamentoAtivo.id}`, {}, clienteToken);
+      if (d.procedimentos && d.procedimentos.length > 0) {
+        // Mesclar com os dados mock apenas se não há dados reais
+        setProcedimentos(d.procedimentos.map((p: any) => ({
+          ...p,
+          mensagens: (p.mensagens || []).map((m: any) => ({
+            id: m.id,
+            de: m.de,
+            texto: m.texto,
+            hora: new Date(m.enviado_em).toLocaleString('pt-BR'),
+            lida: m.lida,
+            anexo: m.anexo || undefined,
+          })),
+        })));
+      }
+    } catch { /* usar dados mock se VPS offline */ }
+  }, [clienteToken, departamentoAtivo.id]);
+
+  useEffect(() => {
+    carregarProcedimentos();
+    const iv = setInterval(carregarProcedimentos, 8000);
+    return () => clearInterval(iv);
+  }, [carregarProcedimentos]);
+
   // Rolar para o final do chat ao abrir procedimento
   useEffect(() => {
     if (procedimentoAberto) {
@@ -172,12 +216,11 @@ export default function PortalClientePublico({ cliente, onLogout }: Props) {
   const procsNaoLidos = procsPorDep.reduce((sum, p) =>
     sum + p.mensagens.filter(m => m.de === 'escritorio' && !m.lida).length, 0);
 
-  // ── Enviar mensagem no procedimento ───────────────────────
+  // ── Enviar mensagem no procedimento (VPS + local) ─────────
   const enviarMensagemProc = async () => {
     if (!novaMensagemProc.trim() && !anexoSelecionado) return;
     if (!procedimentoAberto) return;
     setEnviandoMensagem(true);
-    await new Promise(r => setTimeout(r, 600));
 
     const nova: MensagemProc = {
       id: `m-${Date.now()}`,
@@ -194,21 +237,40 @@ export default function PortalClientePublico({ cliente, onLogout }: Props) {
       } : {}),
     };
 
+    // Atualizar UI imediatamente (optimistic update)
     setProcedimentos(prev => prev.map(p =>
       p.id === procedimentoAberto
         ? { ...p, mensagens: [...p.mensagens, nova], atualizado_em: nova.hora, status: 'em_andamento' as const }
         : p
     ));
+
+    // Tentar enviar ao VPS
+    if (clienteToken) {
+      try {
+        await clienteAPI(`/procedimentos/${procedimentoAberto}/mensagens`, {
+          method: 'POST',
+          body: JSON.stringify({
+            texto: novaMensagemProc.trim(),
+            de: 'cliente',
+            anexo: anexoSelecionado ? {
+              nome: anexoSelecionado.name,
+              tipo: anexoSelecionado.name.split('.').pop()?.toUpperCase() || 'DOC',
+              tamanho: `${(anexoSelecionado.size / 1024).toFixed(0)} KB`,
+            } : null,
+          }),
+        }, clienteToken);
+      } catch { /* fail silently — UI já atualizado */ }
+    }
+
     setNovaMensagemProc('');
     setAnexoSelecionado(null);
     setEnviandoMensagem(false);
   };
 
-  // ── Criar novo procedimento ────────────────────────────────
+  // ── Criar novo procedimento (VPS + local) ─────────────────
   const criarProcedimento = async () => {
     if (!novoProc.titulo.trim() || !novoProc.mensagem.trim()) return;
     setCriandoProc(true);
-    await new Promise(r => setTimeout(r, 700));
 
     const novo: Procedimento = {
       id: `proc-${Date.now()}`,
@@ -226,6 +288,27 @@ export default function PortalClientePublico({ cliente, onLogout }: Props) {
         lida: true,
       }],
     };
+
+    // Enviar ao VPS
+    if (clienteToken) {
+      try {
+        const d = await clienteAPI('/procedimentos', {
+          method: 'POST',
+          body: JSON.stringify({
+            cliente_id: cliente.id,
+            departamento_id: departamentoAtivo.id,
+            titulo: novoProc.titulo.trim(),
+            tipo_documento: novoProc.tipo_documento,
+          }),
+        }, clienteToken);
+        if (d.procedimento?.id) novo.id = d.procedimento.id;
+        // Enviar primeira mensagem
+        await clienteAPI(`/procedimentos/${novo.id}/mensagens`, {
+          method: 'POST',
+          body: JSON.stringify({ texto: novoProc.mensagem.trim(), de: 'cliente' }),
+        }, clienteToken);
+      } catch { /* fail silently */ }
+    }
 
     setProcedimentos(prev => [novo, ...prev]);
     setNovoProc({ titulo: '', tipo_documento: 'Requerimento', mensagem: '' });
