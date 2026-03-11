@@ -334,11 +334,14 @@ export default function PortalClientePublico({ cliente, onLogout }: Props) {
 
           {/* Logo + cliente */}
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm flex-shrink-0"
-              style={{ background: '#D4A017', color: '#0f2044' }}>M</div>
-            <div>
-              <p className="text-xs font-bold leading-none" style={{ color: '#D4A017' }}>Monção Advogados</p>
-              <p className="text-xs leading-none mt-0.5 truncate max-w-[160px] sm:max-w-[280px]" style={{ color: '#6b7aaa' }}>
+            <img
+              src="/logo-moncao.png"
+              alt="Mauro Monção Advogados Associados"
+              className="h-9 object-contain flex-shrink-0"
+              style={{ filter: 'brightness(0) invert(1)' }}
+            />
+            <div className="hidden sm:block border-l pl-3" style={{ borderColor: 'rgba(255,255,255,0.15)' }}>
+              <p className="text-xs leading-none truncate max-w-[180px]" style={{ color: '#9ca3af' }}>
                 {cliente.nome}
               </p>
             </div>
