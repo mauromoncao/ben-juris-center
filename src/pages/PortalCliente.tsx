@@ -6,9 +6,10 @@ import {
   BarChart3, Shield, Globe, Phone, Mail, Calendar,
   Briefcase, X, Check, ExternalLink, TrendingUp,
   Hash, MapPin, UserCheck, Key, RefreshCw, Send,
-  Smartphone, AtSign, Wifi, WifiOff, Loader2,
+  Smartphone, AtSign, Wifi, WifiOff, Loader2, BookOpen,
 } from 'lucide-react';
 import EscavadorPage from './EscavadorPage';
+import JurisprudenciaPage from './JurisprudenciaPage';
 
 // ── VPS Portal API ─────────────────────────────────────────────
 const VPS_PORTAL = 'https://portal-api.mauromoncao.adv.br';
@@ -39,7 +40,7 @@ interface WAMensagem {
 }
 
 // ── Tipos ─────────────────────────────────────────────────────
-type TabPortal = 'overview' | 'processos' | 'documentos' | 'financeiro' | 'mensagens' | 'acessos' | 'escavador';
+type TabPortal = 'overview' | 'processos' | 'documentos' | 'financeiro' | 'mensagens' | 'acessos' | 'escavador' | 'jurisprudencia';
 
 interface ClientePortal {
   id: string;
@@ -327,6 +328,7 @@ export default function PortalCliente() {
     { id: 'mensagens', label: 'Mensagens & WA', icon: <MessageSquare className="w-4 h-4" />, badge: msgNaoLidas > 0 ? msgNaoLidas : undefined },
     { id: 'acessos', label: 'Acessos', icon: <Key className="w-4 h-4" /> },
     { id: 'escavador', label: 'Monitor Escavador', icon: <Search className="w-4 h-4" /> },
+    { id: 'jurisprudencia', label: 'Jurisprudência', icon: <BookOpen className="w-4 h-4" /> },
   ];
 
   return (
@@ -1082,6 +1084,11 @@ export default function PortalCliente() {
           {/* TAB: ESCAVADOR */}
           {tab === 'escavador' && (
             <EscavadorPage />
+          )}
+
+          {/* TAB: JURISPRUDÊNCIA */}
+          {tab === 'jurisprudencia' && (
+            <JurisprudenciaPage />
           )}
         </div>
       </div>
