@@ -34,7 +34,7 @@ interface Procedimento {
 }
 
 // ── VPS Portal API (cliente) ────────────────────────────────
-const VPS_PORTAL = 'http://181.215.135.202:3600';
+const VPS_PORTAL = 'https://portal-api.mauromoncao.adv.br';
 
 async function clienteAPI(path: string, options?: RequestInit, token?: string) {
   const headers: Record<string, string> = { 'Content-Type': 'application/json' };
