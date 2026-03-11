@@ -1,5 +1,29 @@
-import React, { useState } from 'react';
-import { Scale, Eye, EyeOff, LogIn, Building2, AlertCircle, ChevronRight } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Eye, EyeOff, LogIn, Building2, AlertCircle, ChevronRight, Loader2 } from 'lucide-react';
+
+const GOOGLE_CLIENT_ID = '9749981324-sv27al0lv1t7ikb2i1fpdq05k65hjaoe.apps.googleusercontent.com';
+
+// ── Declaração Google GSI ───────────────────────────────────
+declare global {
+  interface Window {
+    google?: {
+      accounts: {
+        id: {
+          initialize: (config: {
+            client_id: string;
+            callback: (response: { credential: string }) => void;
+            auto_select?: boolean;
+            cancel_on_tap_outside?: boolean;
+          }) => void;
+          renderButton: (element: HTMLElement, options: Record<string, unknown>) => void;
+          prompt: () => void;
+          disableAutoSelect: () => void;
+          revoke: (hint: string, callback: () => void) => void;
+        };
+      };
+    };
+  }
+}
 
 // ── Tipos ──────────────────────────────────────────────────────
 export interface ClienteAuth {
@@ -21,7 +45,6 @@ export interface Departamento {
 }
 
 // ── Credenciais (substituir por VPS futuramente) ───────────────
-// Acesso do escritório para demonstração e testes
 const CLIENTES_AUTH = [
   {
     id: 'ADMIN001',
@@ -58,6 +81,20 @@ const TIPO_ICON: Record<string, string> = {
   secretaria: '📋', pessoa_fisica: '👤',
 };
 
+// ── Decodifica JWT Google ─────────────────────────────────────
+function decodeGoogleJwt(credential: string): { email?: string; name?: string } | null {
+  try {
+    const parts = credential.split('.');
+    if (parts.length !== 3) return null;
+    const payload = parts[1];
+    const padded = payload + '==='.slice((payload.length + 3) % 4);
+    const decoded = atob(padded.replace(/-/g, '+').replace(/_/g, '/'));
+    return JSON.parse(decoded);
+  } catch {
+    return null;
+  }
+}
+
 interface Props {
   onLogin: (cliente: ClienteAuth) => void;
 }
@@ -68,11 +105,84 @@ export default function LoginClientePage({ onLogin }: Props) {
   const [mostrarSenha, setMostrarSenha] = useState(false);
   const [erro, setErro] = useState('');
   const [carregando, setCarregando] = useState(false);
+  const [googleCarregando, setGoogleCarregando] = useState(false);
+  const [googleReady, setGoogleReady] = useState(false);
+  const googleBtnRef = useRef<HTMLDivElement>(null);
 
   // Estado de seleção de departamento
   const [clienteEncontrado, setClienteEncontrado] = useState<typeof CLIENTES_AUTH[0] | null>(null);
   const [etapa, setEtapa] = useState<'login' | 'departamento'>('login');
 
+  // ── Inicializa Google GSI ──────────────────────────────────
+  useEffect(() => {
+    const initGoogle = () => {
+      if (!window.google?.accounts?.id) return;
+      window.google.accounts.id.initialize({
+        client_id: GOOGLE_CLIENT_ID,
+        callback: async (response) => {
+          setGoogleCarregando(true);
+          setErro('');
+          const payload = decodeGoogleJwt(response.credential);
+          if (!payload?.email) {
+            setGoogleCarregando(false);
+            setErro('Credencial Google inválida. Tente novamente.');
+            return;
+          }
+
+          await new Promise(r => setTimeout(r, 700));
+
+          // Opção A: qualquer conta Google, verifica se o email está cadastrado
+          const found = CLIENTES_AUTH.find(
+            c => c.email.toLowerCase() === payload.email!.toLowerCase()
+          );
+
+          setGoogleCarregando(false);
+
+          if (!found) {
+            setErro(
+              `A conta Google "${payload.email}" não está cadastrada no portal. ` +
+              'Solicite acesso ao escritório Mauro Monção Advogados.'
+            );
+            return;
+          }
+
+          // Login direto com primeiro departamento
+          onLogin({ ...found, departamentoAtivo: found.departamentos[0] });
+        },
+        auto_select: false,
+        cancel_on_tap_outside: true,
+      });
+      setGoogleReady(true);
+    };
+
+    if (window.google?.accounts?.id) {
+      initGoogle();
+    } else {
+      const interval = setInterval(() => {
+        if (window.google?.accounts?.id) {
+          clearInterval(interval);
+          initGoogle();
+        }
+      }, 200);
+      return () => clearInterval(interval);
+    }
+  }, [onLogin]);
+
+  // ── Renderiza botão Google ─────────────────────────────────
+  useEffect(() => {
+    if (googleReady && googleBtnRef.current && window.google?.accounts?.id) {
+      window.google.accounts.id.renderButton(googleBtnRef.current, {
+        theme: 'outline',
+        size: 'large',
+        width: '100%',
+        text: 'signin_with',
+        shape: 'rectangular',
+        logo_alignment: 'left',
+      });
+    }
+  }, [googleReady]);
+
+  // ── Login email/senha ──────────────────────────────────────
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setErro('');
@@ -87,15 +197,6 @@ export default function LoginClientePage({ onLogin }: Props) {
 
     if (!found) {
       setErro('E-mail ou senha inválidos. Verifique suas credenciais de acesso.');
-      return;
-    }
-
-    // Se tem só 1 departamento, já entra direto
-    if (found.departamentos.length === 1) {
-      onLogin({
-        ...found,
-        departamentoAtivo: found.departamentos[0],
-      });
       return;
     }
 
@@ -142,6 +243,28 @@ export default function LoginClientePage({ onLogin }: Props) {
         {etapa === 'login' && (
           <div className="rounded-2xl p-8" style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', backdropFilter: 'blur(12px)' }}>
             <h2 className="text-base font-semibold text-white mb-6">Acesso Institucional</h2>
+
+            {/* ── Botão Google ── */}
+            <div className="mb-5">
+              {googleCarregando ? (
+                <div className="w-full py-3 rounded-xl flex items-center justify-center gap-2"
+                  style={{ background: 'rgba(212,160,23,0.10)', border: '1px solid rgba(212,160,23,0.30)' }}>
+                  <Loader2 size={16} className="animate-spin" style={{ color: '#D4A017' }} />
+                  <span className="text-sm font-semibold" style={{ color: '#D4A017' }}>
+                    Verificando conta Google...
+                  </span>
+                </div>
+              ) : (
+                <div ref={googleBtnRef} className="w-full flex justify-center" style={{ minHeight: '44px' }} />
+              )}
+            </div>
+
+            {/* Separador */}
+            <div className="flex items-center gap-3 mb-5">
+              <div className="flex-1 h-px" style={{ background: 'rgba(255,255,255,0.12)' }} />
+              <span className="text-xs" style={{ color: 'rgba(255,255,255,0.40)' }}>ou entre com e-mail</span>
+              <div className="flex-1 h-px" style={{ background: 'rgba(255,255,255,0.12)' }} />
+            </div>
 
             <form onSubmit={handleLogin} className="space-y-4">
               {/* E-mail */}
