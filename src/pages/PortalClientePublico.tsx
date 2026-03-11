@@ -813,8 +813,9 @@ export default function PortalClientePublico({ cliente, onLogout }: Props) {
                         </div>
                       </div>
                       <div className="flex items-center gap-2 flex-shrink-0">
-                        <div className="w-9 h-9 rounded-full flex items-center justify-center text-base flex-shrink-0"
-                          style={{ background: '#0f2044' }}>⚖️</div>
+                        <div className="w-9 h-9 rounded-full overflow-hidden flex-shrink-0" style={{ border: '1.5px solid #D4A017' }}>
+                          <img src="/brasao-moncao.png" alt="brasão" className="w-full h-full object-contain" />
+                        </div>
                         <div className="hidden sm:block text-xs">
                           <p className="font-bold" style={{ color: '#0f2044' }}>Dr. Mauro Monção</p>
                           <p style={{ color: '#9CA3AF' }}>OAB/PI 7304-A</p>
@@ -833,8 +834,9 @@ export default function PortalClientePublico({ cliente, onLogout }: Props) {
                     {procAberto.mensagens.map(m => (
                       <div key={m.id} className={`flex items-end gap-2 ${m.de === 'cliente' ? 'justify-end' : 'justify-start'}`}>
                         {m.de === 'escritorio' && (
-                          <div className="w-8 h-8 rounded-full flex items-center justify-center text-base flex-shrink-0"
-                            style={{ background: '#0f2044' }}>⚖️</div>
+                          <div className="w-8 h-8 rounded-full overflow-hidden flex-shrink-0" style={{ border: '1.5px solid #D4A017' }}>
+                            <img src="/brasao-moncao.png" alt="brasão" className="w-full h-full object-contain" />
+                          </div>
                         )}
                         <div className="max-w-[78%] space-y-1.5">
                           {/* Anexo */}
@@ -868,9 +870,8 @@ export default function PortalClientePublico({ cliente, onLogout }: Props) {
                           </p>
                         </div>
                         {m.de === 'cliente' && (
-                          <div className="w-8 h-8 rounded-full flex items-center justify-center text-base flex-shrink-0"
-                            style={{ background: '#EFF6FF', border: '1.5px solid #DBEAFE' }}>
-                            {cliente.tipo === 'municipio' ? '🏛️' : '🏢'}
+                          <div className="w-8 h-8 rounded-full overflow-hidden flex-shrink-0" style={{ border: '1.5px solid #DBEAFE' }}>
+                            <img src="/brasao-moncao.png" alt="brasão" className="w-full h-full object-contain" />
                           </div>
                         )}
                       </div>
