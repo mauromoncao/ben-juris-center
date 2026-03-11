@@ -368,6 +368,17 @@ function PortalClienteWrapper() {
 // ─── Rotas da Aplicação ───────────────────────────────────────────────────────
 function AppRoutes() {
   const { isAuthenticated } = useAuth();
+
+  // Se o hostname é portaldocliente.*, renderiza SEMPRE o portal do cliente
+  const isPortalCliente = window.location.hostname.startsWith('portaldocliente.');
+  if (isPortalCliente) {
+    return (
+      <Routes>
+        <Route path="/*" element={<PortalClienteWrapper />} />
+      </Routes>
+    );
+  }
+
   return (
     <Routes>
       {/* Rota pública — Portal do Cliente com login próprio */}
