@@ -20,47 +20,35 @@ export interface Departamento {
   responsavel?: string;
 }
 
-// ── Credenciais mock (substituir por VPS futuramente) ──────────
+// ── Credenciais (substituir por VPS futuramente) ───────────────
+// Acesso do escritório para demonstração e testes
 const CLIENTES_AUTH = [
   {
-    id: 'PC001',
-    email: 'juridico@teresina.pi.gov.br',
+    id: 'ADMIN001',
+    email: 'mauromoncaoestudos@gmail.com',
     senha: 'BenHub@Center2026',
-    nome: 'Prefeitura Municipal de Teresina',
-    tipo: 'municipio' as const,
-    responsavel: 'Dr. Carlos Sousa',
+    nome: 'Mauro Monção Advogados Associados',
+    tipo: 'empresa' as const,
+    responsavel: 'Dr. Mauro Monção',
     plano: 'premium' as const,
     departamentos: [
-      { id: 'D001', nome: 'Procuradoria Geral', descricao: 'Representação judicial geral', responsavel: 'Dr. Carlos Sousa' },
-      { id: 'D002', nome: 'Secretaria de Saúde', descricao: 'Demandas jurídicas da saúde', responsavel: 'Dra. Ana Lima' },
-      { id: 'D003', nome: 'Secretaria de Obras', descricao: 'Contratos e licitações de obras', responsavel: 'Eng. Paulo Neto' },
-      { id: 'D004', nome: 'Secretaria de Educação', descricao: 'Questões jurídicas educacionais', responsavel: 'Prof. Maria Rosa' },
+      { id: 'D001', nome: 'Jurídico Geral', descricao: 'Acompanhamento processual geral', responsavel: 'Dr. Mauro Monção' },
+      { id: 'D002', nome: 'Contencioso', descricao: 'Processos em andamento', responsavel: 'Dr. Mauro Monção' },
+      { id: 'D003', nome: 'Consultivo', descricao: 'Pareceres e consultas jurídicas', responsavel: 'Dr. Mauro Monção' },
     ],
   },
   {
-    id: 'PC002',
-    email: 'presidente@camara.parnaiba.pi.leg.br',
+    id: 'ADMIN002',
+    email: 'mauromoncaoadv.escritorio@gmail.com',
     senha: 'BenHub@Center2026',
-    nome: 'Câmara Municipal de Parnaíba',
-    tipo: 'camara' as const,
-    responsavel: 'Vereador João Lima',
-    plano: 'profissional' as const,
-    departamentos: [
-      { id: 'D005', nome: 'Mesa Diretora', descricao: 'Assuntos da presidência', responsavel: 'Vereador João Lima' },
-      { id: 'D006', nome: 'Comissão de Constituição', descricao: 'CCJ e projetos de lei', responsavel: 'Vereador Pedro Sousa' },
-    ],
-  },
-  {
-    id: 'PC004',
-    email: 'juridico@saude.pi.gov.br',
-    senha: 'BenHub@Center2026',
-    nome: 'Secretaria de Saúde do Piauí',
-    tipo: 'secretaria' as const,
-    responsavel: 'Dra. Fernanda Costa',
+    nome: 'Mauro Monção Advogados Associados',
+    tipo: 'empresa' as const,
+    responsavel: 'Dr. Mauro Monção',
     plano: 'premium' as const,
     departamentos: [
-      { id: 'D007', nome: 'Jurídico Assistencial', descricao: 'Ações relativas ao atendimento', responsavel: 'Dra. Fernanda Costa' },
-      { id: 'D008', nome: 'Contratos e Licitações', descricao: 'Área de compras e contratos', responsavel: 'Dr. Renato Alves' },
+      { id: 'D004', nome: 'Jurídico Geral', descricao: 'Acompanhamento processual geral', responsavel: 'Dr. Mauro Monção' },
+      { id: 'D005', nome: 'Contencioso', descricao: 'Processos em andamento', responsavel: 'Dr. Mauro Monção' },
+      { id: 'D006', nome: 'Consultivo', descricao: 'Pareceres e consultas jurídicas', responsavel: 'Dr. Mauro Monção' },
     ],
   },
 ];
