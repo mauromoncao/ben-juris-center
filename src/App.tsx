@@ -35,6 +35,7 @@ import PeritoIA from './pages/PeritoIA';
 import SuperAgenteJuridico from './pages/SuperAgenteJuridico';
 import MonitorCustos from './pages/MonitorCustos';
 import PortalClientePublico from './pages/PortalClientePublico';
+import LoginClientePage, { type ClienteAuth } from './pages/LoginClientePage';
 
 // ─── Navigation Structure ─────────────────────────────────────────────────────
 const NAV_GROUPS = [
@@ -339,13 +340,38 @@ function PrivateRoute({ children }: { children: React.ReactNode }) {
   return isAuthenticated ? <>{children}</> : <Navigate to="/login" replace />;
 }
 
+// ─── Portal Cliente Wrapper (login próprio) ───────────────────────────────────
+function PortalClienteWrapper() {
+  const [clienteLogado, setClienteLogado] = React.useState<ClienteAuth | null>(() => {
+    try {
+      const s = localStorage.getItem('ben_portal_cliente_auth');
+      return s ? JSON.parse(s) : null;
+    } catch { return null; }
+  });
+
+  const handleLogin = (c: ClienteAuth) => {
+    setClienteLogado(c);
+    localStorage.setItem('ben_portal_cliente_auth', JSON.stringify(c));
+  };
+
+  const handleLogout = () => {
+    setClienteLogado(null);
+    localStorage.removeItem('ben_portal_cliente_auth');
+  };
+
+  if (!clienteLogado) {
+    return <LoginClientePage onLogin={handleLogin} />;
+  }
+  return <PortalClientePublico cliente={clienteLogado} onLogout={handleLogout} />;
+}
+
 // ─── Rotas da Aplicação ───────────────────────────────────────────────────────
 function AppRoutes() {
   const { isAuthenticated } = useAuth();
   return (
     <Routes>
-      {/* Rota pública — Portal do Cliente (sem autenticação do escritório) */}
-      <Route path="/cliente" element={<PortalClientePublico />} />
+      {/* Rota pública — Portal do Cliente com login próprio */}
+      <Route path="/cliente/*" element={<PortalClienteWrapper />} />
       <Route path="/login" element={
         isAuthenticated ? <Navigate to="/" replace /> : <LoginPage />
       } />
