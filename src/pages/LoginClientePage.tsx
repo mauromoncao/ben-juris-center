@@ -25,7 +25,7 @@ const CLIENTES_AUTH = [
   {
     id: 'PC001',
     email: 'juridico@teresina.pi.gov.br',
-    senha: 'Teresina@2026',
+    senha: 'BenHub@Center2026',
     nome: 'Prefeitura Municipal de Teresina',
     tipo: 'municipio' as const,
     responsavel: 'Dr. Carlos Sousa',
@@ -40,7 +40,7 @@ const CLIENTES_AUTH = [
   {
     id: 'PC002',
     email: 'presidente@camara.parnaiba.pi.leg.br',
-    senha: 'Camara@2026',
+    senha: 'BenHub@Center2026',
     nome: 'Câmara Municipal de Parnaíba',
     tipo: 'camara' as const,
     responsavel: 'Vereador João Lima',
@@ -53,7 +53,7 @@ const CLIENTES_AUTH = [
   {
     id: 'PC004',
     email: 'juridico@saude.pi.gov.br',
-    senha: 'Saude@2026',
+    senha: 'BenHub@Center2026',
     nome: 'Secretaria de Saúde do Piauí',
     tipo: 'secretaria' as const,
     responsavel: 'Dra. Fernanda Costa',
