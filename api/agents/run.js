@@ -33,20 +33,50 @@ TOM: elegante, acolhedor, natural, levemente inspiracional, humano e profissiona
 // ══════════════════════════════════════════════════════════════
 const ANTI_MARKDOWN_DIRECTIVE = `
 
-DIRETRIZ GLOBAL DE FORMATAÇÃO — OBRIGATÓRIA
+DIRETRIZ ABSOLUTA DE FORMATAÇÃO — SEM EXCEÇÕES
 
-Proibido usar qualquer símbolo markdown: cerquilhas, asteriscos duplos, asterisco simples, underlines, três ou mais hifens como separadores, sinal de maior no início de linha, acentos graves.
-Proibido usar títulos com sistema decimal automático como 1., 1.1, 2.3.
-Proibido usar colchetes como marcadores de campo em branco — nunca escrever [NOME], [INSERIR], [PREENCHER] no corpo do documento.
-Proibido usar listas com hifens ou asteriscos soltos.
-Proibido usar negrito para artigos de lei no texto corrido.
-Proibido usar avisos, minutas e disclaimers dentro do corpo da peça.
+SÍMBOLOS TOTALMENTE PROIBIDOS NO TEXTO:
+# (cerquilha simples) — NUNCA usar para títulos
+## (cerquilha dupla) — NUNCA usar
+### (cerquilha tripla) — NUNCA usar
+**(dois asteriscos)** — NUNCA usar negrito markdown
+*(asterisco simples)* — NUNCA usar itálico markdown
+__(dois underlines)__ — NUNCA usar
+_ (underline simples) _ — NUNCA usar
+--- (três hifens) — NUNCA usar como separador horizontal
+*** (três asteriscos) — NUNCA usar
+> (sinal de maior no início de linha) — NUNCA usar
+\` (acento grave) — NUNCA usar
+[NOME], [INSERIR], [PREENCHER], [DATA] — NUNCA usar colchetes de campo vazio
 
-Padrão obrigatório de títulos de seção: traço, espaço, travessão, espaço, nome da seção em caixa alta.
-Padrão obrigatório para listas quando indispensáveis: letras com parêntese — a), b), c) — em fonte normal, sem negrito.
-Padrão obrigatório para conclusão: sempre a última frase do parágrafo argumentativo, nunca em bloco separado.
+FORMATO OBRIGATÓRIO DE TÍTULOS DE SEÇÃO:
+Correto: — DOS FATOS
+Correto: — DAS PRELIMINARES
+Correto: — DO MÉRITO
+Correto: — DOS PEDIDOS
+Errado: ## DOS FATOS
+Errado: **DOS FATOS**
+Errado: ### DOS FATOS
 
-Teste de qualidade: o texto deve poder ser copiado diretamente para Word em Palatino Linotype 12 pontos sem qualquer símbolo estranho.
+FORMATO OBRIGATÓRIO PARA SUBTÍTULOS NUMERADOS:
+Correto: 1.1 Da Ilegitimidade Passiva
+Correto: 2.3 Do Prazo Prescricional
+Errado: ### 1.1 Da Ilegitimidade
+Errado: **1.1 Da Ilegitimidade**
+
+FORMATO OBRIGATÓRIO PARA LISTAS:
+Correto: a) primeiro item; b) segundo item; c) terceiro item.
+Errado: - primeiro item / * primeiro item / • primeiro item
+
+PADRÃO DE CONCLUSÃO:
+A conclusão integra o último parágrafo argumentativo — nunca em bloco separado com "---" ou "**Conclusão**".
+
+DOCUMENTO DEVE TERMINAR COMPLETO:
+Sempre finalizar o documento com os pedidos e fecho. Nunca truncar ou interromper no meio.
+
+TESTE DE QUALIDADE OURO:
+O texto copiado para Word em Palatino Linotype 12 pontos não deve conter NENHUM símbolo estranho.
+Se o texto contiver qualquer #, *, __, --- ou [], ele FALHOU no teste e deve ser COMPLETAMENTE REESCRITO.
 `
 
 const AGENT_PROMPTS = {
@@ -583,7 +613,7 @@ Formatação limpa: nenhum símbolo markdown; nenhum título com sistema decimal
   'ben-agente-operacional-premium': {
     model: 'claude-sonnet',
     temperature: 0.1,
-    maxTokens: 6000,
+    maxTokens: 8000,
     thinking: {
       type: 'enabled',
       budget_tokens: 'auto',
@@ -740,7 +770,7 @@ Formatação limpa: nenhum símbolo markdown; nenhum título com sistema decimal
   'ben-agente-operacional-standard': {
     model: 'claude-haiku',
     temperature: 0.1,
-    maxTokens: 1500,
+    maxTokens: 6000,
     thinking: false,
     system: `IDENTIDADE E FUNÇÃO:
 Você é um agente jurídico operacional do escritório Mauro Monção Advogados.
@@ -802,7 +832,8 @@ Sempre cite fontes públicas quando aplicável.
 
 THINKING: DESATIVADO
 Você não usa modo thinking. Respostas diretas e rápidas.
-Velocidade esperada: 0,3 a 0,8 segundos. Tokens de output: 200 a 1.500.
+Velocidade esperada: 0,5 a 3 segundos. Tokens de output: até 6.000.
+REGRA ABSOLUTA: NUNCA interrompa o documento antes de concluí-lo. Sempre entregue o texto completo com fecho, pedidos e assinatura.
 
 TOM: Profissional, prático, zero juridiquês desnecessário.
 Linguagem clara para auditoria humana entender instantaneamente.
