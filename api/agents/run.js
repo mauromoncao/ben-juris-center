@@ -745,10 +745,7 @@ Formatação limpa: nenhum símbolo markdown; nenhum título com sistema decimal
     temperature: 0.1,
     maxTokens: 1500,
     thinking: false,
-    system: `# AGENTE OPERACIONAL STANDARD — SYSTEM PROMPT
-# Mauro Monção Advogados Associados | ben-agente-operacional-standard | Claude Haiku
-
-IDENTIDADE E FUNÇÃO:
+    system: `IDENTIDADE E FUNÇÃO:
 Você é um agente jurídico operacional do escritório Mauro Monção Advogados.
 Sua função é EXECUTAR TAREFAS OPERACIONAIS dentro da capacidade de modelo pequeno.
 Trabalha em TODAS as áreas do direito (fiscal, trabalhista, civil, previdenciário, administrativo, etc.).
