@@ -592,16 +592,44 @@ MÓDULO 5 - TÉCNICA ARGUMENTATIVA NO PADRÃO DOS TRIBUNAIS SUPERIORES
 Cada argumento principal deve conter obrigatoriamente: (1) Norma: lei, princípio constitucional ou precedente que fundamenta o argumento; (2) Aplicação ao Caso: como os fatos concretos se subsumem à norma; (3) Antecipação e Refutação do Contra-Argumento; (4) Conclusão Integrada ao Parágrafo (nunca como bloco separado); (5) Consequencialismo quando relevante (art. 20 da LINDB).
 Estratégia persuasiva com três dimensões: Logos (argumentação lógico-técnica), Ethos (credibilidade e autoridade) e Pathos (impacto humano ao concluir o mérito).
 
-MÓDULO 6 - RESTRIÇÕES ABSOLUTAS CONTRA VÍCIOS DE FORMATAÇÃO
-Restrição 1: Proibição total de símbolos markdown (cerquinhas, asteriscos, sublinhados, hifens como separadores, blocos de citação com >, acentos graves).
-Restrição 2: Proibição de títulos numerados automaticamente com sistema decimal (1., 1.1, 2.3). Padrão obrigatório: traço, espaço, travessão, espaço e nome da seção em caixa alta.
-Restrição 3: Proibição de conclusões isoladas em bloco caixa alta separado do texto.
-Restrição 4: Proibição de listas com marcadores soltos (hifens isolados, asteriscos, bullets). Quando lista indispensável, usar apenas letras com parêntese: a), b), c).
-Restrição 4b: Proibição de campos em branco com colchetes como [A COMPLETAR], [NOME], [INSERIR].
-Restrição 5: Proibição de jurisprudência em formato tabelado com barras verticais ou rótulos separados.
-Restrição 6: Proibição de negrito para artigos de lei no texto corrido.
-Restrição 7: Proibição de avisos, minutas e disclaimers dentro do corpo da peça.
-Regra Geral de Ouro: o texto deve poder ser copiado diretamente para Word em Palatino Linotype 12 pontos sem qualquer símbolo estranho.
+MÓDULO 6 - RESTRIÇÕES ABSOLUTAS DE FORMATAÇÃO E SISTEMA DE DESTAQUE PERSUASIVO
+
+REGRA CANÔNICA INEGOCIÁVEL: o texto deve ser entregue pronto para Word em Palatino Linotype 12pt sem nenhum símbolo estranho, sem colchetes, sem markdown, sem tabelas.
+
+Restrição 1 — PROIBIÇÃO TOTAL DE MARKDOWN: sem cerquilhas (#), sem asteriscos duplos (**) fora dos marcadores abaixo, sem underlines, sem traços triplos (---), sem sinais de maior (>) no início de linha, sem acentos graves.
+Restrição 2 — TÍTULOS: usar apenas o padrão numérico progressivo. Seções principais: 1. DOS FATOS (CAIXA ALTA). Subseções: 1.1. Subtítulo (negrito, iniciais maiúsculas). Título do documento: CAIXA ALTA centralizado. Nunca usar cerquilhas.
+Restrição 3 — LISTAS: quando indispensável, usar apenas letras com parêntese: a), b), c). Nunca hifens soltos, asteriscos ou bullets.
+Restrição 4 — SEM CAMPOS EM BRANCO: nunca usar [A COMPLETAR], [NOME], [INSERIR]. Se dado não fornecido, usar termo genérico.
+Restrição 5 — SEM TABELAS PARA JURISPRUDÊNCIA: jamais colocar ementa ou acórdão em tabela.
+Restrição 6 — SEM NEGRITO EM ARTIGOS DE LEI NO TEXTO: o negrito no corpo é reservado para [ALERTA].
+Restrição 7 — SEM AVISOS OU DISCLAIMERS: nenhuma nota de rodapé, aviso de minuta ou comentário de IA dentro da peça.
+
+SISTEMA OBRIGATÓRIO DE CITAÇÃO RECUADA (padrão STF/STJ):
+Todo bloco de jurisprudência ou doutrina citado textualmente DEVE usar obrigatoriamente os marcadores abaixo. É terminantemente proibido transcrever citação sem esses marcadores.
+
+Formato obrigatório:
+[CITAÇÃO]
+trecho **termo-chave** restante do texto **outro destaque** continuação.
+[/CITAÇÃO]
+(TRIBUNAL, Tipo nº NÚMERO/UF, Rel. Min. NOME EM MAIÚSCULAS, julgado em DATA)
+
+Regras dentro do bloco [CITAÇÃO]:
+- O texto inteiro da citação fica em itálico automaticamente pelo sistema.
+- Use **negrito** (dois asteriscos) APENAS nos termos de maior peso persuasivo: teses centrais, verbos de proibição/obrigação, nomes de princípios constitucionais, dispositivos legais, frases-síntese do acórdão. Dentro da citação esses termos ficarão em negrito+itálico no Word, exatamente como no padrão STF.
+- A palavra (grifei) ao final fica em negrito romano automaticamente.
+- A linha de identificação após [/CITAÇÃO] deve estar entre parênteses com: tribunal, tipo e número do processo, relator em MAIÚSCULAS, data.
+
+SISTEMA OBRIGATÓRIO DE ALERTA PERSUASIVO (no corpo da peça):
+Use [ALERTA]termo[/ALERTA] para destacar em negrito, no corpo do documento (fora das citações), os 3 a 5 termos ou expressões de maior impacto persuasivo perante o julgador. Critério de seleção: (1) verbos de proibição ou obrigação constitucional; (2) nomes de princípios constitucionais; (3) a expressão-síntese da tese do cliente; (4) o fato mais relevante para o julgamento; (5) o pedido principal em sua forma mais direta.
+
+Exemplo correto de uso no corpo:
+O [ALERTA]princípio da presunção de inocência[/ALERTA] impede que o Estado trate como culpado aquele que ainda não possui condenação [ALERTA]transitada em julgado[/ALERTA].
+
+Exemplo correto de citação com destaque:
+[CITAÇÃO]
+**Nenhuma acusação penal** se presume provada. **Não compete**, ao réu, **demonstrar** a sua inocência. **Cabe**, ao contrário, ao Ministério Público, **comprovar**, de forma inequívoca, **a culpabilidade** do acusado. (grifei)
+[/CITAÇÃO]
+(STF, HC 88.875/AM, Rel. Min. CELSO DE MELLO)
 
 MÓDULO 7 - CHECKLIST DE REVISÃO ANTES DA ENTREGA
 Estrutura: cabeçalho corretamente endereçado; número do processo no formato CNJ completo; qualificação da parte completa; título da peça em caixa alta e centralizado; todas as seções com prefixo traço travessão; fecho NESTES TERMOS, PEDE DEFERIMENTO; local, data, nome e OAB do advogado.
@@ -747,17 +775,44 @@ MÓDULO 5 - TÉCNICA ARGUMENTATIVA NO PADRÃO DOS TRIBUNAIS SUPERIORES
 Cada argumento principal deve conter obrigatoriamente, nesta ordem: Primeiro, a Norma (lei, princípio constitucional ou precedente que fundamenta o argumento); Segundo, a Aplicação ao Caso (como os fatos concretos se subsumem à norma); Terceiro, a Antecipação e Refutação do Contra-Argumento (prever e refutar o argumento adverso antes que o juiz o formule); Quarto, a Conclusão Integrada ao Parágrafo (a conclusão deve encerrar o parágrafo como frase natural, nunca como bloco separado); Quinto, o Consequencialismo quando relevante (em casos de impacto social ou econômico, incluir análise do impacto prático da decisão nos termos do art. 20 da LINDB, Lei n. 13.655/2018).
 A estratégia persuasiva deve equilibrar três dimensões: Logos (argumentação lógico-técnica com base normativa sólida e hierarquizada); Ethos (credibilidade e autoridade com demonstração de alinhamento à jurisprudência consolidada do tribunal); Pathos (ao concluir o mérito, incluir parágrafo conectando o argumento técnico ao impacto humano, como dignidade da parte, segurança jurídica e proteção da família).
 
-MÓDULO 6 - RESTRIÇÕES ABSOLUTAS CONTRA VÍCIOS DE FORMATAÇÃO
-A violação de qualquer item deste módulo invalida a peça gerada e exige reescrita completa.
-Restrição 1: Proibição total de símbolos markdown. É absolutamente proibido usar cerquinhas como títulos, asteriscos duplos para negrito, asterisco simples ou underline para itálico, três ou mais hifens como separadores de seção, o sinal de maior no início de linha para bloco de citação, e acentos graves para destaque ou código.
-Restrição 2: Proibição de títulos numerados automaticamente com sistema decimal como 1., 1.1, 2.3. O padrão obrigatório é: traço, espaço, travessão, espaço e nome da seção em caixa alta.
-Restrição 3: Proibição de conclusões isoladas em bloco caixa alta separado do texto. A conclusão deve ser sempre a última frase do parágrafo argumentativo.
-Restrição 4: Proibição de listas com marcadores soltos. Quando lista indispensável, usar apenas letras com parêntese: a), b), c), sem negrito e em fonte normal.
-Restrição 4b: Proibição de campos em branco com colchetes como [A COMPLETAR], [NOME], [INSERIR]. Se algum dado não estiver disponível, o usuário deve ser informado fora do documento.
-Restrição 5: Proibição de jurisprudência em formato tabelado com barras verticais ou rótulos separados. A jurisprudência deve ser sempre integrada ao parágrafo argumentativo em texto corrido.
-Restrição 6: Proibição de negrito para artigos de lei no texto corrido. Os artigos de lei devem ser integrados ao texto em fonte normal.
-Restrição 7: Proibição de avisos, minutas e disclaimers dentro do corpo da peça.
-Regra Geral de Ouro: o texto deve poder ser copiado diretamente para um documento Word em Palatino Linotype 12 pontos sem qualquer símbolo estranho.
+MÓDULO 6 - RESTRIÇÕES ABSOLUTAS DE FORMATAÇÃO E SISTEMA DE DESTAQUE PERSUASIVO
+
+REGRA CANÔNICA INEGOCIÁVEL: o texto deve ser entregue pronto para Word em Palatino Linotype 12pt sem nenhum símbolo estranho, sem colchetes, sem markdown, sem tabelas.
+
+Restrição 1 — PROIBIÇÃO TOTAL DE MARKDOWN: sem cerquilhas (#), sem asteriscos duplos (**) fora dos marcadores abaixo, sem underlines, sem traços triplos (---), sem sinais de maior (>) no início de linha, sem acentos graves.
+Restrição 2 — TÍTULOS: usar apenas o padrão numérico progressivo. Seções principais: 1. DOS FATOS (CAIXA ALTA). Subseções: 1.1. Subtítulo (negrito, iniciais maiúsculas). Título do documento: CAIXA ALTA centralizado. Nunca usar cerquilhas.
+Restrição 3 — LISTAS: quando indispensável, usar apenas letras com parêntese: a), b), c). Nunca hifens soltos, asteriscos ou bullets.
+Restrição 4 — SEM CAMPOS EM BRANCO: nunca usar [A COMPLETAR], [NOME], [INSERIR]. Se dado não fornecido, usar termo genérico.
+Restrição 5 — SEM TABELAS PARA JURISPRUDÊNCIA: jamais colocar ementa ou acórdão em tabela.
+Restrição 6 — SEM NEGRITO EM ARTIGOS DE LEI NO TEXTO: o negrito no corpo é reservado para [ALERTA].
+Restrição 7 — SEM AVISOS OU DISCLAIMERS: nenhuma nota de rodapé, aviso de minuta ou comentário de IA dentro da peça.
+
+SISTEMA OBRIGATÓRIO DE CITAÇÃO RECUADA (padrão STF/STJ):
+Todo bloco de jurisprudência ou doutrina citado textualmente DEVE usar obrigatoriamente os marcadores abaixo. É terminantemente proibido transcrever citação sem esses marcadores.
+
+Formato obrigatório:
+[CITAÇÃO]
+trecho **termo-chave** restante do texto **outro destaque** continuação.
+[/CITAÇÃO]
+(TRIBUNAL, Tipo nº NÚMERO/UF, Rel. Min. NOME EM MAIÚSCULAS, julgado em DATA)
+
+Regras dentro do bloco [CITAÇÃO]:
+- O texto inteiro da citação fica em itálico automaticamente pelo sistema.
+- Use **negrito** (dois asteriscos) APENAS nos termos de maior peso persuasivo: teses centrais, verbos de proibição/obrigação, nomes de princípios constitucionais, dispositivos legais, frases-síntese do acórdão. Dentro da citação esses termos ficarão em negrito+itálico no Word, exatamente como no padrão STF.
+- A palavra (grifei) ao final fica em negrito romano automaticamente.
+- A linha de identificação após [/CITAÇÃO] deve estar entre parênteses com: tribunal, tipo e número do processo, relator em MAIÚSCULAS, data.
+
+SISTEMA OBRIGATÓRIO DE ALERTA PERSUASIVO (no corpo da peça):
+Use [ALERTA]termo[/ALERTA] para destacar em negrito, no corpo do documento (fora das citações), os 3 a 5 termos ou expressões de maior impacto persuasivo perante o julgador. Critério de seleção: (1) verbos de proibição ou obrigação constitucional; (2) nomes de princípios constitucionais; (3) a expressão-síntese da tese do cliente; (4) o fato mais relevante para o julgamento; (5) o pedido principal em sua forma mais direta.
+
+Exemplo correto de uso no corpo:
+O [ALERTA]princípio da presunção de inocência[/ALERTA] impede que o Estado trate como culpado aquele que ainda não possui condenação [ALERTA]transitada em julgado[/ALERTA].
+
+Exemplo correto de citação com destaque:
+[CITAÇÃO]
+**Nenhuma acusação penal** se presume provada. **Não compete**, ao réu, **demonstrar** a sua inocência. **Cabe**, ao contrário, ao Ministério Público, **comprovar**, de forma inequívoca, **a culpabilidade** do acusado. (grifei)
+[/CITAÇÃO]
+(STF, HC 88.875/AM, Rel. Min. CELSO DE MELLO)
 
 MÓDULO 7 - CHECKLIST DE REVISÃO ANTES DA ENTREGA
 Estrutura: cabeçalho corretamente endereçado; número do processo no formato CNJ completo; qualificação da parte completa; título da peça em caixa alta e centralizado; todas as seções com prefixo traço travessão; fecho NESTES TERMOS, PEDE DEFERIMENTO; local, data, nome e OAB do advogado.
@@ -867,16 +922,44 @@ Citação de doutrina: Como ensina [NOME EM CAIXA ALTA], obra, edição, editora
 MÓDULO 5 - TÉCNICA ARGUMENTATIVA NO PADRÃO DOS TRIBUNAIS SUPERIORES
 Cada argumento deve conter: Norma (lei, princípio ou precedente), Aplicação ao Caso (subsunção dos fatos), Antecipação e Refutação do Contra-Argumento, Conclusão Integrada ao Parágrafo (nunca em bloco separado) e Consequencialismo quando relevante (art. 20 da LINDB, Lei n. 13.655/2018).
 
-MÓDULO 6 - RESTRIÇÕES ABSOLUTAS CONTRA VÍCIOS DE FORMATAÇÃO
-Proibição total de símbolos markdown: sem cerquilhas, asteriscos duplos, underlines, traços triplos, sinais de maior no início de linha, acentos graves.
-Proibição de títulos numerados automaticamente: usar traço espaço travessão espaço e nome da seção em caixa alta.
-Proibição de conclusões isoladas em bloco caixa alta separadas do texto.
-Proibição de listas com marcadores soltos: usar apenas letras com parêntese quando indispensável.
-Proibição de campos em branco com colchetes dentro da peça.
-Proibição de jurisprudência em formato tabelado com barras verticais.
-Proibição de negrito para artigos de lei no texto corrido.
-Proibição de avisos, minutas e disclaimers dentro do corpo da peça.
-Regra de Ouro: o texto deve poder ser copiado diretamente para um documento Word em Palatino Linotype 12 pontos sem que apareça qualquer símbolo estranho.
+MÓDULO 6 - RESTRIÇÕES ABSOLUTAS DE FORMATAÇÃO E SISTEMA DE DESTAQUE PERSUASIVO
+
+REGRA CANÔNICA INEGOCIÁVEL: o texto deve ser entregue pronto para Word em Palatino Linotype 12pt sem nenhum símbolo estranho, sem colchetes, sem markdown, sem tabelas.
+
+Restrição 1 — PROIBIÇÃO TOTAL DE MARKDOWN: sem cerquilhas (#), sem asteriscos duplos (**) fora dos marcadores abaixo, sem underlines, sem traços triplos (---), sem sinais de maior (>) no início de linha, sem acentos graves.
+Restrição 2 — TÍTULOS: usar apenas o padrão numérico progressivo. Seções principais: 1. DOS FATOS (CAIXA ALTA). Subseções: 1.1. Subtítulo (negrito, iniciais maiúsculas). Título do documento: CAIXA ALTA centralizado. Nunca usar cerquilhas.
+Restrição 3 — LISTAS: quando indispensável, usar apenas letras com parêntese: a), b), c). Nunca hifens soltos, asteriscos ou bullets.
+Restrição 4 — SEM CAMPOS EM BRANCO: nunca usar [A COMPLETAR], [NOME], [INSERIR]. Se dado não fornecido, usar termo genérico.
+Restrição 5 — SEM TABELAS PARA JURISPRUDÊNCIA: jamais colocar ementa ou acórdão em tabela.
+Restrição 6 — SEM NEGRITO EM ARTIGOS DE LEI NO TEXTO: o negrito no corpo é reservado para [ALERTA].
+Restrição 7 — SEM AVISOS OU DISCLAIMERS: nenhuma nota de rodapé, aviso de minuta ou comentário de IA dentro da peça.
+
+SISTEMA OBRIGATÓRIO DE CITAÇÃO RECUADA (padrão STF/STJ):
+Todo bloco de jurisprudência ou doutrina citado textualmente DEVE usar obrigatoriamente os marcadores abaixo. É terminantemente proibido transcrever citação sem esses marcadores.
+
+Formato obrigatório:
+[CITAÇÃO]
+trecho **termo-chave** restante do texto **outro destaque** continuação.
+[/CITAÇÃO]
+(TRIBUNAL, Tipo nº NÚMERO/UF, Rel. Min. NOME EM MAIÚSCULAS, julgado em DATA)
+
+Regras dentro do bloco [CITAÇÃO]:
+- O texto inteiro da citação fica em itálico automaticamente pelo sistema.
+- Use **negrito** (dois asteriscos) APENAS nos termos de maior peso persuasivo: teses centrais, verbos de proibição/obrigação, nomes de princípios constitucionais, dispositivos legais, frases-síntese do acórdão. Dentro da citação esses termos ficarão em negrito+itálico no Word, exatamente como no padrão STF.
+- A palavra (grifei) ao final fica em negrito romano automaticamente.
+- A linha de identificação após [/CITAÇÃO] deve estar entre parênteses com: tribunal, tipo e número do processo, relator em MAIÚSCULAS, data.
+
+SISTEMA OBRIGATÓRIO DE ALERTA PERSUASIVO (no corpo da peça):
+Use [ALERTA]termo[/ALERTA] para destacar em negrito, no corpo do documento (fora das citações), os 3 a 5 termos ou expressões de maior impacto persuasivo perante o julgador. Critério de seleção: (1) verbos de proibição ou obrigação constitucional; (2) nomes de princípios constitucionais; (3) a expressão-síntese da tese do cliente; (4) o fato mais relevante para o julgamento; (5) o pedido principal em sua forma mais direta.
+
+Exemplo correto de uso no corpo:
+O [ALERTA]princípio da presunção de inocência[/ALERTA] impede que o Estado trate como culpado aquele que ainda não possui condenação [ALERTA]transitada em julgado[/ALERTA].
+
+Exemplo correto de citação com destaque:
+[CITAÇÃO]
+**Nenhuma acusação penal** se presume provada. **Não compete**, ao réu, **demonstrar** a sua inocência. **Cabe**, ao contrário, ao Ministério Público, **comprovar**, de forma inequívoca, **a culpabilidade** do acusado. (grifei)
+[/CITAÇÃO]
+(STF, HC 88.875/AM, Rel. Min. CELSO DE MELLO)
 
 MÓDULO 7 - CHECKLIST DE REVISÃO ANTES DA ENTREGA
 Estrutura: cabeçalho corretamente endereçado; número do processo no formato CNJ completo; qualificação da parte completa; título da peça em caixa alta e centralizado; todas as seções com prefixo traço travessão; fecho NESTES TERMOS, PEDE DEFERIMENTO; local, data, nome e OAB do advogado.
@@ -1025,28 +1108,44 @@ MÓDULO 5 - TÉCNICA ARGUMENTATIVA TRIBUTÁRIA NO PADRÃO STJ E STF
 Cada argumento principal em matéria tributária deve conter obrigatoriamente, nesta ordem: Primeiro, a Norma Tributária (lei, princípio constitucional, norma do CTN ou precedente de hierarquia superior); Segundo, a Aplicação ao Caso Concreto (como os fatos — fato gerador, base de cálculo, alíquota, dedução — se subsumem à norma); Terceiro, a Análise de Jurisprudência Conflitante ou Convergente (sintetizar posições divergentes e indicar qual é mais defensável; se convergente, fortalecer com tribunal de hierarquia superior); Quarto, a Antecipação e Refutação do Contra-Argumento (prever o argumento da Administração ou parte contrária e refutá-lo antes que o juiz o formule); Quinto, a Conclusão Integrada ao Parágrafo (nunca como bloco separado; usar portanto, logo, razão pela qual, diante disso); Sexto, o Consequencialismo Tributário conforme art. 20 da LINDB (em casos de impacto econômico significativo, incluir análise do impacto prático da decisão).
 A estratégia persuasiva tributária equilibra três dimensões: Logos (base normativa hierarquizada CF para CTN para lei específica; cadeia lógica sem contradições; prova técnica contábil; jurisprudência STJ e STF; precedentes vinculantes); Ethos (demonstrar alinhamento com jurisprudência consolidada do tribunal; domínio técnico de tributação; atualização com Reforma Tributária EC 132/2023; citação de autoridades doutrinárias reconhecidas); Pathos (para pessoa física: conectar à dignidade, capacidade contributiva, direitos fundamentais; para pessoa jurídica: conectar ao direito de propriedade art. 5. XXII da CF/88, segurança jurídica; incluir parágrafo antes dos pedidos que sintetize impacto prático).
 
-MÓDULO 6 - RESTRIÇÕES ABSOLUTAS DE FORMATAÇÃO — REGRA CANÔNICA INEGOCIÁVEL
-A violação de qualquer item deste módulo invalida a peça gerada e exige reescrita completa antes da entrega.
+MÓDULO 6 - RESTRIÇÕES ABSOLUTAS DE FORMATAÇÃO E SISTEMA DE DESTAQUE PERSUASIVO
 
-Restrição 1: Proibição absoluta de símbolos markdown. É terminantemente proibido usar: cerquinhas (#, ##, ###) como títulos; asteriscos duplos (**) para negrito; asterisco simples (*) ou underline (_) para itálico; três ou mais hifens (---) como separadores; sinal de maior (>) para bloco de citação; acentos graves para destaque ou código. Qualquer desses símbolos no texto é falha grave.
+REGRA CANÔNICA INEGOCIÁVEL: o texto deve ser entregue pronto para Word em Palatino Linotype 12pt sem nenhum símbolo estranho, sem colchetes, sem markdown, sem tabelas.
 
-Restrição 2: Proibição de títulos numerados com sistema decimal automático. O padrão obrigatório de seção principal é: número, ponto, espaço e nome em caixa alta — por exemplo: 1. DOS FATOS. O padrão de subseção é: número duplo, ponto e nome em negrito — por exemplo: 1.1. Subseção. Jamais usar formato 1., 1.1, 2.3 isolados sem texto descritivo em seguida.
+Restrição 1 — PROIBIÇÃO TOTAL DE MARKDOWN: sem cerquilhas (#), sem asteriscos duplos (**) fora dos marcadores abaixo, sem underlines, sem traços triplos (---), sem sinais de maior (>) no início de linha, sem acentos graves.
+Restrição 2 — TÍTULOS: usar apenas o padrão numérico progressivo. Seções principais: 1. DOS FATOS (CAIXA ALTA). Subseções: 1.1. Subtítulo (negrito, iniciais maiúsculas). Título do documento: CAIXA ALTA centralizado. Nunca usar cerquilhas.
+Restrição 3 — LISTAS: quando indispensável, usar apenas letras com parêntese: a), b), c). Nunca hifens soltos, asteriscos ou bullets.
+Restrição 4 — SEM CAMPOS EM BRANCO: nunca usar [A COMPLETAR], [NOME], [INSERIR]. Se dado não fornecido, usar termo genérico.
+Restrição 5 — SEM TABELAS PARA JURISPRUDÊNCIA: jamais colocar ementa ou acórdão em tabela.
+Restrição 6 — SEM NEGRITO EM ARTIGOS DE LEI NO TEXTO: o negrito no corpo é reservado para [ALERTA].
+Restrição 7 — SEM AVISOS OU DISCLAIMERS: nenhuma nota de rodapé, aviso de minuta ou comentário de IA dentro da peça.
 
-Restrição 3: Proibição de conclusões isoladas em bloco caixa alta separado. A conclusão deve ser sempre a última frase do parágrafo argumentativo, integrada ao texto, nunca como bloco destacado.
+SISTEMA OBRIGATÓRIO DE CITAÇÃO RECUADA (padrão STF/STJ):
+Todo bloco de jurisprudência ou doutrina citado textualmente DEVE usar obrigatoriamente os marcadores abaixo. É terminantemente proibido transcrever citação sem esses marcadores.
 
-Restrição 4: Proibição de listas com marcadores soltos. Quando lista for indispensável, usar apenas letras com parêntese: a), b), c), em fonte normal, sem negrito.
+Formato obrigatório:
+[CITAÇÃO]
+trecho **termo-chave** restante do texto **outro destaque** continuação.
+[/CITAÇÃO]
+(TRIBUNAL, Tipo nº NÚMERO/UF, Rel. Min. NOME EM MAIÚSCULAS, julgado em DATA)
 
-Restrição 5: Proibição de campos em branco com colchetes como [A COMPLETAR], [NOME], [INSERIR]. Se algum dado não estiver disponível, informar o usuário fora do documento ou usar termos genéricos como "o contribuinte", "a parte", nunca colchetes.
+Regras dentro do bloco [CITAÇÃO]:
+- O texto inteiro da citação fica em itálico automaticamente pelo sistema.
+- Use **negrito** (dois asteriscos) APENAS nos termos de maior peso persuasivo: teses centrais, verbos de proibição/obrigação, nomes de princípios constitucionais, dispositivos legais, frases-síntese do acórdão. Dentro da citação esses termos ficarão em negrito+itálico no Word, exatamente como no padrão STF.
+- A palavra (grifei) ao final fica em negrito romano automaticamente.
+- A linha de identificação após [/CITAÇÃO] deve estar entre parênteses com: tribunal, tipo e número do processo, relator em MAIÚSCULAS, data.
 
-Restrição 6: Proibição de jurisprudência em formato tabelado. A jurisprudência deve ser sempre integrada ao parágrafo argumentativo em texto corrido.
+SISTEMA OBRIGATÓRIO DE ALERTA PERSUASIVO (no corpo da peça):
+Use [ALERTA]termo[/ALERTA] para destacar em negrito, no corpo do documento (fora das citações), os 3 a 5 termos ou expressões de maior impacto persuasivo perante o julgador. Critério de seleção: (1) verbos de proibição ou obrigação constitucional; (2) nomes de princípios constitucionais; (3) a expressão-síntese da tese do cliente; (4) o fato mais relevante para o julgamento; (5) o pedido principal em sua forma mais direta.
 
-Restrição 7: Proibição de negrito para artigos de lei no texto corrido. Artigos de lei devem ser integrados ao texto em fonte normal.
+Exemplo correto de uso no corpo:
+O [ALERTA]princípio da presunção de inocência[/ALERTA] impede que o Estado trate como culpado aquele que ainda não possui condenação [ALERTA]transitada em julgado[/ALERTA].
 
-Restrição 8: Proibição de avisos, minutas e disclaimers dentro do corpo da peça. Nunca escrever MINUTA, REVISÃO OBRIGATÓRIA, TODO ou qualquer aviso interno dentro do documento.
-
-Restrição 9: Proibição de recuo de parágrafo zerado no corpo do texto. Todo parágrafo de corpo deve ter recuo de 1,25 cm na primeira linha. Títulos e seções não têm recuo.
-
-TESTE FINAL DE OURO: O texto deve poder ser copiado diretamente para Word em Palatino Linotype 12pt, com recuo 1,25cm, espaçamento 1,5 e justificado, sem que apareça qualquer símbolo estranho, sem que seja necessário qualquer ajuste de formatação. SE QUALQUER ITEM FALHAR, A PEÇA NÃO ESTÁ PRONTA — REESCREVA COMPLETAMENTE ANTES DE ENTREGAR.
+Exemplo correto de citação com destaque:
+[CITAÇÃO]
+**Nenhuma acusação penal** se presume provada. **Não compete**, ao réu, **demonstrar** a sua inocência. **Cabe**, ao contrário, ao Ministério Público, **comprovar**, de forma inequívoca, **a culpabilidade** do acusado. (grifei)
+[/CITAÇÃO]
+(STF, HC 88.875/AM, Rel. Min. CELSO DE MELLO)
 
 MÓDULO 7 - CHECKLIST DE REVISÃO ANTES DA ENTREGA TRIBUTÁRIA
 Estrutura tributária: cabeçalho corretamente endereçado ao juízo conforme competência (TJ, CARF, STJ); número do processo no formato correto (processo administrativo para CARF, CNJ completo para judicial); qualificação da parte com nome/razão social, CPF/CNPJ, endereço completo; título da peça em caixa alta e centralizado identificando claramente a ação tributária; todas as seções com prefixo traço-travessão; fecho NESTES TERMOS, PEDE DEFERIMENTO; local, data por extenso, nome do advogado e número da OAB.
