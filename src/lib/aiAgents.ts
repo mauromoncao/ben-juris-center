@@ -69,6 +69,8 @@ export function withNameOriginDirective(systemPrompt: string): string {
 export type AgentID =
   // SUPER AGENTE (1)
   | 'ben-super-agente-juridico'
+  // AGENTE OPERACIONAL PREMIUM (1)
+  | 'ben-agente-operacional-premium'
   // Jurídicos core (15)
   | 'ben-peticionista-juridico'
   | 'ben-contratualista'
@@ -193,6 +195,53 @@ export const DR_BEN_AGENTS: Record<AgentID, AgentConfig> = {
     ativo: true,
     premium: true,
     tempo_estimado_seg: 45,
+  },
+
+  // ══════════════════════════════════════════════════════════
+  // AGENTE OPERACIONAL PREMIUM
+  // ══════════════════════════════════════════════════════════
+  'ben-agente-operacional-premium': {
+    id: 'ben-agente-operacional-premium',
+    nome: 'AGENTE OPERACIONAL PREMIUM',
+    titulo: 'Agente Jurídico Operacional — Complexidade Moderada a Profunda',
+    emoji: '🔷',
+    area: 'processual',
+    modelo: 'claude-sonnet-4',
+    modelo_fallback: 'claude-haiku-4',
+    temperatura: 0.1,
+    max_tokens: 6000,
+    cor: 'text-blue-400',
+    cor_bg: 'bg-blue-500/10',
+    cor_border: 'border-blue-500/30',
+    descricao: 'Agente jurídico operacional moderado. Thinking adaptativo automático. Atua em todas as áreas do direito com profundidade equilibrada. Sinaliza casos que exigem o AGENTE OPERACIONAL MAXIMUS.',
+    especialidades: [
+      'Análise jurídica moderada a profunda (1–2 temas)',
+      'Pesquisa de jurisprudência (STJ, TJ, CARF)',
+      'Redação de petições padrão e moderadamente complexas',
+      'Parecer jurídico estruturado',
+      'Síntese de documentos longos (até 30 páginas)',
+      'Comparação e análise de contratos',
+      'Detecção de risco jurídico baixo a médio',
+      'Checklist de procedimentos jurídicos',
+    ],
+    capacidades: [
+      'Thinking adaptativo automático — ativa/desativa por critério de complexidade',
+      'Critérios de ativação: jurisprudência conflitante, 2 temas, risco médio, síntese complexa',
+      'Velocidade: 2 a 5 segundos (thinking auto)',
+      'Tokens thinking: 1.000 a 4.000 quando ativo',
+      'Sinaliza automaticamente limitações para escalada ao AGENTE OPERACIONAL MAXIMUS',
+    ],
+    system_prompt: 'Agente jurídico operacional moderado com thinking adaptativo. Atua em todas as áreas do direito. Sinaliza escopo excedido para o AGENTE OPERACIONAL MAXIMUS.',
+    exemplos_uso: [
+      'Petição inicial de ação de cobrança simples',
+      'Parecer sobre rescisão contratual',
+      'Análise de cláusulas de contrato de prestação de serviços',
+      'Pesquisa de jurisprudência STJ sobre tema específico',
+      'Checklist de documentos para ação previdenciária',
+    ],
+    ativo: true,
+    premium: true,
+    tempo_estimado_seg: 15,
   },
 
   'ben-peticionista-juridico': {
