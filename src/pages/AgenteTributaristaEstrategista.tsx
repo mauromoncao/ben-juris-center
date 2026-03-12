@@ -1,5 +1,8 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { downloadDocx } from '../lib/generateDocx';
+// timbreFile salvo na sessão para não precisar reanexar a cada download
+let _sessionTimbreFile: File | null = null
+
 import {
   Zap, Send, RefreshCw, Copy, CheckCircle, Scale, Shield, BookOpen,
   FileText, Clock, Star, Target, Brain, Sparkles,
@@ -105,6 +108,12 @@ export default function AgenteTributaristaEstrategista() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  // ── Timbre modal ────────────────────────────────────────────
+  type TimbreChoice = 'com' | 'sem' | 'cancel'
+  const [timbreModal, setTimbreModal] = useState<null | 'pending'>(null)
+  const [timbreResolve, setTimbreResolve] = useState<null | ((v: TimbreChoice) => void)>(null)
+  const [savedTimbreFile, setSavedTimbreFile] = useState<File | null>(_sessionTimbreFile)
+  const timbreFileRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -241,8 +250,38 @@ export default function AgenteTributaristaEstrategista() {
     setTimeout(() => setCopied(null), 2000);
   };
 
+
+  // ── Timbre: pergunta ao usuário (com / sem / cancelar) ──────
+  const askTimbre = (): Promise<TimbreChoice> =>
+    new Promise(resolve => {
+      setTimbreModal('pending')
+      setTimbreResolve(() => resolve)
+    })
+
+  const handleTimbreChoice = (choice: TimbreChoice) => {
+    setTimbreModal(null)
+    timbreResolve?.(choice)
+    setTimbreResolve(null)
+  }
+
+  const handleTimbreFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    _sessionTimbreFile = file
+    setSavedTimbreFile(file)
+    e.target.value = ''
+    handleTimbreChoice('com')
+  }
+
   const handleDownload = async (content: string, _filename: string) => {
-    await downloadDocx(content, 'Parecer Tributário — Mauro Monção Advogados', 'AGENTE TRIBUTARISTA ESTRATEGISTA');
+    const choice = await askTimbre()
+    if (choice === 'cancel') return
+    const timbreFile = choice === 'com' ? (savedTimbreFile || _sessionTimbreFile) : null
+    try {
+      await downloadDocx(content, 'Parecer Tributário — Mauro Monção Advogados', 'AGENTE TRIBUTARISTA ESTRATEGISTA', timbreFile ?? undefined)
+    } catch (err) {
+      console.error('Docx error:', err)
+    }
   };
 
   const handleClear = () => {
@@ -575,7 +614,7 @@ export default function AgenteTributaristaEstrategista() {
                         </button>
                         <button onClick={() => handleDownload(msg.content, `tributarista-${Date.now()}.txt`)}
                           className="text-xs flex items-center gap-1" style={{ color: '#6B7280' }}>
-                          <Download className="w-3 h-3" /> Baixar .txt
+                          <Download className="w-3 h-3" /> Baixar Word
                         </button>
                         {msg.confianca !== undefined && (
                           <span className="text-xs ml-auto" style={{ color: '#9CA3AF' }}>
@@ -708,6 +747,76 @@ export default function AgenteTributaristaEstrategista() {
           </div>
         </div>
       </div>
+
+      {/* ── Modal: Com timbre ou Sem timbre? ─────────────────── */}
+      {timbreModal === 'pending' && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center"
+          style={{ background: 'rgba(0,0,0,0.65)' }}>
+          <div className="rounded-2xl shadow-2xl p-7 flex flex-col items-center gap-4 w-full mx-4"
+            style={{ background: '#0d1f3c', border: '1px solid #1e3a60', maxWidth: 420 }}>
+            <div className="flex flex-col items-center gap-2">
+              <div className="w-12 h-12 rounded-xl flex items-center justify-center"
+                style={{ background: 'rgba(228,183,30,0.18)' }}>
+                <FileText className="w-6 h-6" style={{ color: '#E4B71E' }} />
+              </div>
+              <p className="text-white font-bold text-base text-center">Gerar documento Word (.docx)</p>
+            </div>
+            <div className="w-full rounded-xl p-3 text-xs leading-relaxed"
+              style={{ background: 'rgba(228,183,30,0.08)', border: '1px solid rgba(228,183,30,0.25)', color: '#CBD5E1' }}>
+              <p className="font-semibold mb-1" style={{ color: '#E4B71E' }}>ℹ️ Como funciona o timbre</p>
+              <p>O <strong style={{ color: '#fff' }}>timbre do escritório é um arquivo Word separado</strong> (.docx). O sistema extrai o cabeçalho do arquivo de timbre e o aplica ao documento gerado.</p>
+              <p className="mt-1">Para usar o timbre, selecione <strong style={{ color: '#4ade80' }}>"Com Timbre"</strong> e anexe o arquivo <strong style={{ color: '#fff' }}>NOVO TIMBRE DO ESCRITÓRIO.docx</strong>. Uma vez carregado, fica salvo na sessão.</p>
+            </div>
+            {savedTimbreFile && (
+              <div className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-xs"
+                style={{ background: 'rgba(34,197,94,0.12)', border: '1px solid rgba(34,197,94,0.3)', color: '#4ade80' }}>
+                <span>✓</span>
+                <span>Timbre em uso: <strong>{savedTimbreFile.name.slice(0, 35)}{savedTimbreFile.name.length > 35 ? '…' : ''}</strong></span>
+              </div>
+            )}
+            <div className="flex flex-col gap-2 w-full">
+              {savedTimbreFile ? (
+                <button
+                  onClick={() => handleTimbreChoice('com')}
+                  className="w-full py-3 rounded-xl font-bold text-sm transition-all hover:opacity-90"
+                  style={{ background: '#E4B71E', color: '#0d1f3c' }}>
+                  📋 Com Timbre — usar {savedTimbreFile.name.slice(0, 22)}{savedTimbreFile.name.length > 22 ? '…' : ''}
+                </button>
+              ) : null}
+              <button
+                onClick={() => timbreFileRef.current?.click()}
+                className="w-full py-3 rounded-xl font-bold text-sm transition-all hover:opacity-90"
+                style={{
+                  background: savedTimbreFile ? 'rgba(228,183,30,0.12)' : '#E4B71E',
+                  color: savedTimbreFile ? '#E4B71E' : '#0d1f3c',
+                  border: savedTimbreFile ? '1px solid rgba(228,183,30,0.4)' : 'none',
+                }}>
+                📂 {savedTimbreFile ? 'Trocar arquivo de timbre (.docx)' : 'Anexar timbre (.docx) e gerar'}
+              </button>
+              <button
+                onClick={() => handleTimbreChoice('sem')}
+                className="w-full py-2.5 rounded-xl font-semibold text-sm transition-all hover:opacity-90"
+                style={{ background: 'rgba(255,255,255,0.08)', color: '#94A3B8', border: '1px solid rgba(255,255,255,0.12)' }}>
+                📄 Sem Timbre — gerar apenas o conteúdo
+              </button>
+            </div>
+            <button
+              onClick={() => handleTimbreChoice('cancel')}
+              className="text-xs transition-colors hover:text-white"
+              style={{ color: '#64748B' }}>
+              Cancelar
+            </button>
+          </div>
+        </div>
+      )}
+      {/* Input oculto para o .docx do timbre */}
+      <input
+        ref={timbreFileRef}
+        type="file"
+        accept=".docx"
+        className="hidden"
+        onChange={handleTimbreFileUpload}
+      />
     </div>
   );
 }
