@@ -331,7 +331,7 @@ export default function SuperAgenteJuridico() {
             </div>
             <div>
               <h1 className="text-lg font-bold flex items-center gap-2" style={{ color: '#19385C' }}>
-                BEN SUPER AGENTE JURÍDICO
+                AGENTE OPERACIONAL MAXIMUS
                 <span className="text-xs px-2 py-0.5 rounded-full"
                   style={{ background: 'rgba(222,192,120,0.18)', color: '#b8860b', border: '1px solid rgba(222,192,120,0.45)' }}>
                   PREMIUM

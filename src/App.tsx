@@ -49,7 +49,7 @@ const NAV_GROUPS = [
     label: 'NÚCLEO IA – DR. BEN',
     color: '#7c3aed',
     items: [
-      { path: '/super-agente',    icon: Zap,    label: 'BEN Super Agente Jurídico', badge: '⚡' },
+      { path: '/super-agente',    icon: Zap,    label: 'AGENTE OPERACIONAL MAXIMUS', badge: '⚡' },
       { path: '/nucleo-ia',       icon: Brain,  label: 'Agentes Dr. Ben IA',       badge: '10' },
       { path: '/nucleo-projetos', icon: Activity,label: 'Projetos & Produtividade' },
       { path: '/eng-prompts',     icon: Wand2,       label: 'Engenheiro de Prompts',    badge: 'NEW' },
