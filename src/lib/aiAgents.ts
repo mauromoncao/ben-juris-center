@@ -71,6 +71,8 @@ export type AgentID =
   | 'ben-super-agente-juridico'
   // AGENTE OPERACIONAL PREMIUM (1)
   | 'ben-agente-operacional-premium'
+  // AGENTE OPERACIONAL STANDARD (1)
+  | 'ben-agente-operacional-standard'
   // Jurídicos core (15)
   | 'ben-peticionista-juridico'
   | 'ben-contratualista'
@@ -242,6 +244,51 @@ export const DR_BEN_AGENTS: Record<AgentID, AgentConfig> = {
     ativo: true,
     premium: true,
     tempo_estimado_seg: 15,
+  },
+
+  'ben-agente-operacional-standard': {
+    id: 'ben-agente-operacional-standard',
+    nome: 'AGENTE OPERACIONAL STANDARD',
+    titulo: 'Agente Operacional de Execução Rápida',
+    emoji: '🟢',
+    area: 'operacional',
+    modelo: 'claude-haiku',
+    modelo_fallback: 'claude-haiku',
+    temperatura: 0.1,
+    max_tokens: 1500,
+    cor: 'text-green-400',
+    cor_bg: 'bg-green-500/10',
+    cor_borda: 'border-green-500/30',
+    descricao: 'Execução operacional rápida. Extração, resumo, classificação, checklist e FAQ jurídica. Thinking desativado — resposta direta em 0,3–0,8s.',
+    especialidades: [
+      'Extração de dados estruturados',
+      'Resumo de demandas',
+      'Classificação temática',
+      'Detecção de urgência',
+      'Formatação e normalização',
+      'FAQ jurídica padrão',
+      'Tradução EN ↔ PT',
+      'Comparação de documentos',
+      'Checklist de prazos',
+      'Validação de campos',
+    ],
+    capacidades: [
+      'Thinking desativado — resposta direta',
+      'Velocidade 0,3–0,8s',
+      'Tokens de output 200–1.500',
+      'Sinaliza quando tarefa excede escopo',
+      'Redireciona para Sonnet/Opus quando necessário',
+    ],
+    system_prompt: 'Agente operacional padrão com Claude Haiku. Execução rápida de tarefas operacionais. Thinking desativado.',
+    exemplos_uso: [
+      'Extraia os dados do contrato em JSON',
+      'Classifique esta demanda por tema jurídico',
+      'Gere checklist de prazos do processo',
+      'Resuma este documento em um parágrafo',
+    ],
+    ativo: true,
+    premium: false,
+    tempo_estimado_seg: 1,
   },
 
   'ben-peticionista-juridico': {
