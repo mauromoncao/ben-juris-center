@@ -56,7 +56,7 @@ const NAV_GROUPS = [
       { path: '/agente-premium',   icon: Zap,    label: 'AGENTE OPERACIONAL PREMIUM',  badge: '🔷' },
       { path: '/agente-standard',   icon: Zap,    label: 'AGENTE OPERACIONAL STANDARD', badge: '🟢' },
       { path: '/tributarista-estrategista', icon: Zap, label: 'TRIBUTARISTA ESTRATEGISTA', badge: '⚖️' },
-      { path: '/nucleo-ia',       icon: Brain,  label: 'Agentes Dr. Ben IA',       badge: '10' },
+      { path: '/nucleo-ia',       icon: Brain,  label: 'Agentes Dr. Ben IA',       badge: '14' },
       { path: '/nucleo-projetos', icon: Activity,label: 'Projetos & Produtividade' },
       { path: '/eng-prompts',     icon: Wand2,       label: 'Engenheiro de Prompts',    badge: 'NEW' },
       { path: '/contador-ia',     icon: Calculator,  label: 'Contador IA',              badge: 'NOVO' },
@@ -280,7 +280,7 @@ function TopBar({ collapsed }: { collapsed: boolean }) {
         {/* Agentes ativos */}
         <div className="flex items-center gap-1.5 bg-green-50 border border-green-200 rounded-full px-3 py-1.5">
           <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
-          <span className="text-green-700 text-xs font-medium font-sans">10 Agentes Ativos</span>
+          <span className="text-green-700 text-xs font-medium font-sans">14 Agentes Ativos</span>
         </div>
         {/* Prazos críticos */}
         <div className="flex items-center gap-1 bg-amber-50 border border-amber-200 rounded-full px-2.5 py-1.5">

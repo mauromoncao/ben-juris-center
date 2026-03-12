@@ -10,6 +10,92 @@ import {
 
 // ─── Dr. Ben IA Agent Definitions ─────────────────────────────────────────────
 const DR_BEN_AGENTS = [
+  // ── AGENTES OPERACIONAIS (hierarquia de topo) ──────────────────────────────
+  {
+    id: 'ben-super-agente-juridico',
+    name: 'AGENTE OPERACIONAL MAXIMUS',
+    specialty: 'Análise Jurídica de Máxima Profundidade',
+    avatar: '⭐',
+    color: '#92400e',
+    gradient: 'linear-gradient(135deg, #78350f, #b45309)',
+    icon: Star,
+    status: 'online',
+    requests: 892,
+    accuracy: 99.1,
+    route: '/super-agente',
+    description: 'Análise jurídica final e vinculante para qualquer área do Direito. Thinking sempre ativo (Claude Opus). Última instância — casos complexos, jurisprudência conflitante, estratégia multi-instância.',
+    capabilities: ['Análise jurídica de máxima profundidade', 'Jurisprudência conflitante STF/STJ', 'Teses inovadoras e defensáveis', 'Estratégia multi-instância', 'Pareceres finais e vinculantes', 'Peças prontas para STF'],
+    prompts: [
+      'Analise este caso com jurisprudência conflitante STF × STJ e indique a melhor estratégia',
+      'Elabore parecer final sobre viabilidade de tese tributária inovadora',
+      'Elabore estratégia multi-instância para caso de alto risco (valor > R$ 500 k)',
+      'Redija petição completa para Recurso Especial com fundamentos vinculantes',
+    ]
+  },
+  {
+    id: 'ben-agente-operacional-premium',
+    name: 'AGENTE OPERACIONAL PREMIUM',
+    specialty: 'Análise Jurídica Moderada a Profunda',
+    avatar: '🔷',
+    color: '#1d4ed8',
+    gradient: 'linear-gradient(135deg, #1e3a8a, #2563eb)',
+    icon: Zap,
+    status: 'online',
+    requests: 1547,
+    accuracy: 97.8,
+    route: '/agente-premium',
+    description: 'Análise jurídica moderada a profunda com thinking adaptativo automático (Claude Sonnet). Sinaliza automaticamente casos que exigem o MAXIMUS.',
+    capabilities: ['Thinking adaptativo automático', 'Jurisprudência STJ, TJ e CARF', 'Petições padrão a moderadamente complexas', 'Síntese de documentos até 30 pág.', 'Detecção de risco baixo a médio', 'Escalação automática para MAXIMUS'],
+    prompts: [
+      'Elabore contestação em ação de cobrança com preliminares de prescrição',
+      'Analise risco jurídico deste contrato de prestação de serviços',
+      'Pesquise jurisprudência STJ sobre responsabilidade civil de banco',
+      'Redija recurso de apelação em ação trabalhista com horas extras negadas',
+    ]
+  },
+  {
+    id: 'ben-agente-operacional-standard',
+    name: 'AGENTE OPERACIONAL STANDARD',
+    specialty: 'Execução Operacional Rápida',
+    avatar: '🟢',
+    color: '#16a34a',
+    gradient: 'linear-gradient(135deg, #14532d, #16a34a)',
+    icon: CheckCircle,
+    status: 'online',
+    requests: 3241,
+    accuracy: 98.9,
+    route: '/agente-standard',
+    description: 'Execução operacional rápida sem thinking (Claude Haiku). Extração, resumo, classificação, checklist, FAQ e validação de dados. Resposta em 0,3–0,8 s.',
+    capabilities: ['Extração de dados de documentos', 'Resumo e classificação', 'Detecção de urgência', 'Checklist de prazos', 'FAQ jurídica padrão', 'Validação de campos'],
+    prompts: [
+      'Extraia as partes, pedidos e valor da causa deste processo',
+      'Classifique a urgência destes 5 prazos processuais',
+      'Resuma este contrato em até 10 linhas',
+      'Valide se este número CNJ está no formato correto',
+    ]
+  },
+  {
+    id: 'ben-tributarista-estrategista',
+    name: 'AGENTE TRIBUTARISTA ESTRATEGISTA',
+    specialty: 'Direito Tributário Puro — CARF / STJ / STF',
+    avatar: '⚖️',
+    color: '#b45309',
+    gradient: 'linear-gradient(135deg, #78350f, #d97706)',
+    icon: Scale,
+    status: 'online',
+    requests: 634,
+    accuracy: 98.4,
+    route: '/tributarista-estrategista',
+    description: 'Especialista exclusivo em Direito Tributário (federal, estadual e municipal). Thinking sempre ativo (Claude Opus). Raciocínio obrigatório em 7 camadas. Defesa no CARF, TJ, STJ e STF.',
+    capabilities: ['Nulidade tributária processual e material', 'Defesa administrativa no CARF', 'Defesa judicial TJ / STJ / STF', 'Planejamento tributário estratégico', 'Análise EC 132/2023 (Reforma Tributária)', 'Estratégia multi-instância CARF → STF'],
+    prompts: [
+      'Elabore impugnação ao auto de infração por IRPJ — exercício 2022',
+      'Analise nulidade de autuação fiscal por vício de intimação',
+      'Estratégia multi-instância para crédito de PIS/COFINS negado no CARF',
+      'Pare cer sobre dedutibilidade de despesas com educação especial no IRPF',
+    ]
+  },
+  // ── AGENTES ESPECIALISTAS ─────────────────────────────────────────────────
   {
     id: 'peticoes',
     name: 'BEN Peticionista Jurídico',
@@ -192,15 +278,15 @@ const DR_BEN_AGENTS = [
   },
   {
     id: 'estrategia-judicial',
-    name: 'Dr. Ben – Estratégia',
+    name: 'Dr. Ben – Estratégia Judicial',
     specialty: 'Estratégia Judicial & Precedentes',
     avatar: 'EJ',
     color: '#b45309',
     gradient: 'linear-gradient(135deg, #78350f, #b45309)',
     icon: Target,
-    status: 'beta',
+    status: 'online',
     requests: 178,
-    accuracy: 94.6,
+    accuracy: 96.4,
     description: 'Analisa precedentes vinculantes, teses repetitivas, jurisprudência dos tribunais superiores e traça estratégias judiciais de alto impacto.',
     capabilities: ['Análise de Precedentes STF/STJ', 'Teses Repetitivas', 'Súmulas Vinculantes', 'Jurisprudência Defensiva', 'Estratégia de Litigância', 'Simulação de Resultado', 'Monitoramento de Teses'],
     prompts: [
@@ -373,6 +459,16 @@ function AgentChatModal({ agent, onClose }: { agent: typeof DR_BEN_AGENTS[0]; on
               <Send size={16} />
             </button>
           </div>
+          {'route' in agent && agent.route && (
+            <div className="mt-2 flex justify-center">
+              <a href={agent.route}
+                className="inline-flex items-center gap-2 px-5 py-2 rounded-xl text-sm font-bold text-white transition-all hover:opacity-90"
+                style={{ background: agent.gradient }}>
+                <ArrowRight size={14} />
+                Abrir {agent.name} completo
+              </a>
+            </div>
+          )}
           <div className="text-xs text-slate-400 mt-2 text-center">
             Powered by Genspark IA · {agent.name} · Alta Performance · Dados criptografados
           </div>
