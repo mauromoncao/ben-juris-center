@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
+import { downloadDocx } from '../lib/generateDocx';
 import {
   Zap, Send, RefreshCw, Copy, CheckCircle, Shield, BookOpen,
   FileText, Clock, Star, Target, Sparkles,
@@ -228,14 +229,8 @@ export default function AgenteOperacionalStandard() {
     setTimeout(() => setCopied(null), 2000);
   };
 
-  const handleDownload = (content: string, filename: string) => {
-    const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = filename;
-    a.click();
-    URL.revokeObjectURL(url);
+  const handleDownload = async (content: string, _filename: string) => {
+    await downloadDocx(content, 'Documento Jurídico — Mauro Monção Advogados', 'AGENTE OPERACIONAL STANDARD');
   };
 
   const handleClear = () => {
