@@ -73,6 +73,8 @@ export type AgentID =
   | 'ben-agente-operacional-premium'
   // AGENTE OPERACIONAL STANDARD (1)
   | 'ben-agente-operacional-standard'
+  // AGENTE TRIBUTARISTA ESTRATEGISTA (1)
+  | 'ben-tributarista-estrategista'
   // Jurídicos core (15)
   | 'ben-peticionista-juridico'
   | 'ben-contratualista'
@@ -289,6 +291,54 @@ export const DR_BEN_AGENTS: Record<AgentID, AgentConfig> = {
     ativo: true,
     premium: false,
     tempo_estimado_seg: 1,
+  },
+
+  // AGENTE TRIBUTARISTA ESTRATEGISTA
+  // ══════════════════════════════════════════════════════════
+  'ben-tributarista-estrategista': {
+    id: 'ben-tributarista-estrategista',
+    nome: 'AGENTE TRIBUTARISTA ESTRATEGISTA',
+    titulo: 'Especialista em Direito Tributário — Defesa Administrativa e Judicial',
+    emoji: '⚖️',
+    area: 'tributario',
+    modelo: 'claude-opus-4',
+    modelo_fallback: 'claude-sonnet-4',
+    temperatura: 0.1,
+    max_tokens: 8000,
+    cor: 'text-amber-400',
+    cor_bg: 'bg-amber-500/10',
+    cor_border: 'border-amber-500/30',
+    descricao: 'Especialista exclusivo em Direito Tributário Puro (federal, estadual e municipal). Thinking sempre ativo. Raciocínio em 7 camadas tributárias. Defesa administrativa (CARF) e judicial (TJ, STJ, STF).',
+    especialidades: [
+      'Nulidade tributária — vícios processuais e materiais',
+      'Defesa administrativa no CARF',
+      'Defesa judicial no TJ, STJ e STF',
+      'Planejamento tributário estratégico',
+      'Contestação de autuações fiscais',
+      'Análise de jurisprudência conflitante (CARF, STJ, STF)',
+      'Transação e negociação tributária',
+      'Reforma Tributária (EC 132/2023)',
+      'IRPF, IRPJ, IPI, ICMS, ISS, Contribuições',
+      'Auditoria de processos administrativos tributários',
+    ],
+    capacidades: [
+      'Thinking sempre ativo — 8 a 12 segundos, 4.000 a 10.000 tokens thinking',
+      'Raciocínio em 7 camadas tributárias obrigatórias',
+      'Hierarquia de fontes: CF → CTN → Leis → IN RFB → Jurisprudência → Doutrina',
+      'Estratégia multi-instância: CARF → TJ → STJ → STF',
+      'Análise de risco com cenários (melhor caso, provável, pior caso)',
+    ],
+    system_prompt: 'Agente tributarista estrategista com Claude Opus. Especialista exclusivo em Direito Tributário Puro. Thinking sempre ativo. Raciocínio em 7 camadas tributárias.',
+    exemplos_uso: [
+      'Elabore impugnação a auto de infração por IRPJ — exercício 2022',
+      'Analise nulidade de autuação fiscal por vício de intimação',
+      'Estratégia de defesa no CARF para crédito de PIS/COFINS negado',
+      'Parecer sobre dedutibilidade de despesa com educação especial',
+      'Análise de impacto da EC 132/2023 no ICMS da empresa',
+    ],
+    ativo: true,
+    premium: true,
+    tempo_estimado_seg: 10,
   },
 
   'ben-peticionista-juridico': {
