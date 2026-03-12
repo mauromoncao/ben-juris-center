@@ -69,6 +69,10 @@ export function withNameOriginDirective(systemPrompt: string): string {
 export type AgentID =
   // SUPER AGENTE (1)
   | 'ben-super-agente-juridico'
+  // AGENTE OPERACIONAL PREMIUM (1)
+  | 'ben-agente-operacional-premium'
+  // AGENTE OPERACIONAL STANDARD (1)
+  | 'ben-agente-operacional-standard'
   // Jurídicos core (15)
   | 'ben-peticionista-juridico'
   | 'ben-contratualista'
@@ -147,12 +151,12 @@ export interface AgentConfig {
 export const DR_BEN_AGENTS: Record<AgentID, AgentConfig> = {
 
   // ══════════════════════════════════════════════════════════
-  // SUPER AGENTE
+  // AGENTE OPERACIONAL MAXIMUS
   // ══════════════════════════════════════════════════════════
   'ben-super-agente-juridico': {
     id: 'ben-super-agente-juridico',
-    nome: 'BEN Super Agente Jurídico',
-    titulo: 'Super Agente Jurídico de Alta Performance',
+    nome: 'AGENTE OPERACIONAL MAXIMUS',
+    titulo: 'Agente Jurídico de Máxima Profundidade — Última Instância',
     emoji: '⚡',
     area: 'processual',
     modelo: 'claude-opus-4',
@@ -162,37 +166,129 @@ export const DR_BEN_AGENTS: Record<AgentID, AgentConfig> = {
     cor: 'text-purple-400',
     cor_bg: 'bg-purple-500/10',
     cor_border: 'border-purple-500/30',
-    descricao: 'Super Agente Jurídico com máxima performance. Claude Opus 4.6 com raciocínio adaptativo. Cobre todas as áreas do Direito com profundidade técnica máxima.',
+    descricao: 'Agente jurídico máximo do escritório Mauro Monção Advogados Associados. Análise jurídica de máxima profundidade em qualquer área. Última instância — análise final e vinculante.',
     especialidades: [
-      'Petições e recursos de alta complexidade',
-      'Direito Tributário e Reforma Tributária (EC 132/2023)',
-      'Direito Previdenciário',
-      'Direito Trabalhista',
-      'Direito Público e Administrativo',
-      'Direito Médico e da Saúde',
-      'Direito Constitucional',
-      'Direito Civil e Empresarial',
-      'Qualquer área do Direito Brasileiro',
+      'Análise jurídica profunda em qualquer tema jurídico',
+      'Casos com 2+ temas jurídicos conflitantes',
+      'Jurisprudência conflitante (especialmente STF recente)',
+      'Teses jurídicas inovadoras e criativas',
+      'Pareceres jurídicos defensáveis em tribunal',
+      'Redação de petições críticas e inéditas',
+      'Estratégia de múltiplas instâncias (CARF → TJ → STJ → STF)',
+      'Risco jurídico muito alto — valor de causa > R$ 500 mil',
+      'Síntese de jurisprudência com 10+ precedentes',
     ],
     capacidades: [
-      'Raciocínio jurídico profundo em 5 etapas metodológicas',
-      'Fundamentação jurisprudencial STF/STJ com verificação',
-      'Construção de teses principais e subsidiárias',
-      'Distinção e superação de precedentes (distinguishing/overruling)',
-      'Análise de múltiplas áreas jurídicas simultaneamente',
-      'Peças processuais prontas para protocolo após revisão',
+      'Thinking adaptativo sempre ativo — nível máximo permanente',
+      'Análise em 6 camadas: fatos, jurisprudência, lei, argumentação, risco e estratégia',
+      'Síntese de jurisprudência conflitante STF vs. STJ vs. TJ',
+      'Desenho de tese principal e tese alternativa com precedentes',
+      'Avaliação de risco jurídico com cenários e probabilidades realistas',
+      'Estratégia de múltiplas instâncias com argumentação em camadas',
     ],
-    system_prompt: 'Super agente jurídico com Claude Opus 4.6. Raciocínio adaptativo de alta performance para casos complexos.',
+    system_prompt: 'Agente jurídico de máxima profundidade. Thinking adaptativo permanente. Última instância — análise final e vinculante para qualquer área do Direito.',
     exemplos_uso: [
+      'Análise de caso tributário com jurisprudência STF conflitante',
       'Petição de mandado de segurança tributário complexo',
       'Recurso extraordinário com múltiplas questões constitucionais',
       'Defesa administrativa em auto de infração fiscal milionário',
-      'Reclamação trabalhista com temas complexos pós-reforma',
-      'Qualquer peça jurídica de alta complexidade',
+      'Estratégia recursal de múltiplas instâncias com risco jurídico alto',
     ],
     ativo: true,
     premium: true,
     tempo_estimado_seg: 45,
+  },
+
+  // ══════════════════════════════════════════════════════════
+  // AGENTE OPERACIONAL PREMIUM
+  // ══════════════════════════════════════════════════════════
+  'ben-agente-operacional-premium': {
+    id: 'ben-agente-operacional-premium',
+    nome: 'AGENTE OPERACIONAL PREMIUM',
+    titulo: 'Agente Jurídico Operacional — Complexidade Moderada a Profunda',
+    emoji: '🔷',
+    area: 'processual',
+    modelo: 'claude-sonnet-4',
+    modelo_fallback: 'claude-haiku-4',
+    temperatura: 0.1,
+    max_tokens: 6000,
+    cor: 'text-blue-400',
+    cor_bg: 'bg-blue-500/10',
+    cor_border: 'border-blue-500/30',
+    descricao: 'Agente jurídico operacional moderado. Thinking adaptativo automático. Atua em todas as áreas do direito com profundidade equilibrada. Sinaliza casos que exigem o AGENTE OPERACIONAL MAXIMUS.',
+    especialidades: [
+      'Análise jurídica moderada a profunda (1–2 temas)',
+      'Pesquisa de jurisprudência (STJ, TJ, CARF)',
+      'Redação de petições padrão e moderadamente complexas',
+      'Parecer jurídico estruturado',
+      'Síntese de documentos longos (até 30 páginas)',
+      'Comparação e análise de contratos',
+      'Detecção de risco jurídico baixo a médio',
+      'Checklist de procedimentos jurídicos',
+    ],
+    capacidades: [
+      'Thinking adaptativo automático — ativa/desativa por critério de complexidade',
+      'Critérios de ativação: jurisprudência conflitante, 2 temas, risco médio, síntese complexa',
+      'Velocidade: 2 a 5 segundos (thinking auto)',
+      'Tokens thinking: 1.000 a 4.000 quando ativo',
+      'Sinaliza automaticamente limitações para escalada ao AGENTE OPERACIONAL MAXIMUS',
+    ],
+    system_prompt: 'Agente jurídico operacional moderado com thinking adaptativo. Atua em todas as áreas do direito. Sinaliza escopo excedido para o AGENTE OPERACIONAL MAXIMUS.',
+    exemplos_uso: [
+      'Petição inicial de ação de cobrança simples',
+      'Parecer sobre rescisão contratual',
+      'Análise de cláusulas de contrato de prestação de serviços',
+      'Pesquisa de jurisprudência STJ sobre tema específico',
+      'Checklist de documentos para ação previdenciária',
+    ],
+    ativo: true,
+    premium: true,
+    tempo_estimado_seg: 15,
+  },
+
+  'ben-agente-operacional-standard': {
+    id: 'ben-agente-operacional-standard',
+    nome: 'AGENTE OPERACIONAL STANDARD',
+    titulo: 'Agente Operacional de Execução Rápida',
+    emoji: '🟢',
+    area: 'operacional',
+    modelo: 'claude-haiku',
+    modelo_fallback: 'claude-haiku',
+    temperatura: 0.1,
+    max_tokens: 1500,
+    cor: 'text-green-400',
+    cor_bg: 'bg-green-500/10',
+    cor_borda: 'border-green-500/30',
+    descricao: 'Execução operacional rápida. Extração, resumo, classificação, checklist e FAQ jurídica. Thinking desativado — resposta direta em 0,3–0,8s.',
+    especialidades: [
+      'Extração de dados estruturados',
+      'Resumo de demandas',
+      'Classificação temática',
+      'Detecção de urgência',
+      'Formatação e normalização',
+      'FAQ jurídica padrão',
+      'Tradução EN ↔ PT',
+      'Comparação de documentos',
+      'Checklist de prazos',
+      'Validação de campos',
+    ],
+    capacidades: [
+      'Thinking desativado — resposta direta',
+      'Velocidade 0,3–0,8s',
+      'Tokens de output 200–1.500',
+      'Sinaliza quando tarefa excede escopo',
+      'Redireciona para Sonnet/Opus quando necessário',
+    ],
+    system_prompt: 'Agente operacional padrão com Claude Haiku. Execução rápida de tarefas operacionais. Thinking desativado.',
+    exemplos_uso: [
+      'Extraia os dados do contrato em JSON',
+      'Classifique esta demanda por tema jurídico',
+      'Gere checklist de prazos do processo',
+      'Resuma este documento em um parágrafo',
+    ],
+    ativo: true,
+    premium: false,
+    tempo_estimado_seg: 1,
   },
 
   'ben-peticionista-juridico': {
