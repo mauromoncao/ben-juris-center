@@ -195,18 +195,17 @@ export default function SuperAgenteJuridico() {
       }));
 
       const payload: Record<string, unknown> = {
-        pergunta: msg,
+        agentId: 'ben-super-agente-juridico',
+        input: msg + (documento ? `\n\nDocumento: ${documento.nome}\n${documento.texto}` : ''),
         historico,
+        context: { source: 'juris-center-maximus' },
       };
-      if (documento) {
-        payload.documentoTexto = documento.texto;
-        payload.documentoNome = documento.nome;
-      }
 
-      const response = await fetch('/api/super-agente', {
+      const response = await fetch('/api/agents/run', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
+        signal: AbortSignal.timeout(115000),
       });
 
       const data = await response.json();
@@ -215,9 +214,9 @@ export default function SuperAgenteJuridico() {
       if (data.success) {
         const assistantMsg: Message = {
           role: 'assistant',
-          content: data.resposta,
+          content: data.output || data.resposta || '',
           timestamp: new Date(),
-          model: data.modelo,
+          model: data.modelUsed || data.model || data.modelo,
           elapsed,
           intencao: data.intencao,
           sugestoes: data.sugestoes,
