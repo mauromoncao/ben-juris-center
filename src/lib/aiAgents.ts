@@ -117,7 +117,8 @@ export type AreaAgent =
   | 'pesquisa'
   | 'forense'
   | 'previdenciario'
-  | 'constitucional';
+  | 'constitucional'
+  | 'operacional';
 
 export type ModelAgent =
   | 'gpt-4o'
@@ -125,6 +126,7 @@ export type ModelAgent =
   | 'claude-opus-4'
   | 'claude-sonnet-4'
   | 'claude-haiku-4'
+  | 'claude-haiku'
   | 'perplexity';
 
 export interface AgentConfig {
@@ -260,7 +262,7 @@ export const DR_BEN_AGENTS: Record<AgentID, AgentConfig> = {
     max_tokens: 1500,
     cor: 'text-green-400',
     cor_bg: 'bg-green-500/10',
-    cor_borda: 'border-green-500/30',
+    cor_border: 'border-green-500/30',
     descricao: 'Execução operacional rápida. Extração, resumo, classificação, checklist e FAQ jurídica. Thinking desativado — resposta direta em 0,3–0,8s.',
     especialidades: [
       'Extração de dados estruturados',
@@ -1428,6 +1430,7 @@ export const AREA_LABELS: Record<AreaAgent, string> = {
   forense: 'Perícia Forense',
   previdenciario: 'Previdenciário',
   constitucional: 'Constitucional',
+  operacional: 'Operacional',
 };
 
 export const MODEL_LABELS: Record<ModelAgent, { label: string; color: string }> = {
@@ -1436,5 +1439,6 @@ export const MODEL_LABELS: Record<ModelAgent, { label: string; color: string }> 
   'claude-opus-4': { label: 'Claude Opus 4.6', color: 'text-orange-400' },
   'claude-sonnet-4': { label: 'Claude Sonnet 4.6', color: 'text-amber-400' },
   'claude-haiku-4': { label: 'Claude Haiku 4.5', color: 'text-yellow-400' },
+  'claude-haiku': { label: 'Claude Haiku', color: 'text-yellow-300' },
   'perplexity': { label: 'Perplexity', color: 'text-indigo-400' },
 };
