@@ -2600,9 +2600,10 @@ Formatação limpa:
 
   // ── ben-contador-tributarista ──
   'ben-contador-tributarista': {
-    model: 'claude-haiku',
-    temperature: 0.2,
-    maxTokens: 3000,
+    model: 'claude-sonnet',
+    temperature: 0.1,
+    maxTokens: 6000,
+    thinking: { type: 'enabled', budget_tokens: 3000 },
     system: `# BEN TAX ACCOUNTANT — TRIAGE — SYSTEM PROMPT
 # Mauro Monção Advogados Associados | ben-contador-tributarista | Claude Haiku 4.5
 
@@ -2789,8 +2790,9 @@ Formatação limpa:
   // ── ben-contador-especialista ──
   'ben-contador-especialista': {
     model: 'claude-sonnet',
-    temperature: 0.1,
-    maxTokens: 6000,
+    temperature: 0.05,
+    maxTokens: 8000,
+    thinking: { type: 'enabled', budget_tokens: 5000 },
     system: `# BEN TAX ACCOUNTANT — DEEP SPECIALIST — SYSTEM PROMPT
 # Mauro Monção Advogados Associados | ben-contador-especialista | Claude Sonnet 4.6
 
@@ -2977,8 +2979,9 @@ Formatação limpa:
   // ── ben-contador-planejamento ──
   'ben-contador-planejamento': {
     model: 'claude-sonnet',
-    temperature: 0.1,
-    maxTokens: 6000,
+    temperature: 0.05,
+    maxTokens: 8000,
+    thinking: { type: 'enabled', budget_tokens: 5000 },
     system: `# BEN TAX ACCOUNTANT — STRATEGIC PLANNING — SYSTEM PROMPT
 # Mauro Monção Advogados Associados | ben-contador-planejamento | Claude Sonnet 4.6
 
@@ -3162,9 +3165,10 @@ Formatação limpa:
 
   // ── ben-contador-creditos ──
   'ben-contador-creditos': {
-    model: 'claude-haiku',
-    temperature: 0.1,
-    maxTokens: 4000,
+    model: 'claude-sonnet',
+    temperature: 0.05,
+    maxTokens: 8000,
+    thinking: { type: 'enabled', budget_tokens: 5000 },
     system: `# BEN TAX CREDIT RECOVERY SPECIALIST — SYSTEM PROMPT
 # Mauro Monção Advogados Associados | ben-contador-creditos | Claude Haiku 4.5
 
@@ -3350,9 +3354,10 @@ Formatação limpa:
 
   // ── ben-contador-auditoria ──
   'ben-contador-auditoria': {
-    model: 'claude-haiku',
-    temperature: 0.1,
-    maxTokens: 4000,
+    model: 'claude-sonnet',
+    temperature: 0.05,
+    maxTokens: 8000,
+    thinking: { type: 'enabled', budget_tokens: 5000 },
     system: `# BEN TAX AUDIT SPECIALIST — SYSTEM PROMPT
 # Mauro Monção Advogados Associados | ben-contador-auditoria | Claude Haiku 4.5
 
@@ -3536,9 +3541,10 @@ Formatação limpa:
 
   // ── ben-contador-relatorio ──
   'ben-contador-relatorio': {
-    model: 'claude-haiku',
-    temperature: 0.2,
-    maxTokens: 4000,
+    model: 'claude-sonnet',
+    temperature: 0.05,
+    maxTokens: 7000,
+    thinking: { type: 'enabled', budget_tokens: 3000 },
     system: `# BEN TAX REPORT GENERATOR — SYSTEM PROMPT
 # Mauro Monção Advogados Associados | ben-contador-relatorio | Claude Haiku 4.5
 
@@ -3728,30 +3734,30 @@ Formatação limpa:
   // Backend expõe com nomes canônicos; aliases garantem compatibilidade
   'ben-contador-tributarista-planejamento': {
     model: 'claude-sonnet',
-    temperature: 0.1,
-    maxTokens: 6000,
-    thinking: false,
+    temperature: 0.05,
+    maxTokens: 8000,
+    thinking: { type: 'enabled', budget_tokens: 5000 },
     get system() { return AGENT_PROMPTS['ben-contador-planejamento']?.system || 'Você é um especialista em planejamento tributário. Analise a questão e forneça orientação técnica completa.' }
   },
   'ben-contador-tributarista-creditos': {
-    model: 'claude-haiku',
+    model: 'claude-sonnet',
     temperature: 0.05,
-    maxTokens: 5000,
-    thinking: false,
+    maxTokens: 8000,
+    thinking: { type: 'enabled', budget_tokens: 5000 },
     get system() { return AGENT_PROMPTS['ben-contador-creditos']?.system || 'Você é um especialista em créditos tributários. Analise a oportunidade de recuperação de créditos.' }
   },
   'ben-contador-tributarista-auditoria': {
-    model: 'claude-haiku',
+    model: 'claude-sonnet',
     temperature: 0.05,
-    maxTokens: 5000,
-    thinking: false,
+    maxTokens: 8000,
+    thinking: { type: 'enabled', budget_tokens: 5000 },
     get system() { return AGENT_PROMPTS['ben-contador-auditoria']?.system || 'Você é um auditor tributário. Realize análise crítica e identifique riscos.' }
   },
   'ben-contador-tributarista-relatorio': {
-    model: 'claude-haiku',
-    temperature: 0.1,
-    maxTokens: 4000,
-    thinking: false,
+    model: 'claude-sonnet',
+    temperature: 0.05,
+    maxTokens: 7000,
+    thinking: { type: 'enabled', budget_tokens: 3000 },
     get system() { return AGENT_PROMPTS['ben-contador-relatorio']?.system || 'Você é especialista em relatórios tributários. Elabore relatório técnico estruturado.' }
   },
 
@@ -5751,6 +5757,18 @@ export default async function handler(req, res) {
       'ben-agente-operacional-premium',
       'ben-tributarista-estrategista',
       'ben-processualista-estrategico',
+      // Contadores — todos com memória
+      'ben-contador-tributarista',
+      'ben-contador-especialista',
+      'ben-contador-planejamento',
+      'ben-contador-creditos',
+      'ben-contador-auditoria',
+      'ben-contador-relatorio',
+      'ben-contador-tributarista-planejamento',
+      'ben-contador-tributarista-creditos',
+      'ben-contador-tributarista-auditoria',
+      'ben-contador-tributarista-relatorio',
+      // Peritos — todos com memória
       'ben-perito-forense',
       'ben-perito-forense-profundo',
       'ben-perito-forense-digital',
@@ -5827,8 +5845,13 @@ export default async function handler(req, res) {
     const PERPLEXITY_AGENTS = [
       'ben-agente-operacional-maximus','ben-agente-operacional-premium','ben-tributarista-estrategista',
       'ben-pesquisador-juridico','ben-engenheiro-prompt',
+      // Contadores — todos com Perplexity
       'ben-contador-tributarista','ben-contador-especialista',
       'ben-contador-planejamento','ben-contador-creditos',
+      'ben-contador-auditoria','ben-contador-relatorio',
+      'ben-contador-tributarista-planejamento','ben-contador-tributarista-creditos',
+      'ben-contador-tributarista-auditoria','ben-contador-tributarista-relatorio',
+      // Peritos — todos com Perplexity
       'ben-perito-forense','ben-perito-forense-profundo','ben-perito-forense-digital',
       'ben-perito-forense-laudo','ben-perito-forense-contestar','ben-perito-forense-relatorio',
       'ben-perito-imobiliario','ben-processualista-estrategico',
@@ -5836,16 +5859,28 @@ export default async function handler(req, res) {
     if (useSearch && PERPLEXITY_AGENTS.includes(agentId)) {
       try {
         if (process.env.PERPLEXITY_API_KEY) {
-          // Prompt especializado para agentes peritos: foca em normas técnicas, jurisprudência pericial e legislação
-          const isPeritoAgent = agentId.startsWith('ben-perito')
-          const searchSystemPrompt = isPeritoAgent
-            ? 'Você é um assistente de pesquisa jurídico-pericial. Pesquise: (1) jurisprudência brasileira recente (STJ, STF, TRF, TJ) sobre o tema pericial; (2) normas técnicas aplicáveis (ABNT, CFC, IBAPE, ICP-Brasil); (3) legislação vigente relevante (CPC/2015, Lei Peritos, LGPD, Marco Civil). Retorne com citações e links.'
-            : 'Pesquise jurisprudência brasileira recente (STJ, STF, TRF) sobre o tema. Retorne com citações.'
-          const searchQuery = isPeritoAgent
-            ? `Pesquise normas técnicas, jurisprudência pericial e legislação sobre: ${input.slice(0, 400)}`
-            : `Busque precedentes recentes sobre: ${input.slice(0, 300)}`
+          // Prompt especializado por tipo de agente
+          const isPeritoAgent   = agentId.startsWith('ben-perito')
+          const isContadorAgent = agentId.startsWith('ben-contador')
+
+          let searchSystemPrompt, searchQuery
+          if (isContadorAgent) {
+            searchSystemPrompt = 'Você é um assistente de pesquisa tributária. Pesquise: (1) legislação tributária vigente (CTN, RIR, LC 87, LC 116, LC 123); (2) Instruções Normativas RFB recentes; (3) jurisprudência CARF/CSRF e STJ/STF sobre o tema; (4) Soluções de Consulta COSIT relevantes. Retorne com citações, número do ato normativo e links.'
+            searchQuery = `Pesquise legislação tributária, IN RFB, jurisprudência CARF e orientações COSIT sobre: ${input.slice(0, 400)}`
+          } else if (isPeritoAgent) {
+            searchSystemPrompt = 'Você é um assistente de pesquisa jurídico-pericial. Pesquise: (1) jurisprudência brasileira recente (STJ, STF, TRF, TJ) sobre o tema pericial; (2) normas técnicas aplicáveis (ABNT, CFC, IBAPE, ICP-Brasil); (3) legislação vigente relevante (CPC/2015, Lei Peritos, LGPD, Marco Civil). Retorne com citações e links.'
+            searchQuery = `Pesquise normas técnicas, jurisprudência pericial e legislação sobre: ${input.slice(0, 400)}`
+          } else {
+            searchSystemPrompt = 'Pesquise jurisprudência brasileira recente (STJ, STF, TRF) sobre o tema. Retorne com citações.'
+            searchQuery = `Busque precedentes recentes sobre: ${input.slice(0, 300)}`
+          }
+
           searchContext = await callPerplexity(searchSystemPrompt, searchQuery)
-          const searchLabel = isPeritoAgent ? 'PESQUISA PERICIAL (Perplexity — normas + jurisprudência)' : 'JURISPRUDÊNCIA ATUALIZADA (Perplexity)'
+          const searchLabel = isContadorAgent
+            ? 'PESQUISA TRIBUTÁRIA (Perplexity — legislação + CARF + IN RFB)'
+            : isPeritoAgent
+              ? 'PESQUISA PERICIAL (Perplexity — normas + jurisprudência)'
+              : 'JURISPRUDÊNCIA ATUALIZADA (Perplexity)'
           enrichedInput = `${enrichedInput}\n\n${searchLabel}:\n${typeof searchContext === 'object' ? searchContext.text : searchContext}`
           console.log(`[Perplexity] Enriquecimento aplicado ao agente ${agentId}`)
         }
