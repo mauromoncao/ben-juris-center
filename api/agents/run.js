@@ -2783,7 +2783,7 @@ Formatação limpa:
 [ ] ZERO campo em branco com colchetes
 [ ] ZERO aviso de minuta, disclaimer ou comentário de IA dentro do documento
 [ ] ZERO referência de acórdão fora do bloco [CITAÇÃO]
-[ ] ZERO petições, recursos, contestações ou qualquer peça processual
+[ ] ZERO petições, recursos, contestações ou qualquer peça processual`
   },
 
   // ── ben-contador-especialista ──
@@ -2971,7 +2971,7 @@ Formatação limpa:
 [ ] ZERO campo em branco com colchetes
 [ ] ZERO aviso de minuta, disclaimer ou comentário de IA dentro do documento
 [ ] ZERO referência de acórdão fora do bloco [CITAÇÃO]
-[ ] ZERO petições, recursos, contestações ou qualquer peça processual
+[ ] ZERO petições, recursos, contestações ou qualquer peça processual`
   },
 
   // ── ben-contador-planejamento ──
@@ -3157,7 +3157,7 @@ Formatação limpa:
 [ ] ZERO campo em branco com colchetes
 [ ] ZERO aviso de minuta, disclaimer ou comentário de IA dentro do documento
 [ ] ZERO referência de acórdão fora do bloco [CITAÇÃO]
-[ ] ZERO petições, recursos, contestações ou qualquer peça processual
+[ ] ZERO petições, recursos, contestações ou qualquer peça processual`
   },
 
   // ── ben-contador-creditos ──
@@ -3345,7 +3345,7 @@ Formatação limpa:
 [ ] ZERO campo em branco com colchetes
 [ ] ZERO aviso de minuta, disclaimer ou comentário de IA dentro do documento
 [ ] ZERO referência de acórdão fora do bloco [CITAÇÃO]
-[ ] ZERO petições, recursos, contestações ou qualquer peça processual
+[ ] ZERO petições, recursos, contestações ou qualquer peça processual`
   },
 
   // ── ben-contador-auditoria ──
@@ -3531,7 +3531,7 @@ Formatação limpa:
 [ ] ZERO campo em branco com colchetes
 [ ] ZERO aviso de minuta, disclaimer ou comentário de IA dentro do documento
 [ ] ZERO referência de acórdão fora do bloco [CITAÇÃO]
-[ ] ZERO petições, recursos, contestações ou qualquer peça processual
+[ ] ZERO petições, recursos, contestações ou qualquer peça processual`
   },
 
   // ── ben-contador-relatorio ──
@@ -3719,7 +3719,7 @@ Formatação limpa:
 [ ] ZERO campo em branco com colchetes
 [ ] ZERO aviso de minuta, disclaimer ou comentário de IA dentro do documento
 [ ] ZERO referência de acórdão fora do bloco [CITAÇÃO]
-[ ] ZERO petições, recursos, contestações ou qualquer peça processual
+[ ] ZERO petições, recursos, contestações ou qualquer peça processual`
   },
 
 
@@ -3989,7 +3989,7 @@ Formatação limpa:
 [ ] ZERO campo em branco com colchetes
 [ ] ZERO aviso de minuta, disclaimer ou comentário de IA dentro do documento
 [ ] ZERO referência de acórdão fora do bloco [CITAÇÃO]
-[ ] ZERO petições, recursos, contestações ou qualquer peça processual
+[ ] ZERO petições, recursos, contestações ou qualquer peça processual`
   },
 
   // ── ben-perito-forense-profundo ──
@@ -4186,7 +4186,7 @@ Formatação limpa:
 [ ] ZERO campo em branco com colchetes
 [ ] ZERO aviso de minuta, disclaimer ou comentário de IA dentro do documento
 [ ] ZERO referência de acórdão fora do bloco [CITAÇÃO]
-[ ] ZERO petições, recursos, contestações ou qualquer peça processual
+[ ] ZERO petições, recursos, contestações ou qualquer peça processual`
   },
 
   // ── ben-perito-forense-digital ──
@@ -4377,7 +4377,7 @@ Formatação limpa:
 [ ] ZERO campo em branco com colchetes
 [ ] ZERO aviso de minuta, disclaimer ou comentário de IA dentro do documento
 [ ] ZERO referência de acórdão fora do bloco [CITAÇÃO]
-[ ] ZERO petições, recursos, contestações ou qualquer peça processual
+[ ] ZERO petições, recursos, contestações ou qualquer peça processual`
   },
 
   // ── ben-perito-forense-laudo ──
@@ -4570,7 +4570,7 @@ Formatação limpa:
 [ ] ZERO campo em branco com colchetes
 [ ] ZERO aviso de minuta, disclaimer ou comentário de IA dentro do documento
 [ ] ZERO referência de acórdão fora do bloco [CITAÇÃO]
-[ ] ZERO petições, recursos, contestações ou qualquer peça processual
+[ ] ZERO petições, recursos, contestações ou qualquer peça processual`
   },
 
   // ── ben-perito-forense-contestar ──
@@ -4763,7 +4763,7 @@ Formatação limpa:
 [ ] ZERO campo em branco com colchetes
 [ ] ZERO aviso de minuta, disclaimer ou comentário de IA dentro do documento
 [ ] ZERO referência de acórdão fora do bloco [CITAÇÃO]
-[ ] ZERO petições, recursos, contestações ou qualquer peça processual
+[ ] ZERO petições, recursos, contestações ou qualquer peça processual`
   },
 
   // ── ben-perito-imobiliario ──
