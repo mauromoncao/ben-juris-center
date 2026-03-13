@@ -159,6 +159,151 @@ Use esse histórico naturalmente — sem ficar citando "segundo a memória", ape
 - Se a resposta for longa, use headers para organizar`,
   },
 
+  // ── ben-monitor-juridico ──
+  'ben-monitor-juridico': {
+    model: 'claude-sonnet-4',
+    temperature: 0.05,
+    maxTokens: 8000,
+    thinking: { type: 'enabled', budget_tokens: 4000 },
+    system: `# BEN MONITOR JURÍDICO — SISTEMA DE INTELIGÊNCIA PROCESSUAL
+# Mauro Monção Advogados Associados | ben-monitor-juridico | Claude Sonnet 4.6
+# Versão: 1.0 | 2026 | Escavador DJe + DataJud CNJ + Análise IA
+
+## IDENTIDADE
+Você é o BEN Monitor Jurídico — sistema de inteligência processual do escritório Mauro Monção Advogados Associados.
+Monitora em tempo real: Diário Oficial de Justiça (Escavador) + Movimentações CNJ (DataJud) + DJEN (Domicílio Judicial Eletrônico).
+
+## FUNÇÃO PRINCIPAL
+Receba dados brutos das APIs (Escavador, DataJud, DJEN) e produza análise inteligente:
+
+1. TRIAGEM DE URGÊNCIA
+   - Classifique cada item como: 🔴 CRÍTICO | 🟡 ATENÇÃO | 🟢 INFORMATIVO
+   - Critérios críticos: intimações com prazo, despachos com determinação, decisões com prazo para recurso
+   - Critérios de atenção: movimentações relevantes, publicações sem prazo imediato
+
+2. IDENTIFICAÇÃO DE PRAZOS
+   - Extraia prazos explícitos das publicações (5 dias, 15 dias, 30 dias, etc.)
+   - Calcule data-limite a partir da data de publicação
+   - Sinalize prazos vencendo em menos de 5 dias como URGENTE
+
+3. ANÁLISE ESTRATÉGICA
+   - Para cada movimentação relevante, indique o impacto no processo
+   - Sugira próxima ação processual adequada
+   - Identifique oportunidades (recursos, embargos, nulidades, diligências)
+
+4. RESUMO EXECUTIVO
+   - Síntese do que requer ação imediata
+   - Lista ordenada por urgência
+   - Indicação de agente especialista para cada ação necessária
+
+## FONTES DE DADOS
+- ESCAVADOR DJe: publicações em diários oficiais (nome + OABs: PI 7304, CE 22502, MA 29037)
+- DATAJUD: movimentações processuais por número CNJ
+- DJEN: intimações eletrônicas diretas
+
+## FORMATO DE SAÍDA
+
+### 🚨 ALERTAS CRÍTICOS
+[lista de itens que exigem ação imediata com prazo]
+
+### ⚠️ ATENÇÃO
+[itens relevantes sem urgência imediata]
+
+### 📋 RESUMO DO PERÍODO
+[síntese geral]
+
+### 🎯 AÇÕES RECOMENDADAS
+[lista priorizada de próximas ações + agente sugerido]
+
+## RESTRIÇÕES
+- Este agente ANALISA e ORIENTA — não redige petições
+- Para petições: use Operacional Premium ou Processualista Estratégico
+- Para perícias: use BEN Perito Forense`,
+  },
+
+  // ── ben-assistente-cnj ──
+  'ben-assistente-cnj': {
+    model: 'claude-sonnet-4',
+    temperature: 0.1,
+    maxTokens: 6000,
+    thinking: { type: 'enabled', budget_tokens: 3000 },
+    system: `# BEN ASSISTENTE CNJ — SISTEMA DE CONSULTA PROCESSUAL
+# Mauro Monção Advogados Associados | ben-assistente-cnj | Claude Sonnet 4.6
+# Versão: 1.0 | 2026 | DataJud + DJEN + Análise IA
+
+## IDENTIDADE
+Você é o BEN Assistente CNJ — especialista em consulta e monitoramento processual integrado ao DataJud (API Pública CNJ) e ao DJEN (Domicílio Judicial Eletrônico).
+
+## CAPACIDADES
+CONSULTA DATAJUD:
+- Buscar processo por número CNJ (formato: NNNNNNN-DD.AAAA.J.TT.OOOO)
+- Listar movimentações e andamentos processuais
+- Identificar órgão julgador, classe processual, assuntos
+- Monitorar lista de processos cadastrados
+
+INTEGRAÇÃO DJEN:
+- Listar comunicações e intimações eletrônicas pendentes
+- Registrar ciência de intimações
+- Detalhar comunicações específicas
+
+ANÁLISE INTELIGENTE:
+- Interpretar movimentações processuais e indicar próximos passos
+- Identificar prazos críticos a partir das movimentações
+- Sugerir estratégias processuais com base no histórico
+- Detectar anomalias ou atrasos no andamento
+
+## LIMITAÇÕES CONHECIDAS DO DATAJUD (documentadas)
+- Campo "partes" NÃO é indexado na API pública — retorna vazio
+- Busca por nome de parte ou OAB NÃO é possível via DataJud
+- STF NÃO está disponível no DataJud (retorna 404)
+- Tribunais disponíveis: TJs, TRFs, TRTs, TREs, TST, STJ, STM
+
+## FORMATO DE RESPOSTA
+Estruture as respostas em seções claras:
+1. DADOS DO PROCESSO (número, classe, tribunal, órgão julgador)
+2. ÚLTIMA MOVIMENTAÇÃO (data, tipo, descrição)
+3. HISTÓRICO RESUMIDO (cronologia das principais movimentações)
+4. ANÁLISE E PRÓXIMOS PASSOS (interpretação estratégica)
+5. ALERTAS (prazos, urgências identificadas)
+
+## RESTRIÇÃO DE ESCOPO
+Este agente é EXCLUSIVO para consulta e análise processual via CNJ/DJEN.
+Para petições e peças processuais, utilize o Agente Operacional Premium ou o Processualista Estratégico.`,
+  },
+
+  // ── ben-assistente-voz ──
+  'ben-assistente-voz': {
+    model: 'claude-haiku-4',
+    temperature: 0.3,
+    maxTokens: 800,
+    system: `# BEN ASSISTENTE VOZ — SÍNTESE DE TEXTO PARA ÁUDIO
+# Mauro Monção Advogados Associados | ben-assistente-voz | Claude Haiku 4.5 + ElevenLabs
+# Versão: 1.0 | 2026 | Texto → Áudio via ElevenLabs
+
+## IDENTIDADE
+Você é o BEN Assistente Voz — responsável por converter respostas dos agentes em áudio profissional via ElevenLabs, usando a voz clonada do Dr. Ben.
+
+## FUNÇÃO
+Receba um texto (output de qualquer agente) e:
+1. Adapte-o para leitura em voz alta (remova markdown, tabelas, formatação excessiva)
+2. Mantenha o conteúdo essencial — resuma se necessário (máx. 500 palavras para TTS)
+3. Use linguagem fluida e natural para locução
+4. Preserve o tom profissional e a identidade BEN
+
+## REGRAS DE ADAPTAÇÃO PARA VOZ
+- Substitua "→" por "para" ou remova
+- Substitua "✅" e emojis por palavras equivalentes ou remova
+- Converta listas em texto corrido com "primeiro", "segundo", "terceiro"
+- Substitua tabelas por descrição textual
+- Mantenha parágrafos curtos (máx. 3 linhas)
+- Números: escreva por extenso quando necessário para naturalidade
+- Siglas jurídicas: mantenha (STJ, CPC, etc.) — são compreensíveis em voz
+
+## SAÍDA
+Retorne APENAS o texto adaptado para locução, sem introduções ou comentários.
+O texto será enviado diretamente para a API ElevenLabs.`,
+  },
+
   // ── ben-atendente ──
   'ben-atendente': {
     model: 'gpt-4o-mini',
@@ -763,7 +908,7 @@ Formatação limpa:
 
   // ── ben-analista-relatorios ──
   'ben-analista-relatorios': {
-    model: 'claude-haiku',
+    model: 'claude-haiku-4',
     temperature: 0.3,
     maxTokens: 4000,
     system: `# BEN PERFORMANCE ANALYST — SYSTEM PROMPT
@@ -1120,7 +1265,7 @@ Formatação limpa:
   'ben-analista-monitoramento': {
     model: 'gpt-4o-mini',
     temperature: 0.1,
-    maxTokens: 1000,
+    maxTokens: 3000,
     system: `# BEN KPI MONITOR — SYSTEM PROMPT
 # Mauro Monção Advogados Associados | ben-analista-monitoramento | GPT-4o Mini
 
@@ -1294,7 +1439,7 @@ Formatação limpa:
 
   // ── AGENTE OPERACIONAL MAXIMUS ─────────────────────────────
   'ben-agente-operacional-maximus': {
-    model: 'claude-opus',
+    model: 'claude-opus-4',
     temperature: 0.05,
     maxTokens: 16000,
     thinking: {
@@ -1373,7 +1518,7 @@ Sempre estruture a resposta em:
   },
 
   'ben-agente-operacional-premium': {
-    model: 'claude-opus',
+    model: 'claude-opus-4',
     temperature: 0.1,
     maxTokens: 8000,
     thinking: {
@@ -1654,7 +1799,7 @@ Formatação limpa:
 
   // ── ben-agente-operacional-standard (AGENTE OPERACIONAL STANDARD) ──
   'ben-agente-operacional-standard': {
-    model: 'claude-haiku',
+    model: 'claude-haiku-4',
     temperature: 0.1,
     maxTokens: 6000,
     thinking: false,
@@ -1899,7 +2044,7 @@ Formatação limpa:
 
   // ── ben-tributarista-estrategista (AGENTE TRIBUTARISTA ESTRATEGISTA) ──
   'ben-tributarista-estrategista': {
-    model: 'claude-opus',
+    model: 'claude-opus-4',
     temperature: 0.1,
     maxTokens: 8000,
     thinking: {
@@ -2676,7 +2821,7 @@ Formatação limpa:
 
   // ── ben-contador-tributarista ──
   'ben-contador-tributarista': {
-    model: 'claude-sonnet',
+    model: 'claude-sonnet-4',
     temperature: 0.1,
     maxTokens: 6000,
     thinking: { type: 'enabled', budget_tokens: 3000 },
@@ -2865,7 +3010,7 @@ Formatação limpa:
 
   // ── ben-contador-especialista ──
   'ben-contador-especialista': {
-    model: 'claude-sonnet',
+    model: 'claude-sonnet-4',
     temperature: 0.05,
     maxTokens: 8000,
     thinking: { type: 'enabled', budget_tokens: 5000 },
@@ -3054,7 +3199,7 @@ Formatação limpa:
 
   // ── ben-contador-planejamento ──
   'ben-contador-planejamento': {
-    model: 'claude-sonnet',
+    model: 'claude-sonnet-4',
     temperature: 0.05,
     maxTokens: 8000,
     thinking: { type: 'enabled', budget_tokens: 5000 },
@@ -3241,7 +3386,7 @@ Formatação limpa:
 
   // ── ben-contador-creditos ──
   'ben-contador-creditos': {
-    model: 'claude-sonnet',
+    model: 'claude-sonnet-4',
     temperature: 0.05,
     maxTokens: 8000,
     thinking: { type: 'enabled', budget_tokens: 5000 },
@@ -3430,7 +3575,7 @@ Formatação limpa:
 
   // ── ben-contador-auditoria ──
   'ben-contador-auditoria': {
-    model: 'claude-sonnet',
+    model: 'claude-sonnet-4',
     temperature: 0.05,
     maxTokens: 8000,
     thinking: { type: 'enabled', budget_tokens: 5000 },
@@ -3617,7 +3762,7 @@ Formatação limpa:
 
   // ── ben-contador-relatorio ──
   'ben-contador-relatorio': {
-    model: 'claude-sonnet',
+    model: 'claude-sonnet-4',
     temperature: 0.05,
     maxTokens: 7000,
     thinking: { type: 'enabled', budget_tokens: 3000 },
@@ -3809,28 +3954,28 @@ Formatação limpa:
   // Frontend usa IDs com prefixo 'ben-contador-tributarista-*'
   // Backend expõe com nomes canônicos; aliases garantem compatibilidade
   'ben-contador-tributarista-planejamento': {
-    model: 'claude-sonnet',
+    model: 'claude-sonnet-4',
     temperature: 0.05,
     maxTokens: 8000,
     thinking: { type: 'enabled', budget_tokens: 5000 },
     get system() { return AGENT_PROMPTS['ben-contador-planejamento']?.system || 'Você é um especialista em planejamento tributário. Analise a questão e forneça orientação técnica completa.' }
   },
   'ben-contador-tributarista-creditos': {
-    model: 'claude-sonnet',
+    model: 'claude-sonnet-4',
     temperature: 0.05,
     maxTokens: 8000,
     thinking: { type: 'enabled', budget_tokens: 5000 },
     get system() { return AGENT_PROMPTS['ben-contador-creditos']?.system || 'Você é um especialista em créditos tributários. Analise a oportunidade de recuperação de créditos.' }
   },
   'ben-contador-tributarista-auditoria': {
-    model: 'claude-sonnet',
+    model: 'claude-sonnet-4',
     temperature: 0.05,
     maxTokens: 8000,
     thinking: { type: 'enabled', budget_tokens: 5000 },
     get system() { return AGENT_PROMPTS['ben-contador-auditoria']?.system || 'Você é um auditor tributário. Realize análise crítica e identifique riscos.' }
   },
   'ben-contador-tributarista-relatorio': {
-    model: 'claude-sonnet',
+    model: 'claude-sonnet-4',
     temperature: 0.05,
     maxTokens: 7000,
     thinking: { type: 'enabled', budget_tokens: 3000 },
@@ -3839,7 +3984,7 @@ Formatação limpa:
 
   // ── Alias PeritoIA: ben-perito-forense-relatorio ────────────────
   'ben-perito-forense-relatorio': {
-    model: 'claude-sonnet',
+    model: 'claude-sonnet-4',
     temperature: 0.05,
     maxTokens: 8000,
     thinking: { type: 'enabled', budget_tokens: 3000 },
@@ -3885,7 +4030,7 @@ Texto pronto para Word em Palatino Linotype 12pt. Sem markdown, sem colchetes, s
 
   // ── ben-perito-forense ──
   'ben-perito-forense': {
-    model: 'claude-sonnet',
+    model: 'claude-sonnet-4',
     temperature: 0.05,
     maxTokens: 6000,
     system: `# BEN FORENSIC EXPERT (STANDARD) — SYSTEM PROMPT
@@ -4076,7 +4221,7 @@ Formatação limpa:
 
   // ── ben-perito-forense-profundo ──
   'ben-perito-forense-profundo': {
-    model: 'claude-opus',
+    model: 'claude-opus-4',
     temperature: 0.05,
     maxTokens: 8000,
     thinking: {
@@ -4273,7 +4418,7 @@ Formatação limpa:
 
   // ── ben-perito-forense-digital ──
   'ben-perito-forense-digital': {
-    model: 'claude-sonnet',
+    model: 'claude-sonnet-4',
     temperature: 0.05,
     maxTokens: 6000,
     system: `# BEN DIGITAL FORENSIC EXPERT — SYSTEM PROMPT
@@ -4464,7 +4609,7 @@ Formatação limpa:
 
   // ── ben-perito-forense-laudo ──
   'ben-perito-forense-laudo': {
-    model: 'claude-sonnet',
+    model: 'claude-sonnet-4',
     temperature: 0.05,
     maxTokens: 8000,
     thinking: { type: 'enabled', budget_tokens: 4000 },
@@ -4658,7 +4803,7 @@ Formatação limpa:
 
   // ── ben-perito-forense-contestar ──
   'ben-perito-forense-contestar': {
-    model: 'claude-sonnet',
+    model: 'claude-sonnet-4',
     temperature: 0.05,
     maxTokens: 8000,
     thinking: { type: 'enabled', budget_tokens: 4000 },
@@ -4852,7 +4997,7 @@ Formatação limpa:
 
   // ── ben-perito-imobiliario ──
   'ben-perito-imobiliario': {
-    model: 'claude-sonnet',
+    model: 'claude-sonnet-4',
     temperature: 0.05,
     maxTokens: 8000,
     thinking: { type: 'enabled', budget_tokens: 4000 },
@@ -5103,7 +5248,7 @@ O timbre do escritório é um ARQUIVO WORD SEPARADO. O agente gera APENAS o cont
 
   // ── ben-processualista-estrategico ──
   'ben-processualista-estrategico': {
-    model: 'claude-opus',
+    model: 'claude-opus-4',
     temperature: 0.05,
     maxTokens: 8000,
     thinking: {
@@ -5698,29 +5843,37 @@ async function callWithFallback(agentConfig, input, modelOverride) {
   const maxTokens = agentConfig.maxTokens
   // modelOverride allows UI to choose opus vs sonnet for super agents
   let model = agentConfig.model
-  if (modelOverride === 'sonnet' && model === 'claude-opus') model = 'claude-sonnet'
-  if (modelOverride === 'opus' && model === 'claude-sonnet') model = 'claude-opus'
-  if (modelOverride === 'haiku') model = 'claude-haiku'
+  // Normaliza nomenclatura: aceita tanto 'claude-sonnet' quanto 'claude-sonnet-4'
+  const normalizeModel = (m) => {
+    if (m === 'claude-opus-4' || m === 'claude-opus') return 'claude-opus-4'
+    if (m === 'claude-sonnet-4' || m === 'claude-sonnet') return 'claude-sonnet-4'
+    if (m === 'claude-haiku-4' || m === 'claude-haiku') return 'claude-haiku-4'
+    return m
+  }
+  model = normalizeModel(model)
+  if (modelOverride === 'sonnet' && model === 'claude-opus-4') model = 'claude-sonnet-4'
+  if (modelOverride === 'opus' && model === 'claude-sonnet-4') model = 'claude-opus-4'
+  if (modelOverride === 'haiku') model = 'claude-haiku-4'
   // Injeta diretivas globais: nome BEN + anti-markdown para Claude
-  const isClaudeModel = model === 'claude-opus' || model === 'claude-sonnet' || model === 'claude-haiku'
+  const isClaudeModel = model === 'claude-opus-4' || model === 'claude-sonnet-4' || model === 'claude-haiku-4'
   const system = agentConfig.system + DR_BEN_NAME_ORIGIN_DIRECTIVE + (isClaudeModel ? ANTI_MARKDOWN_DIRECTIVE : '')
 
   const chain = []
 
-  if (model === 'claude-opus') {
+  if (model === 'claude-opus-4') {
     const tc = agentConfig.thinking
     chain.push(
       { fn: () => callClaudeOpus(system, input, temperature, maxTokens, tc),               label: 'claude-opus-4-5' },
       { fn: () => callClaudeSonnet(system, input, temperature, Math.min(maxTokens, 8192)), label: 'claude-sonnet-fallback' },
       { fn: () => callOpenAI(system, input, temperature, Math.min(maxTokens, 4096)),       label: 'gpt-4o-fallback' },
     )
-  } else if (model === 'claude-sonnet') {
+  } else if (model === 'claude-sonnet-4') {
     chain.push(
       { fn: () => callClaudeSonnet(system, input, temperature, maxTokens),           label: 'claude-sonnet-4-5' },
       { fn: () => callOpenAI(system, input, temperature, Math.min(maxTokens, 4096)), label: 'gpt-4o-fallback' },
       { fn: () => callClaude(system, input, temperature, Math.min(maxTokens, 4096)), label: 'claude-haiku-fallback' },
     )
-  } else if (model === 'claude-haiku') {
+  } else if (model === 'claude-haiku-4') {
     chain.push(
       { fn: () => callClaude(system, input, temperature, maxTokens),                 label: 'claude-haiku-4-5' },
       { fn: () => callOpenAI(system, input, temperature, Math.min(maxTokens, 4096)), label: 'gpt-4o-fallback' },
@@ -5830,6 +5983,8 @@ export default async function handler(req, res) {
     const MEMORY_AGENTS = [
       '',
       'ben-assistente-geral',
+      'ben-assistente-cnj',
+      'ben-monitor-juridico',
       'ben-agente-operacional-maximus',
       'ben-agente-operacional-premium',
       'ben-tributarista-estrategista',
@@ -5921,6 +6076,8 @@ export default async function handler(req, res) {
     // ── Agentes com Perplexity nativo (modelo híbrido) ──────────
     const PERPLEXITY_AGENTS = [
       'ben-assistente-geral',
+      'ben-assistente-cnj',
+      'ben-monitor-juridico',
       'ben-agente-operacional-maximus','ben-agente-operacional-premium','ben-tributarista-estrategista',
       'ben-pesquisador-juridico','ben-engenheiro-prompt',
       // Contadores — todos com Perplexity

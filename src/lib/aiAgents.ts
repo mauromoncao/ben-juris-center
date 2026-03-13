@@ -101,7 +101,11 @@ export type AgentID =
   | 'ben-perito-forense-contestar'
   | 'ben-perito-forense-relatorio'
   // Perito Imobiliário (1)
-  | 'ben-perito-imobiliario';
+  | 'ben-perito-imobiliario'
+  // Monitor Jurídico — DJe + CNJ DataJud + IA
+  | 'ben-monitor-juridico'
+  // Assistente CNJ
+  | 'ben-assistente-cnj';
 
 export type AreaAgent =
   | 'processual'
@@ -388,12 +392,12 @@ export const DR_BEN_AGENTS: Record<AgentID, AgentConfig> = {
   'ben-pesquisador-juridico': {
     id: 'ben-pesquisador-juridico',
     nome: 'BEN Pesquisador Jurídico',
-    titulo: 'Pesquisador Jurídico com IA',
+    titulo: 'Pesquisador Jurídico com Perplexity (Busca em Tempo Real)',
     emoji: '🔬',
     area: 'pesquisa',
-    modelo: 'gpt-4o',
-    modelo_fallback: 'gpt-4o',
-    temperatura: 0.5,
+    modelo: 'perplexity',
+    modelo_fallback: 'claude-sonnet-4',
+    temperatura: 0.2,
     max_tokens: 8000,
     cor: 'text-violet-400',
     cor_bg: 'bg-violet-500/10',
@@ -968,6 +972,97 @@ Cite sempre: tribunal, número, data, relator e ementa resumida.`,
     ativo: true,
     premium: true,
     tempo_estimado_seg: 60,
+  },
+
+  'ben-monitor-juridico': {
+    id: 'ben-monitor-juridico',
+    nome: 'BEN Monitor Jurídico',
+    titulo: 'Monitor DJe + CNJ DataJud + IA (Claude Sonnet + Perplexity)',
+    emoji: '📡',
+    area: 'operacional',
+    modelo: 'claude-sonnet-4',
+    modelo_fallback: 'claude-haiku-4',
+    temperatura: 0.1,
+    max_tokens: 6000,
+    cor: 'text-cyan-400',
+    cor_bg: 'bg-cyan-500/10',
+    cor_border: 'border-cyan-500/30',
+    descricao: 'Monitoramento automatizado: Escavador DJe + DataJud CNJ + análise IA. Alertas de prazos, publicações e movimentações processuais em tempo real.',
+    especialidades: ['DJe Escavador', 'DataJud CNJ', 'Alertas de Prazo', 'Movimentações Processuais', 'Publicações Oficiais', 'Análise IA Claude Sonnet'],
+    capacidades: [
+      'Monitoramento de publicações no DJe por OAB',
+      'Consulta de movimentações via DataJud',
+      'Análise automática de urgência com IA',
+      'Alerta de prazos críticos via WhatsApp',
+      'Histórico de publicações e processos',
+      'Integração Escavador + CNJ em tempo real',
+    ],
+    system_prompt: `Você é o BEN Monitor Jurídico — sistema de monitoramento ativo de publicações e processos.
+
+MISSÃO: Analisar publicações do DJe e movimentações do DataJud/CNJ, identificar urgências, calcular prazos e emitir alertas.
+
+PROTOCOLO:
+1. Analisar publicações encontradas no DJe
+2. Identificar citações, intimações, sentenças, acórdãos
+3. Calcular prazo processual (dias corridos vs úteis)
+4. Classificar urgência: CRÍTICO (≤3 dias), URGENTE (≤10 dias), NORMAL
+5. Extrair dados-chave: processo, vara, réu/autor, tipo de ato
+6. Recomendar ação imediata
+
+FORMATO: Relatório estruturado com classificação por urgência, prazo e ação recomendada.`,
+    exemplos_uso: [
+      'Monitorar publicações de hoje no DJe PI/CE/MA',
+      'Consultar movimentações do processo 0001234-56.2024.8.18.0001',
+      'Verificar citações e intimações dos últimos 3 dias',
+    ],
+    ativo: true,
+    premium: true,
+    tempo_estimado_seg: 45,
+  },
+
+  'ben-assistente-cnj': {
+    id: 'ben-assistente-cnj',
+    nome: 'BEN Assistente CNJ',
+    titulo: 'Consultor DataJud + DJEN + IA',
+    emoji: '⚖️',
+    area: 'processual',
+    modelo: 'claude-sonnet-4',
+    modelo_fallback: 'claude-haiku-4',
+    temperatura: 0.1,
+    max_tokens: 6000,
+    cor: 'text-blue-400',
+    cor_bg: 'bg-blue-500/10',
+    cor_border: 'border-blue-500/30',
+    descricao: 'Consulta e análise de processos via DataJud CNJ e DJEN — busca por número, movimentações, análise IA de andamentos.',
+    especialidades: ['DataJud CNJ', 'DJEN', 'Consulta por Número', 'Movimentações', 'Análise de Andamentos', 'Prazo Processual'],
+    capacidades: [
+      'Busca de processo por número CNJ',
+      'Histórico completo de movimentações',
+      'Análise IA do andamento processual',
+      'Consulta DJEN — Domicílio Eletrônico Judicial Nacional',
+      'Identificação de fases processuais',
+    ],
+    system_prompt: `Você é o BEN Assistente CNJ — especialista em consulta e interpretação de dados processuais via DataJud e DJEN.
+
+MISSÃO: Consultar, interpretar e explicar dados processuais do CNJ de forma clara e estratégica.
+
+PROTOCOLO:
+1. Identificar o número do processo ou OAB consultado
+2. Analisar o histórico de movimentações em ordem cronológica
+3. Identificar a fase processual atual
+4. Destacar movimentações críticas (citação, intimação, sentença, acórdão)
+5. Calcular prazos pendentes
+6. Recomendar próximas ações estratégicas
+
+FORMATO: Resposta clara com resumo executivo, timeline de movimentações e ação recomendada.`,
+    exemplos_uso: [
+      'Consultar processo 0001234-56.2024.8.18.0001 no TJPI',
+      'Verificar movimentações recentes no TJCE',
+      'Analisar prazo para recurso após sentença',
+    ],
+    ativo: true,
+    premium: true,
+    tempo_estimado_seg: 30,
   },
 };
 

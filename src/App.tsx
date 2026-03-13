@@ -8,7 +8,7 @@ import {
   PenTool, DollarSign, Link2, Users, BarChart3, Shield, Bell,
   Settings, ChevronDown, ChevronRight, Menu, X, Home, Search,
   LogOut, User, Zap, AlertTriangle, Activity, Brain,
-  Target, Map, BookMarked, Wand2, Calculator, Microscope
+  Target, Map, BookMarked, Wand2, Calculator, Microscope, Radio
 } from 'lucide-react';
 
 // Pages
@@ -39,6 +39,7 @@ import AgenteOperacionalStandard from './pages/AgenteOperacionalStandard';
 import AgenteTributaristaEstrategista from './pages/AgenteTributaristaEstrategista';
 import AgentProcessualistaEstrategico from './pages/AgentProcessualistaEstrategico';
 import MonitorCustos from './pages/MonitorCustos';
+import MonitorJuridico from './pages/MonitorJuridico';
 import PortalClientePublico from './pages/PortalClientePublico';
 import LoginClientePage, { type ClienteAuth } from './pages/LoginClientePage';
 
@@ -63,7 +64,8 @@ const NAV_GROUPS = [
       { path: '/nucleo-projetos', icon: Activity,label: 'Projetos & Produtividade' },
       { path: '/eng-prompts',     icon: Wand2,       label: 'Engenheiro de Prompts',    badge: 'NEW' },
       { path: '/contador-ia',     icon: Calculator,  label: 'Contador IA',              badge: 'NOVO' },
-      { path: '/perito-ia',       icon: Microscope,  label: 'Perito IA – Lab. Forense', badge: 'NOVO' },
+      { path: '/perito-ia',         icon: Microscope,  label: 'Perito IA – Lab. Forense',   badge: 'NOVO' },
+      { path: '/monitor-juridico',   icon: Radio,       label: 'Monitor Jurídico DJe + CNJ', badge: 'NEW'  },
     ]
   },
   {
@@ -426,6 +428,7 @@ function AppRoutes() {
               <Route path="/perito-ia"           element={<PeritoIA />} />
               {/* Rota oculta — monitor admin privado, não aparece no menu */}
               <Route path="/monitor-admin"       element={<MonitorCustos />} />
+              <Route path="/monitor-juridico"    element={<MonitorJuridico />} />
               <Route path="*"                     element={<Navigate to="/" replace />} />
             </Routes>
           </Layout>
