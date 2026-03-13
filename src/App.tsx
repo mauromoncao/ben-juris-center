@@ -36,6 +36,7 @@ import SuperAgenteJuridico from './pages/SuperAgenteJuridico';
 import AgenteOperacionalPremium from './pages/AgenteOperacionalPremium';
 import AgenteOperacionalStandard from './pages/AgenteOperacionalStandard';
 import AgenteTributaristaEstrategista from './pages/AgenteTributaristaEstrategista';
+import AgentProcessualistaEstrategico from './pages/AgentProcessualistaEstrategico';
 import MonitorCustos from './pages/MonitorCustos';
 import PortalClientePublico from './pages/PortalClientePublico';
 import LoginClientePage, { type ClienteAuth } from './pages/LoginClientePage';
@@ -56,6 +57,7 @@ const NAV_GROUPS = [
       { path: '/agente-premium',   icon: Zap,    label: 'AGENTE OPERACIONAL PREMIUM',  badge: '🔷' },
       { path: '/agente-standard',   icon: Zap,    label: 'AGENTE OPERACIONAL STANDARD', badge: '🟢' },
       { path: '/tributarista-estrategista', icon: Zap, label: 'TRIBUTARISTA ESTRATEGISTA', badge: '⚖️' },
+      { path: '/processualista-estrategico', icon: Scale, label: 'PROCESSUALISTA ESTRATÉGICO', badge: '📋' },
       { path: '/nucleo-ia',       icon: Brain,  label: 'Agentes Dr. Ben IA',       badge: '14' },
       { path: '/nucleo-projetos', icon: Activity,label: 'Projetos & Produtividade' },
       { path: '/eng-prompts',     icon: Wand2,       label: 'Engenheiro de Prompts',    badge: 'NEW' },
@@ -418,6 +420,7 @@ function AppRoutes() {
               <Route path="/agente-premium"      element={<AgenteOperacionalPremium />} />
               <Route path="/agente-standard"     element={<AgenteOperacionalStandard />} />
               <Route path="/tributarista-estrategista" element={<AgenteTributaristaEstrategista />} />
+              <Route path="/processualista-estrategico" element={<AgentProcessualistaEstrategico />} />
               <Route path="/eng-prompts"          element={<EngenheiroPrompts />} />
               <Route path="/contador-ia"         element={<ContadorIA />} />
               <Route path="/perito-ia"           element={<PeritoIA />} />
