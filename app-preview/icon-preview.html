@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BEN IA — Ícone App Preview</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #1a1a2e;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    gap: 60px;
+    padding: 40px 20px;
+  }
+
+  h1 { color: #E4B71E; font-size: 18px; font-weight: 600; letter-spacing: 0.05em; opacity: 0.8; }
+
+  /* ── Seção de tamanhos ── */
+  .section { display: flex; flex-direction: column; align-items: center; gap: 20px; }
+  .section-title { color: #7096C8; font-size: 13px; text-transform: uppercase; letter-spacing: 0.1em; }
+  .sizes-row { display: flex; align-items: center; gap: 40px; }
+  .size-label { color: #4A6FA5; font-size: 11px; text-align: center; margin-top: 10px; }
+
+  /* ── ÍCONE BASE ── */
+  .app-icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 22.4%;
+    background: linear-gradient(145deg, #0A0E2A 0%, #0D1540 40%, #12103A 100%);
+    box-shadow:
+      0 0 0 1px rgba(212, 160, 23, 0.3),
+      0 4px 20px rgba(0,0,0,0.6),
+      inset 0 1px 0 rgba(212,160,23,0.15);
+    overflow: hidden;
+  }
+
+  /* Glow de fundo */
+  .app-icon::before {
+    content: '';
+    position: absolute;
+    width: 70%; height: 70%;
+    background: radial-gradient(ellipse, rgba(123,47,190,0.25) 0%, transparent 70%);
+    top: 15%; left: 15%;
+    border-radius: 50%;
+  }
+
+  /* ── SVG do B interno ── */
+  .icon-svg { position: relative; z-index: 2; }
+
+  /* ── Tamanhos específicos ── */
+  .icon-512 { width: 200px; height: 200px; border-radius: 44px; }
+  .icon-512 .icon-svg { width: 130px; height: 130px; }
+
+  .icon-192 { width: 120px; height: 120px; border-radius: 26px; }
+  .icon-192 .icon-svg { width: 78px; height: 78px; }
+
+  .icon-96  { width: 72px; height: 72px; border-radius: 16px; }
+  .icon-96  .icon-svg { width: 46px; height: 46px; }
+
+  .icon-60  { width: 60px; height: 60px; border-radius: 13px; }
+  .icon-60  .icon-svg { width: 38px; height: 38px; }
+
+  /* ── Tela Home simulada ── */
+  .phone-mockup {
+    width: 320px;
+    background: #1C1C1E;
+    border-radius: 40px;
+    padding: 50px 20px 30px;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.08);
+    position: relative;
+  }
+  .phone-notch {
+    position: absolute;
+    top: 12px; left: 50%; transform: translateX(-50%);
+    width: 80px; height: 18px;
+    background: #000;
+    border-radius: 20px;
+  }
+  .home-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    padding: 0 8px;
+  }
+  .app-slot {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+  .app-slot-label {
+    color: rgba(255,255,255,0.75);
+    font-size: 10px;
+    text-align: center;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+  }
+  .other-icon {
+    width: 60px; height: 60px;
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px;
+  }
+  .ben-slot { grid-column: span 1; }
+
+  /* Comparação com apps reais */
+  .compare-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 24px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    padding: 20px 28px;
+  }
+  .compare-item { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .compare-label { color: rgba(255,255,255,0.4); font-size: 11px; }
+</style>
+</head>
+<body>
+
+<h1>🎨 BEN IA — Aprovação do Ícone do App</h1>
+
+<!-- SEÇÃO 1: Tamanhos padrão -->
+<div class="section">
+  <div class="section-title">📐 Tamanhos Padrão (App Store / Play Store)</div>
+  <div class="sizes-row">
+
+    <!-- 512px -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:8px">
+      <div class="app-icon icon-512">
+        <svg class="icon-svg" viewBox="0 0 130 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#F5D060"/>
+              <stop offset="50%" style="stop-color:#E4B71E"/>
+              <stop offset="100%" style="stop-color:#C8920A"/>
+            </linearGradient>
+            <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#A855F7"/>
+              <stop offset="100%" style="stop-color:#7B2FBE"/>
+            </linearGradient>
+            <filter id="glow">
+              <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
+              <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <filter id="glowStrong">
+              <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+              <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+
+          <!-- Circuitos de fundo -->
+          <g opacity="0.35" stroke="url(#purpleGrad)" stroke-width="1.2" fill="none">
+            <line x1="18" y1="65" x2="35" y2="65"/>
+            <circle cx="18" cy="65" r="3" fill="url(#purpleGrad)"/>
+            <line x1="18" y1="65" x2="18" y2="45"/>
+            <line x1="18" y1="45" x2="30" y2="45"/>
+            <circle cx="30" cy="45" r="2.5" fill="url(#purpleGrad)"/>
+            <line x1="18" y1="65" x2="18" y2="85"/>
+            <line x1="18" y1="85" x2="30" y2="85"/>
+            <circle cx="30" cy="85" r="2.5" fill="url(#purpleGrad)"/>
+          </g>
+          <g opacity="0.35" stroke="url(#goldGrad)" stroke-width="1.2" fill="none">
+            <line x1="112" y1="65" x2="95" y2="65"/>
+            <circle cx="112" cy="65" r="3" fill="url(#goldGrad)"/>
+            <line x1="112" y1="65" x2="112" y2="48"/>
+            <line x1="112" y1="48" x2="100" y2="48"/>
+            <circle cx="100" cy="48" r="2.5" fill="url(#goldGrad)"/>
+            <line x1="112" y1="65" x2="112" y2="82"/>
+            <line x1="112" y1="82" x2="100" y2="82"/>
+            <circle cx="100" cy="82" r="2.5" fill="url(#goldGrad)"/>
+            <line x1="95" y1="50" x2="106" y2="38"/>
+            <circle cx="106" cy="38" r="2" fill="url(#goldGrad)"/>
+            <line x1="95" y1="80" x2="106" y2="92"/>
+            <circle cx="106" cy="92" r="2" fill="url(#goldGrad)"/>
+          </g>
+          <!-- Mais circuitos topo -->
+          <g opacity="0.3" stroke="url(#purpleGrad)" stroke-width="1" fill="none">
+            <line x1="45" y1="20" x2="45" y2="35"/>
+            <circle cx="45" cy="20" r="2" fill="url(#purpleGrad)"/>
+            <line x1="65" y1="15" x2="65" y2="32"/>
+            <circle cx="65" cy="15" r="2.5" fill="url(#purpleGrad)"/>
+            <line x1="85" y1="20" x2="85" y2="35"/>
+            <circle cx="85" cy="20" r="2" fill="url(#goldGrad)"/>
+          </g>
+          <!-- Circuitos baixo -->
+          <g opacity="0.3" stroke="url(#goldGrad)" stroke-width="1" fill="none">
+            <line x1="45" y1="110" x2="45" y2="95"/>
+            <circle cx="45" cy="110" r="2" fill="url(#purpleGrad)"/>
+            <line x1="65" y1="115" x2="65" y2="98"/>
+            <circle cx="65" cy="115" r="2.5" fill="url(#goldGrad)"/>
+            <line x1="85" y1="110" x2="85" y2="95"/>
+            <circle cx="85" cy="110" r="2" fill="url(#purpleGrad)"/>
+          </g>
+
+          <!-- LETRA B — Camada roxa (sombra/offset) -->
+          <g filter="url(#glow)" opacity="0.9">
+            <!-- Haste vertical roxa -->
+            <rect x="36" y="28" width="10" height="74" rx="5" fill="url(#purpleGrad)"/>
+            <!-- Curva superior roxa -->
+            <path d="M 44 28 L 72 28 Q 92 28 92 48 Q 92 67 72 67 L 44 67" 
+                  stroke="url(#purpleGrad)" stroke-width="10" fill="none" stroke-linecap="round"/>
+            <!-- Curva inferior roxa -->
+            <path d="M 44 67 L 74 67 Q 97 67 97 89 Q 97 102 74 102 L 44 102" 
+                  stroke="url(#purpleGrad)" stroke-width="10" fill="none" stroke-linecap="round"/>
+          </g>
+
+          <!-- LETRA B — Camada dourada (principal, offset +3px) -->
+          <g filter="url(#glowStrong)" transform="translate(3, -3)">
+            <!-- Haste vertical dourada -->
+            <rect x="36" y="28" width="10" height="74" rx="5" fill="url(#goldGrad)"/>
+            <!-- Curva superior dourada -->
+            <path d="M 44 28 L 72 28 Q 92 28 92 48 Q 92 67 72 67 L 44 67" 
+                  stroke="url(#goldGrad)" stroke-width="10" fill="none" stroke-linecap="round"/>
+            <!-- Curva inferior dourada -->
+            <path d="M 44 67 L 74 67 Q 97 67 97 89 Q 97 102 74 102 L 44 102" 
+                  stroke="url(#goldGrad)" stroke-width="10" fill="none" stroke-linecap="round"/>
+          </g>
+
+          <!-- Pontos de circuito brilhantes no B -->
+          <circle cx="41" cy="28" r="4.5" fill="#F5D060" filter="url(#glowStrong)"/>
+          <circle cx="41" cy="67" r="4.5" fill="#A855F7" filter="url(#glow)"/>
+          <circle cx="41" cy="102" r="4.5" fill="#F5D060" filter="url(#glowStrong)"/>
+          <circle cx="92" cy="48" r="3.5" fill="#F5D060" filter="url(#glow)"/>
+          <circle cx="97" cy="89" r="3.5" fill="#A855F7" filter="url(#glow)"/>
+        </svg>
+      </div>
+      <div class="size-label" style="color:#7096C8;font-size:12px">512×512<br/><span style="color:#4A6FA5">App Store / Play Store</span></div>
+    </div>
+
+    <!-- 192px -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:8px">
+      <div class="app-icon icon-192">
+        <svg class="icon-svg" viewBox="0 0 130 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="g2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#F5D060"/><stop offset="100%" style="stop-color:#C8920A"/></linearGradient>
+            <linearGradient id="p2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#A855F7"/><stop offset="100%" style="stop-color:#7B2FBE"/></linearGradient>
+            <filter id="glow2"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          </defs>
+          <g opacity="0.9"><rect x="36" y="28" width="10" height="74" rx="5" fill="url(#p2)"/><path d="M 44 28 L 72 28 Q 92 28 92 48 Q 92 67 72 67 L 44 67" stroke="url(#p2)" stroke-width="10" fill="none" stroke-linecap="round"/><path d="M 44 67 L 74 67 Q 97 67 97 89 Q 97 102 74 102 L 44 102" stroke="url(#p2)" stroke-width="10" fill="none" stroke-linecap="round"/></g>
+          <g filter="url(#glow2)" transform="translate(3,-3)"><rect x="36" y="28" width="10" height="74" rx="5" fill="url(#g2)"/><path d="M 44 28 L 72 28 Q 92 28 92 48 Q 92 67 72 67 L 44 67" stroke="url(#g2)" stroke-width="10" fill="none" stroke-linecap="round"/><path d="M 44 67 L 74 67 Q 97 67 97 89 Q 97 102 74 102 L 44 102" stroke="url(#g2)" stroke-width="10" fill="none" stroke-linecap="round"/></g>
+          <circle cx="41" cy="28" r="4.5" fill="#F5D060" filter="url(#glow2)"/>
+          <circle cx="41" cy="67" r="4.5" fill="#A855F7"/>
+          <circle cx="41" cy="102" r="4.5" fill="#F5D060" filter="url(#glow2)"/>
+        </svg>
+      </div>
+      <div class="size-label">192×192<br/><span style="color:#4A6FA5">Android</span></div>
+    </div>
+
+    <!-- 96px -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:8px">
+      <div class="app-icon icon-96">
+        <svg class="icon-svg" viewBox="0 0 130 130" fill="none">
+          <defs><linearGradient id="g3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#F5D060"/><stop offset="100%" style="stop-color:#C8920A"/></linearGradient><linearGradient id="p3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#A855F7"/><stop offset="100%" style="stop-color:#7B2FBE"/></linearGradient></defs>
+          <g opacity="0.8"><rect x="36" y="28" width="10" height="74" rx="5" fill="url(#p3)"/><path d="M 44 28 L 72 28 Q 92 28 92 48 Q 92 67 72 67 L 44 67" stroke="url(#p3)" stroke-width="10" fill="none" stroke-linecap="round"/><path d="M 44 67 L 74 67 Q 97 67 97 89 Q 97 102 74 102 L 44 102" stroke="url(#p3)" stroke-width="10" fill="none" stroke-linecap="round"/></g>
+          <g transform="translate(3,-3)"><rect x="36" y="28" width="10" height="74" rx="5" fill="url(#g3)"/><path d="M 44 28 L 72 28 Q 92 28 92 48 Q 92 67 72 67 L 44 67" stroke="url(#g3)" stroke-width="10" fill="none" stroke-linecap="round"/><path d="M 44 67 L 74 67 Q 97 67 97 89 Q 97 102 74 102 L 44 102" stroke="url(#g3)" stroke-width="10" fill="none" stroke-linecap="round"/></g>
+        </svg>
+      </div>
+      <div class="size-label">96×96</div>
+    </div>
+
+    <!-- 60px iPhone -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:8px">
+      <div class="app-icon icon-60">
+        <svg class="icon-svg" viewBox="0 0 130 130" fill="none">
+          <defs><linearGradient id="g4" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#F5D060"/><stop offset="100%" style="stop-color:#C8920A"/></linearGradient><linearGradient id="p4" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#A855F7"/><stop offset="100%" style="stop-color:#7B2FBE"/></linearGradient></defs>
+          <g opacity="0.8"><rect x="36" y="28" width="10" height="74" rx="5" fill="url(#p4)"/><path d="M 44 28 L 72 28 Q 92 28 92 48 Q 92 67 72 67 L 44 67" stroke="url(#p4)" stroke-width="10" fill="none" stroke-linecap="round"/><path d="M 44 67 L 74 67 Q 97 67 97 89 Q 97 102 74 102 L 44 102" stroke="url(#p4)" stroke-width="10" fill="none" stroke-linecap="round"/></g>
+          <g transform="translate(3,-3)"><rect x="36" y="28" width="10" height="74" rx="5" fill="url(#g4)"/><path d="M 44 28 L 72 28 Q 92 28 92 48 Q 92 67 72 67 L 44 67" stroke="url(#g4)" stroke-width="10" fill="none" stroke-linecap="round"/><path d="M 44 67 L 74 67 Q 97 67 97 89 Q 97 102 74 102 L 44 102" stroke="url(#g4)" stroke-width="10" fill="none" stroke-linecap="round"/></g>
+        </svg>
+      </div>
+      <div class="size-label">60×60<br/><span style="color:#4A6FA5">iPhone</span></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- SEÇÃO 2: Simulação tela Home do celular -->
+<div class="section">
+  <div class="section-title">📱 Como aparece na tela inicial do celular</div>
+  <div class="phone-mockup">
+    <div class="phone-notch"></div>
+    <div class="home-grid">
+      <!-- Outros apps (simulando contexto) -->
+      <div class="app-slot">
+        <div class="other-icon" style="background:linear-gradient(145deg,#1a73e8,#0d47a1)">📧</div>
+        <div class="app-slot-label">Gmail</div>
+      </div>
+      <div class="app-slot">
+        <div class="other-icon" style="background:linear-gradient(145deg,#25D366,#128C7E)">💬</div>
+        <div class="app-slot-label">WhatsApp</div>
+      </div>
+      <div class="app-slot">
+        <div class="other-icon" style="background:linear-gradient(145deg,#667eea,#764ba2)">🤖</div>
+        <div class="app-slot-label">Claude</div>
+      </div>
+      <div class="app-slot">
+        <div class="other-icon" style="background:linear-gradient(145deg,#10a37f,#1a7a5e)">✨</div>
+        <div class="app-slot-label">ChatGPT</div>
+      </div>
+
+      <!-- BEN IA — tamanho igual -->
+      <div class="app-slot">
+        <div class="app-icon" style="width:60px;height:60px;border-radius:14px">
+          <svg width="38" height="38" viewBox="0 0 130 130" fill="none" style="position:relative;z-index:2">
+            <defs><linearGradient id="g5" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#F5D060"/><stop offset="100%" style="stop-color:#C8920A"/></linearGradient><linearGradient id="p5" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#A855F7"/><stop offset="100%" style="stop-color:#7B2FBE"/></linearGradient></defs>
+            <g opacity="0.8"><rect x="36" y="28" width="10" height="74" rx="5" fill="url(#p5)"/><path d="M 44 28 L 72 28 Q 92 28 92 48 Q 92 67 72 67 L 44 67" stroke="url(#p5)" stroke-width="10" fill="none" stroke-linecap="round"/><path d="M 44 67 L 74 67 Q 97 67 97 89 Q 97 102 74 102 L 44 102" stroke="url(#p5)" stroke-width="10" fill="none" stroke-linecap="round"/></g>
+            <g transform="translate(3,-3)"><rect x="36" y="28" width="10" height="74" rx="5" fill="url(#g5)"/><path d="M 44 28 L 72 28 Q 92 28 92 48 Q 92 67 72 67 L 44 67" stroke="url(#g5)" stroke-width="10" fill="none" stroke-linecap="round"/><path d="M 44 67 L 74 67 Q 97 67 97 89 Q 97 102 74 102 L 44 102" stroke="url(#g5)" stroke-width="10" fill="none" stroke-linecap="round"/></g>
+          </svg>
+        </div>
+        <div class="app-slot-label" style="color:#E4B71E;font-weight:600">BEN IA</div>
+      </div>
+
+      <div class="app-slot">
+        <div class="other-icon" style="background:linear-gradient(145deg,#f72585,#b5179e)">🎵</div>
+        <div class="app-slot-label">Spotify</div>
+      </div>
+      <div class="app-slot">
+        <div class="other-icon" style="background:linear-gradient(145deg,#0088cc,#0055aa)">📱</div>
+        <div class="app-slot-label">Telegram</div>
+      </div>
+      <div class="app-slot">
+        <div class="other-icon" style="background:linear-gradient(145deg,#ff6b35,#f7931e)">📷</div>
+        <div class="app-slot-label">Camera</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SEÇÃO 3: Comparação lado a lado -->
+<div class="section">
+  <div class="section-title">⚖️ Comparação — BEN IA vs Apps padrão</div>
+  <div class="compare-row">
+    <div class="compare-item">
+      <div class="app-icon" style="width:76px;height:76px;border-radius:18px;background:linear-gradient(145deg,#667eea,#764ba2)">
+        <span style="font-size:36px;position:relative;z-index:2">🤖</span>
+      </div>
+      <div class="compare-label">Claude</div>
+    </div>
+    <div class="compare-item">
+      <div class="app-icon" style="width:76px;height:76px;border-radius:18px;background:linear-gradient(145deg,#10a37f,#1a7a5e)">
+        <span style="font-size:36px;position:relative;z-index:2">✨</span>
+      </div>
+      <div class="compare-label">ChatGPT</div>
+    </div>
+    <div class="compare-item" style="transform:scale(1.08)">
+      <div class="app-icon" style="width:76px;height:76px;border-radius:18px">
+        <svg width="50" height="50" viewBox="0 0 130 130" fill="none" style="position:relative;z-index:2">
+          <defs><linearGradient id="g6" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#F5D060"/><stop offset="100%" style="stop-color:#C8920A"/></linearGradient><linearGradient id="p6" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#A855F7"/><stop offset="100%" style="stop-color:#7B2FBE"/></linearGradient><filter id="glow6"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+          <g opacity="0.85"><rect x="36" y="28" width="10" height="74" rx="5" fill="url(#p6)"/><path d="M 44 28 L 72 28 Q 92 28 92 48 Q 92 67 72 67 L 44 67" stroke="url(#p6)" stroke-width="10" fill="none" stroke-linecap="round"/><path d="M 44 67 L 74 67 Q 97 67 97 89 Q 97 102 74 102 L 44 102" stroke="url(#p6)" stroke-width="10" fill="none" stroke-linecap="round"/></g>
+          <g filter="url(#glow6)" transform="translate(3,-3)"><rect x="36" y="28" width="10" height="74" rx="5" fill="url(#g6)"/><path d="M 44 28 L 72 28 Q 92 28 92 48 Q 92 67 72 67 L 44 67" stroke="url(#g6)" stroke-width="10" fill="none" stroke-linecap="round"/><path d="M 44 67 L 74 67 Q 97 67 97 89 Q 97 102 74 102 L 44 102" stroke="url(#g6)" stroke-width="10" fill="none" stroke-linecap="round"/></g>
+          <circle cx="41" cy="28" r="4" fill="#F5D060" filter="url(#glow6)"/>
+          <circle cx="41" cy="67" r="4" fill="#A855F7"/>
+          <circle cx="41" cy="102" r="4" fill="#F5D060" filter="url(#glow6)"/>
+          <circle cx="92" cy="48" r="3" fill="#F5D060"/>
+          <circle cx="97" cy="89" r="3" fill="#A855F7"/>
+        </svg>
+      </div>
+      <div class="compare-label" style="color:#E4B71E;font-weight:700">BEN IA ✓</div>
+    </div>
+    <div class="compare-item">
+      <div class="app-icon" style="width:76px;height:76px;border-radius:18px;background:linear-gradient(145deg,#1a73e8,#0d47a1)">
+        <span style="font-size:36px;position:relative;z-index:2">🔵</span>
+      </div>
+      <div class="compare-label">Gemini</div>
+    </div>
+    <div class="compare-item">
+      <div class="app-icon" style="width:76px;height:76px;border-radius:18px;background:linear-gradient(145deg,#6366f1,#4338ca)">
+        <span style="font-size:36px;position:relative;z-index:2">🔮</span>
+      </div>
+      <div class="compare-label">Perplexity</div>
+    </div>
+  </div>
+</div>
+
+<!-- Nota informativa -->
+<div style="max-width:500px;text-align:center;color:rgba(112,150,200,0.7);font-size:12px;line-height:1.7;padding:16px;border:1px solid rgba(255,255,255,0.06);border-radius:12px">
+  <strong style="color:#E4B71E">📋 Aguardando aprovação deste ícone</strong><br>
+  Após aprovação, será construído o app PWA (Android + iOS) com:<br>
+  autenticação por senha ou Gmail autorizado · chat com agentes · sem módulos externos
+</div>
+
+</body>
+</html>

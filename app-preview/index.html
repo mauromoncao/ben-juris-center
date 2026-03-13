@@ -1,0 +1,1275 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BEN IA — Preview do App Mobile</title>
+<style>
+  /* ═══════ RESET & BASE ═══════ */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #1a1a2e;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 10px 40px;
+  }
+
+  /* ═══════ PALETA ECOSYSTEM IA ═══════ */
+  :root {
+    --bg-page: #F2F4F8;
+    --bg-card: #FFFFFF;
+    --sidebar-bg: #0d1f3c;
+    --sidebar-bg2: #0d2d4a;
+    --text-main: #1A1A1A;
+    --text-muted: #6B7280;
+    --border: #E8ECF0;
+    --gold: #E4B71E;
+    --gold-dark: #D4A017;
+    --user-bubble: #0d1f3c;
+    --sidebar-text: #A8C4E0;
+  }
+
+  /* ═══════ PAGE HEADER ═══════ */
+  .page-header {
+    text-align: center;
+    margin-bottom: 28px;
+    color: #fff;
+  }
+  .page-header h1 {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--gold);
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+  .page-header p {
+    font-size: 13px;
+    color: #8892a4;
+  }
+
+  /* ═══════ PHONE FRAME ═══════ */
+  .phone-wrap {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+  }
+  .phone-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  .phone-label {
+    font-size: 12px;
+    color: #8892a4;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+  }
+  .phone {
+    width: 375px;
+    height: 812px;
+    background: var(--bg-page);
+    border-radius: 44px;
+    overflow: hidden;
+    position: relative;
+    box-shadow:
+      0 0 0 2px #1e3a60,
+      0 0 0 6px #0a1628,
+      0 30px 80px rgba(0,0,0,0.6);
+    display: flex;
+    flex-direction: column;
+  }
+  /* Notch */
+  .phone::before {
+    content: '';
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 26px;
+    background: #0a1628;
+    border-radius: 14px;
+    z-index: 999;
+  }
+
+  /* ═══════ SCREEN COMMON ═══════ */
+  .screen {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-page);
+    overflow: hidden;
+  }
+
+  /* ═══════ STATUS BAR ═══════ */
+  .status-bar {
+    height: 44px;
+    background: var(--sidebar-bg);
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 0 20px 6px;
+    flex-shrink: 0;
+  }
+  .status-time { font-size: 13px; font-weight: 600; color: #fff; }
+  .status-icons { font-size: 13px; color: #fff; display: flex; gap: 6px; align-items: center; }
+  .status-icons span { font-size: 11px; }
+
+  /* ═══════ LOGIN SCREEN ═══════ */
+  .login-top {
+    background: var(--sidebar-bg);
+    padding: 20px 24px 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    flex-shrink: 0;
+  }
+  .login-logo {
+    width: 88px;
+    height: 88px;
+    border-radius: 20px;
+    border: 2px solid rgba(228,183,30,0.5);
+    object-fit: cover;
+    margin-bottom: 12px;
+  }
+  .login-logo-placeholder {
+    width: 88px;
+    height: 88px;
+    border-radius: 20px;
+    border: 2px solid rgba(228,183,30,0.5);
+    background: linear-gradient(135deg, #0d1f3c, #1e3a60);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+    font-size: 40px;
+  }
+  .login-appname {
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--gold);
+    letter-spacing: 2px;
+    margin-bottom: 4px;
+  }
+  .login-appsub {
+    font-size: 12px;
+    color: var(--sidebar-text);
+  }
+  .login-card {
+    background: var(--bg-card);
+    flex: 1;
+    padding: 24px;
+    overflow-y: auto;
+  }
+  .login-title { font-size: 20px; font-weight: 700; color: var(--text-main); margin-bottom: 4px; }
+  .login-sub   { font-size: 12px; color: var(--text-muted); margin-bottom: 20px; }
+
+  .tabs {
+    display: flex;
+    background: var(--bg-page);
+    border-radius: 10px;
+    padding: 3px;
+    margin-bottom: 20px;
+    gap: 3px;
+  }
+  .tab {
+    flex: 1;
+    text-align: center;
+    padding: 10px 0;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all .2s;
+  }
+  .tab.active {
+    background: var(--sidebar-bg);
+    color: #fff;
+    font-weight: 700;
+  }
+
+  .form-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+  .input-row {
+    display: flex;
+    align-items: center;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    background: var(--bg-page);
+    margin-bottom: 8px;
+    overflow: hidden;
+  }
+  .input-field {
+    flex: 1;
+    height: 48px;
+    padding: 0 14px;
+    border: none;
+    background: transparent;
+    font-size: 15px;
+    color: var(--text-main);
+    outline: none;
+  }
+  .input-field::placeholder { color: #9CA3AF; }
+  .eye-btn {
+    padding: 0 12px;
+    font-size: 18px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .hint {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+    line-height: 1.5;
+  }
+  .login-btn {
+    background: var(--sidebar-bg);
+    border: none;
+    border-radius: 12px;
+    height: 50px;
+    width: 100%;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 4px;
+    transition: opacity .2s;
+  }
+  .login-btn:hover { opacity: .9; }
+  .login-footer {
+    text-align: center;
+    padding: 16px;
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+
+  /* ═══════ CHAT SCREEN ═══════ */
+  .chat-header {
+    background: var(--sidebar-bg);
+    padding: 14px 14px 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid #1e3a60;
+    flex-shrink: 0;
+  }
+  .agent-icon-sm {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .agent-btn-name  { font-size: 13px; font-weight: 700; color: #D0E4FF; }
+  .agent-btn-model { font-size: 11px; color: var(--sidebar-text); margin-top: 1px; }
+  .clear-btn { margin-left: auto; padding: 8px; font-size: 18px; cursor: pointer; }
+
+  .chat-area {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    background: var(--bg-page);
+  }
+  .bubble-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+  }
+  .bubble-row.user { justify-content: flex-end; }
+  .bot-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    flex-shrink: 0;
+  }
+  .bubble {
+    border-radius: 18px;
+    padding: 10px 14px;
+    max-width: 78%;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .bubble.user {
+    background: var(--user-bubble);
+    color: #fff;
+    border-bottom-right-radius: 4px;
+  }
+  .bubble.bot {
+    background: var(--bg-card);
+    color: var(--text-main);
+    border-bottom-left-radius: 4px;
+    border: 1px solid #EEEEEE;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+  .bubble-meta {
+    display: flex;
+    gap: 8px;
+    margin-top: 6px;
+    opacity: .5;
+    font-size: 10px;
+    color: var(--text-muted);
+  }
+
+  .empty-state {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    background: var(--bg-page);
+  }
+  .empty-icon {
+    width: 110px;
+    height: 110px;
+    border-radius: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 52px;
+    margin-bottom: 18px;
+  }
+  .empty-name { font-size: 20px; font-weight: 700; color: var(--text-main); margin-bottom: 8px; }
+  .empty-desc { font-size: 13px; color: var(--text-muted); text-align: center; line-height: 1.5; margin-bottom: 20px; }
+  .empty-hint-box {
+    background: #EFF6FF;
+    border: 1px solid #BFDBFE;
+    border-radius: 16px;
+    padding: 10px 18px;
+    font-size: 13px;
+    color: #1d4ed8;
+  }
+
+  .input-bar {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    padding: 12px 12px 28px;
+    background: var(--bg-card);
+    border-top: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .chat-input {
+    flex: 1;
+    background: var(--bg-page);
+    border: 1.5px solid var(--border);
+    border-radius: 22px;
+    padding: 10px 16px;
+    font-size: 15px;
+    color: var(--text-main);
+    resize: none;
+    max-height: 120px;
+    outline: none;
+    font-family: inherit;
+  }
+  .chat-input::placeholder { color: #9CA3AF; }
+  .send-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 22px;
+    background: var(--sidebar-bg);
+    border: none;
+    color: #fff;
+    font-size: 22px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: opacity .2s;
+  }
+  .send-btn:hover { opacity: .85; }
+  .send-btn.off { background: #D1D5DB; }
+
+  /* ═══════ AGENTS PICKER MODAL ═══════ */
+  .picker-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    display: flex;
+    align-items: flex-end;
+    z-index: 100;
+    border-radius: 44px;
+    overflow: hidden;
+  }
+  .picker-sheet {
+    background: var(--bg-card);
+    border-radius: 24px 24px 0 0;
+    width: 100%;
+    max-height: 88%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .picker-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .picker-title { font-size: 17px; font-weight: 700; color: var(--text-main); }
+  .picker-close { font-size: 18px; color: var(--text-muted); cursor: pointer; padding: 4px; }
+  .picker-search {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 12px;
+    padding: 0 14px;
+    background: var(--bg-page);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    height: 44px;
+  }
+  .picker-search input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    font-size: 14px;
+    color: var(--text-main);
+    outline: none;
+  }
+  .picker-list {
+    overflow-y: auto;
+    flex: 1;
+    padding-bottom: 16px;
+  }
+  .cat-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    margin-top: 4px;
+    background: #F8FAFC;
+  }
+  .cat-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; flex: 1; }
+  .cat-count {
+    font-size: 10px;
+    color: var(--text-muted);
+    background: var(--border);
+    border-radius: 8px;
+    padding: 1px 6px;
+  }
+  .agent-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border-bottom: 1px solid #F3F4F6;
+    cursor: pointer;
+    transition: background .15s;
+  }
+  .agent-item:hover { background: #F9FAFB; }
+  .agent-item.active { background: #F0F7FF; }
+  .agent-item-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+    border: 1px solid transparent;
+  }
+  .agent-item-info { flex: 1; }
+  .agent-item-top { display: flex; align-items: center; gap: 6px; }
+  .agent-item-name { font-size: 13px; font-weight: 600; color: var(--text-main); }
+  .agent-badge {
+    font-size: 8px;
+    font-weight: 700;
+    padding: 1px 5px;
+    border-radius: 4px;
+    border: 1px solid;
+  }
+  .agent-item-model { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+  /* ═══════ TAB BAR ═══════ */
+  .tab-bar {
+    display: flex;
+    background: var(--bg-card);
+    border-top: 1px solid var(--border);
+    padding: 6px 0 20px;
+    flex-shrink: 0;
+  }
+  .tab-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    cursor: pointer;
+    padding: 6px 0 2px;
+    transition: opacity .2s;
+  }
+  .tab-item:hover { opacity: .7; }
+  .tab-icon { font-size: 22px; line-height: 1; }
+  .tab-label { font-size: 11px; font-weight: 600; }
+  .tab-item.active .tab-label { color: var(--sidebar-bg); }
+  .tab-item:not(.active) .tab-label { color: #9CA3AF; }
+
+  /* ═══════ PROFILE SCREEN ═══════ */
+  .profile-top {
+    background: var(--sidebar-bg);
+    padding: 14px 24px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    flex-shrink: 0;
+  }
+  .profile-logo {
+    width: 72px;
+    height: 72px;
+    border-radius: 16px;
+    border: 2px solid rgba(228,183,30,0.5);
+    object-fit: cover;
+    margin-bottom: 10px;
+    background: linear-gradient(135deg, #0d1f3c, #1e3a60);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+  }
+  .profile-appname { font-size: 26px; font-weight: 800; color: var(--gold); letter-spacing: 1px; }
+  .profile-appsub  { font-size: 12px; color: var(--sidebar-text); margin-top: 3px; }
+
+  .profile-scroll { flex: 1; overflow-y: auto; }
+  .section { padding: 0 16px; margin-top: 16px; }
+  .section-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 10px;
+  }
+  .user-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--bg-card);
+    border-radius: 14px;
+    padding: 16px;
+    border: 1px solid var(--border);
+  }
+  .user-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: var(--sidebar-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--gold);
+    flex-shrink: 0;
+  }
+  .user-info { flex: 1; }
+  .user-name  { font-size: 15px; font-weight: 700; color: var(--text-main); margin-bottom: 2px; }
+  .user-email { font-size: 12px; color: var(--text-muted); }
+  .active-pill {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: #D1FAE5;
+    padding: 4px 8px;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #059669;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  .stat-card {
+    background: var(--bg-card);
+    border-radius: 12px;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid var(--border);
+  }
+  .stat-emoji { font-size: 20px; margin-bottom: 4px; }
+  .stat-num   { font-size: 22px; font-weight: 800; margin-bottom: 2px; }
+  .stat-label { font-size: 10px; color: var(--text-muted); text-align: center; }
+
+  .info-card {
+    background: var(--bg-card);
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .info-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 13px 16px;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+  }
+  .info-row:last-child { border-bottom: none; }
+  .info-key { color: var(--text-muted); }
+  .info-val { color: var(--text-main); font-weight: 500; max-width: 55%; text-align: right; }
+
+  .restrict-box {
+    background: #FEF2F2;
+    border-radius: 12px;
+    padding: 14px;
+    border: 1px solid #FECACA;
+  }
+  .restrict-title { font-size: 13px; font-weight: 700; color: #DC2626; margin-bottom: 6px; }
+  .restrict-txt   { font-size: 12px; color: #B91C1C; line-height: 1.5; }
+
+  .logout-btn {
+    background: #FEF2F2;
+    border: 1px solid #FECACA;
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 700;
+    color: #DC2626;
+    width: 100%;
+    margin-bottom: 40px;
+  }
+
+  /* ═══════ SECTION DIVIDER ═══════ */
+  .section-divider {
+    text-align: center;
+    margin: 32px 0 8px;
+    color: #8892a4;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    justify-content: center;
+  }
+  .section-divider::before,
+  .section-divider::after {
+    content: '';
+    flex: 0 0 40px;
+    height: 1px;
+    background: #2a3a50;
+  }
+
+  /* ═══════ BADGE COLORS ═══════ */
+  .badge-opus    { background: rgba(254,243,199,.2); border-color: #92400e; color: #92400e; }
+  .badge-sonnet  { background: rgba(219,234,254,.2); border-color: #1d4ed8; color: #1d4ed8; }
+  .badge-haiku   { background: rgba(220,252,231,.2); border-color: #16a34a; color: #16a34a; }
+  .badge-fixo    { background: rgba(237,233,254,.2); border-color: #6d28d9; color: #6d28d9; }
+  .badge-new     { background: rgba(207,250,254,.2); border-color: #0e7490; color: #0e7490; }
+
+  /* ═══════ RESPONSIVE ═══════ */
+  @media (max-width: 450px) {
+    .phone { width: 100%; max-width: 375px; height: auto; min-height: 600px; border-radius: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>BEN IA</h1>
+  <p>Preview do App Mobile — Android & iOS</p>
+</div>
+
+<div class="phone-wrap">
+
+  <!-- ════ PHONE 1: LOGIN ════ -->
+  <div class="phone-container">
+    <span class="phone-label">Tela de Login</span>
+    <div class="phone">
+      <div class="screen" id="screen-login">
+        <!-- Status bar -->
+        <div class="status-bar">
+          <span class="status-time">9:41</span>
+          <div class="status-icons">
+            <span>●●●</span><span>WiFi</span><span>🔋</span>
+          </div>
+        </div>
+        <!-- Header azul marinho -->
+        <div class="login-top">
+          <div class="login-logo-placeholder">
+            <img src="zsDQqxh9.png" style="width:100%;height:100%;border-radius:18px;object-fit:cover;" onerror="this.style.display='none';this.parentNode.innerHTML='⚡'">
+          </div>
+          <div class="login-appname">BEN IA</div>
+          <div class="login-appsub">Assistentes Jurídicos &amp; Contábeis</div>
+        </div>
+        <!-- Card branco -->
+        <div class="login-card">
+          <div class="login-title">Acesso</div>
+          <div class="login-sub">Área restrita — equipe autorizada</div>
+          <!-- Tabs -->
+          <div class="tabs">
+            <div class="tab active" onclick="setTab('senha')">🔑 Senha</div>
+            <div class="tab" onclick="setTab('email')">📧 E-mail</div>
+          </div>
+          <!-- Senha tab -->
+          <div id="tab-senha">
+            <div class="form-label">Senha de acesso</div>
+            <div class="input-row">
+              <input class="input-field" type="password" placeholder="Digite a senha" id="senha-input" value="12345678">
+              <span class="eye-btn" onclick="togglePwd()">👁️</span>
+            </div>
+            <div class="hint">Senha compartilhada com a equipe para testes</div>
+          </div>
+          <!-- Email tab -->
+          <div id="tab-email" style="display:none">
+            <div class="form-label">E-mail autorizado (Gmail)</div>
+            <div class="input-row">
+              <input class="input-field" type="email" placeholder="seu@gmail.com" id="email-input" style="padding-right:14px">
+            </div>
+            <div class="hint">Autorizado: mauromoncaoestudos@gmail.com<br>mauromoncaoadv.escritorio@gmail.com</div>
+          </div>
+          <!-- Error box (hidden by default) -->
+          <div id="error-box" style="display:none;background:#FEF2F2;border-radius:8px;padding:10px;margin-bottom:14px;border:1px solid #FECACA;">
+            <span style="color:#DC2626;font-size:13px;" id="error-txt"></span>
+          </div>
+          <!-- Button -->
+          <button class="login-btn" onclick="doLogin()">Entrar</button>
+        </div>
+        <div class="login-footer">BEN IA v1.0 • Acesso restrito</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ PHONE 2: CHAT ════ -->
+  <div class="phone-container">
+    <span class="phone-label">Chat — Assistente Geral</span>
+    <div class="phone">
+      <div class="screen" id="screen-chat">
+        <!-- Status bar -->
+        <div class="status-bar">
+          <span class="status-time">9:41</span>
+          <div class="status-icons"><span>●●●</span><span>WiFi</span><span>🔋</span></div>
+        </div>
+        <!-- Header -->
+        <div class="chat-header">
+          <div class="agent-icon-sm" style="background:rgba(109,40,217,0.2);">🤖</div>
+          <div style="flex:1">
+            <div class="agent-btn-name">BEN Assistente Geral (Copiloto)</div>
+            <div class="agent-btn-model">🤖 GPT-4o  ▾ trocar agente</div>
+          </div>
+          <div class="clear-btn" onclick="clearChat()">🗑️</div>
+        </div>
+        <!-- Chat area -->
+        <div class="chat-area" id="chat-area">
+          <!-- Messages will be injected here or empty state -->
+          <div class="empty-state" id="empty-state">
+            <div class="empty-icon" style="background:#ede9fe;">🤖</div>
+            <div class="empty-name">Assistente Geral</div>
+            <div class="empty-desc">Copiloto universal GPT-4o — sem restrições temáticas. Responde qualquer pergunta.</div>
+            <div class="empty-hint-box">💬 Envie uma mensagem para começar</div>
+          </div>
+        </div>
+        <!-- Input bar -->
+        <div class="input-bar">
+          <textarea class="chat-input" id="chat-input" placeholder="Mensagem para Assistente Geral..." rows="1"
+            onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMessage()}"
+            oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,120)+'px'"></textarea>
+          <button class="send-btn" id="send-btn" onclick="sendMessage()">↑</button>
+        </div>
+        <!-- Tab bar -->
+        <div class="tab-bar">
+          <div class="tab-item active">
+            <span class="tab-icon">💬</span>
+            <span class="tab-label">Chat BEN IA</span>
+          </div>
+          <div class="tab-item" onclick="showAgentPicker()">
+            <span class="tab-icon">🤖</span>
+            <span class="tab-label">Agentes</span>
+          </div>
+          <div class="tab-item">
+            <span class="tab-icon">👤</span>
+            <span class="tab-label">Perfil</span>
+          </div>
+        </div>
+        <!-- Agent Picker Modal -->
+        <div class="picker-overlay" id="picker-overlay" style="display:none">
+          <div class="picker-sheet">
+            <div class="picker-header">
+              <span class="picker-title">Escolher Agente</span>
+              <span class="picker-close" onclick="hideAgentPicker()">✕</span>
+            </div>
+            <div class="picker-search">
+              <span style="font-size:14px">🔍</span>
+              <input type="text" placeholder="Buscar agente..." id="picker-search-input"
+                oninput="filterAgents(this.value)" autocomplete="off">
+            </div>
+            <div class="picker-list" id="picker-list"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ PHONE 3: PROFILE ════ -->
+  <div class="phone-container">
+    <span class="phone-label">Perfil</span>
+    <div class="phone">
+      <div class="screen" id="screen-profile">
+        <!-- Status bar -->
+        <div class="status-bar">
+          <span class="status-time">9:41</span>
+          <div class="status-icons"><span>●●●</span><span>WiFi</span><span>🔋</span></div>
+        </div>
+        <!-- Header -->
+        <div class="profile-top">
+          <div class="profile-logo">
+            <img src="zsDQqxh9.png" style="width:100%;height:100%;border-radius:14px;object-fit:cover;" onerror="this.style.display='none'">
+          </div>
+          <div class="profile-appname">BEN IA</div>
+          <div class="profile-appsub">v1.0 • Acesso Restrito</div>
+        </div>
+        <!-- Scroll content -->
+        <div class="profile-scroll">
+          <!-- User card -->
+          <div class="section">
+            <div class="user-card">
+              <div class="user-avatar">M</div>
+              <div class="user-info">
+                <div class="user-name">Mauro Monção</div>
+                <div class="user-email">mauromoncaoestudos@gmail.com</div>
+              </div>
+              <div class="active-pill">● Ativo</div>
+            </div>
+          </div>
+          <!-- Stats -->
+          <div class="section">
+            <div class="section-label">Agentes Disponíveis</div>
+            <div class="stats-grid">
+              <div class="stat-card">
+                <span class="stat-emoji">⚖️</span>
+                <span class="stat-num" style="color:#93C5FD">22</span>
+                <span class="stat-label">Jurídico</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-emoji">🧮</span>
+                <span class="stat-num" style="color:#FCD34D">6</span>
+                <span class="stat-label">Contador</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-emoji">🔬</span>
+                <span class="stat-num" style="color:#C4B5FD">7</span>
+                <span class="stat-label">Perito</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-emoji">📣</span>
+                <span class="stat-num" style="color:#6EE7B7">6</span>
+                <span class="stat-label">Growth</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-emoji">⚙️</span>
+                <span class="stat-num" style="color:#A5B4FC">4</span>
+                <span class="stat-label">Sistema</span>
+              </div>
+              <div class="stat-card" style="border-color:rgba(228,183,30,.4)">
+                <span class="stat-emoji">🤖</span>
+                <span class="stat-num" style="color:#D4A017">45</span>
+                <span class="stat-label">Total</span>
+              </div>
+            </div>
+          </div>
+          <!-- Info -->
+          <div class="section">
+            <div class="section-label">Sobre o App</div>
+            <div class="info-card">
+              <div class="info-row"><span class="info-key">Versão</span><span class="info-val">1.0.0</span></div>
+              <div class="info-row"><span class="info-key">API</span><span class="info-val">ben-juris-center.vercel.app</span></div>
+              <div class="info-row"><span class="info-key">Modelos</span><span class="info-val">Claude 4 · GPT-4o · Perplexity</span></div>
+              <div class="info-row"><span class="info-key">Acesso</span><span class="info-val">Equipe autorizada</span></div>
+            </div>
+          </div>
+          <!-- Restricted -->
+          <div class="section">
+            <div class="restrict-box">
+              <div class="restrict-title">🔒 Módulos não disponíveis neste app</div>
+              <div class="restrict-txt">Growth Center, Juris Center e HUB Estratégico são acessíveis apenas via navegador web.</div>
+            </div>
+          </div>
+          <!-- Logout -->
+          <div class="section">
+            <button class="logout-btn">🚪  Encerrar Sessão</button>
+          </div>
+        </div>
+        <!-- Tab bar -->
+        <div class="tab-bar">
+          <div class="tab-item">
+            <span class="tab-icon">💬</span>
+            <span class="tab-label">Chat BEN IA</span>
+          </div>
+          <div class="tab-item">
+            <span class="tab-icon">🤖</span>
+            <span class="tab-label">Agentes</span>
+          </div>
+          <div class="tab-item active">
+            <span class="tab-icon">👤</span>
+            <span class="tab-label">Perfil</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end phone-wrap -->
+
+<script>
+// ═══════════════════════════════════════════════════════
+// AGENTS DATA
+// ═══════════════════════════════════════════════════════
+const AGENTS = [
+  // Sistema
+  { id:'ben-assistente-geral', emoji:'🤖', shortName:'Assistente Geral', name:'BEN Assistente Geral (Copiloto)', model:'GPT-4o', category:'sistema', color:'#6d28d9', accentColor:'#ede9fe', badge:'FIXO', badgeClass:'badge-fixo' },
+  { id:'ben-engenheiro-prompt', emoji:'🧠', shortName:'Eng. Prompt', name:'BEN Engenheiro de Prompt', model:'GPT-4o', category:'sistema', color:'#4f46e5', accentColor:'#e0e7ff' },
+  { id:'ben-analista-monitoramento', emoji:'🔍', shortName:'Monitoramento', name:'BEN Analista Monitoramento', model:'GPT-4o Mini', category:'sistema', color:'#dc2626', accentColor:'#fee2e2' },
+  { id:'ben-monitor-juridico', emoji:'📡', shortName:'Monitor Jurídico', name:'BEN Monitor Jurídico DJe + CNJ', model:'Claude Sonnet 4', category:'sistema', color:'#0e7490', accentColor:'#cffafe', badge:'NEW', badgeClass:'badge-new' },
+  { id:'ben-assistente-cnj', emoji:'⚖️', shortName:'Assistente CNJ', name:'BEN Assistente CNJ DataJud', model:'Claude Sonnet 4', category:'sistema', color:'#0e7490', accentColor:'#cffafe', badge:'NEW', badgeClass:'badge-new' },
+  // Jurídico
+  { id:'ben-agente-operacional-maximus', emoji:'⭐', shortName:'Agente Maximus', name:'AGENTE OPERACIONAL MAXIMUS', model:'Claude Opus 4', category:'juridico', color:'#92400e', accentColor:'#fef3c7', badge:'OPUS', badgeClass:'badge-opus' },
+  { id:'ben-agente-operacional-premium', emoji:'🔷', shortName:'Agente Premium', name:'AGENTE OPERACIONAL PREMIUM', model:'Claude Sonnet 4', category:'juridico', color:'#1d4ed8', accentColor:'#dbeafe', badge:'SONNET', badgeClass:'badge-sonnet' },
+  { id:'ben-agente-operacional-standard', emoji:'🟢', shortName:'Agente Standard', name:'AGENTE OPERACIONAL STANDARD', model:'Claude Haiku 4', category:'juridico', color:'#16a34a', accentColor:'#dcfce7', badge:'HAIKU', badgeClass:'badge-haiku' },
+  { id:'ben-tributarista-estrategista', emoji:'⚖️', shortName:'Tributarista Estrat.', name:'AGENTE TRIBUTARISTA ESTRATEGISTA', model:'Claude Opus 4', category:'juridico', color:'#b45309', accentColor:'#fef3c7', badge:'OPUS', badgeClass:'badge-opus' },
+  { id:'ben-processualista-estrategico', emoji:'📋', shortName:'Processualista Estrat.', name:'AGENTE PROCESSUALISTA ESTRATÉGICO', model:'Claude Opus 4', category:'juridico', color:'#1e3a5f', accentColor:'#dbeafe', badge:'OPUS', badgeClass:'badge-opus' },
+  { id:'ben-peticionista-juridico', emoji:'⚖️', shortName:'Peticionista', name:'BEN Peticionista Jurídico', model:'Claude Haiku 4.5', category:'juridico', color:'#1d4ed8', accentColor:'#dbeafe' },
+  { id:'ben-contratualista', emoji:'📋', shortName:'Contratualista', name:'BEN Contratualista', model:'Claude Haiku 4.5', category:'juridico', color:'#7c3aed', accentColor:'#ede9fe' },
+  { id:'ben-mandatario-juridico', emoji:'📜', shortName:'Mandatário', name:'BEN Mandatário Jurídico', model:'Claude Haiku 4.5', category:'juridico', color:'#059669', accentColor:'#d1fae5' },
+  { id:'ben-analista-processual', emoji:'🔬', shortName:'Analista Proc.', name:'BEN Analista Processual', model:'GPT-4o', category:'juridico', color:'#dc2626', accentColor:'#fee2e2' },
+  { id:'ben-tributarista', emoji:'💰', shortName:'Tributarista', name:'BEN Tributarista', model:'Claude Haiku 4.5', category:'juridico', color:'#d97706', accentColor:'#fef3c7' },
+  { id:'ben-trabalhista', emoji:'👷', shortName:'Trabalhista', name:'BEN Trabalhista', model:'GPT-4o', category:'juridico', color:'#0369a1', accentColor:'#e0f2fe' },
+  { id:'ben-previdenciarista', emoji:'🏛️', shortName:'Previdenciarista', name:'BEN Previdenciarista', model:'Claude Haiku 4.5', category:'juridico', color:'#7c3aed', accentColor:'#ede9fe' },
+  { id:'ben-constitucionalista', emoji:'⚡', shortName:'Constitucionalista', name:'BEN Constitucionalista', model:'GPT-4o', category:'juridico', color:'#b91c1c', accentColor:'#fee2e2' },
+  { id:'ben-especialista-compliance', emoji:'🛡️', shortName:'Compliance', name:'BEN Especialista Compliance', model:'GPT-4o', category:'juridico', color:'#0f766e', accentColor:'#ccfbf1' },
+  { id:'ben-pesquisador-juridico', emoji:'🔎', shortName:'Pesquisador', name:'BEN Pesquisador Jurídico', model:'Perplexity', category:'juridico', color:'#6d28d9', accentColor:'#ede9fe' },
+  { id:'ben-relator-juridico', emoji:'📚', shortName:'Relator', name:'BEN Relator Jurídico', model:'GPT-4o', category:'juridico', color:'#1e40af', accentColor:'#dbeafe' },
+  { id:'ben-redator-juridico', emoji:'✒️', shortName:'Redator', name:'BEN Redator Jurídico', model:'GPT-4o', category:'juridico', color:'#374151', accentColor:'#f3f4f6' },
+  { id:'ben-auditor-processual', emoji:'🔏', shortName:'Auditor', name:'BEN Auditor Processual', model:'Claude Haiku 4.5', category:'juridico', color:'#0f766e', accentColor:'#ccfbf1' },
+  { id:'ben-gestor-juridico', emoji:'🏢', shortName:'Gestor', name:'BEN Gestor Jurídico', model:'GPT-4o', category:'juridico', color:'#374151', accentColor:'#f3f4f6' },
+  { id:'ben-revisor-juridico', emoji:'📝', shortName:'Revisor', name:'BEN Revisor Jurídico', model:'Claude Haiku 4.5', category:'juridico', color:'#374151', accentColor:'#f3f4f6' },
+  { id:'ben-peticionista', emoji:'⚖️', shortName:'Peticionista G.', name:'BEN Peticionista', model:'Claude Haiku 4.5', category:'juridico', color:'#1d4ed8', accentColor:'#dbeafe' },
+  // Contador
+  { id:'ben-contador-tributarista', emoji:'🧮', shortName:'Triagem', name:'BEN Contador — Triagem', model:'Claude Sonnet 4', category:'contador', color:'#92400e', accentColor:'#fef3c7', badge:'SONNET', badgeClass:'badge-sonnet' },
+  { id:'ben-contador-especialista', emoji:'📊', shortName:'Especialista', name:'BEN Contador — Especialista', model:'Claude Sonnet 4', category:'contador', color:'#b45309', accentColor:'#fef9c3', badge:'SONNET', badgeClass:'badge-sonnet' },
+  { id:'ben-contador-planejamento', emoji:'🗺️', shortName:'Planejamento', name:'BEN Contador — Planejamento', model:'Claude Sonnet 4', category:'contador', color:'#d97706', accentColor:'#fef3c7', badge:'SONNET', badgeClass:'badge-sonnet' },
+  { id:'ben-contador-creditos', emoji:'💳', shortName:'Créditos', name:'BEN Contador — Créditos', model:'Claude Sonnet 4', category:'contador', color:'#059669', accentColor:'#d1fae5', badge:'SONNET', badgeClass:'badge-sonnet' },
+  { id:'ben-contador-auditoria', emoji:'🔍', shortName:'Auditoria', name:'BEN Contador — Auditoria', model:'Claude Sonnet 4', category:'contador', color:'#dc2626', accentColor:'#fee2e2', badge:'SONNET', badgeClass:'badge-sonnet' },
+  { id:'ben-contador-relatorio', emoji:'📋', shortName:'Relatório', name:'BEN Contador — Relatório', model:'Claude Sonnet 4', category:'contador', color:'#0369a1', accentColor:'#e0f2fe', badge:'SONNET', badgeClass:'badge-sonnet' },
+  // Perito
+  { id:'ben-perito-forense', emoji:'🔬', shortName:'Padrão', name:'BEN Perito Forense — Padrão', model:'Claude Sonnet 4', category:'perito', color:'#4f46e5', accentColor:'#e0e7ff', badge:'SONNET', badgeClass:'badge-sonnet' },
+  { id:'ben-perito-forense-profundo', emoji:'🧬', shortName:'Profundo', name:'BEN Perito Forense — Profundo', model:'Claude Opus 4', category:'perito', color:'#b91c1c', accentColor:'#fee2e2', badge:'OPUS', badgeClass:'badge-opus' },
+  { id:'ben-perito-forense-digital', emoji:'💻', shortName:'Digital', name:'BEN Perito Forense Digital', model:'Claude Sonnet 4', category:'perito', color:'#7c3aed', accentColor:'#ede9fe', badge:'SONNET', badgeClass:'badge-sonnet' },
+  { id:'ben-perito-forense-laudo', emoji:'📄', shortName:'Laudo', name:'BEN Perito Forense — Laudo', model:'Claude Sonnet 4', category:'perito', color:'#0369a1', accentColor:'#e0f2fe', badge:'SONNET', badgeClass:'badge-sonnet' },
+  { id:'ben-perito-forense-contestar', emoji:'🛡️', shortName:'Contraditório', name:'BEN Perito — Contraditório', model:'Claude Sonnet 4', category:'perito', color:'#059669', accentColor:'#d1fae5', badge:'SONNET', badgeClass:'badge-sonnet' },
+  { id:'ben-perito-forense-relatorio', emoji:'📊', shortName:'Relatório', name:'BEN Perito Forense — Relatório', model:'Claude Sonnet 4', category:'perito', color:'#374151', accentColor:'#f3f4f6', badge:'SONNET', badgeClass:'badge-sonnet' },
+  { id:'ben-perito-imobiliario', emoji:'🏠', shortName:'Imobiliário', name:'BEN Perito Imobiliário — ABNT', model:'Claude Sonnet 4', category:'perito', color:'#0f766e', accentColor:'#ccfbf1', badge:'SONNET', badgeClass:'badge-sonnet' },
+  // Growth
+  { id:'ben-atendente', emoji:'🤝', shortName:'Atendente', name:'BEN Atendente', model:'GPT-4o Mini', category:'growth', color:'#059669', accentColor:'#d1fae5' },
+  { id:'ben-conteudista', emoji:'✍️', shortName:'Conteudista', name:'BEN Conteudista Jurídico', model:'GPT-4o', category:'growth', color:'#7c3aed', accentColor:'#ede9fe' },
+  { id:'ben-estrategista-campanhas', emoji:'📊', shortName:'Campanhas', name:'BEN Estrategista Campanhas', model:'GPT-4o', category:'growth', color:'#059669', accentColor:'#d1fae5' },
+  { id:'ben-estrategista-marketing', emoji:'📣', shortName:'Marketing', name:'BEN Estrategista Marketing', model:'GPT-4o', category:'growth', color:'#0369a1', accentColor:'#e0f2fe' },
+  { id:'ben-analista-relatorios', emoji:'📈', shortName:'Relatórios', name:'BEN Analista de Relatórios', model:'Claude Haiku 4.5', category:'growth', color:'#d97706', accentColor:'#fef3c7' },
+  { id:'ben-diretor-criativo', emoji:'🎨', shortName:'Dir. Criativo', name:'BEN Diretor Criativo', model:'GPT-4o', category:'growth', color:'#7c3aed', accentColor:'#ede9fe' },
+]
+
+const CATEGORIES = [
+  { key:'juridico', label:'Jurídico',          emoji:'⚖️', color:'#1d4ed8' },
+  { key:'contador', label:'Contador',           emoji:'🧮', color:'#b45309' },
+  { key:'perito',   label:'Perito Forense',     emoji:'🔬', color:'#4f46e5' },
+  { key:'growth',   label:'Growth & Marketing', emoji:'📣', color:'#059669' },
+  { key:'sistema',  label:'Sistema',            emoji:'⚙️', color:'#6d28d9' },
+]
+
+// ═══════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════
+let activeAgent = AGENTS[0]  // Assistente Geral default
+let messages = []
+const API_BASE = 'https://ben-juris-center.vercel.app'
+const MASTER_PASSWORD = '12345678'
+const ALLOWED_EMAILS = ['mauromoncaoestudos@gmail.com','mauromoncaoadv.escritorio@gmail.com']
+let loggedIn = false
+
+// ═══════════════════════════════════════════════════════
+// LOGIN
+// ═══════════════════════════════════════════════════════
+let currentTab = 'senha'
+
+function setTab(t) {
+  currentTab = t
+  document.getElementById('tab-senha').style.display = t === 'senha' ? '' : 'none'
+  document.getElementById('tab-email').style.display = t === 'email' ? '' : 'none'
+  document.querySelectorAll('.tabs .tab').forEach((el,i) => {
+    el.classList.toggle('active', (i===0 && t==='senha') || (i===1 && t==='email'))
+  })
+  document.getElementById('error-box').style.display = 'none'
+}
+
+function togglePwd() {
+  const inp = document.getElementById('senha-input')
+  inp.type = inp.type === 'password' ? 'text' : 'password'
+}
+
+function doLogin() {
+  const errBox = document.getElementById('error-box')
+  const errTxt = document.getElementById('error-txt')
+  if (currentTab === 'senha') {
+    const v = document.getElementById('senha-input').value.trim()
+    if (!v) { showError('Digite a senha de acesso'); return }
+    if (v === MASTER_PASSWORD) {
+      loggedIn = true; alert('✅ Login efetuado como Equipe BEN IA!\n(No app real, abre direto no chat)')
+    } else {
+      showError('⚠️ Senha incorreta.')
+    }
+  } else {
+    const v = document.getElementById('email-input').value.trim().toLowerCase()
+    if (!v) { showError('Digite o e-mail autorizado'); return }
+    if (ALLOWED_EMAILS.includes(v)) {
+      loggedIn = true; alert('✅ E-mail autorizado!\n(No app real, abre direto no chat)')
+    } else {
+      showError('⚠️ E-mail não autorizado. Contate o administrador.')
+    }
+  }
+}
+
+function showError(msg) {
+  const b = document.getElementById('error-box')
+  document.getElementById('error-txt').textContent = msg
+  b.style.display = ''
+}
+
+// ═══════════════════════════════════════════════════════
+// CHAT
+// ═══════════════════════════════════════════════════════
+function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2) }
+
+function renderMessages() {
+  const area = document.getElementById('chat-area')
+  const empty = document.getElementById('empty-state')
+  if (messages.length === 0) {
+    // Show empty state with current agent
+    empty.style.display = ''
+    empty.innerHTML = `
+      <div class="empty-icon" style="background:${activeAgent.accentColor}">${activeAgent.emoji}</div>
+      <div class="empty-name">${activeAgent.shortName}</div>
+      <div class="empty-desc">${getAgentDesc(activeAgent)}</div>
+      <div class="empty-hint-box">💬 Envie uma mensagem para começar</div>
+    `
+    return
+  }
+  empty.style.display = 'none'
+  // Remove old messages (keep only messages, not empty-state)
+  Array.from(area.querySelectorAll('.bubble-row,.loading-row')).forEach(function(el) { el.remove() })
+  messages.forEach(msg => {
+    const row = document.createElement('div')
+    row.className = 'bubble-row' + (msg.role==='user' ? ' user' : '')
+    if (msg.loading) {
+      row.innerHTML = `
+        <div class="bot-avatar" style="background:${activeAgent.color}22">${activeAgent.emoji}</div>
+        <div class="bubble bot" style="padding:14px 18px">
+          <span style="font-size:20px;letter-spacing:4px;color:#D4A017">•••</span>
+        </div>
+      `
+      row.classList.add('loading-row')
+    } else if (msg.role === 'user') {
+      row.innerHTML = `<div class="bubble user">${escHtml(msg.content)}</div>`
+    } else {
+      row.innerHTML = `
+        <div class="bot-avatar" style="background:${activeAgent.color}22">${activeAgent.emoji}</div>
+        <div class="bubble bot">
+          ${escHtml(msg.content)}
+          ${msg.model ? `<div class="bubble-meta"><span>🤖 ${msg.model}</span>${msg.elapsed?`<span>⏱ ${fmtMs(msg.elapsed)}</span>`:''}</div>` : ''}
+        </div>
+      `
+    }
+    area.appendChild(row)
+  })
+  area.scrollTop = area.scrollHeight
+}
+
+function escHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>')
+}
+
+function fmtMs(ms) {
+  return ms < 1000 ? `${ms}ms` : `${(ms/1000).toFixed(1)}s`
+}
+
+function getAgentDesc(a) {
+  const descs = {
+    'ben-assistente-geral': 'Copiloto universal GPT-4o — sem restrições temáticas. Responde qualquer pergunta.',
+    'ben-super-agente-juridico': 'Análise jurídica de máxima profundidade — última instância.',
+    'ben-perito-forense': 'Laudos periciais padrão com metodologia técnica.',
+    'ben-contador-tributarista': 'Triagem fiscal e orientação tributária inicial.',
+  }
+  return descs[a.id] || `Especialista ${a.shortName} — clique para iniciar.`
+}
+
+async function sendMessage() {
+  const inp = document.getElementById('chat-input')
+  const text = inp.value.trim()
+  if (!text) return
+  inp.value = ''
+  inp.style.height = 'auto'
+
+  const userMsg = { id: uid(), role:'user', content: text }
+  const loadingMsg = { id:'loading', role:'assistant', content:'', loading: true }
+  messages = messages.concat([userMsg, loadingMsg])
+  renderMessages()
+
+  const t0 = Date.now()
+  try {
+    const ctx = messages.slice(-6)
+      .filter(m => !m.loading)
+      .map(m => `${m.role==='user'?'Usuário':'BEN'}: ${m.content}`)
+      .join('\n')
+
+    const res = await fetch(`${API_BASE}/api/agents/run`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ agentId: activeAgent.id, input: text, clientId: 'ben-ia-preview', context: ctx }),
+      signal: AbortSignal.timeout(30000),
+    })
+
+    if (!res.ok) throw new Error(`Servidor retornou ${res.status}`)
+    const data = await res.json()
+    const content = data.output ?? data.response ?? data.text ?? '(sem resposta)'
+    const model = data.model_used ?? data.modelUsed ?? activeAgent.model
+    const elapsed = Date.now() - t0
+
+    messages = messages.filter(m => !m.loading)
+    messages.push({ id: uid(), role:'assistant', content, model, elapsed })
+  } catch(e) {
+    messages = messages.filter(m => !m.loading)
+    messages.push({
+      id: uid(), role:'assistant',
+      content: `Conectando ao servidor BEN IA...\n\nO app mobile se conecta diretamente ao backend em produção. Neste preview HTML, a conexão pode falhar por CORS.\n\nNo app nativo (Android/iOS), a API funciona normalmente.\n\nErro: ${e.message}`,
+      model: activeAgent.model,
+      elapsed: Date.now() - t0,
+    })
+  }
+  renderMessages()
+}
+
+function clearChat() {
+  if (confirm('Apagar o histórico desta conversa?')) {
+    messages = []
+    renderMessages()
+  }
+}
+
+// ═══════════════════════════════════════════════════════
+// AGENT PICKER
+// ═══════════════════════════════════════════════════════
+function showAgentPicker() {
+  document.getElementById('picker-overlay').style.display = ''
+  document.getElementById('picker-search-input').value = ''
+  renderPickerList('')
+  setTimeout(() => document.getElementById('picker-search-input').focus(), 100)
+}
+
+function hideAgentPicker() {
+  document.getElementById('picker-overlay').style.display = 'none'
+}
+
+function filterAgents(q) {
+  renderPickerList(q.toLowerCase())
+}
+
+function renderPickerList(query) {
+  const list = document.getElementById('picker-list')
+  let html = ''
+  CATEGORIES.forEach(cat => {
+    const agents = AGENTS.filter(a => a.category === cat.key && (
+      !query ||
+      a.name.toLowerCase().includes(query) ||
+      a.shortName.toLowerCase().includes(query)
+    ))
+    if (!agents.length) return
+    html += `
+      <div class="cat-header">
+        <span style="font-size:14px;margin-right:4px">${cat.emoji}</span>
+        <span class="cat-label" style="color:${cat.color}">${cat.label}</span>
+        <span class="cat-count">${agents.length}</span>
+      </div>
+    `
+    agents.forEach(a => {
+      html += `
+        <div class="agent-item${a.id===activeAgent.id?' active':''}" onclick="selectAgent('${a.id}')">
+          <div class="agent-item-icon" style="background:${a.color}18;border-color:${a.color}44">${a.emoji}</div>
+          <div class="agent-item-info">
+            <div class="agent-item-top">
+              <span class="agent-item-name">${a.name}</span>
+              ${a.badge ? `<span class="agent-badge ${a.badgeClass||''}">${a.badge}</span>` : ''}
+            </div>
+            <div class="agent-item-model">🤖 ${a.model}</div>
+          </div>
+          ${a.id===activeAgent.id ? `<span style="color:#E4B71E;font-size:18px">✓</span>` : ''}
+        </div>
+      `
+    })
+  })
+  list.innerHTML = html
+}
+
+function selectAgent(id) {
+  activeAgent = AGENTS.find(a => a.id === id) || AGENTS[0]
+  messages = []
+  hideAgentPicker()
+  // Update chat header
+  document.querySelector('.agent-icon-sm').style.background = activeAgent.color + '22'
+  document.querySelector('.agent-icon-sm').textContent = activeAgent.emoji
+  document.querySelector('.agent-btn-name').textContent = activeAgent.name
+  document.querySelector('.agent-btn-model').textContent = `🤖 ${activeAgent.model}  ▾ trocar agente`
+  // Update placeholder
+  document.getElementById('chat-input').placeholder = `Mensagem para ${activeAgent.shortName}...`
+  renderMessages()
+}
+
+// Init
+renderMessages()
+
+// Demo message after 1.5s
+setTimeout(() => {
+  if (messages.length === 0) {
+    const demo = [
+      { id:'d1', role:'user', content:'Quais são os prazos para contestação no CPC?' },
+      { id:'d2', role:'assistant', content:'Os prazos para contestação no Código de Processo Civil (CPC/2015) variam conforme o procedimento:\n\n• Procedimento Comum: 15 dias úteis (art. 335)\n• Fazenda Pública e MP: 30 dias úteis\n• Procedimento do JEC: 15 dias corridos\n\nO prazo começa a correr da data da audiência de conciliação ou, não havendo, da data do protocolo.', model: 'GPT-4o', elapsed: 1420 },
+    ]
+    messages = demo
+    renderMessages()
+  }
+}, 1500)
+</script>
+</body>
+</html>
