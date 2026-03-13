@@ -32,8 +32,8 @@ import GestaoEstrategica from './pages/GestaoEstrategica';
 import EngenheiroPrompts from './pages/EngenheiroPrompts';
 import ContadorIA from './pages/ContadorIA';
 import PeritoIA from './pages/PeritoIA';
-import SuperAgenteJuridico from './pages/SuperAgenteJuridico';
 import AgenteOperacionalPremium from './pages/AgenteOperacionalPremium';
+import AgenteOperacionalMaximus from './pages/AgenteOperacionalMaximus';
 import AgenteOperacionalStandard from './pages/AgenteOperacionalStandard';
 import AgenteTributaristaEstrategista from './pages/AgenteTributaristaEstrategista';
 import AgentProcessualistaEstrategico from './pages/AgentProcessualistaEstrategico';
@@ -53,7 +53,7 @@ const NAV_GROUPS = [
     label: 'NÚCLEO IA – DR. BEN',
     color: '#7c3aed',
     items: [
-      { path: '/super-agente',    icon: Zap,    label: 'AGENTE OPERACIONAL MAXIMUS', badge: '⚡' },
+      { path: '/agente-maximus',   icon: Zap,    label: 'AGENTE OPERACIONAL MAXIMUS',  badge: '⭐' },
       { path: '/agente-premium',   icon: Zap,    label: 'AGENTE OPERACIONAL PREMIUM',  badge: '🔷' },
       { path: '/agente-standard',   icon: Zap,    label: 'AGENTE OPERACIONAL STANDARD', badge: '🟢' },
       { path: '/tributarista-estrategista', icon: Zap, label: 'TRIBUTARISTA ESTRATEGISTA', badge: '⚖️' },
@@ -415,8 +415,7 @@ function AppRoutes() {
               <Route path="/configuracoes"        element={<Configuracoes />} />
               <Route path="/nucleo-ia"            element={<NucleoIA />} />
               <Route path="/nucleo-projetos"      element={<NucleoProjetos />} />
-              <Route path="/estrategia"           element={<GestaoEstrategica />} />
-              <Route path="/super-agente"        element={<SuperAgenteJuridico />} />
+              <Route path="/estrategia"           element={<GestaoEstrategica />} />              <Route path="/agente-maximus"      element={<AgenteOperacionalMaximus />} />
               <Route path="/agente-premium"      element={<AgenteOperacionalPremium />} />
               <Route path="/agente-standard"     element={<AgenteOperacionalStandard />} />
               <Route path="/tributarista-estrategista" element={<AgenteTributaristaEstrategista />} />

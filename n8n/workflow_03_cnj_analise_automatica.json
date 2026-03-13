@@ -1,0 +1,73 @@
+{
+  "name": "BEN WF-03: Novo Processo CNJ → Analista Processual → Relatório",
+  "nodes": [
+    {
+      "parameters": { "httpMethod": "POST", "path": "novo-processo-cnj", "responseMode": "responseNode" },
+      "name": "Webhook: Novo processo cadastrado",
+      "type": "n8n-nodes-base.webhook",
+      "position": [240, 300],
+      "webhookId": "ben-novo-processo"
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://ben-juris-center.vercel.app/api/cnj?numero={{ $json.numeroCnj }}"
+      },
+      "name": "Buscar dados CNJ",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://ben-juris-center.vercel.app/api/agents/run",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            { "name": "agentId", "value": "ben-analista-processual" },
+            { "name": "input",   "value": "=Analise o processo {{ $('Webhook: Novo processo cadastrado').item.json.numeroCnj }}. Dados do CNJ: {{ JSON.stringify($json) }}. Gere: 1) resumo das partes e objeto; 2) classificação de risco (alto/médio/baixo); 3) providências iniciais recomendadas; 4) prazo estimado e instância atual." },
+            { "name": "context", "value": "={{ JSON.stringify({ processo: $('Webhook: Novo processo cadastrado').item.json.numeroCnj, clientId: $('Webhook: Novo processo cadastrado').item.json.clientId }) }}" }
+          ]
+        }
+      },
+      "name": "BEN Analista Processual",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [680, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://ben-juris-center.vercel.app/api/db?action=upsert-processo",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            { "name": "numeroCnj", "value": "={{ $('Webhook: Novo processo cadastrado').item.json.numeroCnj }}" },
+            { "name": "resumo",    "value": "={{ $json.output.slice(0,800) }}" },
+            { "name": "area",      "value": "={{ $('Webhook: Novo processo cadastrado').item.json.area || 'indefinida' }}" }
+          ]
+        }
+      },
+      "name": "Salvar contexto no PostgreSQL",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [900, 300]
+    },
+    {
+      "parameters": {
+        "fromEmail": "ben@mauromoncao.adv.br",
+        "toEmail": "mauro@mauromoncao.adv.br",
+        "subject": "=📋 NOVO PROCESSO ANALISADO — {{ $('Webhook: Novo processo cadastrado').item.json.numeroCnj }}",
+        "text": "={{ $('BEN Analista Processual').item.json.output }}"
+      },
+      "name": "Email: Relatório inicial",
+      "type": "n8n-nodes-base.emailSend",
+      "position": [1120, 300]
+    }
+  ],
+  "connections": {
+    "Webhook: Novo processo cadastrado": { "main": [[{ "node": "Buscar dados CNJ", "type": "main", "index": 0 }]] },
+    "Buscar dados CNJ":                  { "main": [[{ "node": "BEN Analista Processual", "type": "main", "index": 0 }]] },
+    "BEN Analista Processual":           { "main": [[{ "node": "Salvar contexto no PostgreSQL", "type": "main", "index": 0 }]] },
+    "Salvar contexto no PostgreSQL":     { "main": [[{ "node": "Email: Relatório inicial", "type": "main", "index": 0 }]] }
+  },
+  "settings": { "executionOrder": "v1" }
+}

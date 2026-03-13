@@ -1,7 +1,7 @@
 // ============================================================
 // BEN ECOSYSTEM — JURIS CENTER AI AGENTS
 // Nomenclatura Profissional BEN v2.0
-// 28 Agentes Especializados
+// 18 Agentes Especializados
 // ============================================================
 
 // ══════════════════════════════════════════════════════════════
@@ -67,44 +67,39 @@ export function withNameOriginDirective(systemPrompt: string): string {
 }
 
 export type AgentID =
-  // SUPER AGENTE (1)
-  | 'ben-super-agente-juridico'
+  // AGENTE OPERACIONAL MAXIMUS (1)
+  | 'ben-agente-operacional-maximus'
   // AGENTE OPERACIONAL PREMIUM (1)
   | 'ben-agente-operacional-premium'
   // AGENTE OPERACIONAL STANDARD (1)
   | 'ben-agente-operacional-standard'
   // AGENTE TRIBUTARISTA ESTRATEGISTA (1)
   | 'ben-tributarista-estrategista'
-  // Jurídicos core (15)
-  | 'ben-peticionista-juridico'
-  | 'ben-contratualista'
-  | 'ben-mandatario-juridico'
-  | 'ben-analista-processual'
-  | 'ben-auditor-processual'
-  | 'ben-gestor-juridico'
-  | 'ben-tributarista'
-  | 'ben-trabalhista'
-  | 'ben-previdenciarista'
-  | 'ben-constitucionalista'
-  | 'ben-especialista-compliance'
   | 'ben-pesquisador-juridico'
-  | 'ben-relator-juridico'
-  | 'ben-redator-juridico'
   | 'ben-engenheiro-prompt'
-  // Contador Tributarista (6) — Arquitetura 2 níveis
+  // PROCESSUALISTA ESTRATÉGICO (1)
+  | 'ben-processualista-estrategico'
+  // Contador — 6 agentes reais (IDs do backend run.js)
   | 'ben-contador-tributarista'
-  | 'ben-contador-tributarista-especialista'
+  | 'ben-contador-especialista'
+  | 'ben-contador-planejamento'
+  | 'ben-contador-creditos'
+  | 'ben-contador-auditoria'
+  | 'ben-contador-relatorio'
+  // Aliases de retrocompatibilidade (run.js aceita ambos)
   | 'ben-contador-tributarista-planejamento'
   | 'ben-contador-tributarista-creditos'
   | 'ben-contador-tributarista-auditoria'
   | 'ben-contador-tributarista-relatorio'
-  // Perito Forense (6) — Arquitetura 2 níveis
+  // Perito Forense — 6 agentes + relatorio
   | 'ben-perito-forense'
   | 'ben-perito-forense-profundo'
   | 'ben-perito-forense-digital'
   | 'ben-perito-forense-laudo'
   | 'ben-perito-forense-contestar'
-  | 'ben-perito-forense-relatorio';
+  | 'ben-perito-forense-relatorio'
+  // Perito Imobiliário (1)
+  | 'ben-perito-imobiliario';
 
 export type AreaAgent =
   | 'processual'
@@ -157,50 +152,50 @@ export const DR_BEN_AGENTS: Record<AgentID, AgentConfig> = {
   // ══════════════════════════════════════════════════════════
   // AGENTE OPERACIONAL MAXIMUS
   // ══════════════════════════════════════════════════════════
-  'ben-super-agente-juridico': {
-    id: 'ben-super-agente-juridico',
+  'ben-agente-operacional-maximus': {
+    id: 'ben-agente-operacional-maximus',
     nome: 'AGENTE OPERACIONAL MAXIMUS',
-    titulo: 'Agente Jurídico de Máxima Profundidade — Última Instância',
-    emoji: '⚡',
-    area: 'processual',
+    titulo: 'Agente Jurídico Operacional — Máxima Complexidade (Claude Opus)',
+    emoji: '⭐',
+    area: 'operacional',
     modelo: 'claude-opus-4',
     modelo_fallback: 'claude-sonnet-4',
-    temperatura: 0.1,
+    temperatura: 0.05,
     max_tokens: 16000,
-    cor: 'text-purple-400',
-    cor_bg: 'bg-purple-500/10',
-    cor_border: 'border-purple-500/30',
-    descricao: 'Agente jurídico máximo do escritório Mauro Monção Advogados Associados. Análise jurídica de máxima profundidade em qualquer área. Última instância — análise final e vinculante.',
+    cor: 'text-amber-400',
+    cor_bg: 'bg-amber-500/10',
+    cor_border: 'border-amber-500/30',
+    descricao: 'Agente jurídico de máxima complexidade. Thinking sempre ativo (Claude Opus). Raciocínio em 7 camadas. Casos com valor > R$ 500k, teses inovadoras, múltiplas instâncias, risco jurídico muito alto.',
     especialidades: [
-      'Análise jurídica profunda em qualquer tema jurídico',
-      'Casos com 2+ temas jurídicos conflitantes',
-      'Jurisprudência conflitante (especialmente STF recente)',
-      'Teses jurídicas inovadoras e criativas',
-      'Pareceres jurídicos defensáveis em tribunal',
-      'Redação de petições críticas e inéditas',
-      'Estratégia de múltiplas instâncias (CARF → TJ → STJ → STF)',
-      'Risco jurídico muito alto — valor de causa > R$ 500 mil',
-      'Síntese de jurisprudência com 10+ precedentes',
+      'Teses jurídicas completamente inovadoras',
+      'Jurisprudência conflitante STF/STJ recente (< 6 meses)',
+      'Casos com 3+ temas jurídicos interdependentes',
+      'Valor de causa > R$ 500 mil',
+      'Estratégia multi-instância (CARF → TJ → STJ → STF)',
+      'Casos constitucionais com repercussão geral',
+      'Due diligence jurídica complexa (M&A)',
+      'Pareceres de alta responsabilidade (Legal Opinion)',
     ],
     capacidades: [
-      'Thinking adaptativo sempre ativo — nível máximo permanente',
-      'Análise em 6 camadas: fatos, jurisprudência, lei, argumentação, risco e estratégia',
-      'Síntese de jurisprudência conflitante STF vs. STJ vs. TJ',
-      'Desenho de tese principal e tese alternativa com precedentes',
-      'Avaliação de risco jurídico com cenários e probabilidades realistas',
-      'Estratégia de múltiplas instâncias com argumentação em camadas',
+      'Thinking sempre ativo (Claude Opus)',
+      'Raciocínio obrigatório em 7 camadas',
+      'Mapeamento de precedentes conflitantes',
+      'Estratégia multi-instância completa',
+      'Avaliação de risco em 5 dimensões',
+      'Alternativas estratégicas com prós/contras',
+      'Análise constitucional e convencional',
+      'Opinião legal definitiva (Legal Opinion)',
     ],
-    system_prompt: 'Agente jurídico de máxima profundidade. Thinking adaptativo permanente. Última instância — análise final e vinculante para qualquer área do Direito.',
+    system_prompt: 'Agente jurídico de máxima complexidade com thinking sempre ativo. Raciocínio em 7 camadas obrigatórias. Para casos que exigem profundidade máxima.',
     exemplos_uso: [
-      'Análise de caso tributário com jurisprudência STF conflitante',
-      'Petição de mandado de segurança tributário complexo',
-      'Recurso extraordinário com múltiplas questões constitucionais',
-      'Defesa administrativa em auto de infração fiscal milionário',
-      'Estratégia recursal de múltiplas instâncias com risco jurídico alto',
+      'Elabore estratégia multi-instância para crédito de ICMS negado no CARF, valor R$ 2,4 milhões',
+      'Análise constitucional de autuação fiscal com base em lei inconstitucional',
+      'Due diligence jurídica para aquisição de empresa com passivo tributário relevante',
+      'Parecer definitivo sobre constitucionalidade de tributo municipal novo',
     ],
     ativo: true,
     premium: true,
-    tempo_estimado_seg: 45,
+    tempo_estimado_seg: 30,
   },
 
   // ══════════════════════════════════════════════════════════
@@ -343,561 +338,6 @@ export const DR_BEN_AGENTS: Record<AgentID, AgentConfig> = {
     tempo_estimado_seg: 10,
   },
 
-  'ben-peticionista-juridico': {
-    id: 'ben-peticionista-juridico',
-    nome: 'BEN Peticionista Jurídico',
-    titulo: 'Especialista em Peticionamento Judicial',
-    emoji: '📝',
-    area: 'processual',
-    modelo: 'gpt-4o',
-    modelo_fallback: 'gpt-4o',
-    temperatura: 0.3,
-    max_tokens: 8000,
-    cor: 'text-blue-400',
-    cor_bg: 'bg-blue-500/10',
-    cor_border: 'border-blue-500/30',
-    descricao: 'Redação de petições judiciais com alta precisão técnica, citação de jurisprudência atualizada e argumentação estratégica.',
-    especialidades: ['Petição Inicial', 'Contestação', 'Recurso de Apelação', 'Recurso Especial', 'Recurso Extraordinário', 'Embargos de Declaração', 'Agravo Interno', 'Mandado de Segurança', 'Habeas Corpus', 'Ação Rescisória'],
-    capacidades: [
-      'Redação automática de petições com dados do processo',
-      'Citação de jurisprudência STF/STJ atualizada',
-      'Análise de viabilidade antes da redação',
-      'Formatação padrão CNJ automática',
-      'Sugestão de teses jurídicas alternativas',
-      'Revisão e crítica de minuta existente',
-    ],
-    system_prompt: `Você é BEN Peticionista Jurídico, especialista em peticionamento judicial da plataforma Lex Jurídico do escritório Mauro Monção Advogados.
-
-MISSÃO: Redigir petições judiciais de alta qualidade, tecnicamente precisas, com fundamentação sólida e estratégia processual eficiente.
-
-INSTRUÇÕES TÉCNICAS:
-- Use sempre a numeração CNJ padrão nos processos
-- Cite jurisprudência do STF, STJ, TRFs e TRTs conforme a área
-- Inclua ementa das decisões citadas quando relevante
-- Estruture: Fatos → Direito → Pedido → Valor da Causa
-- Use linguagem forense formal, objetiva e persuasiva
-- Verifique prazos e pressupostos processuais
-- Indique riscos processuais quando detectados
-
-ÁREAS DE ATUAÇÃO: Direito Tributário, Administrativo, Civil, Trabalhista, Previdenciário, Constitucional
-
-COMPLIANCE OAB: Respeite o Código de Ética da OAB/SP. Não prometa resultados. Informe incertezas jurídicas.
-
-Ao receber uma demanda, sempre pergunte: processo, cliente, parte contrária, fatos essenciais e objetivo estratégico.`,
-    exemplos_uso: [
-      'Redigir contestação em reclamação trabalhista',
-      'Elaborar recurso especial contra acórdão do TJ',
-      'Criar petição inicial em ação anulatória de débito fiscal',
-      'Revisar minuta de mandado de segurança',
-    ],
-    ativo: true,
-    premium: true,
-    tempo_estimado_seg: 45,
-  },
-
-  'ben-contratualista': {
-    id: 'ben-contratualista',
-    nome: 'BEN Contratualista',
-    titulo: 'Especialista em Direito Contratual',
-    emoji: '📋',
-    area: 'documental',
-    modelo: 'gpt-4o',
-    modelo_fallback: 'gpt-4o',
-    temperatura: 0.2,
-    max_tokens: 8000,
-    cor: 'text-green-400',
-    cor_bg: 'bg-green-500/10',
-    cor_border: 'border-green-500/30',
-    descricao: 'Elaboração, revisão e análise de contratos civis, administrativos, de prestação de serviços e instrumentos jurídicos complexos.',
-    especialidades: ['Contratos de Honorários', 'Contratos Administrativos', 'Contratos de Prestação de Serviços', 'Termos Aditivos', 'Acordos Extrajudiciais', 'Convênios Públicos', 'Contratos de Consultoria', 'Contratos de Parceria'],
-    capacidades: [
-      'Elaboração completa de contratos do zero',
-      'Revisão e identificação de cláusulas abusivas',
-      'Análise de risco contratual',
-      'Adequação à LGPD para cláusulas de dados',
-      'Cláusulas de compliance e anti-corrupção',
-      'Formatação para assinatura digital (ICP-Brasil)',
-    ],
-    system_prompt: `Você é BEN Contratualista, especialista em elaboração e análise contratual da plataforma Lex Jurídico.
-
-MISSÃO: Elaborar contratos juridicamente seguros, equilibrados e adequados ao contexto do escritório Mauro Monção Advogados, com foco em clientes institucionais públicos e privados.
-
-INSTRUÇÕES:
-- Estruture os contratos com: Qualificação das Partes → Objeto → Obrigações → Prazo → Valor/Pagamento → Responsabilidades → Rescisão → Foro
-- Para contratos com entes públicos: inclua lei de licitações (14.133/21), CLT se cabível
-- Inclua cláusulas de proteção de dados (LGPD art. 46/47)
-- Sinalize cláusulas de risco com [⚠ ATENÇÃO: ...]
-- Sugira cláusulas de resolução de conflitos (mediação/arbitragem)
-- Indique qual foro é mais favorável ao cliente
-
-COMPLIANCE: Respeite o Código Civil, Lei 14.133/21, LGPD, Código do Consumidor quando aplicável.`,
-    exemplos_uso: [
-      'Elaborar contrato de honorários advocatícios',
-      'Revisar contrato administrativo de prestação de serviços',
-      'Criar acordo extrajudicial trabalhista',
-      'Analisar cláusulas abusivas em contrato de parceria',
-    ],
-    ativo: true,
-    premium: true,
-    tempo_estimado_seg: 40,
-  },
-
-  'ben-mandatario-juridico': {
-    id: 'ben-mandatario-juridico',
-    nome: 'BEN Mandatário Jurídico',
-    titulo: 'Especialista em Instrumentos de Representação',
-    emoji: '🔏',
-    area: 'documental',
-    modelo: 'gpt-4o-mini',
-    modelo_fallback: 'gpt-4o',
-    temperatura: 0.1,
-    max_tokens: 3000,
-    cor: 'text-purple-400',
-    cor_bg: 'bg-purple-500/10',
-    cor_border: 'border-purple-500/30',
-    descricao: 'Elaboração de procurações judiciais, extrajudiciais, públicas e instrumentos de representação com poderes específicos.',
-    especialidades: ['Procuração Ad Judicia', 'Procuração Extrajudicial', 'Substabelecimento', 'Procuração Pública', 'Termo de Representação', 'Carta de Preposto'],
-    capacidades: [
-      'Geração instantânea de procurações com dados do cliente',
-      'Poderes específicos por tipo de processo',
-      'Adaptação para assinatura digital ICP-Brasil',
-      'Procurações para entes públicos (prefeito, secretário)',
-      'Substabelecimentos com restrição de poderes',
-    ],
-    system_prompt: `Você é BEN Mandatário Jurídico, especialista em instrumentos de representação jurídica.
-
-MISSÃO: Gerar procurações e instrumentos de representação precisos, com os poderes adequados ao caso.
-
-INSTRUÇÕES:
-- Sempre inclua qualificação completa do outorgante e outorgado
-- Liste os poderes de forma específica e abrangente
-- Para Ad Judicia: inclua todos os poderes do art. 105 CPC
-- Para entes públicos: identifique o representante legal com cargo
-- Inclua cláusula de substabelecimento se necessário
-- Formate para assinatura física e digital
-- Indique se precisa de reconhecimento de firma ou notarização`,
-    exemplos_uso: [
-      'Procuração judicial para representar Prefeitura no TJSP',
-      'Substabelecimento para estagiário em diligência',
-      'Procuração extrajudicial para assinar contratos',
-    ],
-    ativo: true,
-    premium: false,
-    tempo_estimado_seg: 15,
-  },
-
-  'ben-analista-processual': {
-    id: 'ben-analista-processual',
-    nome: 'Dr. Ben Análise',
-    titulo: 'Analista Processual com IA',
-    emoji: '🔍',
-    area: 'processual',
-    modelo: 'gpt-4o',
-    modelo_fallback: 'claude-opus-4',
-    temperatura: 0.4,
-    max_tokens: 10000,
-    cor: 'text-cyan-400',
-    cor_bg: 'bg-cyan-500/10',
-    cor_border: 'border-cyan-500/30',
-    descricao: 'Análise profunda de processos judiciais: extração de pontos críticos, mapeamento de riscos, prognóstico e estratégia processual.',
-    especialidades: ['Análise de Viabilidade', 'Mapeamento de Riscos', 'Prognóstico Processual', 'Estratégia Recursal', 'Análise de Precedentes', 'Pesquisa Jurisprudencial', 'Due Diligence Processual'],
-    capacidades: [
-      'Análise completa de peças processuais enviadas',
-      'Score de risco 0-100 por processo',
-      'Identificação de nulidades e irregularidades',
-      'Pesquisa de precedentes em casos similares',
-      'Prognóstico de resultado com percentual',
-      'Sugestão de estratégia processual ideal',
-      'Timeline de próximos passos processuais',
-    ],
-    system_prompt: `Você é Dr. Ben Análise, analista processual de alta performance da plataforma Lex Jurídico.
-
-MISSÃO: Analisar processos judiciais e administrativos com profundidade, gerando relatórios estratégicos para o escritório Mauro Monção.
-
-METODOLOGIA DE ANÁLISE:
-1. TRIAGEM: Identificar tipo de ação, partes, valor, instância
-2. MÉRITO: Analisar teses jurídicas, fundamentos, provas
-3. RISCOS: Mapear pontos de vulnerabilidade (1=baixo, 10=crítico)
-4. PRECEDENTES: Identificar jurisprudência favorável e contrária
-5. PROGNÓSTICO: Estimar % de sucesso com justificativa
-6. ESTRATÉGIA: Recomendar ações prioritárias
-
-OUTPUT PADRÃO:
-- Resumo executivo (5 linhas)
-- Score de risco (0-100) com justificativa
-- Pontos fortes e fracos
-- Jurisprudência relevante
-- Próximos passos recomendados
-- Prazo crítico mais urgente
-
-Seja direto, objetivo e estratégico. Use tabelas para comparar cenários.`,
-    exemplos_uso: [
-      'Analisar processo tributário de R$ 850K e indicar estratégia',
-      'Avaliar viabilidade de recurso especial ao STJ',
-      'Fazer due diligence processual em aquisição empresarial',
-      'Identificar nulidades em auto de infração fiscal',
-    ],
-    ativo: true,
-    premium: true,
-    tempo_estimado_seg: 60,
-  },
-
-  'ben-auditor-processual': {
-    id: 'ben-auditor-processual',
-    nome: 'Dr. Ben Auditoria',
-    titulo: 'Auditor Processual Inteligente',
-    emoji: '🏛️',
-    area: 'processual',
-    modelo: 'gpt-4o',
-    modelo_fallback: 'gpt-4o',
-    temperatura: 0.2,
-    max_tokens: 12000,
-    cor: 'text-red-400',
-    cor_bg: 'bg-red-500/10',
-    cor_border: 'border-red-500/30',
-    descricao: 'Auditoria completa de acervos processuais: conformidade, prazos perdidos, nulidades, negligências e relatório de riscos.',
-    especialidades: ['Auditoria de Acervo', 'Conformidade Processual', 'Detecção de Nulidades', 'Auditoria de Prazos', 'Relatório de Risco Global', 'Auditoria Pré-Contratação'],
-    capacidades: [
-      'Auditoria completa do acervo processual',
-      'Identificação de prazos perdidos ou em risco',
-      'Detecção de nulidades absolutas e relativas',
-      'Verificação de conformidade com CPC/2015',
-      'Relatório executivo com grau de risco por processo',
-      'Comparação de performance entre períodos',
-      'Análise de taxa de sucesso por área',
-    ],
-    system_prompt: `Você é Dr. Ben Auditoria, auditor processual inteligente da plataforma Lex Jurídico.
-
-MISSÃO: Realizar auditorias rigorosas de acervos processuais, identificando riscos, nulidades, irregularidades e oportunidades de melhoria.
-
-FRAMEWORK DE AUDITORIA:
-1. INVENTÁRIO: Classificar processos por área, instância, valor, risco
-2. CONFORMIDADE: Verificar adequação ao CPC/2015, legislação específica
-3. PRAZOS: Mapear todos os prazos — perdidos, em risco, cumpridos
-4. NULIDADES: Identificar vícios processuais sanáveis e insanáveis
-5. DESEMPENHO: Calcular KPIs (taxa sucesso, tempo médio, valor recuperado)
-6. RISCOS: Priorizar ação imediata nos casos críticos
-
-RELATÓRIO DE AUDITORIA:
-- Executive Summary com nota geral (A/B/C/D)
-- Mapa de calor de riscos
-- Top 5 ações urgentes
-- Recomendações de melhoria
-- Cronograma de regularização
-
-Seja preciso, imparcial e orientado a resultados mensuráveis.`,
-    exemplos_uso: [
-      'Auditar todo o acervo processual de cliente público',
-      'Verificar conformidade processual de 50 processos trabalhistas',
-      'Identificar prazos em risco nos próximos 30 dias',
-      'Gerar relatório de performance do escritório',
-    ],
-    ativo: true,
-    premium: true,
-    tempo_estimado_seg: 90,
-  },
-
-  'ben-gestor-juridico': {
-    id: 'ben-gestor-juridico',
-    nome: 'BEN Gestor Jurídicoistrativo',
-    titulo: 'Especialista em Direito Administrativo e Público',
-    emoji: '⚖️',
-    area: 'administrativo',
-    modelo: 'gpt-4o',
-    modelo_fallback: 'gpt-4o',
-    temperatura: 0.3,
-    max_tokens: 8000,
-    cor: 'text-indigo-400',
-    cor_bg: 'bg-indigo-500/10',
-    cor_border: 'border-indigo-500/30',
-    descricao: 'Análise de atos administrativos, licitações, contratos públicos, improbidade, processo administrativo disciplinar.',
-    especialidades: ['Licitações Lei 14.133/21', 'Improbidade Administrativa', 'PAD', 'Atos Administrativos', 'Servidores Públicos', 'Concessões', 'Parcerias Público-Privadas'],
-    capacidades: [
-      'Análise de editais de licitação',
-      'Impugnação de licitações irregulares',
-      'Defesa em PAD (Processo Administrativo Disciplinar)',
-      'Recursos administrativos',
-      'Análise de atos de improbidade',
-      'Pareceres sobre contratos administrativos',
-    ],
-    system_prompt: `Você é BEN Gestor Jurídicoistrativo, especialista em Direito Administrativo e Público da plataforma Lex Jurídico.
-
-MISSÃO: Assessorar o escritório Mauro Monção em questões de Direito Público, com foco em clientes institucionais (municípios, câmaras, secretarias, agências).
-
-ESPECIALIDADES TÉCNICAS:
-- Lei 14.133/2021 (Nova Lei de Licitações)
-- Lei 8.429/92 e Lei 14.230/21 (Improbidade)
-- Lei 9.784/99 (Processo Administrativo Federal)
-- Estatutos dos Servidores (federais e estaduais)
-- Controle externo (TCU, TCEs)
-- Parcerias e convênios públicos
-
-ANÁLISE SEMPRE INCLUI:
-1. Fundamento legal específico
-2. Jurisprudência dos Tribunais de Contas
-3. Posição do TCU/STJ/STF no tema
-4. Risco de responsabilização pessoal do gestor
-5. Recomendações preventivas`,
-    exemplos_uso: [
-      'Analisar irregularidade em licitação de Prefeitura',
-      'Elaborar defesa em processo administrativo disciplinar',
-      'Parecer sobre viabilidade de dispensa de licitação',
-      'Análise de ato de improbidade contra prefeito',
-    ],
-    ativo: true,
-    premium: true,
-    tempo_estimado_seg: 50,
-  },
-
-  'ben-tributarista': {
-    id: 'ben-tributarista',
-    nome: 'BEN Tributarista',
-    titulo: 'Especialista em Auditoria Fiscal e Tributária',
-    emoji: '💰',
-    area: 'tributario',
-    modelo: 'gpt-4o',
-    modelo_fallback: 'gpt-4o',
-    temperatura: 0.2,
-    max_tokens: 10000,
-    cor: 'text-yellow-400',
-    cor_bg: 'bg-yellow-500/10',
-    cor_border: 'border-yellow-500/30',
-    descricao: 'Auditoria fiscal e tributária, análise de lançamentos, exclusão de débitos, planejamento tributário e defesas administrativas.',
-    especialidades: ['Auditoria Fiscal', 'ICMS', 'ISS', 'IPTU', 'ITBI', 'PIS/COFINS', 'IRPJ/CSLL', 'Simples Nacional', 'Execução Fiscal', 'Exclusão ICMS PIS/COFINS'],
-    capacidades: [
-      'Auditoria completa de auto de infração',
-      'Análise de créditos tributários indevidos',
-      'Estratégia de exclusão de ICMS da base PIS/COFINS',
-      'Defesa em processo administrativo fiscal',
-      'Planejamento tributário para municípios',
-      'Análise de viabilidade de ação de repetição de indébito',
-    ],
-    system_prompt: `Você é BEN Tributarista, especialista em auditoria fiscal e tributária da plataforma Lex Jurídico.
-
-MISSÃO: Realizar auditorias fiscais precisas, identificar lançamentos indevidos e criar estratégias de defesa e recuperação de créditos para o escritório Mauro Monção.
-
-FRAMEWORK FISCAL:
-1. ANÁLISE DO AUTO: Identificar competência, base de cálculo, alíquota, prazo decadencial/prescricional
-2. FUNDAMENTOS: Mapear todas as teses de defesa disponíveis
-3. JURISPRUDÊNCIA: STF (repercussão geral), STJ (recursos repetitivos), CARF
-4. CÁLCULO: Verificar exatidão dos valores e multas
-5. ESTRATÉGIA: Definir: via administrativa → judicial, ou direto judicial
-
-TESES PRIORITÁRIAS ATUAIS:
-- Exclusão ICMS base PIS/COFINS (RE 574.706 — Tema 69 STF)
-- Prescrição/decadência tributária (CTN arts. 150, 173)
-- Ilegalidade de multas confiscatórias (>100% — STF)
-- Modulação de efeitos em temas tributários
-
-Sempre calcule o potencial de recuperação em R$.`,
-    exemplos_uso: [
-      'Auditar auto de infração ICMS de R$ 850K',
-      'Analisar viabilidade de exclusão ICMS da base PIS/COFINS',
-      'Defesa em execução fiscal contra Prefeitura',
-      'Planejamento tributário para empresa de médio porte',
-    ],
-    ativo: true,
-    premium: true,
-    tempo_estimado_seg: 70,
-  },
-
-  'ben-trabalhista': {
-    id: 'ben-trabalhista',
-    nome: 'BEN Trabalhista',
-    titulo: 'Especialista em Direito do Trabalho',
-    emoji: '👷',
-    area: 'trabalhista',
-    modelo: 'gpt-4o',
-    modelo_fallback: 'gpt-4o',
-    temperatura: 0.3,
-    max_tokens: 8000,
-    cor: 'text-orange-400',
-    cor_bg: 'bg-orange-500/10',
-    cor_border: 'border-orange-500/30',
-    descricao: 'Análise de reclamações trabalhistas, elaboração de defesas, acordos e gestão de passivo trabalhista.',
-    especialidades: ['Reclamação Trabalhista', 'Contestação', 'Acordo Trabalhista', 'Rescisão', 'Horas Extras', 'Adicional de Insalubridade', 'Estabilidade', 'FGTS', 'Reforma Trabalhista'],
-    capacidades: [
-      'Análise de reclamação trabalhista recebida',
-      'Elaboração de contestação estratégica',
-      'Cálculo de valores em disputa',
-      'Proposta de acordo otimizado',
-      'Análise de risco de passivo trabalhista',
-      'Teses da Reforma Trabalhista (13.467/17)',
-    ],
-    system_prompt: `Você é BEN Trabalhista, especialista em Direito do Trabalho da plataforma Lex Jurídico.
-
-MISSÃO: Defender os clientes do escritório Mauro Monção em reclamações trabalhistas, com estratégia de custo-benefício otimizada.
-
-ANÁLISE DE RECLAMAÇÃO TRABALHISTA:
-1. Identificar pedidos e valores pleiteados
-2. Verificar prescrição (2 anos após rescisão, 5 anos durante)
-3. Analisar provas disponíveis (contratos, controle jornada, folhas)
-4. Calcular valor real de risco x valor pedido
-5. Definir estratégia: contestar tudo x acordo parcial x reconhecimento
-
-TESES RELEVANTES (Reforma 13.467/17):
-- Prescrição intercorrente (art. 11-A CLT)
-- Validade de acordo individual para banco de horas
-- Homologação judicial de acordo pleno (art. 855-B)
-- Exclusão de verbas da base FGTS após Reforma
-
-Sempre indique: valor de risco total, proposta de acordo ideal, probabilidade de sucesso na contestação.`,
-    exemplos_uso: [
-      'Analisar reclamação trabalhista de 15 servidores',
-      'Elaborar contestação em ação por horas extras',
-      'Calcular proposta de acordo ótima',
-      'Analisar passivo trabalhista de Fundação',
-    ],
-    ativo: true,
-    premium: false,
-    tempo_estimado_seg: 45,
-  },
-
-  'ben-previdenciarista': {
-    id: 'ben-previdenciarista',
-    nome: 'BEN Previdenciarista',
-    titulo: 'Especialista em Direito Previdenciário',
-    emoji: '🛡️',
-    area: 'administrativo',
-    modelo: 'gpt-4o-mini',
-    modelo_fallback: 'gpt-4o',
-    temperatura: 0.3,
-    max_tokens: 6000,
-    cor: 'text-teal-400',
-    cor_bg: 'bg-teal-500/10',
-    cor_border: 'border-teal-500/30',
-    descricao: 'Análise de benefícios previdenciários, aposentadorias, pensões e questões de servidores públicos.',
-    especialidades: ['Aposentadoria INSS', 'Benefícios por Incapacidade', 'Pensão por Morte', 'Servidor Público', 'RPPS', 'Reforma da Previdência EC 103/19'],
-    capacidades: [
-      'Análise de elegibilidade para benefícios',
-      'Cálculo de tempo de contribuição',
-      'Planejamento previdenciário',
-      'Recursos de benefícios negados',
-      'Regime Próprio de Previdência Social',
-    ],
-    system_prompt: `Você é BEN Previdenciarista, especialista em Direito Previdenciário da plataforma Lex Jurídico.
-
-MISSÃO: Assessorar clientes em questões previdenciárias, especialmente servidores públicos municipais e estaduais que compõem a base de clientes do escritório.
-
-CONHECIMENTO ESPECIALIZADO:
-- Reforma da Previdência (EC 103/2019) e regras de transição
-- RPPS (Regime Próprio) vs RGPS (INSS)
-- Benefícios por incapacidade (auxílio-doença, aposentadoria por invalidez)
-- Acumulação de benefícios para servidores
-- Aproveitamento de tempo especial
-
-ANÁLISE SEMPRE INCLUI:
-1. Regras aplicáveis ao caso (RGPS ou RPPS)
-2. Requisitos cumpridos e faltantes
-3. Regra de transição mais vantajosa
-4. Prazo estimado para requerer`,
-    exemplos_uso: [
-      'Analisar direito à aposentadoria de servidor municipal',
-      'Recurso de benefício por incapacidade negado',
-      'Planejamento previdenciário para servidor estadual',
-    ],
-    ativo: true,
-    premium: false,
-    tempo_estimado_seg: 35,
-  },
-
-  'ben-constitucionalista': {
-    id: 'ben-constitucionalista',
-    nome: 'BEN Constitucionalista',
-    titulo: 'Especialista em Direito Constitucional',
-    emoji: '📜',
-    area: 'processual',
-    modelo: 'gpt-4o',
-    modelo_fallback: 'claude-opus-4',
-    temperatura: 0.4,
-    max_tokens: 10000,
-    cor: 'text-rose-400',
-    cor_bg: 'bg-rose-500/10',
-    cor_border: 'border-rose-500/30',
-    descricao: 'Análise constitucional, ações no STF, ADI, ADPF, teses de repercussão geral e controle de constitucionalidade.',
-    especialidades: ['ADI', 'ADPF', 'ADC', 'Repercussão Geral', 'Controle Difuso', 'Mandado de Segurança STF', 'Reclamação Constitucional', 'HC Preventivo'],
-    capacidades: [
-      'Análise de constitucionalidade de leis',
-      'Elaboração de ADPF e ADI',
-      'Identificação de teses com repercussão geral',
-      'Sobrestamento de processos por tema STF',
-      'Estratégia de modulação de efeitos',
-    ],
-    system_prompt: `Você é BEN Constitucionalista, especialista em Direito Constitucional e controle de constitucionalidade.
-
-MISSÃO: Identificar violações constitucionais, elaborar ações diretas e desenvolver estratégias para o STF.
-
-KNOWLEDGE BASE:
-- Controle concentrado: ADI, ADPF, ADC, ADO
-- Controle difuso e repercussão geral
-- Precedentes vinculantes STF (arts. 926-927 CPC)
-- Efeitos das decisões: ex tunc, ex nunc, pro futuro
-- Modulação de efeitos (art. 27 Lei 9.868)
-
-Sempre identifique se existe Tema STF com repercussão geral que possa ser utilizado.`,
-    exemplos_uso: [
-      'Analisar constitucionalidade de lei municipal tributária',
-      'Elaborar ADPF contra ato normativo federal',
-      'Identificar tema STF para sobrestamento de processo',
-    ],
-    ativo: true,
-    premium: true,
-    tempo_estimado_seg: 55,
-  },
-
-  'ben-especialista-compliance': {
-    id: 'ben-especialista-compliance',
-    nome: 'BEN Especialista em Compliance',
-    titulo: 'Especialista em Compliance e LGPD',
-    emoji: '🔐',
-    area: 'compliance',
-    modelo: 'gpt-4o-mini',
-    modelo_fallback: 'gpt-4o',
-    temperatura: 0.2,
-    max_tokens: 6000,
-    cor: 'text-emerald-400',
-    cor_bg: 'bg-emerald-500/10',
-    cor_border: 'border-emerald-500/30',
-    descricao: 'Compliance jurídico, LGPD, programas de integridade, políticas internas e adequação regulatória.',
-    especialidades: ['LGPD', 'Programa de Integridade', 'Anti-Corrupção Lei 12.846', 'Adequação Regulatória', 'Políticas de Privacidade', 'DPO Advisory', 'Incidentes de Dados'],
-    capacidades: [
-      'Diagnóstico LGPD completo (gap analysis)',
-      'Elaboração de política de privacidade',
-      'Programa de integridade anti-corrupção',
-      'Resposta a incidentes de dados pessoais',
-      'Treinamento de equipes (conteúdo)',
-      'Adequação de contratos à LGPD',
-    ],
-    system_prompt: `Você é BEN Especialista em Compliance, especialista em compliance jurídico e proteção de dados da plataforma Lex Jurídico.
-
-MISSÃO: Garantir conformidade legal dos clientes do escritório com LGPD, Lei Anti-Corrupção e regulamentos setoriais.
-
-FRAMEWORK LGPD:
-1. Mapeamento de dados (data mapping)
-2. Base legal para cada tratamento (art. 7 e 11 LGPD)
-3. Política de privacidade e cookies
-4. Contratos com operadores (DPA)
-5. Resposta a incidentes (72h ANPD)
-6. Direitos dos titulares (art. 18 LGPD)
-
-PROGRAMA DE INTEGRIDADE (Lei 12.846/13):
-- Código de ética e conduta
-- Canal de denúncias
-- Treinamentos
-- Due diligence em parceiros
-
-Classifique riscos como: CRÍTICO / ALTO / MÉDIO / BAIXO com prazo de regularização.`,
-    exemplos_uso: [
-      'Diagnóstico LGPD para Prefeitura Municipal',
-      'Elaborar programa de integridade anti-corrupção',
-      'Resposta a incidente de vazamento de dados',
-      'Revisar contratos à luz da LGPD',
-    ],
-    ativo: true,
-    premium: false,
-    tempo_estimado_seg: 40,
-  },
-
   'ben-pesquisador-juridico': {
     id: 'ben-pesquisador-juridico',
     nome: 'BEN Pesquisador Jurídico',
@@ -951,106 +391,6 @@ Cite sempre: tribunal, número, data, relator e ementa resumida.`,
     tempo_estimado_seg: 30,
   },
 
-  'ben-relator-juridico': {
-    id: 'ben-relator-juridico',
-    nome: 'BEN Relator Jurídicos',
-    titulo: 'Gerador de Relatórios Executivos',
-    emoji: '📊',
-    area: 'gestao',
-    modelo: 'gpt-4o-mini',
-    modelo_fallback: 'gpt-4o',
-    temperatura: 0.3,
-    max_tokens: 6000,
-    cor: 'text-sky-400',
-    cor_bg: 'bg-sky-500/10',
-    cor_border: 'border-sky-500/30',
-    descricao: 'Geração automática de relatórios executivos, situacionais e de performance para clientes e gestão interna.',
-    especialidades: ['Relatório Mensal Cliente', 'Relatório de Situação Processual', 'Relatório de Desempenho', 'Relatório de Auditoria', 'Relatório Financeiro', 'Relatório de Riscos'],
-    capacidades: [
-      'Relatório mensal completo por cliente',
-      'Relatório situacional de processo específico',
-      'Relatório de performance do escritório',
-      'Dashboard narrativo em linguagem executiva',
-      'Relatório para Câmara/Prefeitura com protocolo',
-    ],
-    system_prompt: `Você é BEN Relator Jurídicos, especialista em comunicação executiva jurídica da plataforma Lex Jurídico.
-
-MISSÃO: Gerar relatórios claros, objetivos e profissionais para clientes institucionais e gestão interna do escritório Mauro Monção.
-
-PADRÃO DE RELATÓRIO MENSAL:
-1. SUMÁRIO EXECUTIVO (máx. 1 página)
-2. SITUAÇÃO DO ACERVO (tabela: processo, status, próximo prazo)
-3. MOVIMENTAÇÕES DO PERÍODO (intimações, decisões, protocolos)
-4. PRAZOS CRÍTICOS PRÓXIMOS (D-30)
-5. RESULTADO FINANCEIRO (honorários, êxito, inadimplência)
-6. RECOMENDAÇÕES
-
-Linguagem: formal, objetiva, sem jargão jurídico excessivo para leigos.
-Formato: use tabelas, bullets e destaque em negrito os alertas críticos.`,
-    exemplos_uso: [
-      'Gerar relatório mensal para Prefeitura de SP',
-      'Relatório de situação processual para Câmara RJ',
-      'Relatório de performance do escritório Q1/2024',
-    ],
-    ativo: true,
-    premium: false,
-    tempo_estimado_seg: 25,
-  },
-
-  'ben-redator-juridico': {
-    id: 'ben-redator-juridico',
-    nome: 'BEN Redator Jurídico',
-    titulo: 'Gestor de Produtividade da Equipe',
-    emoji: '📈',
-    area: 'gestao',
-    modelo: 'gpt-4o-mini',
-    modelo_fallback: 'gpt-4o',
-    temperatura: 0.4,
-    max_tokens: 5000,
-    cor: 'text-amber-400',
-    cor_bg: 'bg-amber-500/10',
-    cor_border: 'border-amber-500/30',
-    descricao: 'Controle e análise de produtividade da equipe jurídica: tarefas, metas, eficiência e relatórios de gestão.',
-    especialidades: ['Gestão de Tarefas', 'KPIs Jurídicos', 'Produtividade por Advogado', 'Distribuição de Processos', 'Análise de Gargalos', 'Metas e OKRs'],
-    capacidades: [
-      'Análise de produtividade individual e coletiva',
-      'Sugestão de redistribuição de processos',
-      'Identificação de gargalos operacionais',
-      'Relatório de desempenho por período',
-      'Definição de metas realistas por cargo',
-      'Alertas de sobrecarga de trabalho',
-    ],
-    system_prompt: `Você é BEN Redator Jurídico, gestor inteligente de produtividade jurídica da plataforma Lex Jurídico.
-
-MISSÃO: Otimizar a produtividade da equipe do escritório Mauro Monção, garantindo que nenhum prazo seja perdido e que cada membro da equipe trabalhe com eficiência máxima.
-
-KPIs MONITORADOS:
-- Processos por advogado (meta: máx. 80 ativos)
-- Peças produzidas/semana por membro
-- Taxa de cumprimento de prazos (meta: >98%)
-- Tempo médio de resposta a demandas
-- Taxa de aprovação de peças pelo sócio-diretor
-
-ANÁLISE DE PRODUTIVIDADE:
-1. Distribuição atual da carga de trabalho
-2. Identificação de sobrecarga e ociosidade
-3. Gargalos no fluxo de aprovação
-4. Sugestão de redistribuição
-5. Projeção de capacidade para novos clientes
-
-Use dados objetivos. Sugira metas SMART.`,
-    exemplos_uso: [
-      'Analisar produtividade da equipe esta semana',
-      'Redistribuir processos de advogado sobrecarregado',
-      'Definir metas mensais para estagiários',
-      'Identificar gargalos no fluxo de aprovação de peças',
-    ],
-    ativo: true,
-    premium: false,
-    tempo_estimado_seg: 20,
-  },
-
-  // ── BEN Engenheiro de Prompt ──────────────────────────────
   'ben-engenheiro-prompt': {
     id: 'ben-engenheiro-prompt',
     nome: 'BEN Engenheiro de Prompt',
@@ -1102,10 +442,11 @@ Use dados objetivos. Sugira metas SMART.`,
     tempo_estimado_seg: 8,
   },
 
-  // Nível 2: Especialista (Sonnet 4.6)
-  'ben-contador-tributarista-especialista': {
-    id: 'ben-contador-tributarista-especialista',
-    nome: 'BEN Contador Tributarista Especialista',
+  // Nível 2: Especialista (Sonnet 4.6) — ID real no backend: ben-contador-especialista
+  'ben-contador-especialista': {
+    id: 'ben-contador-especialista',
+    nome: 'BEN Contador Especialista',
+    // retrocompat alias também aceito pelo run.js
     titulo: 'Contador e Consultor Fiscal Sênior',
     emoji: '💼',
     area: 'tributario',
@@ -1142,9 +483,9 @@ Use dados objetivos. Sugira metas SMART.`,
     tempo_estimado_seg: 30,
   },
 
-  'ben-contador-tributarista-planejamento': {
-    id: 'ben-contador-tributarista-planejamento',
-    nome: 'BEN Contador Tributarista — Planejamento',
+  'ben-contador-planejamento': {
+    id: 'ben-contador-planejamento',
+    nome: 'BEN Contador — Planejamento Tributário',
     titulo: 'Especialista em Planejamento Tributário',
     emoji: '🗺️',
     area: 'tributario',
@@ -1158,16 +499,41 @@ Use dados objetivos. Sugira metas SMART.`,
     descricao: 'Planejamento tributário estratégico — comparativo de regimes, holdings, incentivos fiscais.',
     especialidades: ['Comparativo de Regimes', 'Holdings', 'SUDENE', 'Lei do Bem', 'Incentivos Fiscais'],
     capacidades: ['Comparativo Simples vs Presumido vs Real', 'Estruturação de holding', 'Identificação de incentivos'],
-    system_prompt: `Você é o BEN Contador Tributarista — Planejamento, especialista em planejamento tributário estratégico.`,
+    system_prompt: `Você é o BEN Contador — Planejamento Tributário, especialista em planejamento tributário estratégico.`,
     exemplos_uso: ['Comparar regimes tributários', 'Estruturar holding familiar'],
     ativo: true,
     premium: false,
     tempo_estimado_seg: 25,
   },
 
-  'ben-contador-tributarista-creditos': {
-    id: 'ben-contador-tributarista-creditos',
-    nome: 'BEN Contador Tributarista — Créditos',
+  // Alias retrocompat
+  'ben-contador-tributarista-planejamento': {
+    id: 'ben-contador-tributarista-planejamento',
+    nome: 'BEN Contador Tributarista — Planejamento (alias)',
+    titulo: 'Alias → ben-contador-planejamento',
+    emoji: '🗺️',
+    area: 'tributario',
+    modelo: 'claude-haiku-4',
+    modelo_fallback: 'claude-haiku-4',
+    temperatura: 0.4,
+    max_tokens: 5000,
+    cor: 'text-emerald-400',
+    cor_bg: 'bg-emerald-500/10',
+    cor_border: 'border-emerald-500/30',
+    descricao: 'Alias de retrocompatibilidade → redireciona para ben-contador-planejamento.',
+    especialidades: [],
+    capacidades: [],
+    system_prompt: '',
+    exemplos_uso: [],
+    ativo: false,
+    premium: false,
+    tempo_estimado_seg: 25,
+  },
+
+  'ben-contador-creditos': {
+    id: 'ben-contador-creditos',
+    nome: 'BEN Contador — Recuperação de Créditos',
+    // Real ID. Alias: ben-contador-tributarista-creditos
     titulo: 'Especialista em Recuperação de Créditos Tributários',
     emoji: '💰',
     area: 'tributario',
@@ -1188,9 +554,32 @@ Use dados objetivos. Sugira metas SMART.`,
     tempo_estimado_seg: 20,
   },
 
-  'ben-contador-tributarista-auditoria': {
-    id: 'ben-contador-tributarista-auditoria',
-    nome: 'BEN Contador Tributarista — Auditoria',
+  'ben-contador-tributarista-creditos': {
+    id: 'ben-contador-tributarista-creditos',
+    nome: 'BEN Contador Tributarista — Créditos (alias)',
+    titulo: 'Alias → ben-contador-creditos',
+    emoji: '💰',
+    area: 'tributario',
+    modelo: 'claude-haiku-4',
+    modelo_fallback: 'claude-haiku-4',
+    temperatura: 0.3,
+    max_tokens: 5000,
+    cor: 'text-emerald-400',
+    cor_bg: 'bg-emerald-500/10',
+    cor_border: 'border-emerald-500/30',
+    descricao: 'Alias de retrocompatibilidade → redireciona para ben-contador-creditos.',
+    especialidades: [],
+    capacidades: [],
+    system_prompt: '',
+    exemplos_uso: [],
+    ativo: false,
+    premium: false,
+    tempo_estimado_seg: 20,
+  },
+
+  'ben-contador-auditoria': {
+    id: 'ben-contador-auditoria',
+    nome: 'BEN Contador — Auditoria Fiscal',
     titulo: 'Especialista em Auditoria Contábil e Fiscal',
     emoji: '🔍',
     area: 'tributario',
@@ -1204,21 +593,45 @@ Use dados objetivos. Sugira metas SMART.`,
     descricao: 'Auditoria de SPED, identificação de inconsistências contábeis e fiscais.',
     especialidades: ['Auditoria SPED', 'Fornecedor Inapto', 'Caixa Credor', 'eSocial vs GFIP'],
     capacidades: ['Cruzamento de dados contábeis', 'Identificação de inconsistências', 'Relatório de auditoria'],
-    system_prompt: `Você é o BEN Contador Tributarista — Auditoria, especialista em auditoria contábil e identificação de inconsistências fiscais.`,
+    system_prompt: `Você é o BEN Contador — Auditoria Fiscal, especialista em auditoria contábil e identificação de inconsistências fiscais.`,
     exemplos_uso: ['Auditar SPED fiscal', 'Identificar inconsistências eSocial vs GFIP'],
     ativo: true,
     premium: false,
     tempo_estimado_seg: 25,
   },
 
-  'ben-contador-tributarista-relatorio': {
-    id: 'ben-contador-tributarista-relatorio',
-    nome: 'BEN Contador Tributarista — Relatório',
+  // Alias retrocompat
+  'ben-contador-tributarista-auditoria': {
+    id: 'ben-contador-tributarista-auditoria',
+    nome: 'BEN Contador Tributarista — Auditoria (alias)',
+    titulo: 'Alias → ben-contador-auditoria',
+    emoji: '🔍',
+    area: 'tributario',
+    modelo: 'claude-haiku-4',
+    modelo_fallback: 'claude-haiku-4',
+    temperatura: 0.3,
+    max_tokens: 5000,
+    cor: 'text-emerald-400',
+    cor_bg: 'bg-emerald-500/10',
+    cor_border: 'border-emerald-500/30',
+    descricao: 'Alias de retrocompatibilidade → redireciona para ben-contador-auditoria.',
+    especialidades: [],
+    capacidades: [],
+    system_prompt: '',
+    exemplos_uso: [],
+    ativo: false,
+    premium: false,
+    tempo_estimado_seg: 25,
+  },
+
+  'ben-contador-relatorio': {
+    id: 'ben-contador-relatorio',
+    nome: 'BEN Contador — Relatório Técnico',
     titulo: 'Especialista em Relatórios Contábeis e Laudos',
     emoji: '📋',
     area: 'tributario',
-    modelo: 'gpt-4o',
-    modelo_fallback: 'gpt-4o',
+    modelo: 'claude-haiku-4',
+    modelo_fallback: 'claude-haiku-4',
     temperatura: 0.2,
     max_tokens: 5000,
     cor: 'text-emerald-400',
@@ -1227,9 +640,33 @@ Use dados objetivos. Sugira metas SMART.`,
     descricao: 'Elaboração de DRE executivo, laudos judiciais e notas técnicas contábeis.',
     especialidades: ['DRE Executivo', 'Laudo Judicial', 'Nota Técnica', 'Relatório Gerencial'],
     capacidades: ['Elaboração de DRE', 'Laudos para processos judiciais', 'Notas técnicas contábeis'],
-    system_prompt: `Você é o BEN Contador Tributarista — Relatório, especialista em elaboração de relatórios contábeis e laudos judiciais.`,
+    system_prompt: `Você é o BEN Contador — Relatório Técnico, especialista em elaboração de relatórios contábeis e laudos judiciais.`,
     exemplos_uso: ['Elaborar DRE executivo', 'Preparar laudo contábil judicial'],
     ativo: true,
+    premium: false,
+    tempo_estimado_seg: 20,
+  },
+
+  // Alias retrocompat
+  'ben-contador-tributarista-relatorio': {
+    id: 'ben-contador-tributarista-relatorio',
+    nome: 'BEN Contador Tributarista — Relatório (alias)',
+    titulo: 'Alias → ben-contador-relatorio',
+    emoji: '📋',
+    area: 'tributario',
+    modelo: 'claude-haiku-4',
+    modelo_fallback: 'claude-haiku-4',
+    temperatura: 0.2,
+    max_tokens: 5000,
+    cor: 'text-emerald-400',
+    cor_bg: 'bg-emerald-500/10',
+    cor_border: 'border-emerald-500/30',
+    descricao: 'Alias de retrocompatibilidade → redireciona para ben-contador-relatorio.',
+    especialidades: [],
+    capacidades: [],
+    system_prompt: '',
+    exemplos_uso: [],
+    ativo: false,
     premium: false,
     tempo_estimado_seg: 20,
   },
@@ -1397,6 +834,93 @@ Use dados objetivos. Sugira metas SMART.`,
     ativo: true,
     premium: true,
     tempo_estimado_seg: 20,
+  },
+
+  // ══════════════════════════════════════════════════════════
+  // BEN PERITO IMOBILIÁRIO
+  // ══════════════════════════════════════════════════════════
+  'ben-perito-imobiliario': {
+    id: 'ben-perito-imobiliario',
+    nome: 'BEN Perito Imobiliário',
+    titulo: 'Perito Imobiliário — Avaliação e Laudos ABNT',
+    emoji: '🏢',
+    area: 'forense',
+    modelo: 'claude-sonnet-4',
+    modelo_fallback: 'claude-haiku-4',
+    temperatura: 0.1,
+    max_tokens: 6000,
+    cor: 'text-purple-400',
+    cor_bg: 'bg-purple-500/10',
+    cor_border: 'border-purple-500/30',
+    descricao: 'Perícias imobiliárias com metodologia ABNT NBR 14.653. Avaliação judicial de imóveis, apuração de danos, cálculo de benfeitorias, partilhas e usucapião.',
+    especialidades: [
+      'Avaliação Judicial (ABNT NBR 14.653)',
+      'Danos por Infiltração / Vícios Construtivos',
+      'Cálculo de Benfeitorias',
+      'Apuração de Superfície e Confrontações',
+      'Laudos para Partilha / Inventário',
+      'Avaliação para Usucapião',
+    ],
+    capacidades: [
+      'Laudo de avaliação imobiliária judicial',
+      'Metodologia comparativa e evolutiva',
+      'Cálculo de danos e depreciação',
+      'Identificação de vícios ocultos',
+    ],
+    system_prompt: 'BEN Perito Imobiliário — especialista em avaliação e laudos periciais imobiliários com metodologia ABNT NBR 14.653.',
+    exemplos_uso: [
+      'Avaliar imóvel para ação de usucapião',
+      'Elaborar laudo de danos por infiltração',
+      'Calcular benfeitorias em processo de partilha',
+    ],
+    ativo: true,
+    premium: true,
+    tempo_estimado_seg: 40,
+  },
+
+  // ══════════════════════════════════════════════════════════
+  // BEN PROCESSUALISTA ESTRATÉGICO
+  // ══════════════════════════════════════════════════════════
+  'ben-processualista-estrategico': {
+    id: 'ben-processualista-estrategico',
+    nome: 'BEN Processualista Estratégico',
+    titulo: 'Especialista em Estratégia Processual — CPC/2015',
+    emoji: '⚖️',
+    area: 'processual',
+    modelo: 'claude-opus-4',
+    modelo_fallback: 'claude-sonnet-4',
+    temperatura: 0.05,
+    max_tokens: 12000,
+    cor: 'text-indigo-400',
+    cor_bg: 'bg-indigo-500/10',
+    cor_border: 'border-indigo-500/30',
+    descricao: 'Estratégia processual de alto nível com thinking sempre ativo (Claude Opus). Petições, contestações, recursos, embargos. Domínio completo do CPC/2015, jurisprudência STJ/STF e teses processuais avançadas.',
+    especialidades: [
+      'Petições Iniciais (Ação Anulatória, Mandado de Segurança)',
+      'Contestações com preliminares técnicas',
+      'Recursos (Apelação, Agravo, REsp, RE)',
+      'Embargos de Declaração',
+      'Tutelas de Urgência (antecipada e cautelar)',
+      'Exceção de Pré-Executividade',
+    ],
+    capacidades: [
+      'Thinking sempre ativo (Claude Opus)',
+      'Estratégia multi-instância completa',
+      'Raciocínio em 7 camadas obrigatórias',
+      'Jurisprudência STF/STJ atualizada',
+      'Precedentes vinculantes e súmulas',
+      'Escalação automática para MAXIMUS em casos tributários + processuais',
+    ],
+    system_prompt: 'BEN Processualista Estratégico — especialista em estratégia processual com domínio do CPC/2015, teses avançadas e raciocínio em 7 camadas.',
+    exemplos_uso: [
+      'Elaborar petição inicial de Mandado de Segurança',
+      'Redigir contestação com nulidades processuais',
+      'Recurso de Apelação com preliminares e mérito',
+      'Tutela antecipada em caráter antecedente',
+    ],
+    ativo: true,
+    premium: true,
+    tempo_estimado_seg: 60,
   },
 };
 

@@ -1,0 +1,63 @@
+{
+  "name": "BEN WF-02: Prazo Vencendo → Agente Premium → Email Cliente",
+  "nodes": [
+    {
+      "parameters": { "rule": { "interval": [{ "field": "cronExpression", "expression": "0 8 * * 1-5" }] } },
+      "name": "Cron Dias Úteis 08h",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "https://ben-juris-center.vercel.app/api/db?action=prazos-urgentes"
+      },
+      "name": "Buscar prazos urgentes (7 dias)",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const prazos = $input.first().json.prazos || [];\nif (!prazos.length) return [];\nreturn prazos.map(p => ({ json: p }));"
+      },
+      "name": "Iterar processos com prazo",
+      "type": "n8n-nodes-base.code",
+      "position": [680, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://ben-juris-center.vercel.app/api/agents/run",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            { "name": "agentId", "value": "ben-agente-operacional-premium" },
+            { "name": "input",   "value": "=Processo {{ $json.numero_cnj }} — Partes: {{ $json.partes }} — Área: {{ $json.area }}. Prazo crítico: {{ $json.prazo_proximo }}. Última movimentação: {{ $json.ultima_movimentacao }}. Gere um alerta jurídico resumido com as providências urgentes necessárias." },
+            { "name": "context", "value": "={{ JSON.stringify({ urgente: true, prazo: $json.prazo_proximo, processo: $json.numero_cnj }) }}" }
+          ]
+        }
+      },
+      "name": "BEN Agente Premium — alerta jurídico",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [900, 300]
+    },
+    {
+      "parameters": {
+        "fromEmail": "ben@mauromoncao.adv.br",
+        "toEmail": "mauro@mauromoncao.adv.br",
+        "subject": "=⚠️ PRAZO URGENTE — {{ $('Iterar processos com prazo').item.json.numero_cnj }} — {{ $('Iterar processos com prazo').item.json.prazo_proximo }}",
+        "text": "={{ $json.output }}"
+      },
+      "name": "Enviar email Dr. Mauro",
+      "type": "n8n-nodes-base.emailSend",
+      "position": [1120, 300]
+    }
+  ],
+  "connections": {
+    "Cron Dias Úteis 08h":              { "main": [[{ "node": "Buscar prazos urgentes (7 dias)", "type": "main", "index": 0 }]] },
+    "Buscar prazos urgentes (7 dias)":  { "main": [[{ "node": "Iterar processos com prazo",     "type": "main", "index": 0 }]] },
+    "Iterar processos com prazo":       { "main": [[{ "node": "BEN Agente Premium — alerta jurídico", "type": "main", "index": 0 }]] },
+    "BEN Agente Premium — alerta jurídico": { "main": [[{ "node": "Enviar email Dr. Mauro",     "type": "main", "index": 0 }]] }
+  },
+  "settings": { "executionOrder": "v1" }
+}

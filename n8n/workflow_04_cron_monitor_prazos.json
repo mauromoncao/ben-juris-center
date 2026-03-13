@@ -1,0 +1,61 @@
+{
+  "name": "BEN WF-04: Cron Diário — Monitor de Prazos → WhatsApp Dr. Mauro",
+  "nodes": [
+    {
+      "parameters": { "rule": { "interval": [{ "field": "cronExpression", "expression": "0 7 * * 1-5" }] } },
+      "name": "Cron 07h dias úteis",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "https://ben-juris-center.vercel.app/api/db?action=prazos-urgentes"
+      },
+      "name": "Buscar prazos (7 dias)",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const prazos = $input.first().json.prazos || [];\nif (!prazos.length) return [{ json: { skip: true } }];\nconst lista = prazos.map((p,i) => `${i+1}. ${p.numero_cnj} — ${p.partes} — Prazo: ${p.prazo_proximo}`).join('\\n');\nreturn [{ json: { total: prazos.length, lista, skip: false } }];"
+      },
+      "name": "Formatar lista de prazos",
+      "type": "n8n-nodes-base.code",
+      "position": [680, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [{ "value1": "={{ $json.skip }}", "value2": true }]
+        }
+      },
+      "name": "Tem prazos urgentes?",
+      "type": "n8n-nodes-base.if",
+      "position": [900, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://api.z-api.io/instances/{{ $env.ZAPI_INSTANCE }}/token/{{ $env.ZAPI_TOKEN }}/send-text",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            { "name": "phone",   "value": "={{ $env.MAURO_PHONE }}" },
+            { "name": "message", "value": "=⚖️ BEN MONITOR — {{ $json.total }} prazo(s) urgente(s) nos próximos 7 dias:\\n\\n{{ $json.lista }}\\n\\nAcesse: https://ben-juris-center.vercel.app" }
+          ]
+        }
+      },
+      "name": "WhatsApp Dr. Mauro",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [1120, 200]
+    }
+  ],
+  "connections": {
+    "Cron 07h dias úteis":       { "main": [[{ "node": "Buscar prazos (7 dias)",    "type": "main", "index": 0 }]] },
+    "Buscar prazos (7 dias)":    { "main": [[{ "node": "Formatar lista de prazos",  "type": "main", "index": 0 }]] },
+    "Formatar lista de prazos":  { "main": [[{ "node": "Tem prazos urgentes?",      "type": "main", "index": 0 }]] },
+    "Tem prazos urgentes?":      { "main": [[], [{ "node": "WhatsApp Dr. Mauro",   "type": "main", "index": 0 }]] }
+  },
+  "settings": { "executionOrder": "v1" }
+}

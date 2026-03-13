@@ -1,3 +1,4 @@
+import { useAuth } from '../context/AuthContext';
 import React, { useState } from 'react';
 import {
   Calculator, FileText, TrendingUp, AlertTriangle, BarChart3,
@@ -95,6 +96,7 @@ const CONTADOR_AGENTS = [
 
 // ─── Componente Principal ───────────────────────────────────
 export default function ContadorIA() {
+  const { user } = useAuth();
   const [activeTab, setActiveTab] = useState(0);
   const [inputs, setInputs] = useState<Record<number, string>>({});
   const [loadings, setLoadings] = useState<Record<number, boolean>>({});
@@ -117,6 +119,7 @@ export default function ContadorIA() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           agentId: agent.id,
+          clientId: user?.email || null,
           input: currentInput,
           context: { modulo: 'contador-ia', subagente: agent.label },
           useSearch: [0, 1, 2].includes(activeTab),
