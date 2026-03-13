@@ -9,7 +9,7 @@
 export const config = { maxDuration: 120 }
 
 // ─── Import assíncrono do módulo DB (não bloqueia se indisponível) ──
-import { saveAgentOutput } from './db.js'
+import { saveAgentOutput } from '../db.js'
 
 // ─── Configuração dos 32 Agentes (Jurídicos + Operacionais + Contador + Perito) ────
 
