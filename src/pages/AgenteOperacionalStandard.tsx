@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
+import { useAuth } from '../context/AuthContext';
 import { downloadDocx } from '../lib/generateDocx';
 // timbreFile salvo na sessão para não precisar reanexar a cada download
 let _sessionTimbreFile: File | null = null
@@ -85,6 +86,7 @@ async function extrairTextoArquivo(file: File): Promise<string> {
 
 // ─── Componente Principal ────────────────────────────────────────────────────
 export default function AgenteOperacionalStandard() {
+  const { user } = useAuth();
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
@@ -179,6 +181,7 @@ export default function AgenteOperacionalStandard() {
       const payload: Record<string, unknown> = {
         agentId: 'ben-agente-operacional-standard',
         input: msg,
+        clientId: user?.email,
         context: {},
         useSearch: false,
         historico,

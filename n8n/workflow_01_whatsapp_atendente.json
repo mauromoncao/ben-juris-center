@@ -1,0 +1,87 @@
+{
+  "name": "BEN WF-01: WhatsApp → Atendente → CRM",
+  "nodes": [
+    {
+      "parameters": { "httpMethod": "POST", "path": "whatsapp-entrada", "responseMode": "responseNode" },
+      "name": "Webhook WhatsApp (Z-API)",
+      "type": "n8n-nodes-base.webhook",
+      "position": [240, 300],
+      "webhookId": "ben-whatsapp-entrada"
+    },
+    {
+      "parameters": {
+        "jsCode": "const body = $input.first().json;\nconst msg = body.text?.message || body.message?.text || '';\nconst from = body.phone || body.from || '';\nreturn [{ json: { phone: from, message: msg, timestamp: new Date().toISOString() } }];"
+      },
+      "name": "Extrair mensagem e telefone",
+      "type": "n8n-nodes-base.code",
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://ben-juris-center.vercel.app/api/agents/run",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            { "name": "agentId", "value": "ben-atendente" },
+            { "name": "input",   "value": "={{ $json.message }}" },
+            { "name": "context", "value": "={{ JSON.stringify({ phone: $json.phone, channel: 'whatsapp' }) }}" }
+          ]
+        }
+      },
+      "name": "BEN Atendente (IA)",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [680, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const resp = $input.first().json;\nconst output = resp.output || 'Olá! Dr. Ben aqui. Como posso ajudar?';\nconst score  = resp.leadScore || 0;\nreturn [{ json: { reply: output, leadScore: score, agentUsed: resp.agentId } }];"
+      },
+      "name": "Formatar resposta",
+      "type": "n8n-nodes-base.code",
+      "position": [900, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.z-api.io/instances/{{ $env.ZAPI_INSTANCE }}/token/{{ $env.ZAPI_TOKEN }}/send-text",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            { "name": "phone",   "value": "={{ $('Extrair mensagem e telefone').item.json.phone }}" },
+            { "name": "message", "value": "={{ $json.reply }}" }
+          ]
+        }
+      },
+      "name": "Enviar resposta Z-API",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [1120, 200]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.VPS_URL }}/leads",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            { "name": "phone",     "value": "={{ $('Extrair mensagem e telefone').item.json.phone }}" },
+            { "name": "message",   "value": "={{ $('Extrair mensagem e telefone').item.json.message }}" },
+            { "name": "leadScore", "value": "={{ $json.leadScore }}" },
+            { "name": "channel",   "value": "whatsapp" },
+            { "name": "timestamp", "value": "={{ $('Extrair mensagem e telefone').item.json.timestamp }}" }
+          ]
+        }
+      },
+      "name": "Salvar lead no VPS CRM",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [1120, 420]
+    }
+  ],
+  "connections": {
+    "Webhook WhatsApp (Z-API)":         { "main": [[{ "node": "Extrair mensagem e telefone", "type": "main", "index": 0 }]] },
+    "Extrair mensagem e telefone":       { "main": [[{ "node": "BEN Atendente (IA)",         "type": "main", "index": 0 }]] },
+    "BEN Atendente (IA)":               { "main": [[{ "node": "Formatar resposta",           "type": "main", "index": 0 }]] },
+    "Formatar resposta":                 { "main": [[{ "node": "Enviar resposta Z-API",       "type": "main", "index": 0 }, { "node": "Salvar lead no VPS CRM", "type": "main", "index": 0 }]] }
+  },
+  "settings": { "executionOrder": "v1" }
+}

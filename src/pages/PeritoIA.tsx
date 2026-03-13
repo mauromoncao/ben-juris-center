@@ -1,3 +1,4 @@
+import { useAuth } from '../context/AuthContext';
 import React, { useState } from 'react';
 import {
   FlaskConical, FileSearch, Monitor, FileText, AlertTriangle,
@@ -95,6 +96,7 @@ const PERITO_AGENTS = [
 
 // ─── Componente Principal ───────────────────────────────────
 export default function PeritoIA() {
+  const { user } = useAuth();
   const [activeTab, setActiveTab] = useState(0);
   const [inputs, setInputs] = useState<Record<number, string>>({});
   const [loadings, setLoadings] = useState<Record<number, boolean>>({});
@@ -117,6 +119,7 @@ export default function PeritoIA() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           agentId: agent.id,
+          clientId: user?.email || null,
           input: currentInput,
           context: { modulo: 'perito-ia', subagente: agent.label },
           useSearch: [1, 3].includes(activeTab),

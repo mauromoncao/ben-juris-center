@@ -60,9 +60,7 @@ export async function callAIAgent(
         agentId: agent.id,
         input: lastMsg,
         context: {},
-        useSearch: ['ben-super-agente-juridico', 'ben-peticionista-juridico', 'ben-tributarista',
-          'ben-previdenciarista', 'ben-analista-processual', 'ben-trabalhista',
-          'ben-contador-tributarista-especialista', 'ben-perito-forense', 'ben-perito-forense-profundo'].includes(agent.id),
+        useSearch: ['ben-agente-operacional-maximus', 'ben-contador-especialista', 'ben-perito-forense', 'ben-perito-forense-profundo'].includes(agent.id),
       }),
     });
 
@@ -97,8 +95,7 @@ function detectNameOriginQuestion(msg: string): boolean {
     'origem do nome', 'origem do dr', 'por que ben', 'porque ben', 'por que bên',
     'o nome dr. ben', 'o nome dr ben', 'nome do assistente', 'por que se chama dr',
     'origem de dr. ben', 'origem de dr ben', 'explicação do nome', 'história do nome',
-    'significado do nome', 'por que ben e não bem', 'ben ou bem',
-  ];
+    'significado do nome', 'por que ben e não bem', 'ben ou bem'];
   return patterns.some(p => lower.includes(p));
 }
 
@@ -121,8 +118,7 @@ O nome foi criado em **homenagem a Benjamin, filho do Dr. Mauro Monção**, que 
 
 **"Dr. Ben"** é uma homenagem a **Benjamin, filho do Dr. Mauro Monção**. O nome nasceu desse vínculo afetivo e pessoal, e também carrega uma inspiração simbólica em **Benjamim, filho amado de Jacó** — um nome associado a amor, legado e continuidade.
 
-É um nome com história, propósito e significado.`,
-  ];
+É um nome com história, propósito e significado.`];
   return variants[Math.floor(Math.random() * variants.length)];
 }
 
@@ -143,50 +139,7 @@ function simulateAgentResponse(agent: AgentConfig, messages: AIMessage[]): AIRes
   }
 
   const demoResponses: Record<string, string> = {
-    'ben-peticionista-juridico': `# Petição Elaborada — ${agent.nome}
-
----
-
-**EXCELENTÍSSIMO SENHOR DOUTOR JUIZ DE DIREITO DA ___ VARA CÍVEL DA COMARCA DE SÃO PAULO**
-
-**[CLIENTE]**, pessoa jurídica de direito público, inscrita no CNPJ nº XX.XXX.XXX/0001-XX, com sede na [endereço], neste ato representada por seu Procurador, Dr. **Mauro Monção** (OAB/SP nº XXX.XXX), vem, respeitosamente, à presença de Vossa Excelência, com fulcro nos artigos **319 e seguintes do Código de Processo Civil**, propor a presente:
-
-## AÇÃO [TIPO] COM PEDIDO DE TUTELA DE URGÊNCIA
-
-em face de **[PARTE CONTRÁRIA]**, pelos fatos e fundamentos a seguir expostos.
-
----
-
-### I — DOS FATOS
-> *(Insira os fatos relevantes do caso)*
-
-### II — DO DIREITO
-
-Com base no art. XXX do CTN/CLT/CC, e na jurisprudência do **STJ** (REsp X.XXX.XXX, Rel. Min. XXX, j. XX/XX/XXXX):
-
-> *"Ementa do precedente relevante aqui..."*
-
-**⚠️ Nota de Dr. Ben:** Configure as chaves de API nas Configurações para gerar petições completas com jurisprudência real e dados do processo automaticamente. Esta é uma prévia demonstrativa do formato.
-
-### III — DOS PEDIDOS
-
-Ante o exposto, requer-se:
-
-a) O recebimento e processamento da presente ação;
-b) A concessão de tutela de urgência, nos termos do art. 300 do CPC;
-c) A procedência total dos pedidos;
-d) A condenação da parte contrária em custas e honorários (art. 85 CPC, § 2º, mínimo de 10%).
-
-Dá-se à causa o valor de R$ [VALOR].
-
-Termos em que, pede deferimento.
-
-São Paulo, ${new Date().toLocaleDateString('pt-BR')}.
-
-**Dr. Mauro Monção**
-OAB/SP nº XXX.XXX`,
-
-    'ben-analista-processual': `# Análise Processual — ${agent.nome}
+    'ben-processualista-estrategico': `# Análise Processual — ${agent.nome}
 
 ---
 
@@ -230,7 +183,7 @@ Análise do processo identificado com base nos dados fornecidos. Abaixo os princ
 
 > **⚠️ Modo Demonstração** — Configure a API Genspark para análises completas com dados reais do processo, jurisprudência atualizada e estratégia personalizada.`,
 
-    'ben-tributarista': `# Auditoria Fiscal — ${agent.nome}
+    'ben-tributarista-estrategista': `# Auditoria Fiscal — ${agent.nome}
 
 ---
 

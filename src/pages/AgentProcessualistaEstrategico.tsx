@@ -1,3 +1,4 @@
+import { useAuth } from '../context/AuthContext';
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { downloadDocx } from '../lib/generateDocx';
 // timbreFile salvo na sessão para não precisar reanexar a cada download
@@ -94,6 +95,7 @@ async function extrairTextoArquivo(file: File): Promise<string> {
 
 // ─── Componente Principal ─────────────────────────────────────────────────────
 export default function AgentProcessualistaEstrategico() {
+  const { user } = useAuth();
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
@@ -235,6 +237,7 @@ export default function AgentProcessualistaEstrategico() {
         body: JSON.stringify({
           agentId: 'ben-processualista-estrategico',
           input: conteudo,
+          clientId: user?.email || null,
           context: { urgente: false },
         }),
       });

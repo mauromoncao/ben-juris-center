@@ -1,3 +1,4 @@
+import { useAuth } from '../context/AuthContext';
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { downloadDocx } from '../lib/generateDocx';
 // timbreFile salvo na sessão para não precisar reanexar a cada download
@@ -94,6 +95,7 @@ async function extrairTextoArquivo(file: File): Promise<string> {
 
 // ─── Componente Principal ────────────────────────────────────────────────────
 export default function AgenteOperacionalPremium() {
+  const { user } = useAuth();
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
@@ -188,6 +190,7 @@ export default function AgenteOperacionalPremium() {
       const payload: Record<string, unknown> = {
         agentId: 'ben-agente-operacional-premium',
         input: msg,
+        clientId: user?.email || null,
         context: {},
         useSearch: true,
         historico,

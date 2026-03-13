@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import { useAuth } from '../context/AuthContext';
 import {
   Brain, Zap, Code2, Copy, RefreshCw, Send, Star, BookOpen, ChevronRight,
   Plus, Trash2, Edit, Download, CheckCircle, Sparkles, Target, Lightbulb,
@@ -249,6 +250,7 @@ const CATEGORIAS = ['Todos', ...Array.from(new Set(TEMPLATES.map(t => t.categori
 
 // ─── Main Component ────────────────────────────────────────────────────────────
 export default function EngenheiroPrompts() {
+  const { user } = useAuth();
   const [tab, setTab] = useState<'biblioteca' | 'editor' | 'playground' | 'oficina'>('biblioteca');
   const [catFilter, setCatFilter] = useState('Todos');
   const [search, setSearch] = useState('');
@@ -301,6 +303,7 @@ export default function EngenheiroPrompts() {
         body: JSON.stringify({
           agentId: 'ben-engenheiro-prompt',
           input: filled,
+          clientId: user?.email,
           context: { modo: 'editor', template: selectedTemplate?.nome || 'custom' },
         }),
       });
@@ -341,6 +344,7 @@ export default function EngenheiroPrompts() {
         body: JSON.stringify({
           agentId: 'ben-engenheiro-prompt',
           input: playgroundInput,
+          clientId: user?.email,
           context: { modo: 'playground' },
         }),
       });
@@ -373,6 +377,7 @@ export default function EngenheiroPrompts() {
         body: JSON.stringify({
           agentId: 'ben-engenheiro-prompt',
           input: `${modeInstruction}\n\nPROMPT ORIGINAL:\n${oficinaInput}`,
+          clientId: user?.email,
           context: { modo: oficinaModo.toLowerCase() },
         }),
       });
