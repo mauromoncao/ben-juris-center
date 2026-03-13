@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route, NavLink, useLocation, Navigate } from 'react-router-dom';
+import AssistenteGeral from './components/AssistenteGeral';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import LoginPage from './pages/LoginPage';
 import {
   Scale, Building2, FileText, Gavel, Clock, Calendar, BookOpen,
   PenTool, DollarSign, Link2, Users, BarChart3, Shield, Bell,
   Settings, ChevronDown, ChevronRight, Menu, X, Home, Search,
-  LogOut, User, Zap, AlertTriangle, CheckCircle, Activity, Brain,
-  Target, Map, BookMarked, Wand2, Layers, Calculator, Microscope
+  LogOut, User, Zap, AlertTriangle, Activity, Brain,
+  Target, Map, BookMarked, Wand2, Calculator, Microscope
 } from 'lucide-react';
 
 // Pages
@@ -440,6 +441,8 @@ export default function App() {
     <BrowserRouter>
       <AuthProvider>
         <AppRoutes />
+        {/* BEN Assistente Geral — chat fixo universal, presente em todas as páginas */}
+        <AssistenteGeral />
       </AuthProvider>
     </BrowserRouter>
   );

@@ -67,6 +67,8 @@ export function withNameOriginDirective(systemPrompt: string): string {
 }
 
 export type AgentID =
+  // ASSISTENTE GERAL — COPILOTO FIXO
+  | 'ben-assistente-geral'
   // AGENTE OPERACIONAL MAXIMUS (1)
   | 'ben-agente-operacional-maximus'
   // AGENTE OPERACIONAL PREMIUM (1)
@@ -113,7 +115,8 @@ export type AreaAgent =
   | 'forense'
   | 'previdenciario'
   | 'constitucional'
-  | 'operacional';
+  | 'operacional'
+  | 'geral';
 
 export type ModelAgent =
   | 'gpt-4o'
@@ -148,6 +151,50 @@ export interface AgentConfig {
 }
 
 export const DR_BEN_AGENTS: Record<AgentID, AgentConfig> = {
+
+  // ══════════════════════════════════════════════════════════
+  // BEN ASSISTENTE GERAL — COPILOTO UNIVERSAL FIXO
+  // ══════════════════════════════════════════════════════════
+  'ben-assistente-geral': {
+    id: 'ben-assistente-geral',
+    nome: 'BEN Assistente',
+    titulo: 'Copiloto Universal — Sabe Tudo · Sempre Presente',
+    emoji: '🤖',
+    area: 'geral',
+    modelo: 'gpt-4o',
+    modelo_fallback: 'gpt-4o',
+    temperatura: 0.5,
+    max_tokens: 4096,
+    cor: 'text-yellow-400',
+    cor_bg: 'bg-yellow-500/10',
+    cor_border: 'border-yellow-500/30',
+    descricao: 'Copiloto fixo do Dr. Mauro. Sem restrições de domínio — direito, tecnologia, negócios, ciências, criatividade e tudo mais. Proativo, memória persistente Pinecone, dados em tempo real via Perplexity.',
+    especialidades: [
+      'Qualquer pergunta de qualquer área',
+      'Tecnologia, IA, sistemas, programação',
+      'Negócios, finanças, estratégia, investimentos',
+      'Ciências, medicina, engenharia',
+      'Criatividade, redação, comunicação',
+      'Produtividade e tomada de decisão',
+    ],
+    capacidades: [
+      'Responde qualquer pergunta sem restrição',
+      'Proativo — antecipa próximos passos',
+      'Memória persistente de todas as conversas',
+      'Pesquisa em tempo real via Perplexity',
+      'Direciona para agentes especializados quando necessário',
+    ],
+    system_prompt: 'BEN Assistente Geral — copiloto universal do Dr. Mauro Monção. Sem restrições de domínio.',
+    exemplos_uso: [
+      'Como funciona quantum computing?',
+      'Me ajuda a estruturar uma proposta comercial',
+      'Qual a melhor stack para esse sistema?',
+      'Resume esse contrato em 5 pontos',
+    ],
+    ativo: true,
+    premium: false,
+    tempo_estimado_seg: 8,
+  },
 
   // ══════════════════════════════════════════════════════════
   // AGENTE OPERACIONAL MAXIMUS
