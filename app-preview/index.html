@@ -307,6 +307,7 @@
     justify-content: center;
     font-size: 15px;
     flex-shrink: 0;
+    overflow: hidden;
   }
   .bubble {
     border-radius: 18px;
@@ -509,7 +510,7 @@
     border-radius: 4px;
     border: 1px solid;
   }
-  .agent-item-model { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+  .agent-item-desc { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
 
   /* ═══════ TAB BAR ═══════ */
   .tab-bar {
@@ -777,10 +778,10 @@
         </div>
         <!-- Header -->
         <div class="chat-header">
-          <div class="agent-icon-sm" style="background:rgba(109,40,217,0.2);">🤖</div>
+          <div class="agent-icon-sm" id="active-agent-icon" style="background:#0d1f3c;"><svg width="22" height="22" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="bgh" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#E4B71E"/><stop offset="100%" stop-color="#7B35C8"/></linearGradient></defs><text x="50%" y="58%" dominant-baseline="middle" text-anchor="middle" font-family="Georgia,serif" font-weight="bold" font-size="52" fill="url(#bgh)">B</text></svg></div>
           <div style="flex:1">
             <div class="agent-btn-name">BEN Assistente Geral (Copiloto)</div>
-            <div class="agent-btn-model">🤖 GPT-4o  ▾ trocar agente</div>
+            <div class="agent-btn-model">▾ trocar agente</div>
           </div>
           <div class="clear-btn" onclick="clearChat()">🗑️</div>
         </div>
@@ -788,9 +789,9 @@
         <div class="chat-area" id="chat-area">
           <!-- Messages will be injected here or empty state -->
           <div class="empty-state" id="empty-state">
-            <div class="empty-icon" style="background:#ede9fe;">🤖</div>
+            <div class="empty-icon" id="empty-icon-el" style="background:#0d1f3c;"><svg width="70" height="70" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="bg2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#E4B71E"/><stop offset="100%" stop-color="#7B35C8"/></linearGradient></defs><text x="50%" y="58%" dominant-baseline="middle" text-anchor="middle" font-family="Georgia,serif" font-weight="bold" font-size="52" fill="url(#bg2)">B</text></svg></div>
             <div class="empty-name">Assistente Geral</div>
-            <div class="empty-desc">Copiloto universal GPT-4o — sem restrições temáticas. Responde qualquer pergunta.</div>
+            <div class="empty-desc">Copiloto universal BEN IA — sem restrições temáticas. Responde qualquer pergunta.</div>
             <div class="empty-hint-box">💬 Envie uma mensagem para começar</div>
           </div>
         </div>
@@ -808,7 +809,7 @@
             <span class="tab-label">Chat BEN IA</span>
           </div>
           <div class="tab-item" onclick="showAgentPicker()">
-            <span class="tab-icon">🤖</span>
+            <span class="tab-icon"><svg width="22" height="22" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="bgt" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#E4B71E"/><stop offset="100%" stop-color="#7B35C8"/></linearGradient></defs><text x="50%" y="58%" dominant-baseline="middle" text-anchor="middle" font-family="Georgia,serif" font-weight="bold" font-size="52" fill="url(#bgt)">B</text></svg></span>
             <span class="tab-label">Agentes</span>
           </div>
           <div class="tab-item">
@@ -896,7 +897,7 @@
                 <span class="stat-label">Sistema</span>
               </div>
               <div class="stat-card" style="border-color:rgba(228,183,30,.4)">
-                <span class="stat-emoji">🤖</span>
+                <span class="stat-emoji"><svg width="24" height="24" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="bgs" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#E4B71E"/><stop offset="100%" stop-color="#D4A017"/></linearGradient></defs><text x="50%" y="58%" dominant-baseline="middle" text-anchor="middle" font-family="Georgia,serif" font-weight="bold" font-size="52" fill="url(#bgs)">B</text></svg></span>
                 <span class="stat-num" style="color:#D4A017">45</span>
                 <span class="stat-label">Total</span>
               </div>
@@ -908,7 +909,7 @@
             <div class="info-card">
               <div class="info-row"><span class="info-key">Versão</span><span class="info-val">1.0.0</span></div>
               <div class="info-row"><span class="info-key">API</span><span class="info-val">ben-juris-center.vercel.app</span></div>
-              <div class="info-row"><span class="info-key">Modelos</span><span class="info-val">Claude 4 · GPT-4o · Perplexity</span></div>
+              <div class="info-row"><span class="info-key">Plataforma</span><span class="info-val">BEN IA — Assistentes Inteligentes</span></div>
               <div class="info-row"><span class="info-key">Acesso</span><span class="info-val">Equipe autorizada</span></div>
             </div>
           </div>
@@ -931,7 +932,7 @@
             <span class="tab-label">Chat BEN IA</span>
           </div>
           <div class="tab-item">
-            <span class="tab-icon">🤖</span>
+            <span class="tab-icon"><svg width="22" height="22" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="bgp" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#E4B71E"/><stop offset="100%" stop-color="#7B35C8"/></linearGradient></defs><text x="50%" y="58%" dominant-baseline="middle" text-anchor="middle" font-family="Georgia,serif" font-weight="bold" font-size="52" fill="url(#bgp)">B</text></svg></span>
             <span class="tab-label">Agentes</span>
           </div>
           <div class="tab-item active">
@@ -951,55 +952,55 @@
 // ═══════════════════════════════════════════════════════
 const AGENTS = [
   // Sistema
-  { id:'ben-assistente-geral', emoji:'🤖', shortName:'Assistente Geral', name:'BEN Assistente Geral (Copiloto)', model:'GPT-4o', category:'sistema', color:'#6d28d9', accentColor:'#ede9fe', badge:'FIXO', badgeClass:'badge-fixo' },
-  { id:'ben-engenheiro-prompt', emoji:'🧠', shortName:'Eng. Prompt', name:'BEN Engenheiro de Prompt', model:'GPT-4o', category:'sistema', color:'#4f46e5', accentColor:'#e0e7ff' },
-  { id:'ben-analista-monitoramento', emoji:'🔍', shortName:'Monitoramento', name:'BEN Analista Monitoramento', model:'GPT-4o Mini', category:'sistema', color:'#dc2626', accentColor:'#fee2e2' },
-  { id:'ben-monitor-juridico', emoji:'📡', shortName:'Monitor Jurídico', name:'BEN Monitor Jurídico DJe + CNJ', model:'Claude Sonnet 4', category:'sistema', color:'#0e7490', accentColor:'#cffafe', badge:'NEW', badgeClass:'badge-new' },
-  { id:'ben-assistente-cnj', emoji:'⚖️', shortName:'Assistente CNJ', name:'BEN Assistente CNJ DataJud', model:'Claude Sonnet 4', category:'sistema', color:'#0e7490', accentColor:'#cffafe', badge:'NEW', badgeClass:'badge-new' },
+  { id:'ben-assistente-geral', shortName:'Assistente Geral', name:'BEN Assistente Geral (Copiloto)', category:'sistema', color:'#6d28d9', accentColor:'#ede9fe', badge:'FIXO', badgeClass:'badge-fixo', description:'Copiloto universal BEN IA — sem restrições temáticas. Responde qualquer pergunta.' },
+  { id:'ben-engenheiro-prompt', shortName:'Eng. Prompt', name:'BEN Engenheiro de Prompt', category:'sistema', color:'#4f46e5', accentColor:'#e0e7ff', description:'Otimização de prompts e arquitetura de agentes IA.' },
+  { id:'ben-analista-monitoramento', shortName:'Monitoramento', name:'BEN Analista Monitoramento', category:'sistema', color:'#dc2626', accentColor:'#fee2e2', description:'Monitoramento de saúde do sistema e alertas.' },
+  { id:'ben-monitor-juridico', shortName:'Monitor Jurídico', name:'BEN Monitor Jurídico DJe + CNJ', category:'sistema', color:'#0e7490', accentColor:'#cffafe', badge:'NEW', badgeClass:'badge-new', description:'Monitor DJe + DataJud CNJ em tempo real.' },
+  { id:'ben-assistente-cnj', shortName:'Assistente CNJ', name:'BEN Assistente CNJ DataJud', category:'sistema', color:'#0e7490', accentColor:'#cffafe', badge:'NEW', badgeClass:'badge-new', description:'Consulta e análise de processos no DataJud CNJ.' },
   // Jurídico
-  { id:'ben-agente-operacional-maximus', emoji:'⭐', shortName:'Agente Maximus', name:'AGENTE OPERACIONAL MAXIMUS', model:'Claude Opus 4', category:'juridico', color:'#92400e', accentColor:'#fef3c7', badge:'OPUS', badgeClass:'badge-opus' },
-  { id:'ben-agente-operacional-premium', emoji:'🔷', shortName:'Agente Premium', name:'AGENTE OPERACIONAL PREMIUM', model:'Claude Sonnet 4', category:'juridico', color:'#1d4ed8', accentColor:'#dbeafe', badge:'SONNET', badgeClass:'badge-sonnet' },
-  { id:'ben-agente-operacional-standard', emoji:'🟢', shortName:'Agente Standard', name:'AGENTE OPERACIONAL STANDARD', model:'Claude Haiku 4', category:'juridico', color:'#16a34a', accentColor:'#dcfce7', badge:'HAIKU', badgeClass:'badge-haiku' },
-  { id:'ben-tributarista-estrategista', emoji:'⚖️', shortName:'Tributarista Estrat.', name:'AGENTE TRIBUTARISTA ESTRATEGISTA', model:'Claude Opus 4', category:'juridico', color:'#b45309', accentColor:'#fef3c7', badge:'OPUS', badgeClass:'badge-opus' },
-  { id:'ben-processualista-estrategico', emoji:'📋', shortName:'Processualista Estrat.', name:'AGENTE PROCESSUALISTA ESTRATÉGICO', model:'Claude Opus 4', category:'juridico', color:'#1e3a5f', accentColor:'#dbeafe', badge:'OPUS', badgeClass:'badge-opus' },
-  { id:'ben-peticionista-juridico', emoji:'⚖️', shortName:'Peticionista', name:'BEN Peticionista Jurídico', model:'Claude Haiku 4.5', category:'juridico', color:'#1d4ed8', accentColor:'#dbeafe' },
-  { id:'ben-contratualista', emoji:'📋', shortName:'Contratualista', name:'BEN Contratualista', model:'Claude Haiku 4.5', category:'juridico', color:'#7c3aed', accentColor:'#ede9fe' },
-  { id:'ben-mandatario-juridico', emoji:'📜', shortName:'Mandatário', name:'BEN Mandatário Jurídico', model:'Claude Haiku 4.5', category:'juridico', color:'#059669', accentColor:'#d1fae5' },
-  { id:'ben-analista-processual', emoji:'🔬', shortName:'Analista Proc.', name:'BEN Analista Processual', model:'GPT-4o', category:'juridico', color:'#dc2626', accentColor:'#fee2e2' },
-  { id:'ben-tributarista', emoji:'💰', shortName:'Tributarista', name:'BEN Tributarista', model:'Claude Haiku 4.5', category:'juridico', color:'#d97706', accentColor:'#fef3c7' },
-  { id:'ben-trabalhista', emoji:'👷', shortName:'Trabalhista', name:'BEN Trabalhista', model:'GPT-4o', category:'juridico', color:'#0369a1', accentColor:'#e0f2fe' },
-  { id:'ben-previdenciarista', emoji:'🏛️', shortName:'Previdenciarista', name:'BEN Previdenciarista', model:'Claude Haiku 4.5', category:'juridico', color:'#7c3aed', accentColor:'#ede9fe' },
-  { id:'ben-constitucionalista', emoji:'⚡', shortName:'Constitucionalista', name:'BEN Constitucionalista', model:'GPT-4o', category:'juridico', color:'#b91c1c', accentColor:'#fee2e2' },
-  { id:'ben-especialista-compliance', emoji:'🛡️', shortName:'Compliance', name:'BEN Especialista Compliance', model:'GPT-4o', category:'juridico', color:'#0f766e', accentColor:'#ccfbf1' },
-  { id:'ben-pesquisador-juridico', emoji:'🔎', shortName:'Pesquisador', name:'BEN Pesquisador Jurídico', model:'Perplexity', category:'juridico', color:'#6d28d9', accentColor:'#ede9fe' },
-  { id:'ben-relator-juridico', emoji:'📚', shortName:'Relator', name:'BEN Relator Jurídico', model:'GPT-4o', category:'juridico', color:'#1e40af', accentColor:'#dbeafe' },
-  { id:'ben-redator-juridico', emoji:'✒️', shortName:'Redator', name:'BEN Redator Jurídico', model:'GPT-4o', category:'juridico', color:'#374151', accentColor:'#f3f4f6' },
-  { id:'ben-auditor-processual', emoji:'🔏', shortName:'Auditor', name:'BEN Auditor Processual', model:'Claude Haiku 4.5', category:'juridico', color:'#0f766e', accentColor:'#ccfbf1' },
-  { id:'ben-gestor-juridico', emoji:'🏢', shortName:'Gestor', name:'BEN Gestor Jurídico', model:'GPT-4o', category:'juridico', color:'#374151', accentColor:'#f3f4f6' },
-  { id:'ben-revisor-juridico', emoji:'📝', shortName:'Revisor', name:'BEN Revisor Jurídico', model:'Claude Haiku 4.5', category:'juridico', color:'#374151', accentColor:'#f3f4f6' },
-  { id:'ben-peticionista', emoji:'⚖️', shortName:'Peticionista G.', name:'BEN Peticionista', model:'Claude Haiku 4.5', category:'juridico', color:'#1d4ed8', accentColor:'#dbeafe' },
+  { id:'ben-agente-operacional-maximus', shortName:'Agente Maximus', name:'AGENTE OPERACIONAL MAXIMUS', category:'juridico', color:'#92400e', accentColor:'#fef3c7', badge:'OPUS', badgeClass:'badge-opus', description:'Análise jurídica de máxima profundidade — última instância, análise final e vinculante.' },
+  { id:'ben-agente-operacional-premium', shortName:'Agente Premium', name:'AGENTE OPERACIONAL PREMIUM', category:'juridico', color:'#1d4ed8', accentColor:'#dbeafe', badge:'SONNET', badgeClass:'badge-sonnet', description:'Análise jurídica moderada a profunda. Thinking adaptativo automático.' },
+  { id:'ben-agente-operacional-standard', shortName:'Agente Standard', name:'AGENTE OPERACIONAL STANDARD', category:'juridico', color:'#16a34a', accentColor:'#dcfce7', badge:'HAIKU', badgeClass:'badge-haiku', description:'Execução operacional rápida. Extração, resumo, classificação, checklist.' },
+  { id:'ben-tributarista-estrategista', shortName:'Tributarista Estrat.', name:'AGENTE TRIBUTARISTA ESTRATEGISTA', category:'juridico', color:'#b45309', accentColor:'#fef3c7', badge:'OPUS', badgeClass:'badge-opus', description:'Especialista em Direito Tributário Puro. Defesa no CARF, TJ, STJ e STF.' },
+  { id:'ben-processualista-estrategico', shortName:'Processualista Estrat.', name:'AGENTE PROCESSUALISTA ESTRATÉGICO', category:'juridico', color:'#1e3a5f', accentColor:'#dbeafe', badge:'OPUS', badgeClass:'badge-opus', description:'Estrategista processual de nível STF/STJ. Análise em 6 camadas.' },
+  { id:'ben-peticionista-juridico', shortName:'Peticionista', name:'BEN Peticionista Jurídico', category:'juridico', color:'#1d4ed8', accentColor:'#dbeafe', description:'Peças processuais conforme o caso concreto e jurisprudência.' },
+  { id:'ben-contratualista', shortName:'Contratualista', name:'BEN Contratualista', category:'juridico', color:'#7c3aed', accentColor:'#ede9fe', description:'Contratos empresariais, NDAs, societários e negociais.' },
+  { id:'ben-mandatario-juridico', shortName:'Mandatário', name:'BEN Mandatário Jurídico', category:'juridico', color:'#059669', accentColor:'#d1fae5', description:'Procurações, Ad Judicia, gerais e especiais.' },
+  { id:'ben-analista-processual', shortName:'Analista Proc.', name:'BEN Analista Processual', category:'juridico', color:'#dc2626', accentColor:'#fee2e2', description:'Análise estratégica de processos com avaliação de risco.' },
+  { id:'ben-tributarista', shortName:'Tributarista', name:'BEN Tributarista', category:'juridico', color:'#d97706', accentColor:'#fef3c7', description:'Direito tributário, planejamento fiscal e teses avançadas.' },
+  { id:'ben-trabalhista', shortName:'Trabalhista', name:'BEN Trabalhista', category:'juridico', color:'#0369a1', accentColor:'#e0f2fe', description:'Direito do trabalho, TST, reclamações e acordos.' },
+  { id:'ben-previdenciarista', shortName:'Previdenciarista', name:'BEN Previdenciarista', category:'juridico', color:'#7c3aed', accentColor:'#ede9fe', description:'Benefícios INSS, aposentadorias e revisões previdenciárias.' },
+  { id:'ben-constitucionalista', shortName:'Constitucionalista', name:'BEN Constitucionalista', category:'juridico', color:'#b91c1c', accentColor:'#fee2e2', description:'MS, HC, Mandado de Injunção e ações constitucionais.' },
+  { id:'ben-especialista-compliance', shortName:'Compliance', name:'BEN Especialista Compliance', category:'juridico', color:'#0f766e', accentColor:'#ccfbf1', description:'Conformidade LGPD, políticas de privacidade e proteção de dados.' },
+  { id:'ben-pesquisador-juridico', shortName:'Pesquisador', name:'BEN Pesquisador Jurídico', category:'juridico', color:'#6d28d9', accentColor:'#ede9fe', description:'Pesquisa em tempo real: STF, STJ, TRF, TJPI com citações.' },
+  { id:'ben-relator-juridico', shortName:'Relator', name:'BEN Relator Jurídico', category:'juridico', color:'#1e40af', accentColor:'#dbeafe', description:'Artigos jurídicos, pareceres técnicos e publicações.' },
+  { id:'ben-redator-juridico', shortName:'Redator', name:'BEN Redator Jurídico', category:'juridico', color:'#374151', accentColor:'#f3f4f6', description:'Redação técnica jurídica, memorandos, ofícios.' },
+  { id:'ben-auditor-processual', shortName:'Auditor', name:'BEN Auditor Processual', category:'juridico', color:'#0f766e', accentColor:'#ccfbf1', description:'Auditoria de prazos críticos e conformidade OAB.' },
+  { id:'ben-gestor-juridico', shortName:'Gestor', name:'BEN Gestor Jurídico', category:'juridico', color:'#374151', accentColor:'#f3f4f6', description:'Gestão de escritório, produtividade e governança.' },
+  { id:'ben-revisor-juridico', shortName:'Revisor', name:'BEN Revisor Jurídico', category:'juridico', color:'#374151', accentColor:'#f3f4f6', description:'Revisão técnica e linguística de peças jurídicas.' },
+  { id:'ben-peticionista', shortName:'Peticionista G.', name:'BEN Peticionista', category:'juridico', color:'#1d4ed8', accentColor:'#dbeafe', description:'Petições iniciais, recursos e peças de urgência.' },
   // Contador
-  { id:'ben-contador-tributarista', emoji:'🧮', shortName:'Triagem', name:'BEN Contador — Triagem', model:'Claude Sonnet 4', category:'contador', color:'#92400e', accentColor:'#fef3c7', badge:'SONNET', badgeClass:'badge-sonnet' },
-  { id:'ben-contador-especialista', emoji:'📊', shortName:'Especialista', name:'BEN Contador — Especialista', model:'Claude Sonnet 4', category:'contador', color:'#b45309', accentColor:'#fef9c3', badge:'SONNET', badgeClass:'badge-sonnet' },
-  { id:'ben-contador-planejamento', emoji:'🗺️', shortName:'Planejamento', name:'BEN Contador — Planejamento', model:'Claude Sonnet 4', category:'contador', color:'#d97706', accentColor:'#fef3c7', badge:'SONNET', badgeClass:'badge-sonnet' },
-  { id:'ben-contador-creditos', emoji:'💳', shortName:'Créditos', name:'BEN Contador — Créditos', model:'Claude Sonnet 4', category:'contador', color:'#059669', accentColor:'#d1fae5', badge:'SONNET', badgeClass:'badge-sonnet' },
-  { id:'ben-contador-auditoria', emoji:'🔍', shortName:'Auditoria', name:'BEN Contador — Auditoria', model:'Claude Sonnet 4', category:'contador', color:'#dc2626', accentColor:'#fee2e2', badge:'SONNET', badgeClass:'badge-sonnet' },
-  { id:'ben-contador-relatorio', emoji:'📋', shortName:'Relatório', name:'BEN Contador — Relatório', model:'Claude Sonnet 4', category:'contador', color:'#0369a1', accentColor:'#e0f2fe', badge:'SONNET', badgeClass:'badge-sonnet' },
+  { id:'ben-contador-tributarista', shortName:'Triagem', name:'BEN Contador — Triagem', category:'contador', color:'#92400e', accentColor:'#fef3c7', badge:'SONNET', badgeClass:'badge-sonnet', description:'Triagem fiscal e orientação tributária inicial.' },
+  { id:'ben-contador-especialista', shortName:'Especialista', name:'BEN Contador — Especialista', category:'contador', color:'#b45309', accentColor:'#fef9c3', badge:'SONNET', badgeClass:'badge-sonnet', description:'Análise fiscal profunda e consultoria especializada.' },
+  { id:'ben-contador-planejamento', shortName:'Planejamento', name:'BEN Contador — Planejamento', category:'contador', color:'#d97706', accentColor:'#fef3c7', badge:'SONNET', badgeClass:'badge-sonnet', description:'Planejamento tributário estratégico.' },
+  { id:'ben-contador-creditos', shortName:'Créditos', name:'BEN Contador — Créditos', category:'contador', color:'#059669', accentColor:'#d1fae5', badge:'SONNET', badgeClass:'badge-sonnet', description:'Recuperação de créditos tributários.' },
+  { id:'ben-contador-auditoria', shortName:'Auditoria', name:'BEN Contador — Auditoria', category:'contador', color:'#dc2626', accentColor:'#fee2e2', badge:'SONNET', badgeClass:'badge-sonnet', description:'Auditoria fiscal e contábil.' },
+  { id:'ben-contador-relatorio', shortName:'Relatório', name:'BEN Contador — Relatório', category:'contador', color:'#0369a1', accentColor:'#e0f2fe', badge:'SONNET', badgeClass:'badge-sonnet', description:'Relatórios fiscais e demonstrativos contábeis.' },
   // Perito
-  { id:'ben-perito-forense', emoji:'🔬', shortName:'Padrão', name:'BEN Perito Forense — Padrão', model:'Claude Sonnet 4', category:'perito', color:'#4f46e5', accentColor:'#e0e7ff', badge:'SONNET', badgeClass:'badge-sonnet' },
-  { id:'ben-perito-forense-profundo', emoji:'🧬', shortName:'Profundo', name:'BEN Perito Forense — Profundo', model:'Claude Opus 4', category:'perito', color:'#b91c1c', accentColor:'#fee2e2', badge:'OPUS', badgeClass:'badge-opus' },
-  { id:'ben-perito-forense-digital', emoji:'💻', shortName:'Digital', name:'BEN Perito Forense Digital', model:'Claude Sonnet 4', category:'perito', color:'#7c3aed', accentColor:'#ede9fe', badge:'SONNET', badgeClass:'badge-sonnet' },
-  { id:'ben-perito-forense-laudo', emoji:'📄', shortName:'Laudo', name:'BEN Perito Forense — Laudo', model:'Claude Sonnet 4', category:'perito', color:'#0369a1', accentColor:'#e0f2fe', badge:'SONNET', badgeClass:'badge-sonnet' },
-  { id:'ben-perito-forense-contestar', emoji:'🛡️', shortName:'Contraditório', name:'BEN Perito — Contraditório', model:'Claude Sonnet 4', category:'perito', color:'#059669', accentColor:'#d1fae5', badge:'SONNET', badgeClass:'badge-sonnet' },
-  { id:'ben-perito-forense-relatorio', emoji:'📊', shortName:'Relatório', name:'BEN Perito Forense — Relatório', model:'Claude Sonnet 4', category:'perito', color:'#374151', accentColor:'#f3f4f6', badge:'SONNET', badgeClass:'badge-sonnet' },
-  { id:'ben-perito-imobiliario', emoji:'🏠', shortName:'Imobiliário', name:'BEN Perito Imobiliário — ABNT', model:'Claude Sonnet 4', category:'perito', color:'#0f766e', accentColor:'#ccfbf1', badge:'SONNET', badgeClass:'badge-sonnet' },
+  { id:'ben-perito-forense', shortName:'Padrão', name:'BEN Perito Forense — Padrão', category:'perito', color:'#4f46e5', accentColor:'#e0e7ff', badge:'SONNET', badgeClass:'badge-sonnet', description:'Laudos periciais padrão com metodologia técnica.' },
+  { id:'ben-perito-forense-profundo', shortName:'Profundo', name:'BEN Perito Forense — Profundo', category:'perito', color:'#b91c1c', accentColor:'#fee2e2', badge:'OPUS', badgeClass:'badge-opus', description:'Análise pericial profunda — máxima precisão técnica.' },
+  { id:'ben-perito-forense-digital', shortName:'Digital', name:'BEN Perito Forense Digital', category:'perito', color:'#7c3aed', accentColor:'#ede9fe', badge:'SONNET', badgeClass:'badge-sonnet', description:'Perícia digital: EXIF, metadados, WhatsApp forense.' },
+  { id:'ben-perito-forense-laudo', shortName:'Laudo', name:'BEN Perito Forense — Laudo', category:'perito', color:'#0369a1', accentColor:'#e0f2fe', badge:'SONNET', badgeClass:'badge-sonnet', description:'Elaboração de laudos técnicos periciais.' },
+  { id:'ben-perito-forense-contestar', shortName:'Contraditório', name:'BEN Perito — Contraditório', category:'perito', color:'#059669', accentColor:'#d1fae5', badge:'SONNET', badgeClass:'badge-sonnet', description:'Contestação e contraditório de laudos periciais.' },
+  { id:'ben-perito-forense-relatorio', shortName:'Relatório', name:'BEN Perito Forense — Relatório', category:'perito', color:'#374151', accentColor:'#f3f4f6', badge:'SONNET', badgeClass:'badge-sonnet', description:'Relatórios periciais completos e padronizados.' },
+  { id:'ben-perito-imobiliario', shortName:'Imobiliário', name:'BEN Perito Imobiliário — ABNT', category:'perito', color:'#0f766e', accentColor:'#ccfbf1', badge:'SONNET', badgeClass:'badge-sonnet', description:'Avaliação imobiliária conforme ABNT NBR 14.653.' },
   // Growth
-  { id:'ben-atendente', emoji:'🤝', shortName:'Atendente', name:'BEN Atendente', model:'GPT-4o Mini', category:'growth', color:'#059669', accentColor:'#d1fae5' },
-  { id:'ben-conteudista', emoji:'✍️', shortName:'Conteudista', name:'BEN Conteudista Jurídico', model:'GPT-4o', category:'growth', color:'#7c3aed', accentColor:'#ede9fe' },
-  { id:'ben-estrategista-campanhas', emoji:'📊', shortName:'Campanhas', name:'BEN Estrategista Campanhas', model:'GPT-4o', category:'growth', color:'#059669', accentColor:'#d1fae5' },
-  { id:'ben-estrategista-marketing', emoji:'📣', shortName:'Marketing', name:'BEN Estrategista Marketing', model:'GPT-4o', category:'growth', color:'#0369a1', accentColor:'#e0f2fe' },
-  { id:'ben-analista-relatorios', emoji:'📈', shortName:'Relatórios', name:'BEN Analista de Relatórios', model:'Claude Haiku 4.5', category:'growth', color:'#d97706', accentColor:'#fef3c7' },
-  { id:'ben-diretor-criativo', emoji:'🎨', shortName:'Dir. Criativo', name:'BEN Diretor Criativo', model:'GPT-4o', category:'growth', color:'#7c3aed', accentColor:'#ede9fe' },
+  { id:'ben-atendente', shortName:'Atendente', name:'BEN Atendente', category:'growth', color:'#059669', accentColor:'#d1fae5', description:'Atendimento jurídico 24/7 e triagem de clientes.' },
+  { id:'ben-conteudista', shortName:'Conteudista', name:'BEN Conteudista Jurídico', category:'growth', color:'#7c3aed', accentColor:'#ede9fe', description:'Artigos jurídicos e conteúdo para redes sociais OAB.' },
+  { id:'ben-estrategista-campanhas', shortName:'Campanhas', name:'BEN Estrategista Campanhas', category:'growth', color:'#059669', accentColor:'#d1fae5', description:'Meta Ads e Google Ads para escritório jurídico.' },
+  { id:'ben-estrategista-marketing', shortName:'Marketing', name:'BEN Estrategista Marketing', category:'growth', color:'#0369a1', accentColor:'#e0f2fe', description:'Redes sociais e branding jurídico.' },
+  { id:'ben-analista-relatorios', shortName:'Relatórios', name:'BEN Analista de Relatórios', category:'growth', color:'#d97706', accentColor:'#fef3c7', description:'Relatórios de performance e métricas do escritório.' },
+  { id:'ben-diretor-criativo', shortName:'Dir. Criativo', name:'BEN Diretor Criativo', category:'growth', color:'#7c3aed', accentColor:'#ede9fe', description:'Branding jurídico e identidade visual.' },
 ]
 
 const CATEGORIES = [
@@ -1095,7 +1096,7 @@ function renderMessages() {
     row.className = 'bubble-row' + (msg.role==='user' ? ' user' : '')
     if (msg.loading) {
       row.innerHTML = `
-        <div class="bot-avatar" style="background:${activeAgent.color}22">${activeAgent.emoji}</div>
+        <div class="bot-avatar" style="background:${activeAgent.color}22"><svg width="20" height="20" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="bgl" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#E4B71E"/><stop offset="100%" stop-color="#7B35C8"/></linearGradient></defs><text x="50%" y="58%" dominant-baseline="middle" text-anchor="middle" font-family="Georgia,serif" font-weight="bold" font-size="52" fill="url(#bgl)">B</text></svg></div>
         <div class="bubble bot" style="padding:14px 18px">
           <span style="font-size:20px;letter-spacing:4px;color:#D4A017">•••</span>
         </div>
@@ -1105,10 +1106,10 @@ function renderMessages() {
       row.innerHTML = `<div class="bubble user">${escHtml(msg.content)}</div>`
     } else {
       row.innerHTML = `
-        <div class="bot-avatar" style="background:${activeAgent.color}22">${activeAgent.emoji}</div>
+        <div class="bot-avatar" style="background:${activeAgent.color}22"><svg width="20" height="20" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="bga" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#E4B71E"/><stop offset="100%" stop-color="#7B35C8"/></linearGradient></defs><text x="50%" y="58%" dominant-baseline="middle" text-anchor="middle" font-family="Georgia,serif" font-weight="bold" font-size="52" fill="url(#bga)">B</text></svg></div>
         <div class="bubble bot">
           ${escHtml(msg.content)}
-          ${msg.model ? `<div class="bubble-meta"><span>🤖 ${msg.model}</span>${msg.elapsed?`<span>⏱ ${fmtMs(msg.elapsed)}</span>`:''}</div>` : ''}
+          ${msg.elapsed ? `<div class="bubble-meta"><span>${activeAgent.shortName}</span><span>⏱ ${fmtMs(msg.elapsed)}</span></div>` : ''}
         </div>
       `
     }
@@ -1127,7 +1128,7 @@ function fmtMs(ms) {
 
 function getAgentDesc(a) {
   const descs = {
-    'ben-assistente-geral': 'Copiloto universal GPT-4o — sem restrições temáticas. Responde qualquer pergunta.',
+    'ben-assistente-geral': 'Copiloto universal BEN IA — sem restrições temáticas. Responde qualquer pergunta.',
     'ben-super-agente-juridico': 'Análise jurídica de máxima profundidade — última instância.',
     'ben-perito-forense': 'Laudos periciais padrão com metodologia técnica.',
     'ben-contador-tributarista': 'Triagem fiscal e orientação tributária inicial.',
@@ -1226,13 +1227,13 @@ function renderPickerList(query) {
     agents.forEach(a => {
       html += `
         <div class="agent-item${a.id===activeAgent.id?' active':''}" onclick="selectAgent('${a.id}')">
-          <div class="agent-item-icon" style="background:${a.color}18;border-color:${a.color}44">${a.emoji}</div>
+          <div class="agent-item-icon" style="background:#0d1f3c;border-color:${a.color}44"><svg width="20" height="20" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="bgi" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#E4B71E"/><stop offset="100%" stop-color="#7B35C8"/></linearGradient></defs><text x="50%" y="58%" dominant-baseline="middle" text-anchor="middle" font-family="Georgia,serif" font-weight="bold" font-size="52" fill="url(#bgi)">B</text></svg></div>
           <div class="agent-item-info">
             <div class="agent-item-top">
               <span class="agent-item-name">${a.name}</span>
               ${a.badge ? `<span class="agent-badge ${a.badgeClass||''}">${a.badge}</span>` : ''}
             </div>
-            <div class="agent-item-model">🤖 ${a.model}</div>
+            <div class="agent-item-desc">${a.description || ''}</div>
           </div>
           ${a.id===activeAgent.id ? `<span style="color:#E4B71E;font-size:18px">✓</span>` : ''}
         </div>
@@ -1247,10 +1248,9 @@ function selectAgent(id) {
   messages = []
   hideAgentPicker()
   // Update chat header
-  document.querySelector('.agent-icon-sm').style.background = activeAgent.color + '22'
-  document.querySelector('.agent-icon-sm').textContent = activeAgent.emoji
+  document.getElementById('active-agent-icon').style.background = activeAgent.color + '22'
   document.querySelector('.agent-btn-name').textContent = activeAgent.name
-  document.querySelector('.agent-btn-model').textContent = `🤖 ${activeAgent.model}  ▾ trocar agente`
+  document.querySelector('.agent-btn-model').textContent = `▾ trocar agente`
   // Update placeholder
   document.getElementById('chat-input').placeholder = `Mensagem para ${activeAgent.shortName}...`
   renderMessages()
@@ -1264,7 +1264,7 @@ setTimeout(() => {
   if (messages.length === 0) {
     const demo = [
       { id:'d1', role:'user', content:'Quais são os prazos para contestação no CPC?' },
-      { id:'d2', role:'assistant', content:'Os prazos para contestação no Código de Processo Civil (CPC/2015) variam conforme o procedimento:\n\n• Procedimento Comum: 15 dias úteis (art. 335)\n• Fazenda Pública e MP: 30 dias úteis\n• Procedimento do JEC: 15 dias corridos\n\nO prazo começa a correr da data da audiência de conciliação ou, não havendo, da data do protocolo.', model: 'GPT-4o', elapsed: 1420 },
+      { id:'d2', role:'assistant', content:'Os prazos para contestação no Código de Processo Civil (CPC/2015) variam conforme o procedimento:\n\n• Procedimento Comum: 15 dias úteis (art. 335)\n• Fazenda Pública e MP: 30 dias úteis\n• Procedimento do JEC: 15 dias corridos\n\nO prazo começa a correr da data da audiência de conciliação ou, não havendo, da data do protocolo.', elapsed: 1420 },
     ]
     messages = demo
     renderMessages()
