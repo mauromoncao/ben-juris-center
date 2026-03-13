@@ -5682,10 +5682,11 @@ async function callWithFallback(agentConfig, input, modelOverride) {
 // ─── NOTIFICAÇÃO PLANTONISTA ─────────────────────────────────
 // ════════════════════════════════════════════════════════════
 async function notificarPlantonista(agentId, input, context) {
-  const PLANTONISTA = process.env.PLANTONISTA_WHATSAPP
-  const WTOKEN      = process.env.WHATSAPP_TOKEN
-  const WID         = process.env.WHATSAPP_PHONE_NUMBER_ID
-  if (!PLANTONISTA || !WTOKEN || !WID) return
+  const PLANTONISTA    = process.env.PLANTONISTA_WHATSAPP
+  const ZAPI_TOKEN     = process.env.ZAPI_TOKEN
+  const ZAPI_INSTANCE  = process.env.ZAPI_INSTANCE_ID
+  const ZAPI_CLIENT    = process.env.ZAPI_CLIENT_TOKEN
+  if (!PLANTONISTA || !ZAPI_TOKEN || !ZAPI_INSTANCE) return
   try {
     const nome  = context?.cliente || context?.nome || 'N/A'
     const proc  = context?.processo || context?.numeroProcesso || 'N/A'
@@ -5698,19 +5699,18 @@ async function notificarPlantonista(agentId, input, context) {
       `⏰ Prazo: ${prazo}\n\n` +
       `📝 Solicitação:\n${input.slice(0, 300)}${input.length > 300 ? '...' : ''}\n\n` +
       `⚡ BEN iniciou a análise. Revise e assine a peça gerada.`
-    await fetch(`https://graph.facebook.com/v21.0/${WID}/messages`, {
+    const numero = PLANTONISTA.replace(/\D/g, '')
+    await fetch(`https://api.z-api.io/instances/${ZAPI_INSTANCE}/token/${ZAPI_TOKEN}/send-text`, {
       method: 'POST',
-      headers: { Authorization: `Bearer ${WTOKEN}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        messaging_product: 'whatsapp',
-        to: PLANTONISTA.replace(/\D/g, ''),
-        type: 'text',
-        text: { body: alerta },
-      }),
+      headers: {
+        'Content-Type': 'application/json',
+        'Client-Token': ZAPI_CLIENT || '',
+      },
+      body: JSON.stringify({ phone: numero, message: alerta }),
     })
-    console.log('[Juris] Plantonista notificado:', PLANTONISTA)
+    console.log('[Juris] Plantonista notificado via Z-API:', PLANTONISTA)
   } catch (e) {
-    console.error('[Juris] Erro ao notificar plantonista:', e.message)
+    console.error('[Juris] Erro ao notificar plantonista Z-API:', e.message)
   }
 }
 

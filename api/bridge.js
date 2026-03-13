@@ -217,29 +217,29 @@ export default async function handler(req, res) {
   }
 }
 
-// ── Enviar WhatsApp ao plantonista ──────────────────────────
+// ── Enviar WhatsApp ao plantonista via Z-API ─────────────────
 async function whatsappPlantonista(mensagem) {
-  const PLANTONISTA = process.env.PLANTONISTA_WHATSAPP
-  const WTOKEN      = process.env.WHATSAPP_TOKEN
-  const WID         = process.env.WHATSAPP_PHONE_NUMBER_ID
-  if (!PLANTONISTA || !WTOKEN || !WID) {
-    console.log('[Bridge Juris] WhatsApp plantonista não configurado — mensagem logada:', mensagem.slice(0, 80))
+  const PLANTONISTA   = process.env.PLANTONISTA_WHATSAPP
+  const ZAPI_TOKEN    = process.env.ZAPI_TOKEN
+  const ZAPI_INSTANCE = process.env.ZAPI_INSTANCE_ID
+  const ZAPI_CLIENT   = process.env.ZAPI_CLIENT_TOKEN
+  if (!PLANTONISTA || !ZAPI_TOKEN || !ZAPI_INSTANCE) {
+    console.log('[Bridge Juris] Z-API não configurado — mensagem logada:', mensagem.slice(0, 80))
     return
   }
   try {
-    await fetch(`https://graph.facebook.com/v21.0/${WID}/messages`, {
+    const numero = PLANTONISTA.replace(/\D/g, '')
+    await fetch(`https://api.z-api.io/instances/${ZAPI_INSTANCE}/token/${ZAPI_TOKEN}/send-text`, {
       method: 'POST',
-      headers: { Authorization: `Bearer ${WTOKEN}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        messaging_product: 'whatsapp',
-        to: PLANTONISTA.replace(/\D/g, ''),
-        type: 'text',
-        text: { body: mensagem },
-      }),
+      headers: {
+        'Content-Type': 'application/json',
+        'Client-Token': ZAPI_CLIENT || '',
+      },
+      body: JSON.stringify({ phone: numero, message: mensagem }),
     })
-    console.log('[Bridge Juris] ✅ Plantonista notificado via WhatsApp:', PLANTONISTA)
+    console.log('[Bridge Juris] ✅ Plantonista notificado via Z-API:', PLANTONISTA)
   } catch (e) {
-    console.error('[Bridge Juris] Erro WhatsApp plantonista:', e.message)
+    console.error('[Bridge Juris] Erro Z-API plantonista:', e.message)
   }
 }
 
