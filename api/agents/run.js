@@ -3757,10 +3757,10 @@ Formatação limpa:
 
   // ── Alias PeritoIA: ben-perito-forense-relatorio ────────────────
   'ben-perito-forense-relatorio': {
-    model: 'claude-haiku',
-    temperature: 0.1,
-    maxTokens: 5000,
-    thinking: false,
+    model: 'claude-sonnet',
+    temperature: 0.05,
+    maxTokens: 8000,
+    thinking: { type: 'enabled', budget_tokens: 3000 },
     system: `IDENTIDADE E FUNÇÃO:
 Você é o BEN Perito Forense — Relatório do escritório Mauro Monção Advogados Associados.
 Sua função EXCLUSIVA é elaborar RELATÓRIOS PERICIAIS EXECUTIVOS, notas técnicas e sínteses periciais para audiências e processos judiciais.
@@ -4382,9 +4382,10 @@ Formatação limpa:
 
   // ── ben-perito-forense-laudo ──
   'ben-perito-forense-laudo': {
-    model: 'claude-haiku',
+    model: 'claude-sonnet',
     temperature: 0.05,
-    maxTokens: 6000,
+    maxTokens: 8000,
+    thinking: { type: 'enabled', budget_tokens: 4000 },
     system: `# BEN EXPERT REPORT WRITER — SYSTEM PROMPT
 # Mauro Monção Advogados Associados | ben-perito-forense-laudo | Claude Haiku 4.5
 
@@ -4575,9 +4576,10 @@ Formatação limpa:
 
   // ── ben-perito-forense-contestar ──
   'ben-perito-forense-contestar': {
-    model: 'claude-haiku',
-    temperature: 0.1,
-    maxTokens: 5000,
+    model: 'claude-sonnet',
+    temperature: 0.05,
+    maxTokens: 8000,
+    thinking: { type: 'enabled', budget_tokens: 4000 },
     system: `# BEN EXPERT REBUTTAL SPECIALIST — SYSTEM PROMPT
 # Mauro Monção Advogados Associados | ben-perito-forense-contestar | Claude Haiku 4.5
 
@@ -4768,9 +4770,10 @@ Formatação limpa:
 
   // ── ben-perito-imobiliario ──
   'ben-perito-imobiliario': {
-    model: 'claude-haiku',
+    model: 'claude-sonnet',
     temperature: 0.05,
-    maxTokens: 6000,
+    maxTokens: 8000,
+    thinking: { type: 'enabled', budget_tokens: 4000 },
     system: `RESTRIÇÃO ABSOLUTA DE ESCOPO — INEGOCIÁVEL:
 Este agente produz EXCLUSIVAMENTE laudos periciais imobiliários, avaliações técnicas e documentos periciais. É TERMINANTEMENTE PROIBIDO produzir: petições, contestações, recursos, embargos ou qualquer peça processual. Se solicitado, responda: "Este agente é restrito a laudos e avaliações periciais imobiliárias. Para petições e peças processuais, utilize o Agente Operacional Premium ou o Processualista Estratégico."
 
@@ -5741,14 +5744,21 @@ export default async function handler(req, res) {
     let enrichedInput = input
     let searchContext = null
 
-    // ── Agentes com memória persistente ativa ───────────────────
+    // ── Agentes com memória persistente ativa (Pinecone) ────────
     const MEMORY_AGENTS = [
       '',
       'ben-agente-operacional-maximus',
       'ben-agente-operacional-premium',
       'ben-tributarista-estrategista',
       'ben-processualista-estrategico',
-      'ben-perito-forense-profundo']
+      'ben-perito-forense',
+      'ben-perito-forense-profundo',
+      'ben-perito-forense-digital',
+      'ben-perito-forense-laudo',
+      'ben-perito-forense-contestar',
+      'ben-perito-forense-relatorio',
+      'ben-perito-imobiliario',
+    ]
     const clientId = bodyClientId || context?.clientId || context?.cliente_id || null
     let memoryContext = null
 
@@ -5813,19 +5823,31 @@ export default async function handler(req, res) {
     }
 
     // ── Perplexity para agentes que precisam de jurisprudência ──
-    if (useSearch && ['ben-agente-operacional-maximus','ben-agente-operacional-premium','ben-tributarista-estrategista',
-        'ben-pesquisador-juridico','ben-engenheiro-prompt',
-        'ben-contador-tributarista','ben-contador-especialista',
-        'ben-contador-planejamento','ben-contador-creditos',
-        'ben-perito-forense','ben-perito-forense-profundo','ben-perito-forense-digital',
-        'ben-perito-forense-contestar','ben-processualista-estrategico'].includes(agentId)) {
+    // ── Agentes com Perplexity nativo (modelo híbrido) ──────────
+    const PERPLEXITY_AGENTS = [
+      'ben-agente-operacional-maximus','ben-agente-operacional-premium','ben-tributarista-estrategista',
+      'ben-pesquisador-juridico','ben-engenheiro-prompt',
+      'ben-contador-tributarista','ben-contador-especialista',
+      'ben-contador-planejamento','ben-contador-creditos',
+      'ben-perito-forense','ben-perito-forense-profundo','ben-perito-forense-digital',
+      'ben-perito-forense-laudo','ben-perito-forense-contestar','ben-perito-forense-relatorio',
+      'ben-perito-imobiliario','ben-processualista-estrategico',
+    ]
+    if (useSearch && PERPLEXITY_AGENTS.includes(agentId)) {
       try {
         if (process.env.PERPLEXITY_API_KEY) {
-          searchContext = await callPerplexity(
-            'Pesquise jurisprudência brasileira recente (STJ, STF, TRF) sobre o tema.',
-            `Busque precedentes recentes sobre: ${input.slice(0, 300)}`
-          )
-          enrichedInput = `${enrichedInput}\n\nJURISPRUDÊNCIA ATUALIZADA (Perplexity):\n${searchContext}`
+          // Prompt especializado para agentes peritos: foca em normas técnicas, jurisprudência pericial e legislação
+          const isPeritoAgent = agentId.startsWith('ben-perito')
+          const searchSystemPrompt = isPeritoAgent
+            ? 'Você é um assistente de pesquisa jurídico-pericial. Pesquise: (1) jurisprudência brasileira recente (STJ, STF, TRF, TJ) sobre o tema pericial; (2) normas técnicas aplicáveis (ABNT, CFC, IBAPE, ICP-Brasil); (3) legislação vigente relevante (CPC/2015, Lei Peritos, LGPD, Marco Civil). Retorne com citações e links.'
+            : 'Pesquise jurisprudência brasileira recente (STJ, STF, TRF) sobre o tema. Retorne com citações.'
+          const searchQuery = isPeritoAgent
+            ? `Pesquise normas técnicas, jurisprudência pericial e legislação sobre: ${input.slice(0, 400)}`
+            : `Busque precedentes recentes sobre: ${input.slice(0, 300)}`
+          searchContext = await callPerplexity(searchSystemPrompt, searchQuery)
+          const searchLabel = isPeritoAgent ? 'PESQUISA PERICIAL (Perplexity — normas + jurisprudência)' : 'JURISPRUDÊNCIA ATUALIZADA (Perplexity)'
+          enrichedInput = `${enrichedInput}\n\n${searchLabel}:\n${typeof searchContext === 'object' ? searchContext.text : searchContext}`
+          console.log(`[Perplexity] Enriquecimento aplicado ao agente ${agentId}`)
         }
       } catch (e) {
         console.warn('[Juris] Perplexity search failed:', e.message)
