@@ -1,51 +1,49 @@
 {
   "expo": {
     "name": "BEN IA",
-    "slug": "ben-ia",
-    "version": "1.0.0",
+    "slug": "ben-ia-app",
+    "version": "1.1.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
-    "scheme": "ben-ia",
-    "userInterfaceStyle": "dark",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/images/splash.png",
+      "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#0A1628"
+      "backgroundColor": "#0d1f3c"
     },
     "ios": {
-      "supportsTablet": false,
+      "supportsTablet": true,
       "bundleIdentifier": "br.adv.mauromoncao.benia",
-      "buildNumber": "1"
+      "buildNumber": "2",
+      "infoPlist": {
+        "NSCameraUsageDescription": "Camera não usada.",
+        "NSMicrophoneUsageDescription": "Microfone não usado.",
+        "CFBundleDisplayName": "BEN IA"
+      }
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#0A1628"
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png",
+        "backgroundColor": "#0d1f3c"
       },
       "package": "br.adv.mauromoncao.benia",
-      "versionCode": 1,
-      "permissions": ["INTERNET"]
+      "versionCode": 2,
+      "permissions": []
     },
     "web": {
-      "bundler": "metro",
-      "output": "static",
-      "favicon": "./assets/images/icon.png"
+      "favicon": "./assets/icon.png",
+      "bundler": "metro"
     },
+    "scheme": "benia",
     "plugins": [
-      "expo-router",
-      "expo-font",
-      [
-        "expo-splash-screen",
-        {
-          "image": "./assets/images/splash.png",
-          "imageWidth": 200,
-          "resizeMode": "contain",
-          "backgroundColor": "#0A1628"
-        }
-      ]
+      "expo-font"
     ],
-    "experiments": {
-      "typedRoutes": true
+    "extra": {
+      "eas": {
+        "projectId": "ben-ia-app"
+      }
     }
   }
 }
