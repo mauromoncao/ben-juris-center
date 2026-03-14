@@ -421,7 +421,7 @@ export default function Dashboard() {
         </div>
         <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
           {[
-            { label: 'Petições',           color: '#DEC078', emoji: '⚖️' },
+            { label: 'Petições', color: '#DEC078', emoji: '🔱' },
             { label: 'Contratos',          color: '#00b37e', emoji: '📋' },
             { label: 'Análise Processual', color: '#19385C', emoji: '🔍' },
             { label: 'Auditoria Fiscal',   color: '#f59e0b', emoji: '💰' },

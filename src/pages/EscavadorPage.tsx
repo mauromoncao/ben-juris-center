@@ -250,7 +250,7 @@ export default function EscavadorPage() {
           {ADVOGADO.oabs.map(o => (
             <span key={o.sigla} className="text-xs px-2.5 py-1 rounded-full font-semibold"
               style={{ background: '#FEF3C7', color: '#D97706' }}>
-              ⚖️ {o.sigla} {o.numero}
+              🔱 {o.sigla} {o.numero}
             </span>
           ))}
         </div>

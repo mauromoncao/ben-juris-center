@@ -143,7 +143,7 @@ const COBRANCAS_MOCK: CobrancaPortal[] = [
 
 // ── Helpers ─────────────────────────────────────────────────────
 function tipoIcon(tipo: ClientePortal['tipo']) {
-  const m: Record<ClientePortal['tipo'], string> = { municipio: '🏛️', camara: '⚖️', empresa: '🏢', secretaria: '📋', pessoa_fisica: '👤' };
+  const m: Record<ClientePortal['tipo'], string> = { municipio: '🏛️', camara: '🔱', empresa: '🏢', secretaria: '📋', pessoa_fisica: '👤' };
   return m[tipo];
 }
 function planoBadge(plano: ClientePortal['plano']) {
@@ -166,7 +166,7 @@ function riscoBadge(risco: ProcessoCliente['risco']) {
   return <span className="text-xs px-2 py-0.5 rounded-full font-semibold" style={{ background: s.bg, color: s.color }}>{s.label}</span>;
 }
 function docIcon(tipo: DocumentoPortal['tipo']) {
-  const m: Record<DocumentoPortal['tipo'], string> = { parecer: '📋', peticao: '⚖️', contrato: '📝', relatorio: '📊', certidao: '🔏', procuracao: '📜' };
+  const m: Record<DocumentoPortal['tipo'], string> = { parecer: '📋', peticao: '🔱', contrato: '📝', relatorio: '📊', certidao: '🔏', procuracao: '📜' };
   return m[tipo];
 }
 function fmtCurrency(v: number) {
@@ -462,7 +462,7 @@ export default function PortalCliente() {
                 {/* KPIs rápidos */}
                 {[
                   { label: 'Clientes', value: CLIENTES.length, icon: '👥', color: '#0f2044' },
-                  { label: 'Processos', value: totalProcessos, icon: '⚖️', color: '#1d4ed8' },
+                  { label: 'Processos', value: totalProcessos, icon: '🔱', color: '#1d4ed8' },
                   { label: 'Mensagens', value: msgNaoLidas, icon: '💬', color: '#dc2626' },
                   { label: 'Pendentes', value: fmtCurrency(totalPendentes), icon: '💰', color: '#d97706' },
                 ].map(k => (
@@ -561,7 +561,7 @@ export default function PortalCliente() {
                 </div>
                 <div className="divide-y">
                   {[
-                    { icon: '⚖️', desc: 'Novo movimento — Processo 0001234-55.2024', cliente: 'Prefeitura Teresina', hora: '14:30', tipo: 'processo' },
+                    { icon: '🔱', desc: 'Novo movimento — Processo 0001234-55.2024', cliente: 'Prefeitura Teresina', hora: '14:30', tipo: 'processo' },
                     { icon: '📄', desc: 'Parecer Jurídico disponível para download', cliente: 'Câmara Parnaíba', hora: '12:00', tipo: 'documento' },
                     { icon: '💬', desc: 'Nova mensagem: "Quando sai a sentença?"', cliente: 'Secretaria de Saúde', hora: '09:15', tipo: 'mensagem' },
                     { icon: '💰', desc: 'Cobrança em atraso — Honorários Fev/2026', cliente: 'Construbase S.A.', hora: '08:30', tipo: 'financeiro' },
@@ -1063,7 +1063,7 @@ export default function PortalCliente() {
                 <h3 className="text-xs font-bold mb-3" style={{ color: '#9CA3AF' }}>FUNCIONALIDADES DO PORTAL PÚBLICO</h3>
                 <div className="grid grid-cols-2 gap-3">
                   {[
-                    { icon: '⚖️', title: 'Acompanhamento de Processos', desc: 'Visualização em tempo real com movimentos, prazos e status por processo.' },
+                    { icon: '🔱', title: 'Acompanhamento de Processos', desc: 'Visualização em tempo real com movimentos, prazos e status por processo.' },
                     { icon: '📄', title: 'Download de Documentos', desc: 'Acesso a pareceres, petições, contratos e relatórios publicados pelo escritório.' },
                     { icon: '📊', title: 'Relatórios Mensais', desc: 'Dashboard com resumo processual, financeiro e indicadores de performance.' },
                     { icon: '💬', title: 'Chat Direto Seguro', desc: 'Comunicação direta com o escritório, rastreada e com histórico completo.' },

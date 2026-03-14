@@ -198,7 +198,7 @@ function gerarHtmlRelatorio(dadosTribunais, dadosDJEN, geradoEm) {
 <head><meta charset="UTF-8"><title>Relatório Semanal — BEN Juris Center</title></head>
 <body style="font-family:Arial,sans-serif;max-width:900px;margin:0 auto;padding:20px;color:#1e293b">
   <div style="background:#19385C;color:white;padding:16px 20px;border-radius:8px;margin-bottom:24px">
-    <h2 style="margin:0">⚖️ BEN Juris Center — Relatório Semanal</h2>
+    <h2 style="margin:0">🔱 BEN Juris Center — Relatório Semanal</h2>
     <p style="margin:4px 0 0;opacity:.8;font-size:13px">Gerado em ${geradoEm} • Escritório Dr. Mauro Monção</p>
   </div>
 

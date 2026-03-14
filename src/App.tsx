@@ -58,7 +58,7 @@ const NAV_GROUPS = [
       { path: '/agente-maximus',   icon: Zap,    label: 'AGENTE OPERACIONAL MAXIMUS',  badge: '⭐' },
       { path: '/agente-premium',   icon: Zap,    label: 'AGENTE OPERACIONAL PREMIUM',  badge: '🔷' },
       { path: '/agente-standard',   icon: Zap,    label: 'AGENTE OPERACIONAL STANDARD', badge: '🟢' },
-      { path: '/tributarista-estrategista', icon: Zap, label: 'TRIBUTARISTA ESTRATEGISTA', badge: '⚖️' },
+      { path: '/tributarista-estrategista', icon: Zap, label: 'TRIBUTARISTA ESTRATEGISTA', badge: '🔱' },
       { path: '/processualista-estrategico', icon: Scale, label: 'PROCESSUALISTA ESTRATÉGICO', badge: '📋' },
       { path: '/nucleo-ia',       icon: Brain,  label: 'Agentes Dr. Ben IA',       badge: '14' },
       { path: '/nucleo-projetos', icon: Activity,label: 'Projetos & Produtividade' },

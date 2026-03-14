@@ -173,7 +173,7 @@ export default function IntegracaoComercial() {
         {([
           { id: 'fluxo',     label: '⚡ Fluxo de Eventos',  count: MOCK_CROSS_EVENTS.length },
           { id: 'leads',     label: '🎯 Leads do Growth',    count: MOCK_LEADS_PIPELINE.length },
-          { id: 'processos', label: '⚖️ Processos Ativos',   count: MOCK_SINAIS_JURIS.length },
+          { id: 'processos', label: '🔱 Processos Ativos',   count: MOCK_SINAIS_JURIS.length },
         ] as const).map(aba => (
           <button
             key={aba.id}
@@ -241,7 +241,7 @@ export default function IntegracaoComercial() {
                         'bg-slate-50 text-slate-500 border-slate-200'
                       }`}>
                         {l.statusJuris === 'cliente_ativo'   ? '✅ Cliente Ativo' :
-                         l.statusJuris === 'processo_aberto' ? '⚖️ Processo Aberto' :
+                         l.statusJuris === 'processo_aberto' ? '🔱 Processo Aberto' :
                          l.statusJuris === 'triagem'         ? '🔍 Triagem' : '⏳ Aguardando'}
                       </span>
                     </td>

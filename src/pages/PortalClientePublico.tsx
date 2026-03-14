@@ -102,7 +102,7 @@ const PROCEDIMENTOS_BASE: Procedimento[] = [
 
 // ── Helpers ────────────────────────────────────────────────────
 const TIPO_ICON: Record<string, string> = {
-  parecer: '📋', peticao: '⚖️', contrato: '📝',
+  parecer: '📋', peticao: '🔱', contrato: '📝',
   relatorio: '📊', certidao: '🔏', procuracao: '📜',
 };
 
@@ -571,7 +571,7 @@ export default function PortalClientePublico({ cliente, onLogout }: Props) {
             <div className="rounded-2xl p-5 border" style={{ background: '#F0F4FF', borderColor: '#DBEAFE' }}>
               <div className="flex items-start gap-3">
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: '#0f2044' }}>
-                  <span className="text-lg">⚖️</span>
+                  <span className="text-lg">🔱</span>
                 </div>
                 <div>
                   <p className="text-sm font-bold" style={{ color: '#0f2044' }}>Dr. Mauro Monção</p>
@@ -658,7 +658,7 @@ export default function PortalClientePublico({ cliente, onLogout }: Props) {
                       <div className="flex items-start gap-3">
                         <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 text-xl"
                           style={{ background: p.status === 'ativo' ? '#EFF6FF' : '#F9FAFB', border: `1px solid ${p.status === 'ativo' ? '#DBEAFE' : '#EEEEEE'}` }}>
-                          ⚖️
+                          🔱
                         </div>
                         <div className="flex-1 min-w-0">
                           <p className="text-sm font-semibold mb-1 truncate" style={{ color: '#1A1A1A' }}>{p.titulo}</p>
@@ -1068,7 +1068,7 @@ export default function PortalClientePublico({ cliente, onLogout }: Props) {
                               </div>
                               {ultimaMsg && (
                                 <p className="text-xs truncate" style={{ color: '#6B7280' }}>
-                                  {ultimaMsg.de === 'escritorio' ? '⚖️ ' : ''}
+                                  {ultimaMsg.de === 'escritorio' ? '🔱 ' : ''}
                                   {ultimaMsg.texto || (ultimaMsg.anexo ? `📎 ${ultimaMsg.anexo.nome}` : '')}
                                 </p>
                               )}
