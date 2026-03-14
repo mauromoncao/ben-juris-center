@@ -2,9 +2,11 @@ import React, { useState, useRef, useCallback } from 'react'
 import {
   View, Text, TextInput, TouchableOpacity, StyleSheet,
   FlatList, KeyboardAvoidingView, Platform, ActivityIndicator,
-  Animated, Clipboard,
+  Animated, Clipboard, Image,
 } from 'react-native'
 import { COLORS, JURIS_API, Agent } from '../constants/agents'
+
+const FALCON = require('../../assets/falcon-logo.png')
 
 interface Message {
   id: string
@@ -28,7 +30,7 @@ function MessageBubble({ msg }: { msg: Message }) {
     <View style={[styles.bubbleRow, isUser ? styles.bubbleRowUser : styles.bubbleRowBot]}>
       {!isUser && (
         <View style={styles.avatar}>
-          <Text style={styles.avatarText}>B</Text>
+          <Image source={FALCON} style={styles.avatarImg} resizeMode="cover" />
         </View>
       )}
       <View style={[styles.bubble, isUser ? styles.bubbleUser : styles.bubbleBot]}>
@@ -39,9 +41,6 @@ function MessageBubble({ msg }: { msg: Message }) {
           <View style={styles.bubbleMeta}>
             {msg.elapsed != null && (
               <Text style={styles.metaText}>{msg.elapsed}s</Text>
-            )}
-            {msg.model && (
-              <Text style={styles.metaText}>· {msg.model}</Text>
             )}
             <TouchableOpacity onPress={copyText} style={styles.copyBtn}>
               <Text style={styles.copyText}>{copied ? '✓' : '⧉'}</Text>
@@ -57,7 +56,7 @@ function TypingIndicator() {
   return (
     <View style={[styles.bubbleRow, styles.bubbleRowBot]}>
       <View style={styles.avatar}>
-        <Text style={styles.avatarText}>B</Text>
+        <Image source={FALCON} style={styles.avatarImg} resizeMode="cover" />
       </View>
       <View style={[styles.bubble, styles.bubbleBot, styles.typingBubble]}>
         <Text style={styles.typingText}>Processando...</Text>
@@ -153,10 +152,11 @@ export default function ChatScreen({ agent, onBack }: ChatScreenProps) {
           <Text style={styles.backText}>‹</Text>
         </TouchableOpacity>
         <View style={styles.headerInfo}>
-          <Text style={styles.headerEmoji}>{agent.emoji}</Text>
+          <View style={styles.headerIconWrap}>
+            <Image source={FALCON} style={styles.headerIcon} resizeMode="cover" />
+          </View>
           <View style={styles.headerTexts}>
             <Text style={styles.headerName} numberOfLines={1}>{agent.shortName}</Text>
-            <Text style={styles.headerModel} numberOfLines={1}>{agent.model}</Text>
           </View>
           {agent.badge && (
             <View style={[styles.badge, { backgroundColor: agent.badgeColor || '#1d4ed8' }]}>
@@ -268,12 +268,21 @@ const styles = StyleSheet.create({
   bubbleRowUser: { justifyContent: 'flex-end' },
   bubbleRowBot: { justifyContent: 'flex-start' },
   avatar: {
-    width: 28, height: 28, borderRadius: 8,
-    backgroundColor: '#1d4ed8',
+    width: 32, height: 32, borderRadius: 8,
+    backgroundColor: '#0d1f3c',
     alignItems: 'center', justifyContent: 'center',
     marginRight: 8, flexShrink: 0,
+    overflow: 'hidden',
+    borderWidth: 1, borderColor: 'rgba(228,168,38,0.25)',
   },
-  avatarText: { fontSize: 13, fontWeight: '800', color: '#fff' },
+  avatarImg: { width: 32, height: 32 },
+  headerIconWrap: {
+    width: 30, height: 30, borderRadius: 8,
+    overflow: 'hidden',
+    backgroundColor: '#0d1f3c',
+    borderWidth: 1, borderColor: 'rgba(228,168,38,0.25)',
+  },
+  headerIcon: { width: 30, height: 30 },
   bubble: {
     maxWidth: '80%', borderRadius: 14, padding: 12,
   },

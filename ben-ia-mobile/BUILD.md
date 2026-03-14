@@ -1,92 +1,112 @@
 # BEN IA — Guia de Build e Publicação
 
 ## Pré-requisitos
-```bash
-npm install -g expo-cli eas-cli
-eas login   # login com sua conta Expo (expo.dev)
-```
+
+- Node.js 18+ instalado
+- Git instalado
+- Conta Expo em https://expo.dev (já criada: mauromoncao-adv)
+- Projeto Expo criado com ID: `a59da214-860d-4fcf-9337-845ab213c155`
 
 ---
 
-## 1. Instalar dependências
+## 1. Clonar e instalar
+
 ```bash
-cd ben-ia-app
+git clone https://github.com/mauromoncao/ben-juris-center.git
+cd ben-juris-center/ben-ia-mobile
 npm install
 ```
 
 ---
 
-## 2. Android — APK de teste (distribuição interna)
-```bash
-eas build --platform android --profile preview
-```
-Gera um **APK instalável** diretamente. Expo enviará o link para download por email.
+## 2. Login no Expo
 
-## 3. Android — App Bundle para Play Store
 ```bash
-eas build --platform android --profile production
-```
-Gera `.aab` para upload no Google Play Console.
-
-## 4. iOS — Build para App Store
-```bash
-eas build --platform ios --profile production
-```
-Requer conta Apple Developer ($99/ano). EAS gerencia certificados automaticamente.
-
-## 5. Submit para as lojas
-```bash
-# Google Play (requer google-play-key.json)
-eas submit --platform android --latest
-
-# App Store Connect
-eas submit --platform ios --latest
+npx eas-cli@latest login
+# E-mail: mauromoncaoestudos@gmail.com
+# Senha: (a da conta expo.dev)
 ```
 
 ---
 
-## Estrutura do projeto
+## 3. Gerar APK Android (gratuito, ~10 min)
+
+```bash
+npx eas-cli@latest build --platform android --profile preview
 ```
-ben-ia-app/
-├── app.json              # Config Expo (bundle ID, versão, ícone)
-├── eas.json              # Perfis de build EAS
+
+- Expo faz o build na nuvem
+- Ao final, gera um link de download do APK
+- Instale no celular Android direto pelo link
+
+---
+
+## 4. Publicar na Play Store (Android)
+
+**Pré-requisito**: Conta Google Play Developer ($25 USD em https://play.google.com/console)
+
+```bash
+npx eas-cli@latest build --platform android --profile production
+npx eas-cli@latest submit --platform android --latest
+```
+
+---
+
+## 5. Publicar na App Store (iOS)
+
+**Pré-requisito**: Apple Developer Program ($99/ano em https://developer.apple.com)
+
+```bash
+npx eas-cli@latest build --platform ios --profile production
+npx eas-cli@latest submit --platform ios --latest
+```
+
+---
+
+## Informações do App
+
+| Campo | Valor |
+|-------|-------|
+| Nome | BEN IA |
+| Versão | 1.1.0 |
+| Package Android | br.adv.mauromoncao.benia |
+| Bundle iOS | br.adv.mauromoncao.benia |
+| Expo Slug | ben-ia-app |
+| Expo Project ID | a59da214-860d-4fcf-9337-845ab213c155 |
+| API Base | https://ben-juris-center.vercel.app |
+| Agentes | 45 agentes IA |
+
+---
+
+## Acesso ao App
+
+- **Senha provisória**: 12345678
+- **E-mail autorizado 1**: mauromoncaoestudos@gmail.com
+- **E-mail autorizado 2**: mauromoncaoadv.escritorio@gmail.com
+
+---
+
+## Estrutura do Projeto
+
+```
+ben-ia-mobile/
+├── app/
+│   ├── _layout.tsx        # Root layout com AuthProvider
+│   └── index.tsx          # Tela principal (login + chat)
+├── src/
+│   ├── components/
+│   │   ├── AuthContext.tsx # Autenticação (senha + email)
+│   │   ├── AgentList.tsx   # Sidebar com 45 agentes
+│   │   ├── ChatScreen.tsx  # Tela de chat
+│   │   └── LoginScreen.tsx # Tela de login
+│   ├── constants/
+│   │   └── agents.ts      # Dados de todos os agentes
+│   └── screens/           # Screens alternativas (expo-router)
 ├── assets/
-│   ├── icon.png                      # Ícone do app (1024x1024) — Falcon BEN
-│   ├── android-icon-foreground.png   # Ícone adaptativo Android (foreground)
-│   ├── android-icon-background.png   # Ícone adaptativo Android (background navy)
-│   ├── splash-icon.png               # Tela de splash
-│   ├── falcon-logo.png               # Logo Falcão BEN (128px) — avatares chat
-│   └── falcon-logo-lg.png            # Logo Falcão BEN (512px) — alta res
-└── src/
-    ├── screens/
-    │   ├── ChatScreen.tsx            # Chat principal — 45 agentes
-    │   └── ProfileScreen.tsx         # Perfil + stats
-    ├── data/agents.ts                # 45 agentes BEN IA
-    └── context/AuthContext.tsx       # Auth: senha + Google
+│   ├── icon.png           # Ícone do app (Falcon 1024×1024)
+│   ├── splash-icon.png    # Splash screen
+│   ├── falcon-logo.png    # Logo Falcão (avatares)
+│   └── android-icon-*.png # Ícones adaptativos Android
+├── app.json               # Configuração Expo
+└── eas.json               # Configuração EAS Build
 ```
-
----
-
-## Identidade visual
-| Elemento | Cor |
-|----------|-----|
-| Background geral | `#F2F4F8` |
-| Cards | `#FFFFFF` |
-| Header/Sidebar | `#0d1f3c` |
-| Mensagem usuário | `#0d1f3c` (texto branco) |
-| Mensagem bot | `#FFFFFF` (texto `#1A1A1A`) |
-| Dourado acento | `#E4B71E` |
-| Logo | Falcão BEN — `zsDQqxh9.png` (B circuit board dourado/roxo) |
-
----
-
-## API
-- Endpoint: `https://ben-juris-center.vercel.app/api/agents/run`
-- POST `{ agentId, input, clientId, context }`
-- Todos os 45 agentes funcionando ✅ (v6.2, build fix TypeScript 2026-03-14)
-
----
-
-## Bundle IDs
-- **iOS:** `br.adv.mauromoncao.benia`
-- **Android:** `br.adv.mauromoncao.benia`

@@ -5,7 +5,7 @@
     "version": "1.1.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "dark",
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
@@ -16,8 +16,8 @@
       "bundleIdentifier": "br.adv.mauromoncao.benia",
       "buildNumber": "2",
       "infoPlist": {
-        "NSCameraUsageDescription": "Camera não usada.",
-        "NSMicrophoneUsageDescription": "Microfone não usado.",
+        "NSCameraUsageDescription": "Camera não utilizada.",
+        "NSMicrophoneUsageDescription": "Microfone não utilizado.",
         "CFBundleDisplayName": "BEN IA"
       }
     },
@@ -38,12 +38,14 @@
     },
     "scheme": "benia",
     "plugins": [
+      "expo-router",
       "expo-font"
     ],
     "extra": {
       "eas": {
-        "projectId": "ben-ia-app"
+        "projectId": "a59da214-860d-4fcf-9337-845ab213c155"
       }
-    }
+    },
+    "owner": "mauromoncao-adv"
   }
 }

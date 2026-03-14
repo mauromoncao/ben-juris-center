@@ -73,9 +73,6 @@ export default function AgentList({ onSelectAgent }: AgentListProps) {
                   <Text style={styles.agentShortName} numberOfLines={1}>
                     {agent.shortName}
                   </Text>
-                  <Text style={styles.agentModel} numberOfLines={1}>
-                    {agent.model}
-                  </Text>
                 </View>
                 {agent.badge && (
                   <View style={[styles.badge, { backgroundColor: agent.badgeColor || '#1d4ed8' }]}>
@@ -171,7 +168,8 @@ const styles = StyleSheet.create({
   agentEmoji: { fontSize: 17, width: 24, textAlign: 'center' },
   agentInfo: { flex: 1 },
   agentShortName: { fontSize: 13, fontWeight: '600', color: COLORS.textPrimary },
-  agentModel: { fontSize: 11, color: COLORS.textSecondary, marginTop: 1 },
+  // agentModel hidden — motor IA não exibido
+  agentModel: { display: 'none' },
   badge: {
     paddingHorizontal: 5, paddingVertical: 2,
     borderRadius: 4,

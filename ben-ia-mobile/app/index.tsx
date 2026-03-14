@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
-import { View, StyleSheet, Dimensions, TouchableOpacity, Text, Platform, Animated } from 'react-native'
+import { View, StyleSheet, Dimensions, TouchableOpacity, Text, Platform, Animated, Image } from 'react-native'
 import { useAuth } from '../src/components/AuthContext'
 import LoginScreen from '../src/components/LoginScreen'
 import AgentList from '../src/components/AgentList'
 import ChatScreen from '../src/components/ChatScreen'
 import { Agent, COLORS } from '../src/constants/agents'
+
+const FALCON = require('../assets/falcon-logo.png')
 
 const { width } = Dimensions.get('window')
 const SIDEBAR_WIDTH = Math.min(width * 0.78, 300)
@@ -104,7 +106,7 @@ function WelcomeScreen({ onOpenSidebar, isTablet }: { onOpenSidebar: () => void;
 
       {/* Conteúdo central */}
       <View style={welcomeStyles.content}>
-        <Text style={welcomeStyles.welcomeEmoji}>⚡</Text>
+        <Image source={FALCON} style={welcomeStyles.welcomeIcon} resizeMode="contain" />
         <Text style={welcomeStyles.welcomeTitle}>Bem-vindo ao BEN IA</Text>
         <Text style={welcomeStyles.welcomeText}>
           {isTablet
@@ -204,7 +206,7 @@ const welcomeStyles = StyleSheet.create({
     justifyContent: 'center',
     padding: 28,
   },
-  welcomeEmoji: { fontSize: 56, marginBottom: 16 },
+  welcomeIcon: { width: 100, height: 100, marginBottom: 16, borderRadius: 22 },
   welcomeTitle: { fontSize: 24, fontWeight: '800', color: COLORS.textPrimary, marginBottom: 10 },
   welcomeText: { fontSize: 15, color: COLORS.textSecondary, textAlign: 'center', lineHeight: 22, marginBottom: 24 },
   openBtn: {
