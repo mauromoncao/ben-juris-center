@@ -5972,6 +5972,18 @@ export default async function handler(req, res) {
 
     const agentConfig = AGENT_PROMPTS[agentId]
     if (!agentConfig) {
+      // ── Aliases de compatibilidade: redireciona IDs antigos/alternativos ──
+      const AGENT_ALIASES = {
+        'ben-copilot':           'ben-assistente-geral',
+        'ben-assistente':        'ben-assistente-geral',
+        'ben-super-agente-juridico': 'ben-agente-operacional-maximus',
+        'ben-juridico':          'ben-agente-operacional-premium',
+      }
+      const aliasTarget = AGENT_ALIASES[agentId]
+      if (aliasTarget && AGENT_PROMPTS[aliasTarget]) {
+        // Redireciona silenciosamente para o agente correto
+        return handler({ ...req, body: { ...req.body, agentId: aliasTarget } }, res)
+      }
       return res.status(404).json({ error: `Agente jurídico '${agentId}' não encontrado` })
     }
 
