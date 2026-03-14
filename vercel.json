@@ -20,6 +20,10 @@
       "destination": "/api/monitor.js"
     },
     {
+      "source": "/api/monitor-juridico",
+      "destination": "/api/monitor-juridico.js"
+    },
+    {
       "source": "/api/voice",
       "destination": "/api/voice.js"
     },

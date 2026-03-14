@@ -1,8 +1,9 @@
 // ============================================================
-// BEN JURIS CENTER — BEN Jurídico Agents API v6.1
+// BEN JURIS CENTER — BEN Jurídico Agents API v6.2
 // Stack: Claude Opus 4.6 · Claude Sonnet 4.6 · Claude Haiku 4.5
 //        OpenAI GPT-4o · Perplexity
 //        45 Agentes — incluindo BEN Copilot (ben-assistente-geral)
+// Deploy: 2026-03-14T00:30:00Z | FORCE-REDEPLOY v6.2
 // Rota: POST /api/agents/run
 // ============================================================
 
