@@ -1,8 +1,8 @@
 // ============================================================
-// BEN JURIS CENTER — BEN Jurídico Agents API v6.0
+// BEN JURIS CENTER — BEN Jurídico Agents API v6.1
 // Stack: Claude Opus 4.6 · Claude Sonnet 4.6 · Claude Haiku 4.5
 //        OpenAI GPT-4o · Perplexity
-//        28 Agentes Especializados + 3 Operacionais — Nomenclatura Profissional BEN
+//        45 Agentes — incluindo BEN Copilot (ben-assistente-geral)
 // Rota: POST /api/agents/run
 // ============================================================
 
