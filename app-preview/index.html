@@ -768,7 +768,7 @@
 
   <!-- ════ PHONE 2: CHAT ════ -->
   <div class="phone-container">
-    <span class="phone-label">Chat — Assistente Geral</span>
+    <span class="phone-label">Chat — BEN Copilot</span>
     <div class="phone">
       <div class="screen" id="screen-chat">
         <!-- Status bar -->
@@ -780,7 +780,7 @@
         <div class="chat-header">
           <div class="agent-icon-sm" id="active-agent-icon" style="background:#0d1f3c;"><svg width="22" height="22" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="bgh" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#E4B71E"/><stop offset="100%" stop-color="#7B35C8"/></linearGradient></defs><text x="50%" y="58%" dominant-baseline="middle" text-anchor="middle" font-family="Georgia,serif" font-weight="bold" font-size="52" fill="url(#bgh)">B</text></svg></div>
           <div style="flex:1">
-            <div class="agent-btn-name">BEN Assistente Geral (Copiloto)</div>
+            <div class="agent-btn-name">BEN Copilot</div>
             <div class="agent-btn-model">▾ trocar agente</div>
           </div>
           <div class="clear-btn" onclick="clearChat()">🗑️</div>
@@ -790,14 +790,14 @@
           <!-- Messages will be injected here or empty state -->
           <div class="empty-state" id="empty-state">
             <div class="empty-icon" id="empty-icon-el" style="background:#0d1f3c;"><svg width="70" height="70" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="bg2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#E4B71E"/><stop offset="100%" stop-color="#7B35C8"/></linearGradient></defs><text x="50%" y="58%" dominant-baseline="middle" text-anchor="middle" font-family="Georgia,serif" font-weight="bold" font-size="52" fill="url(#bg2)">B</text></svg></div>
-            <div class="empty-name">Assistente Geral</div>
-            <div class="empty-desc">Copiloto universal BEN IA — sem restrições temáticas. Responde qualquer pergunta.</div>
+            <div class="empty-name">BEN Copilot</div>
+            <div class="empty-desc">Copiloto universal BEN IA — sem restrições temáticas, responde qualquer pergunta.</div>
             <div class="empty-hint-box">💬 Envie uma mensagem para começar</div>
           </div>
         </div>
         <!-- Input bar -->
         <div class="input-bar">
-          <textarea class="chat-input" id="chat-input" placeholder="Mensagem para Assistente Geral..." rows="1"
+          <textarea class="chat-input" id="chat-input" placeholder="Mensagem para BEN Copilot..." rows="1"
             onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMessage()}"
             oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,120)+'px'"></textarea>
           <button class="send-btn" id="send-btn" onclick="sendMessage()">↑</button>
@@ -872,7 +872,7 @@
             <div class="section-label">Agentes Disponíveis</div>
             <div class="stats-grid">
               <div class="stat-card">
-                <span class="stat-emoji">⚖️</span>
+                <span class="stat-emoji"><svg width="22" height="22" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="bgj" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#E4B71E"/><stop offset="100%" stop-color="#7B35C8"/></linearGradient></defs><text x="50%" y="58%" dominant-baseline="middle" text-anchor="middle" font-family="Georgia,serif" font-weight="bold" font-size="52" fill="url(#bgj)">B</text></svg></span>
                 <span class="stat-num" style="color:#93C5FD">22</span>
                 <span class="stat-label">Jurídico</span>
               </div>
@@ -952,7 +952,7 @@
 // ═══════════════════════════════════════════════════════
 const AGENTS = [
   // Sistema
-  { id:'ben-assistente-geral', shortName:'Assistente Geral', name:'BEN Assistente Geral (Copiloto)', category:'sistema', color:'#6d28d9', accentColor:'#ede9fe', badge:'FIXO', badgeClass:'badge-fixo', description:'Copiloto universal BEN IA — sem restrições temáticas. Responde qualquer pergunta.' },
+  { id:'ben-assistente-geral', shortName:'Copilot', name:'BEN Copilot', category:'sistema', color:'#6d28d9', accentColor:'#ede9fe', badge:'FIXO', badgeClass:'badge-fixo', description:'Copiloto universal BEN IA — sem restrições temáticas, responde qualquer pergunta.' },
   { id:'ben-engenheiro-prompt', shortName:'Eng. Prompt', name:'BEN Engenheiro de Prompt', category:'sistema', color:'#4f46e5', accentColor:'#e0e7ff', description:'Otimização de prompts e arquitetura de agentes IA.' },
   { id:'ben-analista-monitoramento', shortName:'Monitoramento', name:'BEN Analista Monitoramento', category:'sistema', color:'#dc2626', accentColor:'#fee2e2', description:'Monitoramento de saúde do sistema e alertas.' },
   { id:'ben-monitor-juridico', shortName:'Monitor Jurídico', name:'BEN Monitor Jurídico DJe + CNJ', category:'sistema', color:'#0e7490', accentColor:'#cffafe', badge:'NEW', badgeClass:'badge-new', description:'Monitor DJe + DataJud CNJ em tempo real.' },
@@ -1004,7 +1004,7 @@ const AGENTS = [
 ]
 
 const CATEGORIES = [
-  { key:'juridico', label:'Jurídico',          emoji:'⚖️', color:'#1d4ed8' },
+  { key:'juridico', label:'Jurídico',          emoji:'B', color:'#1d4ed8' },
   { key:'contador', label:'Contador',           emoji:'🧮', color:'#b45309' },
   { key:'perito',   label:'Perito Forense',     emoji:'🔬', color:'#4f46e5' },
   { key:'growth',   label:'Growth & Marketing', emoji:'📣', color:'#059669' },
@@ -1128,7 +1128,7 @@ function fmtMs(ms) {
 
 function getAgentDesc(a) {
   const descs = {
-    'ben-assistente-geral': 'Copiloto universal BEN IA — sem restrições temáticas. Responde qualquer pergunta.',
+    'ben-assistente-geral': 'Copiloto universal BEN IA — sem restrições temáticas, responde qualquer pergunta.',
     'ben-super-agente-juridico': 'Análise jurídica de máxima profundidade — última instância.',
     'ben-perito-forense': 'Laudos periciais padrão com metodologia técnica.',
     'ben-contador-tributarista': 'Triagem fiscal e orientação tributária inicial.',
@@ -1219,7 +1219,7 @@ function renderPickerList(query) {
     if (!agents.length) return
     html += `
       <div class="cat-header">
-        <span style="font-size:14px;margin-right:4px">${cat.emoji}</span>
+        <span style="font-size:14px;margin-right:4px;vertical-align:middle">${cat.emoji === 'B' ? `<svg width="16" height="16" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="bgcat" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#E4B71E"/><stop offset="100%" stop-color="#7B35C8"/></linearGradient></defs><text x="50%" y="58%" dominant-baseline="middle" text-anchor="middle" font-family="Georgia,serif" font-weight="bold" font-size="52" fill="url(#bgcat)">B</text></svg>` : cat.emoji}</span>
         <span class="cat-label" style="color:${cat.color}">${cat.label}</span>
         <span class="cat-count">${agents.length}</span>
       </div>
