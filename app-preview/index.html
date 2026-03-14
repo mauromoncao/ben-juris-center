@@ -1155,27 +1155,36 @@ async function sendMessage() {
       .map(m => `${m.role==='user'?'Usuário':'BEN'}: ${m.content}`)
       .join('\n')
 
-    const res = await fetch(`${API_BASE}/api/agents/run`, {
+    // Fallback automático: se agente retornar 404, usa alternativa
+    const AGENT_FALLBACKS = {
+      'ben-assistente-geral': 'ben-agente-operacional-premium',
+      'ben-assistente-voz':   'ben-agente-operacional-standard',
+    }
+
+    const tryAgent = async (id) => fetch(`${API_BASE}/api/agents/run`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ agentId: activeAgent.id, input: text, clientId: 'ben-ia-preview', context: ctx }),
+      body: JSON.stringify({ agentId: id, input: text, clientId: 'ben-ia-preview', context: ctx }),
       signal: AbortSignal.timeout(30000),
     })
+
+    let res = await tryAgent(activeAgent.id)
+    if (res.status === 404 && AGENT_FALLBACKS[activeAgent.id]) {
+      res = await tryAgent(AGENT_FALLBACKS[activeAgent.id])
+    }
 
     if (!res.ok) throw new Error(`Servidor retornou ${res.status}`)
     const data = await res.json()
     const content = data.output ?? data.response ?? data.text ?? '(sem resposta)'
-    const model = data.model_used ?? data.modelUsed ?? activeAgent.model
     const elapsed = Date.now() - t0
 
     messages = messages.filter(m => !m.loading)
-    messages.push({ id: uid(), role:'assistant', content, model, elapsed })
+    messages.push({ id: uid(), role:'assistant', content, elapsed })
   } catch(e) {
     messages = messages.filter(m => !m.loading)
     messages.push({
       id: uid(), role:'assistant',
       content: `Conectando ao servidor BEN IA...\n\nO app mobile se conecta diretamente ao backend em produção. Neste preview HTML, a conexão pode falhar por CORS.\n\nNo app nativo (Android/iOS), a API funciona normalmente.\n\nErro: ${e.message}`,
-      model: activeAgent.model,
       elapsed: Date.now() - t0,
     })
   }
