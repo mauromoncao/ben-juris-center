@@ -963,22 +963,7 @@ const AGENTS = [
   { id:'ben-agente-operacional-standard', shortName:'Agente Standard', name:'AGENTE OPERACIONAL STANDARD', category:'juridico', color:'#16a34a', accentColor:'#dcfce7', badge:'HAIKU', badgeClass:'badge-haiku', description:'Execução operacional rápida. Extração, resumo, classificação, checklist.' },
   { id:'ben-tributarista-estrategista', shortName:'Tributarista Estrat.', name:'AGENTE TRIBUTARISTA ESTRATEGISTA', category:'juridico', color:'#b45309', accentColor:'#fef3c7', badge:'OPUS', badgeClass:'badge-opus', description:'Especialista em Direito Tributário Puro. Defesa no CARF, TJ, STJ e STF.' },
   { id:'ben-processualista-estrategico', shortName:'Processualista Estrat.', name:'AGENTE PROCESSUALISTA ESTRATÉGICO', category:'juridico', color:'#1e3a5f', accentColor:'#dbeafe', badge:'OPUS', badgeClass:'badge-opus', description:'Estrategista processual de nível STF/STJ. Análise em 6 camadas.' },
-  { id:'ben-peticionista-juridico', shortName:'Peticionista', name:'BEN Peticionista Jurídico', category:'juridico', color:'#1d4ed8', accentColor:'#dbeafe', description:'Peças processuais conforme o caso concreto e jurisprudência.' },
-  { id:'ben-contratualista', shortName:'Contratualista', name:'BEN Contratualista', category:'juridico', color:'#7c3aed', accentColor:'#ede9fe', description:'Contratos empresariais, NDAs, societários e negociais.' },
-  { id:'ben-mandatario-juridico', shortName:'Mandatário', name:'BEN Mandatário Jurídico', category:'juridico', color:'#059669', accentColor:'#d1fae5', description:'Procurações, Ad Judicia, gerais e especiais.' },
-  { id:'ben-analista-processual', shortName:'Analista Proc.', name:'BEN Analista Processual', category:'juridico', color:'#dc2626', accentColor:'#fee2e2', description:'Análise estratégica de processos com avaliação de risco.' },
-  { id:'ben-tributarista', shortName:'Tributarista', name:'BEN Tributarista', category:'juridico', color:'#d97706', accentColor:'#fef3c7', description:'Direito tributário, planejamento fiscal e teses avançadas.' },
-  { id:'ben-trabalhista', shortName:'Trabalhista', name:'BEN Trabalhista', category:'juridico', color:'#0369a1', accentColor:'#e0f2fe', description:'Direito do trabalho, TST, reclamações e acordos.' },
-  { id:'ben-previdenciarista', shortName:'Previdenciarista', name:'BEN Previdenciarista', category:'juridico', color:'#7c3aed', accentColor:'#ede9fe', description:'Benefícios INSS, aposentadorias e revisões previdenciárias.' },
-  { id:'ben-constitucionalista', shortName:'Constitucionalista', name:'BEN Constitucionalista', category:'juridico', color:'#b91c1c', accentColor:'#fee2e2', description:'MS, HC, Mandado de Injunção e ações constitucionais.' },
-  { id:'ben-especialista-compliance', shortName:'Compliance', name:'BEN Especialista Compliance', category:'juridico', color:'#0f766e', accentColor:'#ccfbf1', description:'Conformidade LGPD, políticas de privacidade e proteção de dados.' },
   { id:'ben-pesquisador-juridico', shortName:'Pesquisador', name:'BEN Pesquisador Jurídico', category:'juridico', color:'#6d28d9', accentColor:'#ede9fe', description:'Pesquisa em tempo real: STF, STJ, TRF, TJPI com citações.' },
-  { id:'ben-relator-juridico', shortName:'Relator', name:'BEN Relator Jurídico', category:'juridico', color:'#1e40af', accentColor:'#dbeafe', description:'Artigos jurídicos, pareceres técnicos e publicações.' },
-  { id:'ben-redator-juridico', shortName:'Redator', name:'BEN Redator Jurídico', category:'juridico', color:'#374151', accentColor:'#f3f4f6', description:'Redação técnica jurídica, memorandos, ofícios.' },
-  { id:'ben-auditor-processual', shortName:'Auditor', name:'BEN Auditor Processual', category:'juridico', color:'#0f766e', accentColor:'#ccfbf1', description:'Auditoria de prazos críticos e conformidade OAB.' },
-  { id:'ben-gestor-juridico', shortName:'Gestor', name:'BEN Gestor Jurídico', category:'juridico', color:'#374151', accentColor:'#f3f4f6', description:'Gestão de escritório, produtividade e governança.' },
-  { id:'ben-revisor-juridico', shortName:'Revisor', name:'BEN Revisor Jurídico', category:'juridico', color:'#374151', accentColor:'#f3f4f6', description:'Revisão técnica e linguística de peças jurídicas.' },
-  { id:'ben-peticionista', shortName:'Peticionista G.', name:'BEN Peticionista', category:'juridico', color:'#1d4ed8', accentColor:'#dbeafe', description:'Petições iniciais, recursos e peças de urgência.' },
   // Contador
   { id:'ben-contador-tributarista', shortName:'Triagem', name:'BEN Contador — Triagem', category:'contador', color:'#92400e', accentColor:'#fef3c7', badge:'SONNET', badgeClass:'badge-sonnet', description:'Triagem fiscal e orientação tributária inicial.' },
   { id:'ben-contador-especialista', shortName:'Especialista', name:'BEN Contador — Especialista', category:'contador', color:'#b45309', accentColor:'#fef9c3', badge:'SONNET', badgeClass:'badge-sonnet', description:'Análise fiscal profunda e consultoria especializada.' },
@@ -1129,7 +1114,7 @@ function fmtMs(ms) {
 function getAgentDesc(a) {
   const descs = {
     'ben-assistente-geral': 'Copiloto universal BEN IA — sem restrições temáticas, responde qualquer pergunta.',
-    'ben-super-agente-juridico': 'Análise jurídica de máxima profundidade — última instância.',
+    'ben-agente-operacional-maximus': 'Análise jurídica de máxima profundidade — última instância.',
     'ben-perito-forense': 'Laudos periciais padrão com metodologia técnica.',
     'ben-contador-tributarista': 'Triagem fiscal e orientação tributária inicial.',
   }

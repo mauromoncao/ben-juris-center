@@ -236,27 +236,11 @@ const AUTH_PWD='12345678';
 const ALLOWED=['mauromoncaoestudos@gmail.com','mauromoncaoadv.escritorio@gmail.com'];
 const CATS=[
   {key:'juridico',label:'Jurídico',color:'#93C5FD',emoji:'⚖️',agents:[
-    {id:'ben-super-agente-juridico',e:'⭐',s:'Agente Maximus',n:'AGENTE OPERACIONAL MAXIMUS',b:'OPUS',bc:'#92400e'},
     {id:'ben-agente-operacional-premium',e:'🔷',s:'Agente Premium',n:'AGENTE OPERACIONAL PREMIUM',b:'SONNET',bc:'#1d4ed8'},
     {id:'ben-agente-operacional-standard',e:'🟢',s:'Agente Standard',n:'AGENTE OPERACIONAL STANDARD',b:'HAIKU',bc:'#16a34a'},
     {id:'ben-tributarista-estrategista',e:'⚖️',s:'Tributarista Estrat.',n:'AGENTE TRIBUTARISTA ESTRATEGISTA',b:'OPUS',bc:'#b45309'},
     {id:'ben-processualista-estrategico',e:'📋',s:'Processualista Estrat.',n:'AGENTE PROCESSUALISTA ESTRATÉGICO',b:'OPUS',bc:'#1e3a5f'},
-    {id:'ben-peticionista-juridico',e:'⚖️',s:'Peticionista',n:'BEN Peticionista Jurídico'},
-    {id:'ben-contratualista',e:'📋',s:'Contratualista',n:'BEN Contratualista'},
-    {id:'ben-mandatario-juridico',e:'📜',s:'Mandatário',n:'BEN Mandatário Jurídico'},
-    {id:'ben-analista-processual',e:'🔬',s:'Analista Proc.',n:'BEN Analista Processual'},
-    {id:'ben-tributarista',e:'💰',s:'Tributarista',n:'BEN Tributarista'},
-    {id:'ben-trabalhista',e:'👷',s:'Trabalhista',n:'BEN Trabalhista'},
-    {id:'ben-previdenciarista',e:'🏛️',s:'Previdenciarista',n:'BEN Previdenciarista'},
-    {id:'ben-constitucionalista',e:'⚡',s:'Constitucionalista',n:'BEN Constitucionalista'},
-    {id:'ben-especialista-compliance',e:'🛡️',s:'Compliance',n:'BEN Especialista Compliance'},
     {id:'ben-pesquisador-juridico',e:'🔎',s:'Pesquisador',n:'BEN Pesquisador Jurídico'},
-    {id:'ben-relator-juridico',e:'📚',s:'Relator',n:'BEN Relator Jurídico'},
-    {id:'ben-redator-juridico',e:'✒️',s:'Redator',n:'BEN Redator Jurídico'},
-    {id:'ben-auditor-processual',e:'🔏',s:'Auditor',n:'BEN Auditor Processual'},
-    {id:'ben-gestor-juridico',e:'🏢',s:'Gestor',n:'BEN Gestor Jurídico'},
-    {id:'ben-revisor-juridico',e:'📝',s:'Revisor',n:'BEN Revisor Jurídico'},
-    {id:'ben-peticionista',e:'⚖️',s:'Peticionista G.',n:'BEN Peticionista'},
   ]},
   {key:'contador',label:'Contador',color:'#FCD34D',emoji:'🧮',agents:[
     {id:'ben-contador-tributarista',e:'🧮',s:'Triagem',n:'BEN Contador — Triagem',b:'SONNET',bc:'#1d4ed8'},
@@ -293,7 +277,6 @@ const CATS=[
 ];
 const DESCS={
   'ben-assistente-geral':'Copiloto universal BEN IA — sem restrições temáticas.',
-  'ben-super-agente-juridico':'Análise jurídica de máxima profundidade.',
   'ben-agente-operacional-premium':'Análise jurídica premium de alto nível.',
   'ben-agente-operacional-standard':'Operações jurídicas rápidas e precisas.',
   'ben-contador-tributarista':'Triagem e análise tributária especializada.',

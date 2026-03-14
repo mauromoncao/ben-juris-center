@@ -110,7 +110,6 @@ export const AGENTS: Agent[] = [
     description: 'Estrategista processual de nível STF/STJ. Análise em 6 camadas.',
   },
   {
-    id: 'ben-peticionista-juridico',
     emoji: 'B', shortName: 'Peticionista',
     name: 'BEN Peticionista Jurídico',
     model: 'Claude Haiku 4.5', category: 'juridico', categoryLabel: 'Jurídico', categoryColor: '#93C5FD',
@@ -118,7 +117,6 @@ export const AGENTS: Agent[] = [
     description: 'Peças processuais conforme o caso concreto e jurisprudência.',
   },
   {
-    id: 'ben-contratualista',
     emoji: 'B', shortName: 'Contratualista',
     name: 'BEN Contratualista',
     model: 'Claude Haiku 4.5', category: 'juridico', categoryLabel: 'Jurídico', categoryColor: '#93C5FD',
@@ -126,7 +124,6 @@ export const AGENTS: Agent[] = [
     description: 'Contratos empresariais, NDAs, societários e negociais.',
   },
   {
-    id: 'ben-mandatario-juridico',
     emoji: 'B', shortName: 'Mandatário',
     name: 'BEN Mandatário Jurídico',
     model: 'Claude Haiku 4.5', category: 'juridico', categoryLabel: 'Jurídico', categoryColor: '#93C5FD',
@@ -134,7 +131,6 @@ export const AGENTS: Agent[] = [
     description: 'Procurações, Ad Judicia, gerais e especiais.',
   },
   {
-    id: 'ben-analista-processual',
     emoji: 'B', shortName: 'Analista Proc.',
     name: 'BEN Analista Processual',
     model: 'GPT-4o', category: 'juridico', categoryLabel: 'Jurídico', categoryColor: '#93C5FD',
@@ -142,7 +138,6 @@ export const AGENTS: Agent[] = [
     description: 'Análise estratégica de processos com avaliação de risco.',
   },
   {
-    id: 'ben-tributarista',
     emoji: 'B', shortName: 'Tributarista',
     name: 'BEN Tributarista',
     model: 'Claude Haiku 4.5', category: 'juridico', categoryLabel: 'Jurídico', categoryColor: '#93C5FD',
@@ -150,7 +145,6 @@ export const AGENTS: Agent[] = [
     description: 'Direito tributário, planejamento fiscal e teses avançadas.',
   },
   {
-    id: 'ben-trabalhista',
     emoji: 'B', shortName: 'Trabalhista',
     name: 'BEN Trabalhista',
     model: 'GPT-4o', category: 'juridico', categoryLabel: 'Jurídico', categoryColor: '#93C5FD',
@@ -158,7 +152,6 @@ export const AGENTS: Agent[] = [
     description: 'Direito do trabalho, TST, reclamações e acordos.',
   },
   {
-    id: 'ben-previdenciarista',
     emoji: 'B', shortName: 'Previdenciarista',
     name: 'BEN Previdenciarista',
     model: 'Claude Haiku 4.5', category: 'juridico', categoryLabel: 'Jurídico', categoryColor: '#93C5FD',
@@ -166,7 +159,6 @@ export const AGENTS: Agent[] = [
     description: 'Benefícios INSS, aposentadorias e revisões previdenciárias.',
   },
   {
-    id: 'ben-constitucionalista',
     emoji: 'B', shortName: 'Constitucionalista',
     name: 'BEN Constitucionalista',
     model: 'GPT-4o', category: 'juridico', categoryLabel: 'Jurídico', categoryColor: '#93C5FD',
@@ -174,7 +166,6 @@ export const AGENTS: Agent[] = [
     description: 'MS, HC, Mandado de Injunção e ações constitucionais.',
   },
   {
-    id: 'ben-especialista-compliance',
     emoji: 'B', shortName: 'Compliance',
     name: 'BEN Especialista Compliance',
     model: 'GPT-4o', category: 'juridico', categoryLabel: 'Jurídico', categoryColor: '#93C5FD',
@@ -190,7 +181,6 @@ export const AGENTS: Agent[] = [
     description: 'Pesquisa em tempo real: STF, STJ, TRF, TJPI com citações.',
   },
   {
-    id: 'ben-relator-juridico',
     emoji: 'B', shortName: 'Relator',
     name: 'BEN Relator Jurídico',
     model: 'GPT-4o', category: 'juridico', categoryLabel: 'Jurídico', categoryColor: '#93C5FD',
@@ -198,7 +188,6 @@ export const AGENTS: Agent[] = [
     description: 'Artigos jurídicos, pareceres técnicos e publicações.',
   },
   {
-    id: 'ben-redator-juridico',
     emoji: 'B', shortName: 'Redator',
     name: 'BEN Redator Jurídico',
     model: 'GPT-4o', category: 'juridico', categoryLabel: 'Jurídico', categoryColor: '#93C5FD',
@@ -206,7 +195,6 @@ export const AGENTS: Agent[] = [
     description: 'Redação técnica jurídica, memorandos, ofícios.',
   },
   {
-    id: 'ben-auditor-processual',
     emoji: 'B', shortName: 'Auditor',
     name: 'BEN Auditor Processual',
     model: 'Claude Haiku 4.5', category: 'juridico', categoryLabel: 'Jurídico', categoryColor: '#93C5FD',
@@ -214,7 +202,6 @@ export const AGENTS: Agent[] = [
     description: 'Auditoria de prazos críticos e conformidade OAB.',
   },
   {
-    id: 'ben-gestor-juridico',
     emoji: 'B', shortName: 'Gestor',
     name: 'BEN Gestor Jurídico',
     model: 'GPT-4o', category: 'juridico', categoryLabel: 'Jurídico', categoryColor: '#93C5FD',
@@ -222,7 +209,6 @@ export const AGENTS: Agent[] = [
     description: 'Gestão de escritório, produtividade e governança.',
   },
   {
-    id: 'ben-revisor-juridico',
     emoji: 'B', shortName: 'Revisor',
     name: 'BEN Revisor Jurídico',
     model: 'Claude Haiku 4.5', category: 'juridico', categoryLabel: 'Jurídico', categoryColor: '#93C5FD',
@@ -230,7 +216,6 @@ export const AGENTS: Agent[] = [
     description: 'Revisão técnica e linguística de peças jurídicas.',
   },
   {
-    id: 'ben-peticionista',
     emoji: 'B', shortName: 'Peticionista G.',
     name: 'BEN Peticionista',
     model: 'Claude Haiku 4.5', category: 'juridico', categoryLabel: 'Jurídico', categoryColor: '#93C5FD',
