@@ -34,7 +34,7 @@ interface DocumentoAnexo {
 
 // ─── Exemplos de consultas tributárias ────────────────────────────────────────
 const CONSULTAS_EXEMPLO = [
-  { label: '⚖️ Impugnação CARF', prompt: 'Elabore impugnação ao auto de infração por cobrança de IRPJ exercício 2022, valor R$ 180.000. A Receita negou dedução de despesas com educação especial. Sujeito passivo: Empresa XYZ Ltda, CNPJ 00.000.000/0001-00, Teresina/PI.' },
+  { label: '🔱 Impugnação CARF', prompt: 'Elabore impugnação ao auto de infração por cobrança de IRPJ exercício 2022, valor R$ 180.000. A Receita negou dedução de despesas com educação especial. Sujeito passivo: Empresa XYZ Ltda, CNPJ 00.000.000/0001-00, Teresina/PI.' },
   { label: '🏛️ Nulidade de autuação', prompt: 'Analise as hipóteses de nulidade (processual e material) de auto de infração por ICMS onde a intimação fiscal não indicou a base de cálculo utilizada e o prazo de defesa foi inferior a 30 dias.' },
   { label: '📋 Estratégia CARF → STJ', prompt: 'O CARF negou crédito de PIS/COFINS sobre insumos industriais. Quais são as chances no TJ? E no STJ? Há Tema Repetitivo favorável? Elabore estratégia de escalação multi-instância.' },
   { label: '🔍 Reforma Tributária EC 132', prompt: 'Quais são os impactos da EC 132/2023 para empresas de serviços no regime do ISS municipal? Há direito adquirido sobre benefícios fiscais concedidos antes da reforma?' },
@@ -335,7 +335,7 @@ export default function AgenteTributaristaEstrategista() {
                 TRIBUTARISTA ESTRATEGISTA
                 <span className="text-xs px-2 py-0.5 rounded-full"
                   style={{ background: COR_BG_BADGE, color: COR_PRIMARIA, border: `1px solid ${COR_BORDER}` }}>
-                  ⚖️ TRIBUTÁRIO
+                  🔱 TRIBUTÁRIO
                 </span>
               </h1>
               <p className="text-xs" style={{ color: '#6B7280' }}>

@@ -20,7 +20,7 @@ interface Documento {
 }
 
 const TIPOS: Record<TipoDoc, { label: string; icon: string; color: string }> = {
-  parecer: { label: 'Parecer Jurídico', icon: '⚖️', color: 'bg-navy-mid/10 text-navy font-semibold border-navy-mid/30' },
+  parecer: { label: 'Parecer Jurídico', icon: '🔱', color: 'bg-navy-mid/10 text-navy font-semibold border-navy-mid/30' },
   peticao: { label: 'Petição', icon: '📝', color: 'bg-violet/10 text-violet border-violet/30' },
   contrato: { label: 'Contrato', icon: '📋', color: 'bg-emerald/10 text-emerald border-emerald/25' },
   minuta: { label: 'Minuta', icon: '📄', color: 'bg-amber/10 text-amber-700 border-amber/30' },

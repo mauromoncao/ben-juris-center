@@ -33,7 +33,7 @@ interface DocumentoAnexo {
 
 // ─── Exemplos de consultas ─────────────────────────────────────────────────────
 const CONSULTAS_EXEMPLO = [
-  { label: '⚖️ Petição inicial', prompt: 'Elabore uma petição inicial de ação de cobrança por inadimplemento contratual. Credor: João Silva. Devedor: Empresa XYZ Ltda. Valor: R$ 45.000. Comarca: Teresina/PI.' },
+  { label: '🔱 Petição inicial', prompt: 'Elabore uma petição inicial de ação de cobrança por inadimplemento contratual. Credor: João Silva. Devedor: Empresa XYZ Ltda. Valor: R$ 45.000. Comarca: Teresina/PI.' },
   { label: '📋 Parecer contratual', prompt: 'Analise as seguintes cláusulas contratuais e aponte os riscos jurídicos, com fundamento no Código Civil e jurisprudência do STJ.' },
   { label: '🏛️ Pesquisa STJ', prompt: 'Pesquise os entendimentos mais recentes do STJ sobre prazo prescricional para ações de responsabilidade civil contratual.' },
   { label: '📄 Checklist previdenciário', prompt: 'Elabore um checklist completo de documentos necessários para ingressar com ação de aposentadoria por tempo de contribuição.' },

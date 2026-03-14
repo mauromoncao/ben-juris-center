@@ -33,7 +33,7 @@ interface DocumentoAnexo {
 
 // ─── Exemplos de consultas processuais ───────────────────────────────────────
 const CONSULTAS_EXEMPLO = [
-  { label: '⚖️ Nulidade de citação', prompt: 'Analise hipóteses de nulidade de citação no processo civil. O réu não foi citado pessoalmente e a sentença foi proferida à revelia. Processo n. 0001234-56.2023.8.18.0001, 3ª Vara Cível de Teresina/PI. Quais são os fundamentos para anulação da sentença e como proceder?' },
+  { label: '🔱 Nulidade de citação', prompt: 'Analise hipóteses de nulidade de citação no processo civil. O réu não foi citado pessoalmente e a sentença foi proferida à revelia. Processo n. 0001234-56.2023.8.18.0001, 3ª Vara Cível de Teresina/PI. Quais são os fundamentos para anulação da sentença e como proceder?' },
   { label: '🔒 Habeas Corpus — prisão preventiva', prompt: 'Elabore habeas corpus para revogar prisão preventiva decretada há 90 dias por tráfico de drogas, sem renovação fundamentada. Acusado é primário, tem residência fixa e emprego lícito comprovado. Fundamente com art. 316 do CPP e jurisprudência do STJ.' },
   { label: '📋 Recurso de Apelação', prompt: 'A sentença julgou improcedente ação de indenização por danos morais decorrentes de inscrição indevida em cadastro restritivo. O juiz afastou o dano in re ipsa. Elabore apelação com error in judicando, fundamentada na jurisprudência do STJ (Súmula 385 e Tema 710).' },
   { label: '🏛️ Mandado de Segurança', prompt: 'Elabore mandado de segurança contra ato do Diretor de Licitações que indeferiu recurso administrativo sem fundamentação, violando o contraditório e ampla defesa. Lei 9.784/1999, art. 50. Empresa ABC Ltda, CNPJ 00.000.000/0001-00.' },
@@ -315,7 +315,7 @@ export default function AgentProcessualistaEstrategico() {
                 PROCESSUALISTA ESTRATÉGICO
                 <span className="text-xs px-2 py-0.5 rounded-full"
                   style={{ background: COR_BG_BADGE, color: COR_PRIMARIA, border: `1px solid ${COR_BORDER}` }}>
-                  ⚖️ PROCESSUAL
+                  🔱 PROCESSUAL
                 </span>
               </h1>
               <p className="text-xs" style={{ color: '#6B7280' }}>
@@ -361,7 +361,7 @@ export default function AgentProcessualistaEstrategico() {
               <Scale className="w-3.5 h-3.5" /> RAMOS PROCESSUAIS
             </p>
             {[
-              { icon: '⚖️', label: 'Processo Civil', sub: 'CPC · Nulidades · Recursos' },
+              { icon: '🔱', label: 'Processo Civil', sub: 'CPC · Nulidades · Recursos' },
               { icon: '🔒', label: 'Processo Penal', sub: 'CPP · HC · Nulidades' },
               { icon: '🏛️', label: 'Proc. Constitucional', sub: 'STF · MS · ADI · ADPF' },
               { icon: '👷', label: 'Proc. Trabalhista', sub: 'CLT · TST · Recursos' },
@@ -457,7 +457,7 @@ export default function AgentProcessualistaEstrategico() {
                   {/* Header da resposta */}
                   {msg.role === 'assistant' && !msg.isLoading && (
                     <div className="flex items-center gap-2 mb-2 flex-wrap">
-                      <span className="text-xs font-bold" style={{ color: COR_PRIMARIA }}>⚖️ PROCESSUALISTA</span>
+                      <span className="text-xs font-bold" style={{ color: COR_PRIMARIA }}>🔱 PROCESSUALISTA</span>
                       {msg.thinkingAtivo && (
                         <span className="text-xs px-2 py-0.5 rounded-full font-medium"
                           style={{ background: COR_BG_BADGE, color: COR_PRIMARIA }}>

@@ -252,7 +252,7 @@ async function processarEventoRecebido(evento) {
         `🎯 LEAD QUALIFICADO — BEN GROWTH\n\n` +
         `👤 Nome: ${evento.payload?.nome || 'N/A'}\n` +
         `📞 Telefone: ${evento.payload?.telefone || 'N/A'}\n` +
-        `⚖️ Área: ${evento.payload?.area || 'N/A'}\n` +
+        `🔱 Área: ${evento.payload?.area || 'N/A'}\n` +
         `⭐ Score: ${evento.payload?.score || 'N/A'}/100\n` +
         `💰 Valor Est.: R$ ${Number(evento.payload?.valorEstimado || 0).toLocaleString('pt-BR')}\n\n` +
         `⚡ Triagem jurídica iniciada no Juris Center.`
@@ -274,7 +274,7 @@ async function processarEventoRecebido(evento) {
         `🔴 ALERTA DE PRAZO — BEN JURIS\n\n` +
         `👤 Cliente: ${evento.payload?.cliente || 'N/A'}\n` +
         `📅 Prazo: ${evento.payload?.prazo || 'N/A'}\n` +
-        `⚖️ ${evento.payload?.descricao || 'Prazo processual crítico'}\n` +
+        `🔱 ${evento.payload?.descricao || 'Prazo processual crítico'}\n` +
         `🚨 Urgência: ${(evento.payload?.urgencia || 'ALTA').toUpperCase()}\n\n` +
         `⚡ Ação imediata necessária!`
       )

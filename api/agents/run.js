@@ -5931,7 +5931,7 @@ async function notificarPlantonista(agentId, input, context) {
     const proc  = context?.processo || context?.numeroProcesso || 'N/A'
     const prazo = context?.prazo || context?.deadline || 'não informado'
     const alerta =
-      `⚖️ ${agentId === 'ben-perito-forense-profundo' ? '🔴 ANÁLISE PERICIAL NÍVEL 2' : 'CASO URGENTE'} — BEN JURIS CENTER\n\n` +
+      `🔱 ${agentId === 'ben-perito-forense-profundo' ? '🔴 ANÁLISE PERICIAL NÍVEL 2' : 'CASO URGENTE'} — BEN JURIS CENTER\n\n` +
       `🤖 Agente: ${agentId}\n` +
       `👤 Cliente: ${nome}\n` +
       `📁 Processo: ${proc}\n` +

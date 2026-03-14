@@ -79,7 +79,7 @@ export default function Configuracoes() {
           {[
             { nome: 'ZapSign', desc: 'Assinatura digital de documentos', status: 'conectado', icon: '✍️' },
             { nome: 'ClickSign', desc: 'Assinatura digital ICP-Brasil', status: 'conectado', icon: '🔏' },
-            { nome: 'CNJ/DJEN', desc: 'Domicílio Eletrônico Judicial', status: 'conectado', icon: '⚖️' },
+            { nome: 'CNJ/DJEN', desc: 'Domicílio Eletrônico Judicial', status: 'conectado', icon: '🔱' },
             { nome: 'DataJud', desc: 'Base de dados judiciário', status: 'conectado', icon: '📊' },
             { nome: 'Asaas', desc: 'Gateway de pagamento PIX/Boleto', status: 'conectado', icon: '💳' },
             { nome: 'Google Calendar', desc: 'Sync de agenda e audiências', status: 'conectado', icon: '📅' },

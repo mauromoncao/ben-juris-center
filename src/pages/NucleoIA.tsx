@@ -76,7 +76,7 @@ const DR_BEN_AGENTS = [
     id: 'ben-tributarista-estrategista',
     name: 'AGENTE TRIBUTARISTA ESTRATEGISTA',
     specialty: 'Direito Tributário Puro — CARF / STJ / STF',
-    avatar: '⚖️',
+    avatar: '🔱',
     color: '#b45309',
     gradient: 'linear-gradient(135deg, #78350f, #d97706)',
     icon: Scale,

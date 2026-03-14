@@ -59,8 +59,8 @@ const urgCor: Record<string, string> = {
   baixa:   'bg-green-50 text-green-700 border-green-200',
 };
 const tipoIcone: Record<string, string> = {
-  intimacao: '📬', citacao: '⚖️', pauta: '📅', despacho: '📄',
-  sentenca: '🏛️', comunicacao: '📩', decisao: '⚖️',
+  intimacao: '📬', citacao: '🔱', pauta: '📅', despacho: '📄',
+  sentenca: '🏛️', comunicacao: '📩', decisao: '🔱',
 };
 function formatarData(iso: string) {
   if (!iso) return '—';

@@ -34,7 +34,7 @@ const CONSULTAS_EXEMPLO = [
   { label: '🏛️ Análise constitucional', prompt: 'Analise a constitucionalidade da cobrança do DIFAL nas operações interestaduais com consumidores finais, considerando a LC 190/2022 e as ADIs 7066 e 7070 no STF.' },
   { label: '💼 Due diligence M&A', prompt: 'Realize due diligence jurídica preliminar para aquisição de empresa do setor de saúde com passivo trabalhista estimado em R$ 800k e 3 ações fiscais em andamento no CARF.' },
   { label: '📜 Parecer high stakes', prompt: 'Elabore parecer jurídico definitivo sobre a possibilidade de creditamento de ICMS na aquisição de energia elétrica usada no processo industrial, considerando os precedentes do STJ e STF.' },
-  { label: '⚖️ Repercussão geral STF', prompt: 'Analise o impacto do Tema 69 do STF (tese do século — exclusão do ICMS da base do PIS/COFINS) nos processos tributários do escritório e elabore estratégia de execução dos créditos.' },
+  { label: '🔱 Repercussão geral STF', prompt: 'Analise o impacto do Tema 69 do STF (tese do século — exclusão do ICMS da base do PIS/COFINS) nos processos tributários do escritório e elabore estratégia de execução dos créditos.' },
   { label: '🔍 Jurisprudência conflitante', prompt: 'Mapeie a divergência entre STJ e STF sobre a incidência de IR sobre juros Selic em repetição de indébito tributário (Tema 962 STF × posição do STJ) e defina a melhor estratégia processual.' },
 ];
 
