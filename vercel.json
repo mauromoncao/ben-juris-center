@@ -60,6 +60,10 @@
       "destination": "/api/pdf.js"
     },
     {
+      "source": "/api/upload",
+      "destination": "/api/upload.js"
+    },
+    {
       "source": "/api/db",
       "destination": "/api/db.js"
     },

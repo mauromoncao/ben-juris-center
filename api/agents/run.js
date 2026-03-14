@@ -5965,7 +5965,7 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Método não permitido' })
 
   try {
-    const { agentId, input, context = {}, useSearch = false, modelOverride, clientId: bodyClientId } = req.body
+    const { agentId, input, context = {}, useSearch = false, modelOverride, clientId: bodyClientId, pdfNamespace: bodyPdfNamespace } = req.body
 
     if (!agentId || !input) {
       return res.status(400).json({ error: 'agentId e input são obrigatórios' })
@@ -6033,7 +6033,7 @@ export default async function handler(req, res) {
     }
 
     // ── RAG: buscar chunks do PDF indexado (se pdfNamespace fornecido) ──
-    const pdfNamespace = context?.pdfNamespace || context?.namespace || null
+    const pdfNamespace = bodyPdfNamespace || context?.pdfNamespace || context?.namespace || null
     if (pdfNamespace) {
       try {
         const PINECONE_KEY  = process.env.PINECONE_API_KEY
