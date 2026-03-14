@@ -1097,6 +1097,7 @@ export const AREA_LABELS: Record<AreaAgent, string> = {
   previdenciario: 'Previdenciário',
   constitucional: 'Constitucional',
   operacional: 'Operacional',
+  geral: 'Geral',
 };
 
 export const MODEL_LABELS: Record<ModelAgent, { label: string; color: string }> = {
