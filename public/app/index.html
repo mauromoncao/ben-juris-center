@@ -204,7 +204,7 @@ body{
       <b>E-mail 2:</b> mauromoncaoadv.escritorio@gmail.com
     </div>
   </div>
-  <div class="login-footer">BEN IA v1.3 · Acesso exclusivo · 2026</div>
+  <div class="login-footer">BEN IA v1.3.2 · Acesso exclusivo · 2026</div>
 </div>
 
 <div id="overlay" onclick="closeSidebar()"></div>
@@ -227,7 +227,7 @@ body{
       <div id="agent-list"></div>
     </div>
     <div class="sidebar-footer">
-      <div class="sidebar-footer-txt">BEN IA v1.3 · 30 Agentes</div>
+      <div class="sidebar-footer-txt">BEN IA v1.3.2 · 31 Agentes</div>
     </div>
   </div>
 
@@ -314,6 +314,7 @@ const CATS=[
     {id:'ben-analista-monitoramento',e:'🔍',s:'Monitoramento',n:'BEN Analista Monitoramento'},
     {id:'ben-monitor-juridico',e:'📡',s:'Monitor DJe+CNJ',n:'BEN Monitor Jurídico DJe + CNJ',b:'NEW',bc:'#0e7490'},
     {id:'ben-assistente-cnj',e:'⚖️',s:'Assistente CNJ',n:'BEN Assistente CNJ DataJud',b:'NEW',bc:'#0e7490'},
+    {id:'ben-assistente-voz',e:'🎙️',s:'Assistente Voz',n:'BEN Assistente Voz — TTS ElevenLabs'},
   ]},
 ];
 
@@ -348,6 +349,7 @@ const DESCS={
   'ben-analista-monitoramento':'Monitoramento e análise de métricas.',
   'ben-monitor-juridico':'Monitoramento de DJe + publicações CNJ.',
   'ben-assistente-cnj':'Consultas ao DataJud e CNJ.',
+  'ben-assistente-voz':'Converte textos dos agentes em áudio profissional via ElevenLabs.',
 };
 
 let agent=null,msgs=[],busy=false;
