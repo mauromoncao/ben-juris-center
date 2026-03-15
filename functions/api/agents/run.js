@@ -1,12 +1,7 @@
 // ============================================================
-// BEN JURIS CENTER — CF Pages Function
+// BEN JURIS CENTER — agents/run CF Pages Function
 // Proxy para o Ben Agents Worker (Cloudflare Workers)
 // Rota: POST /api/agents/run
-// ============================================================
-// 
-// ESTRATÉGIA: proxy direto para o Worker CF que tem todas as
-// chaves de API configuradas como secrets do Worker.
-// Mais simples, mais seguro, sem duplicação de chaves.
 // ============================================================
 
 const WORKER_URL = 'https://ben-agents-worker.mauromoncaoestudos.workers.dev/agents/run'
@@ -17,17 +12,35 @@ const CORS_HEADERS = {
   'Access-Control-Allow-Headers': 'Content-Type, Authorization',
 }
 
-export async function onRequestOptions() {
-  return new Response(null, { status: 204, headers: CORS_HEADERS })
-}
+export async function onRequest(context) {
+  const { request } = context
 
-export async function onRequestPost(context) {
-  const { request, env } = context
+  if (request.method === 'OPTIONS') {
+    return new Response(null, { status: 204, headers: CORS_HEADERS })
+  }
+
+  if (request.method === 'GET') {
+    return new Response(
+      JSON.stringify({
+        status: 'online',
+        service: 'Ben Juris Center — Agents API Proxy',
+        proxyTo: WORKER_URL,
+        timestamp: new Date().toISOString(),
+      }),
+      { status: 200, headers: { ...CORS_HEADERS, 'Content-Type': 'application/json' } }
+    )
+  }
+
+  if (request.method !== 'POST') {
+    return new Response(JSON.stringify({ error: 'Method Not Allowed' }), {
+      status: 405,
+      headers: { ...CORS_HEADERS, 'Content-Type': 'application/json', Allow: 'GET, POST, OPTIONS' },
+    })
+  }
 
   try {
     const body = await request.text()
 
-    // Proxy para o Worker com as mesmas headers
     const workerRes = await fetch(WORKER_URL, {
       method: 'POST',
       headers: {
@@ -56,26 +69,7 @@ export async function onRequestPost(context) {
         error: `CF Function proxy error: ${err.message}`,
         proxiedTo: WORKER_URL,
       }),
-      {
-        status: 502,
-        headers: { ...CORS_HEADERS, 'Content-Type': 'application/json' },
-      }
+      { status: 502, headers: { ...CORS_HEADERS, 'Content-Type': 'application/json' } }
     )
   }
-}
-
-// GET → status
-export async function onRequestGet() {
-  return new Response(
-    JSON.stringify({
-      status: 'online',
-      service: 'Ben Juris Center — Agents API Proxy',
-      proxyTo: WORKER_URL,
-      timestamp: new Date().toISOString(),
-    }),
-    {
-      status: 200,
-      headers: { ...CORS_HEADERS, 'Content-Type': 'application/json' },
-    }
-  )
 }
