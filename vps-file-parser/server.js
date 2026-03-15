@@ -263,31 +263,18 @@ function chunkText(text, chunkSize = CHUNK_SIZE, overlap = CHUNK_OVERLAP) {
 // EMBEDDINGS + PINECONE (RAG)
 // ════════════════════════════════════════════════════════
 async function generateEmbedding(text) {
-  // Preferência: Gemini text-embedding-004 (gratuito, 768 dims)
-  if (GEMINI_KEY) {
-    try {
-      const res = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/text-embedding-004:embedContent?key=${GEMINI_KEY}`,
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ content: { parts: [{ text: text.slice(0, 2000) }] } }),
-        }
-      )
-      if (res.ok) {
-        const data = await res.json()
-        return data.embedding?.values
-      }
-    } catch(e) { /* continua */ }
-  }
-
-  // Fallback: OpenAI text-embedding-3-small
+  // OpenAI text-embedding-3-small: 1536 dims — match exato com índice Pinecone 'memória ben'
+  // NÃO usar Gemini text-embedding-004 (768 dims) — incompatível com o índice 1536
   if (OPENAI_KEY) {
     try {
       const res = await fetch('https://api.openai.com/v1/embeddings', {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${OPENAI_KEY}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify({ model: 'text-embedding-3-small', input: text.slice(0, 8000) }),
+        body: JSON.stringify({
+          model: 'text-embedding-3-small',
+          input: text.slice(0, 8000),
+          dimensions: 1536,
+        }),
       })
       if (res.ok) {
         const data = await res.json()
