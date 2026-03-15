@@ -34,10 +34,11 @@ export interface TaskRecord {
 }
 
 // ─── Enterprise API Stack ─────────────────────────────────────
-// Cloudflare Pages: usa SEMPRE o endpoint local /api/agents/run
-// que é uma CF Pages Function com todos os 45 agentes e prompts completos.
-// O VITE_AGENT_API_URL (Worker) é fallback apenas se o local falhar.
-const AGENTS_API = '/api/agents/run';
+// Estratégia: CF Worker (primário, 34 agentes) → VPS 3188 (35 agentes)
+// O Worker está sempre disponível e não depende de CF Pages Functions.
+const WORKER_URL = 'https://ben-agents-worker.mauromoncaoestudos.workers.dev/agents/run';
+const VPS_URL    = 'http://181.215.135.202:3188/agents/run';
+const AGENTS_API = import.meta.env.VITE_AGENT_API_URL || WORKER_URL;
 
 function getEndpointConfig(model: string): { base: string; key: string; modelName: string } {
   // Mantido para compatibilidade — roteamento real feito no serverless

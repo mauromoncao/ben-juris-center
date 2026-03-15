@@ -191,7 +191,7 @@ export default function AgenteOperacionalStandard() {
         payload.documentoNome = documento.nome;
       }
 
-      const response = await fetch('/api/agents/run', {
+      const response = await fetch((import.meta.env.VITE_AGENT_API_URL || 'https://ben-agents-worker.mauromoncaoestudos.workers.dev/agents/run'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),

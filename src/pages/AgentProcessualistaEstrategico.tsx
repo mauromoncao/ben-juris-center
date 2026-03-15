@@ -231,7 +231,7 @@ export default function AgentProcessualistaEstrategico() {
 
     const start = Date.now();
     try {
-      const res = await fetch('/api/agents/run', {
+      const res = await fetch((import.meta.env.VITE_AGENT_API_URL || 'https://ben-agents-worker.mauromoncaoestudos.workers.dev/agents/run'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

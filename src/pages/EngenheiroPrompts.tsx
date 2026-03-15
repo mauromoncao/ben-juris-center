@@ -297,7 +297,7 @@ export default function EngenheiroPrompts() {
     setLoading(true);
     const t0 = Date.now();
     try {
-      const res = await fetch('/api/agents/run', {
+      const res = await fetch((import.meta.env.VITE_AGENT_API_URL || 'https://ben-agents-worker.mauromoncaoestudos.workers.dev/agents/run'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -338,7 +338,7 @@ export default function EngenheiroPrompts() {
     setPlaygroundLoading(true);
     setPlaygroundResult('');
     try {
-      const res = await fetch('/api/agents/run', {
+      const res = await fetch((import.meta.env.VITE_AGENT_API_URL || 'https://ben-agents-worker.mauromoncaoestudos.workers.dev/agents/run'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -371,7 +371,7 @@ export default function EngenheiroPrompts() {
         AUDITAR: `MODO: AUDITAR\nAnalise o prompt abaixo e identifique: (1) pontos fortes, (2) pontos fracos e ambiguidades, (3) riscos jurídicos/éticos, (4) sugestões específicas de melhoria com exemplos. Dê um score de qualidade 1-10.`,
         METAPROMPT: `MODO: METAPROMPT\nCrie um template parametrizado a partir do prompt abaixo. Substitua valores específicos por variáveis {{variavel}} reutilizáveis. Entregue o template pronto com lista de variáveis e instruções de preenchimento.`,
       }[oficinaModo];
-      const res = await fetch('/api/agents/run', {
+      const res = await fetch((import.meta.env.VITE_AGENT_API_URL || 'https://ben-agents-worker.mauromoncaoestudos.workers.dev/agents/run'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
