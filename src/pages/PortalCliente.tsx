@@ -196,6 +196,60 @@ export default function PortalCliente() {
   const [naolidas, setNaolidas]             = useState(0);
   const chatEndRef = useRef<HTMLDivElement>(null);
 
+  // ── Vincular cliente ao portal VPS ───────────────────────────
+  const [vinculando, setVinculando]         = useState<string | null>(null);
+  const [vinculoStatus, setVinculoStatus]   = useState<Record<string, 'ok' | 'error' | null>>({});
+  const [novaSenha, setNovaSenha]           = useState<Record<string, string>>({});
+
+  async function vincularCliente(cliente: ClientePortal) {
+    if (!adminToken) return;
+    setVinculando(cliente.id);
+    const senha = novaSenha[cliente.id] || Math.random().toString(36).slice(-8).toUpperCase();
+    try {
+      const r = await fetch(`${VPS_PORTAL}/admin/clientes`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${adminToken}` },
+        body: JSON.stringify({
+          nome: cliente.nome,
+          email: cliente.email,
+          cpf_cnpj: cliente.cnpj_cpf,
+          telefone: cliente.telefone,
+          whatsapp: cliente.telefone,
+          cidade: cliente.cidade,
+          uf: cliente.uf,
+          tipo: cliente.tipo,
+          plano: cliente.plano,
+          status_acesso: 'ativo',
+          senha_temporaria: senha,
+        }),
+      });
+      if (r.ok || r.status === 409) {
+        setVinculoStatus(prev => ({ ...prev, [cliente.id]: 'ok' }));
+      } else {
+        setVinculoStatus(prev => ({ ...prev, [cliente.id]: 'error' }));
+      }
+    } catch {
+      setVinculoStatus(prev => ({ ...prev, [cliente.id]: 'error' }));
+    }
+    setVinculando(null);
+  }
+
+  async function concederAcesso(cliente: ClientePortal) {
+    if (!adminToken) return;
+    setVinculando(cliente.id);
+    try {
+      await fetch(`${VPS_PORTAL}/admin/clientes/${encodeURIComponent(cliente.email)}/acesso`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${adminToken}` },
+        body: JSON.stringify({ status_acesso: cliente.status_acesso === 'ativo' ? 'inativo' : 'ativo' }),
+      });
+      setVinculoStatus(prev => ({ ...prev, [cliente.id]: 'ok' }));
+    } catch {
+      setVinculoStatus(prev => ({ ...prev, [cliente.id]: 'error' }));
+    }
+    setVinculando(null);
+  }
+
   // ── VPS login automático ──────────────────────────────────────
   useEffect(() => {
     async function loginVPS() {
@@ -342,10 +396,9 @@ export default function PortalCliente() {
           {/* Logo strip */}
           <div className="px-4 py-3 flex items-center justify-center border-b" style={{ borderColor: 'rgba(255,255,255,0.1)' }}>
             <img
-              src="/logo-moncao.png"
+              src="/brasao-moncao.png"
               alt="Mauro Monção Advogados Associados"
-              className="h-8 object-contain"
-              style={{ filter: 'brightness(0) invert(1)' }}
+              className="h-10 w-10 object-contain rounded-lg"
             />
           </div>
           <div className="p-4">
@@ -875,32 +928,57 @@ export default function PortalCliente() {
                     {waHistorico.map(m => (
                       <div
                         key={m.id}
-                        className={`flex ${m.de === 'escritorio' ? 'justify-end' : 'justify-start'}`}>
-                        <div
-                          className="max-w-[80%] rounded-2xl px-4 py-3 text-sm"
-                          style={{
-                            background: m.de === 'escritorio' ? '#0f2044' : '#F3F4F6',
-                            color: m.de === 'escritorio' ? '#ffffff' : '#1A1A1A',
-                          }}>
-                          {/* Canal indicador */}
-                          <div className="flex items-center gap-1.5 mb-1 text-xs" style={{ opacity: 0.75 }}>
-                            {m.canal === 'whatsapp'
-                              ? <Smartphone className="w-3 h-3" />
-                              : <AtSign className="w-3 h-3" />}
-                            <span>{m.de === 'escritorio' ? 'Dr. Mauro Monção' : (clienteSelecionado?.responsavel || m.cliente_nome)}</span>
-                            {m.procedimento_titulo && <span>· {m.procedimento_titulo}</span>}
+                        className={`flex items-end gap-2 ${m.de === 'escritorio' ? 'justify-end' : 'justify-start'}`}>
+
+                        {/* Avatar cliente (esquerda) */}
+                        {m.de !== 'escritorio' && (
+                          <div className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 self-end"
+                            style={{ background: '#1d4ed8', color: '#fff', fontSize: 11, fontWeight: 700 }}>
+                            {(clienteSelecionado?.responsavel || m.cliente_nome || 'C').charAt(0).toUpperCase()}
                           </div>
-                          <p style={{ lineHeight: '1.6', whiteSpace: 'pre-wrap' }}>{m.texto}</p>
-                          {/* Indicadores de envio */}
-                          <div className="flex items-center gap-2 mt-1.5 text-xs" style={{ opacity: 0.65 }}>
-                            <span>{new Date(m.enviado_em).toLocaleString('pt-BR', { day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit' })}</span>
-                            {m.enviado_whatsapp && <span>📱</span>}
-                            {m.enviado_email && <span>📧</span>}
-                            {!m.lida && m.de === 'cliente' && (
-                              <span className="px-1.5 py-0.5 rounded-full text-xs font-semibold" style={{ background: '#FEE2E2', color: '#991B1B' }}>Novo</span>
-                            )}
+                        )}
+
+                        <div className="max-w-[75%]">
+                          {m.de !== 'escritorio' && (
+                            <p className="text-xs font-medium mb-0.5 ml-1" style={{ color: '#6B7280' }}>
+                              {clienteSelecionado?.responsavel || m.cliente_nome}
+                            </p>
+                          )}
+                          <div
+                            className="rounded-2xl px-4 py-3 text-sm"
+                            style={{
+                              background: m.de === 'escritorio' ? '#0f2044' : '#F3F4F6',
+                              color: m.de === 'escritorio' ? '#ffffff' : '#1A1A1A',
+                              borderRadius: m.de === 'escritorio' ? '16px 16px 4px 16px' : '16px 16px 16px 4px',
+                            }}>
+                            {/* Canal indicador */}
+                            <div className="flex items-center gap-1.5 mb-1 text-xs" style={{ opacity: 0.7 }}>
+                              {m.canal === 'whatsapp'
+                                ? <Smartphone className="w-3 h-3" />
+                                : <AtSign className="w-3 h-3" />}
+                              <span>{m.de === 'escritorio' ? 'Dr. Mauro Monção' : ''}</span>
+                              {m.procedimento_titulo && <span>· {m.procedimento_titulo}</span>}
+                            </div>
+                            <p style={{ lineHeight: '1.6', whiteSpace: 'pre-wrap' }}>{m.texto}</p>
+                            {/* Indicadores de envio */}
+                            <div className="flex items-center gap-2 mt-1.5 text-xs" style={{ opacity: 0.65 }}>
+                              <span>{new Date(m.enviado_em).toLocaleString('pt-BR', { day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit' })}</span>
+                              {m.enviado_whatsapp && <span>📱</span>}
+                              {m.enviado_email && <span>📧</span>}
+                              {!m.lida && m.de === 'cliente' && (
+                                <span className="px-1.5 py-0.5 rounded-full text-xs font-semibold" style={{ background: '#FEE2E2', color: '#991B1B' }}>Novo</span>
+                              )}
+                            </div>
                           </div>
                         </div>
+
+                        {/* Avatar escritório (direita) — brasão */}
+                        {m.de === 'escritorio' && (
+                          <div className="w-7 h-7 rounded-full overflow-hidden flex-shrink-0 self-end"
+                            style={{ border: '1.5px solid #D4A017' }}>
+                            <img src="/brasao-moncao.png" alt="Escritório" className="w-full h-full object-contain p-0.5" style={{ background: '#0f2044' }} />
+                          </div>
+                        )}
                       </div>
                     ))}
                     <div ref={chatEndRef} />
@@ -1055,6 +1133,69 @@ export default function PortalCliente() {
                       ))}
                     </tbody>
                   </table>
+                </div>
+              </div>
+
+              {/* ── Vincular clientes ao VPS ─── */}
+              <div className="bg-white border rounded-2xl overflow-hidden" style={{ borderColor: '#EEEEEE' }}>
+                <div className="px-5 py-3.5 border-b flex items-center justify-between" style={{ borderColor: '#F0F0F0', background: '#F9FAFB' }}>
+                  <div className="flex items-center gap-2">
+                    <img src="/brasao-moncao.png" alt="" className="w-5 h-5 object-contain" />
+                    <span className="text-sm font-bold" style={{ color: '#0f2044' }}>Sincronizar com Portal VPS</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    {vpsOnline
+                      ? <span className="flex items-center gap-1 text-xs px-2 py-0.5 rounded-full" style={{ background: '#D1FAE5', color: '#065F46' }}><Wifi className="w-3 h-3" /> VPS Online</span>
+                      : <span className="flex items-center gap-1 text-xs px-2 py-0.5 rounded-full" style={{ background: '#FEE2E2', color: '#991B1B' }}><WifiOff className="w-3 h-3" /> VPS Offline</span>
+                    }
+                  </div>
+                </div>
+                <div className="p-4">
+                  <p className="text-xs mb-3" style={{ color: '#6B7280' }}>
+                    Vincule cada cliente ao portal VPS para conceder acesso ao <strong>Portal do Cliente</strong> em <strong>portal.mauromoncao.adv.br</strong>.
+                    O sistema cria o login e envia as credenciais por e-mail.
+                  </p>
+                  <div className="space-y-2">
+                    {CLIENTES.map(c => (
+                      <div key={c.id} className="flex items-center gap-3 p-3 rounded-xl border" style={{ borderColor: '#EEEEEE', background: '#FAFAFA' }}>
+                        <span className="text-lg">{tipoIcon(c.tipo)}</span>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-xs font-semibold truncate" style={{ color: '#1A1A1A' }}>{c.nome}</p>
+                          <p className="text-xs truncate" style={{ color: '#9CA3AF' }}>{c.email}</p>
+                        </div>
+                        {statusBadge(c.status_acesso)}
+                        {vinculoStatus[c.id] === 'ok' && (
+                          <span className="text-xs px-2 py-0.5 rounded-full font-semibold" style={{ background: '#D1FAE5', color: '#065F46' }}>✓ Vinculado</span>
+                        )}
+                        {vinculoStatus[c.id] === 'error' && (
+                          <span className="text-xs px-2 py-0.5 rounded-full font-semibold" style={{ background: '#FEE2E2', color: '#991B1B' }}>✗ Erro</span>
+                        )}
+                        <div className="flex items-center gap-1.5 flex-shrink-0">
+                          <button
+                            onClick={() => vincularCliente(c)}
+                            disabled={vinculando === c.id || !vpsOnline}
+                            className="flex items-center gap-1 text-xs px-2.5 py-1.5 rounded-lg font-medium transition-all disabled:opacity-40"
+                            style={{ background: '#0f2044', color: '#D4A017' }}>
+                            {vinculando === c.id
+                              ? <Loader2 className="w-3 h-3 animate-spin" />
+                              : <UserCheck className="w-3 h-3" />}
+                            Vincular
+                          </button>
+                          <button
+                            onClick={() => concederAcesso(c)}
+                            disabled={vinculando === c.id || !vpsOnline}
+                            className="flex items-center gap-1 text-xs px-2.5 py-1.5 rounded-lg border font-medium transition-all disabled:opacity-40 hover:bg-gray-50"
+                            style={{ color: c.status_acesso === 'ativo' ? '#dc2626' : '#059669', borderColor: '#E5E7EB' }}>
+                            {c.status_acesso === 'ativo' ? <Lock className="w-3 h-3" /> : <UserCheck className="w-3 h-3" />}
+                            {c.status_acesso === 'ativo' ? 'Bloquear' : 'Ativar'}
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  {!vpsOnline && (
+                    <p className="text-xs mt-3 text-center" style={{ color: '#f97316' }}>⚠️ VPS offline — conecte o servidor para sincronizar</p>
+                  )}
                 </div>
               </div>
 
