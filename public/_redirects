@@ -1,0 +1,14 @@
+# BEN Juris Center — API Redirects (Cloudflare Pages)
+# Redireciona chamadas /api/* para o Worker de Agentes
+# Necessário porque o código usa URLs relativas herdadas do Vercel
+
+/api/agents/run  https://ben-agents-worker.mauromoncaoestudos.workers.dev/agents/run  200
+/api/agents/*    https://ben-agents-worker.mauromoncaoestudos.workers.dev/agents/:splat  200
+/api/upload/*    https://api.mauromoncao.adv.br/upload/:splat  200
+/api/monitor     https://api.mauromoncao.adv.br/monitor  200
+/api/monitor/*   https://api.mauromoncao.adv.br/monitor/:splat  200
+/api/search/*    https://api.mauromoncao.adv.br/:splat  200
+/api/voice/*     https://api.mauromoncao.adv.br/:splat  200
+/api/memory/*    https://api.mauromoncao.adv.br/:splat  200
+/api/cnj/*       https://api.mauromoncao.adv.br/:splat  200
+/api/*           https://api.mauromoncao.adv.br/:splat  200

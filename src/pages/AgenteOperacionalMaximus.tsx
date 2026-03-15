@@ -76,7 +76,7 @@ export default function AgenteOperacionalMaximus() {
     try {
       const formData = new FormData();
       formData.append('file', file);
-      const res = await fetch('/api/upload-pdf', { method: 'POST', body: formData });
+      const res = await fetch((import.meta.env.VITE_FILE_PARSER_URL || 'https://api.mauromoncao.adv.br/upload') + '/pdf', { method: 'POST', body: formData });
       if (res.ok) {
         const data = await res.json();
         setDocumento({ nome: file.name, tipo: file.type, tamanho: file.size, texto: data.text || '' });
@@ -112,7 +112,7 @@ export default function AgenteOperacionalMaximus() {
       };
 
       const startTime = Date.now();
-      const res = await fetch('/api/agents/run', {
+      const res = await fetch(import.meta.env.VITE_AGENT_API_URL || 'https://ben-agents-worker.mauromoncaoestudos.workers.dev/agents/run', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
