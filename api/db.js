@@ -11,7 +11,7 @@ export const config = { maxDuration: 10 }
 // autenticado por DB_TOKEN. Alternativa: usar postgres driver via
 // DATABASE_URL direto (pg / postgres.js).
 //
-// Usamos chamada HTTP ao VPS para compatibilidade com Vercel Edge.
+// Usamos chamada HTTP ao VPS para compatibilidade com Cloudflare Pages.
 // ─────────────────────────────────────────────────────────────
 
 const VPS = () => (process.env.VPS_LEADS_URL || 'http://181.215.135.202:3001').trim()

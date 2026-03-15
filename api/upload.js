@@ -49,7 +49,7 @@ export default async function handler(req, res) {
         namespace: namespace || undefined,
         agent_id: agent_id || 'ben-agente-operacional-standard',
       }),
-      // Sem timeout aqui — deixa o Vercel timeoutar pelo maxDuration
+      // Sem timeout aqui — deixa o Cloudflare timeoutar pelo maxDuration
     })
 
     if (!parserRes.ok) {

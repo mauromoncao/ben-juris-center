@@ -202,7 +202,7 @@ export default function PortalCliente() {
       try {
         const r = await fetch(`${VPS_PORTAL}/auth/login`, {
           method: 'POST', headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email: 'mauromoncaoadv.escritorio@gmail.com', senha: 'BenHub@Center2026' }),
+          body: JSON.stringify({ email: import.meta.env.VITE_AUTH_EMAIL_2 || import.meta.env.VITE_AUTH_EMAIL_1, senha: import.meta.env.VITE_AUTH_SENHA_2 || import.meta.env.VITE_AUTH_SENHA_1 }),
         });
         if (r.ok) {
           const d = await r.json();

@@ -1,6 +1,6 @@
 // ============================================================
 // BEN JURIS CENTER — Cron: lex-monitor
-// Schedule: a cada 2 horas (vercel.json: "0 */2 * * *")
+// Schedule: a cada 2 horas (Cloudflare Workers Cron: "0 */2 * * *")
 // Rota: GET /api/cron/lex-monitor
 //
 // Responsabilidades:
@@ -238,11 +238,11 @@ export default async function handler(req, res) {
   const cronSecret = process.env.CRON_SECRET || ''
   const adminToken = MONITOR_ADMIN_TOKEN
 
-  const isVercelCron = authHeader === `Bearer ${cronSecret}` && cronSecret
+  const isCFCron = authHeader === `Bearer ${cronSecret}` && cronSecret
   const isAdminCall  = authHeader === `Bearer ${adminToken}`
   const isGetNoAuth  = req.method === 'GET'
 
-  if (!isVercelCron && !isAdminCall && !isGetNoAuth) {
+  if (!isCFCron && !isAdminCall && !isGetNoAuth) {
     return res.status(401).json({ error: 'Não autorizado.' })
   }
 

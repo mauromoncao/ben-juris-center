@@ -44,12 +44,13 @@ export interface Departamento {
   responsavel?: string;
 }
 
-// ── Credenciais (substituir por VPS futuramente) ───────────────
+// ── Credenciais (lidas de variáveis de ambiente) ───────────────
+// ⚠️ SEGURANÇA: sem hardcode — configure VITE_AUTH_* no Cloudflare Pages
 const CLIENTES_AUTH = [
   {
     id: 'ADMIN001',
-    email: 'mauromoncaoestudos@gmail.com',
-    senha: 'BenHub@Center2026',
+    email: import.meta.env.VITE_AUTH_EMAIL_1 || '',
+    senha: import.meta.env.VITE_AUTH_SENHA_1 || '',
     nome: 'Mauro Monção Advogados Associados',
     tipo: 'empresa' as const,
     responsavel: 'Dr. Mauro Monção',
@@ -62,8 +63,8 @@ const CLIENTES_AUTH = [
   },
   {
     id: 'ADMIN002',
-    email: 'mauromoncaoadv.escritorio@gmail.com',
-    senha: 'BenHub@Center2026',
+    email: import.meta.env.VITE_AUTH_EMAIL_2 || '',
+    senha: import.meta.env.VITE_AUTH_SENHA_2 || '',
     nome: 'Mauro Monção Advogados Associados',
     tipo: 'empresa' as const,
     responsavel: 'Dr. Mauro Monção',

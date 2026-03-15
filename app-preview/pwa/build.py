@@ -231,7 +231,7 @@ html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFo
 </div>
 
 <script>
-const API='https://ben-juris-center.vercel.app';
+const API='https://juris.mauromoncao.adv.br';
 const AUTH_PWD='12345678';
 const ALLOWED=['mauromoncaoestudos@gmail.com','mauromoncaoadv.escritorio@gmail.com'];
 const CATS=[

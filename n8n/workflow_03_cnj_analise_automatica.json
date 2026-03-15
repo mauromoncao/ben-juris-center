@@ -11,7 +11,7 @@
     {
       "parameters": {
         "method": "GET",
-        "url": "=https://ben-juris-center.vercel.app/api/cnj?numero={{ $json.numeroCnj }}"
+        "url": "=https://juris.mauromoncao.adv.br/api/cnj?numero={{ $json.numeroCnj }}"
       },
       "name": "Buscar dados CNJ",
       "type": "n8n-nodes-base.httpRequest",
@@ -20,7 +20,7 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "https://ben-juris-center.vercel.app/api/agents/run",
+        "url": "https://juris.mauromoncao.adv.br/api/agents/run",
         "sendBody": true,
         "bodyParameters": {
           "parameters": [
@@ -37,7 +37,7 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "https://ben-juris-center.vercel.app/api/db?action=upsert-processo",
+        "url": "https://juris.mauromoncao.adv.br/api/db?action=upsert-processo",
         "sendBody": true,
         "bodyParameters": {
           "parameters": [

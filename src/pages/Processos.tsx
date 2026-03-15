@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Gavel, Plus, Search, Filter, Clock, AlertTriangle, CheckCircle,
   Eye, Edit, FileText, User, Building2, ChevronDown, X, Scale,
   ArrowUp, ArrowDown, Activity, Tag, Hash, Calendar, Download,
-  Shield, BarChart3, Paperclip, ArrowRight, MapPin
+  Shield, BarChart3, Paperclip, ArrowRight, MapPin, RefreshCw
 } from 'lucide-react';
 
 type AreaJuridica = 'tributario' | 'administrativo' | 'civil' | 'trabalhista' | 'previdenciario' | 'constitucional' | 'ambiental' | 'consumidor';
@@ -70,6 +70,8 @@ const RISCOS: Record<RiscoProcesso, { label: string; color: string }> = {
   medio: { label: 'Médio', color: 'badge-amber' },
   baixo: { label: 'Baixo', color: 'badge-emerald' },
 };
+
+const VPS_API = (import.meta.env.VITE_FILE_PARSER_URL || 'https://api.mauromoncao.adv.br/upload').replace('/upload', '')
 
 const mockProcessos: Processo[] = [
   {
@@ -145,11 +147,38 @@ const mockProcessos: Processo[] = [
 ];
 
 export default function Processos() {
-  const [processos] = useState<Processo[]>(mockProcessos);
+  const [processos, setProcessos] = useState<Processo[]>(mockProcessos);
   const [busca, setBusca] = useState('');
   const [filtroArea, setFiltroArea] = useState<AreaJuridica | 'todos'>('todos');
   const [filtroStatus, setFiltroStatus] = useState<StatusProcesso | 'todos'>('todos');
   const [selecionado, setSelecionado] = useState<Processo | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [lastSync, setLastSync] = useState<string | null>(null);
+
+  // Fetch real processes from VPS/CNJ API
+  const fetchProcessos = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch(`${VPS_API}/processos`, {
+        headers: { 'Content-Type': 'application/json' }
+      });
+      if (res.ok) {
+        const data = await res.json();
+        const apiData: Processo[] = Array.isArray(data) ? data : (data.processos || data.data || []);
+        if (apiData.length > 0) {
+          const apiIds = new Set(apiData.map(p => p.id));
+          setProcessos([...apiData, ...mockProcessos.filter(p => !apiIds.has(p.id))]);
+          setLastSync(new Date().toLocaleTimeString('pt-BR'));
+        }
+      }
+    } catch {
+      // Silently fall back to mock data if VPS unreachable
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => { fetchProcessos(); }, []);
 
   const filtrados = processos.filter(p => {
     const matchBusca = p.numero_cnj.includes(busca) || p.titulo.toLowerCase().includes(busca.toLowerCase()) || p.cliente.toLowerCase().includes(busca.toLowerCase());
@@ -170,10 +199,18 @@ export default function Processos() {
             Gestão Processual
           </h1>
           <p className="text-slate-500 text-sm mt-0.5 font-sans">Processos judiciais e administrativos — padrão CNJ</p>
+          {lastSync && <p className="text-slate-400 text-xs mt-0.5">🔄 Sincronizado às {lastSync}</p>}
         </div>
-        <button className="btn-primary">
-          <Plus size={16} />Novo Processo
-        </button>
+        <div className="flex gap-2">
+          <button onClick={fetchProcessos} disabled={loading}
+            className="flex items-center gap-1 px-3 py-2 rounded-lg text-sm border border-slate-200 text-slate-600 hover:bg-slate-50 transition-colors">
+            <RefreshCw size={14} className={loading ? 'animate-spin' : ''} />
+            {loading ? 'Sincronizando...' : 'Atualizar'}
+          </button>
+          <button className="btn-primary">
+            <Plus size={16} />Novo Processo
+          </button>
+        </div>
       </div>
 
       {/* Stats */}

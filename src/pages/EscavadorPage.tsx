@@ -314,7 +314,7 @@ export default function EscavadorPage() {
             <p className="text-sm font-bold" style={{ color: '#EA580C' }}>Token não configurado</p>
             <p className="text-xs mt-1" style={{ color: '#6B7280' }}>
               Adicione <code className="bg-orange-100 px-1 rounded">VITE_ESCAVADOR_TOKEN=sua_chave</code> no
-              arquivo <code className="bg-orange-100 px-1 rounded">.env</code> e no painel Vercel (Environment Variables).
+              arquivo .env e no painel Cloudflare Pages (Environment Variables).
             </p>
           </div>
         </div>

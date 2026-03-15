@@ -464,7 +464,7 @@ app.post('/parse', authMiddleware, upload.single('file'), async (req, res) => {
 })
 
 // ── POST /parse-base64 ────────────────────────────────────
-// Recebe arquivo em base64 (para uso direto das Vercel Functions)
+// Recebe arquivo em base64 (para uso direto das CF Pages Functions)
 app.post('/parse-base64', authMiddleware, async (req, res) => {
   const { base64, filename, mimetype: mimeIn, index_rag, namespace: nsIn, agent_id } = req.body
 

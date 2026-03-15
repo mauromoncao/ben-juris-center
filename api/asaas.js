@@ -11,7 +11,7 @@ const ASAAS_API_KEY = process.env.ASAAS_API_KEY || '';
 
 // ─── Helper: chamada à API Asaas ────────────────────────────
 async function asaas(method, path, body = null) {
-  if (!ASAAS_API_KEY) throw new Error('ASAAS_API_KEY não configurada no Vercel.');
+  if (!ASAAS_API_KEY) throw new Error('ASAAS_API_KEY não configurada no Cloudflare Pages.');
   const opts = {
     method,
     headers: {
@@ -300,7 +300,7 @@ export default async function handler(req, res) {
           return res.json({
             ok: true,
             configurado: false,
-            mensagem: 'ASAAS_API_KEY não configurada. Adicione no Vercel → Settings → Environment Variables.',
+            mensagem: 'ASAAS_API_KEY não configurada. Adicione no Cloudflare Pages → Settings → Environment Variables.',
           });
         }
         try {
