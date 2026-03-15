@@ -5568,21 +5568,26 @@ function calcCost(modelKey, inputTokens, outputTokens) {
 }
 
 // ── Memória Pinecone — funções internas (sem HTTP round-trip) ──
+// Usa OpenAI text-embedding-3-small: 1536 dims — match exato com índice Pinecone "memória ben"
 async function getEmbedding(text) {
-  const apiKey = process.env.GEMINI_API_KEY
+  const apiKey = process.env.OPENAI_API_KEY
   if (!apiKey) return null
   try {
     const res = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/text-embedding-004:embedContent?key=${apiKey}`,
+      'https://api.openai.com/v1/embeddings',
       {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ content: { parts: [{ text: text.slice(0, 2000) }] } }),
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
+        body: JSON.stringify({
+          model: 'text-embedding-3-small',
+          input: text.slice(0, 8000),
+          dimensions: 1536,
+        }),
       }
     )
     if (!res.ok) return null
     const data = await res.json()
-    return data.embedding?.values || null
+    return data.data?.[0]?.embedding || null
   } catch { return null }
 }
 
@@ -6042,20 +6047,24 @@ export default async function handler(req, res) {
         const PINECONE_KEY  = process.env.PINECONE_API_KEY
         const PINECONE_HOST = process.env.PINECONE_INDEX_HOST
         if (PINECONE_KEY && PINECONE_HOST) {
-          // Embedding da consulta atual
-          const geminiKey = process.env.GEMINI_API_KEY
-          if (geminiKey) {
+          // Embedding da consulta atual — OpenAI text-embedding-3-small (1536 dims)
+          const openaiKey = process.env.OPENAI_API_KEY
+          if (openaiKey) {
             const embRes = await fetch(
-              `https://generativelanguage.googleapis.com/v1beta/models/text-embedding-004:embedContent?key=${geminiKey}`,
+              'https://api.openai.com/v1/embeddings',
               {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ content: { parts: [{ text: input.slice(0, 1500) }] } }),
+                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${openaiKey}` },
+                body: JSON.stringify({
+                  model: 'text-embedding-3-small',
+                  input: input.slice(0, 8000),
+                  dimensions: 1536,
+                }),
               }
             )
             if (embRes.ok) {
               const embData = await embRes.json()
-              const vector  = embData.embedding?.values
+              const vector  = embData.data?.[0]?.embedding
               if (vector) {
                 const qRes = await fetch(`${PINECONE_HOST}/query`, {
                   method: 'POST',
