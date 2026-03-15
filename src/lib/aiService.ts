@@ -34,10 +34,10 @@ export interface TaskRecord {
 }
 
 // ─── Enterprise API Stack ─────────────────────────────────────
-// Cloudflare Pages: usa VITE_AGENT_API_URL (Worker) ou fallback para VPS
-// Migrado de Vercel (/api/agents/run) → Cloudflare Worker
-const AGENTS_API = import.meta.env.VITE_AGENT_API_URL 
-  || 'https://ben-agents-worker.mauromoncaoestudos.workers.dev/agents/run';
+// Cloudflare Pages: usa SEMPRE o endpoint local /api/agents/run
+// que é uma CF Pages Function com todos os 45 agentes e prompts completos.
+// O VITE_AGENT_API_URL (Worker) é fallback apenas se o local falhar.
+const AGENTS_API = '/api/agents/run';
 
 function getEndpointConfig(model: string): { base: string; key: string; modelName: string } {
   // Mantido para compatibilidade — roteamento real feito no serverless
