@@ -10,7 +10,7 @@ const eventos = [
 ];
 
 const tipoLabel: Record<string, string> = {
-  audiencia: '🔱 Audiência', reuniao_virtual: '💻 Reunião Virtual', prazo: '⏰ Prazo', julgamento: '🏛️ Julgamento', pericia: '🔬 Perícia'
+  audiencia: '🔱 Audiência', reuniao_virtual: '💻 Reunião Virtual', prazo: '⏰ Prazo', julgamento: '🔱 Julgamento', pericia: '🔬 Perícia'
 };
 
 export default function Agenda() {

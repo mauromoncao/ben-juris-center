@@ -334,7 +334,7 @@ export default function AgenteOperacionalStandard() {
             </div>
             <div className="flex items-center gap-1.5">
               <Wifi className="w-3.5 h-3.5" style={{ color: '#19385C' }} />
-              <span className="text-xs font-medium" style={{ color: '#19385C' }}>Haiku 4</span>
+              <span className="text-xs font-medium" style={{ color: '#19385C' }}>IA Rápida</span>
             </div>
             <div className="text-center hidden sm:block">
               <div className="text-sm font-bold" style={{ color: '#19385C' }}>{stats.total}</div>
@@ -367,7 +367,7 @@ export default function AgenteOperacionalStandard() {
               {[
                 { n: '1', icon: <MessageSquare className="w-3 h-3" />, t: 'Recebe Tarefa', d: 'Lê com precisão exata' },
                 { n: '2', icon: <CheckSquare className="w-3 h-3" />, t: 'Valida Escopo', d: 'Está dentro do operacional?' },
-                { n: '3', icon: <Bot className="w-3 h-3" />, t: 'Executa (Haiku)', d: 'Sem thinking — direto ao ponto' },
+                { n: '3', icon: <Bot className="w-3 h-3" />, t: 'Executa com IA', d: 'Sem thinking — direto ao ponto' },
                 { n: '4', icon: <BarChart3 className="w-3 h-3" />, t: 'Verifica Saída', d: 'Clara, estruturada, auditável' },
                 { n: '5', icon: <Sparkles className="w-3 h-3" />, t: 'Entrega JSON', d: 'Resultado + confiança' },
               ].map(e => (
@@ -433,7 +433,7 @@ export default function AgenteOperacionalStandard() {
                 </div>
               ))}
               <p className="mt-2 pt-2 border-t border-orange-200 font-medium" style={{ color: '#c2410c' }}>
-                Sinaliza e recomenda modelo superior (Sonnet/Opus).
+                Sinaliza e recomenda agente de maior complexidade.
               </p>
             </div>
           </div>

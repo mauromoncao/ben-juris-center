@@ -78,7 +78,7 @@ const CLIENTES_AUTH = [
 ];
 
 const TIPO_ICON: Record<string, string> = {
-  municipio: '🏛️', camara: '🔱', empresa: '🏢',
+  municipio: '🏢', camara: '🔱', empresa: '🏢',
   secretaria: '📋', pessoa_fisica: '👤',
 };
 

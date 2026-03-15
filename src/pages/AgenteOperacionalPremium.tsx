@@ -35,7 +35,7 @@ interface DocumentoAnexo {
 const CONSULTAS_EXEMPLO = [
   { label: '🔱 Petição inicial', prompt: 'Elabore uma petição inicial de ação de cobrança por inadimplemento contratual. Credor: João Silva. Devedor: Empresa XYZ Ltda. Valor: R$ 45.000. Comarca: Teresina/PI.' },
   { label: '📋 Parecer contratual', prompt: 'Analise as seguintes cláusulas contratuais e aponte os riscos jurídicos, com fundamento no Código Civil e jurisprudência do STJ.' },
-  { label: '🏛️ Pesquisa STJ', prompt: 'Pesquise os entendimentos mais recentes do STJ sobre prazo prescricional para ações de responsabilidade civil contratual.' },
+  { label: '🔱 Pesquisa STJ', prompt: 'Pesquise os entendimentos mais recentes do STJ sobre prazo prescricional para ações de responsabilidade civil contratual.' },
   { label: '📄 Checklist previdenciário', prompt: 'Elabore um checklist completo de documentos necessários para ingressar com ação de aposentadoria por tempo de contribuição.' },
   { label: '🔍 Análise de risco', prompt: 'Analise o risco jurídico de uma ação de rescisão contratual com pedido de devolução de valores pagos em contrato de prestação de serviços.' },
   { label: '📝 Contestação trabalhista', prompt: 'Elabore uma contestação em reclamação trabalhista com pedido de horas extras e adicional noturno. Reclamante: funcionário de empresa de comércio varejista.' },
@@ -345,7 +345,7 @@ export default function AgenteOperacionalPremium() {
             </div>
             <div className="flex items-center gap-1.5">
               <Wifi className="w-3.5 h-3.5" style={{ color: '#19385C' }} />
-              <span className="text-xs font-medium" style={{ color: '#19385C' }}>Sonnet 4</span>
+              <span className="text-xs font-medium" style={{ color: '#19385C' }}>IA Avançada</span>
             </div>
             <div className="text-center hidden sm:block">
               <div className="text-sm font-bold" style={{ color: '#19385C' }}>{stats.total}</div>
@@ -379,7 +379,7 @@ export default function AgenteOperacionalPremium() {
                 { n: '1', icon: <MessageSquare className="w-3 h-3" />, t: 'Recebe Demanda', d: 'Lê com precisão e contexto' },
                 { n: '2', icon: <Target className="w-3 h-3" />, t: 'Avalia Escopo', d: 'Verifica se está no escopo moderado' },
                 { n: '3', icon: <Brain className="w-3 h-3" />, t: 'Thinking Adaptativo', d: 'Liga se complexo, desliga se FAQ' },
-                { n: '4', icon: <Bot className="w-3 h-3" />, t: 'Processa (Sonnet 4)', d: 'Análise e redação jurídica' },
+                { n: '4', icon: <Bot className="w-3 h-3" />, t: 'Processa com IA', d: 'Análise e redação jurídica' },
                 { n: '5', icon: <Sparkles className="w-3 h-3" />, t: 'Entrega + Risco', d: 'Resultado com nível de confiança' },
               ].map(e => (
                 <div key={e.n} className="flex items-start gap-2 text-xs">

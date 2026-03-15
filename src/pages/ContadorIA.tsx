@@ -190,8 +190,8 @@ export default function ContadorIA() {
               <div className="flex items-center gap-5 mt-3">
                 {[
                   { icon: Calculator, label: '5 módulos contábeis' },
-                  { icon: Shield, label: 'Stack GPT-4o + Claude' },
-                  { icon: Brain, label: 'Perplexity integrado' },
+                  { icon: Shield, label: 'Stack IA Múlti-Agente' },
+                  { icon: Brain, label: 'Pesquisa em tempo real' },
                   { icon: Activity, label: 'Real-time analysis' },
                 ].map(s => (
                   <div key={s.label} className="flex items-center gap-1.5 text-xs text-green-200">
@@ -306,7 +306,7 @@ export default function ContadorIA() {
             {[
               { label: 'Análises', value: tabResults.length, icon: BarChart3 },
               { label: 'Módulo', value: agent.label.split(' ')[0], icon: Calculator },
-              { label: 'Modelo', value: tabResults[0]?.model?.split('-')[0] || 'GPT-4o', icon: Brain },
+              { label: 'Processamento', value: tabResults[0]?.model?.split('-')[0] ? 'IA Ben' : 'BEN IA', icon: Brain },
             ].map(s => (
               <div key={s.label} className="bg-white rounded-xl border border-slate-200 p-3 text-center">
                 <s.icon size={14} className="mx-auto mb-1" style={{ color: agent.color }} />

@@ -761,7 +761,7 @@ export default function EngenheiroPrompts() {
               </div>
               <div>
                 <h3 className="font-black text-slate-800">Oficina de Otimização de Prompts</h3>
-                <p className="text-sm text-slate-500">Cole um prompt existente e o Dr. Ben IA o processará com IA real (GPT-4o) aplicando técnicas avançadas.</p>
+                <p className="text-sm text-slate-500">Cole um prompt existente e o Dr. Ben IA o processará com IA real aplicando técnicas avançadas.</p>
               </div>
             </div>
 
@@ -792,7 +792,7 @@ export default function EngenheiroPrompts() {
                 </label>
                 <div className="w-full h-48 text-sm text-slate-700 bg-white border border-slate-200 rounded-xl p-3 overflow-y-auto shadow-sm whitespace-pre-wrap">
                   {oficinaLoading
-                    ? <span className="text-purple-500 animate-pulse">⏳ Dr. Ben IA processando com GPT-4o...</span>
+                    ? <span className="text-purple-500 animate-pulse">⏳ Dr. Ben IA processando...</span>
                     : oficinaResult
                       ? <span>{oficinaResult}</span>
                       : <span className="text-slate-400 italic">O resultado aparecerá aqui...</span>
