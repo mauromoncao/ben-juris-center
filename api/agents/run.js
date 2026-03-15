@@ -909,11 +909,12 @@ Formatação limpa:
 
   // ── ben-analista-relatorios ──
   'ben-analista-relatorios': {
-    model: 'claude-haiku-4',
+    model: 'claude-sonnet-4',
     temperature: 0.3,
-    maxTokens: 4000,
+    maxTokens: 6000,
+    thinking: { type: 'enabled', budget_tokens: 3000 },
     system: `# BEN PERFORMANCE ANALYST — SYSTEM PROMPT
-# Mauro Monção Advogados Associados | ben-analista-relatorios | Claude Haiku 4.5
+# Mauro Monção Advogados Associados | ben-analista-relatorios | Claude Sonnet 4 + Perplexity
 
 ## IDENTITY
 You are BEN Performance Analyst for Mauro Monção Advogados Associados.
@@ -1445,8 +1446,7 @@ Formatação limpa:
     maxTokens: 16000,
     thinking: {
       type: 'enabled',
-      budget_tokens: 'auto',
-      always_active: true,
+      budget_tokens: 10000,
     },
     system: `IDENTIDADE E FUNÇÃO:
 Você é o AGENTE OPERACIONAL MAXIMUS do escritório Mauro Monção Advogados Associados.
@@ -1524,7 +1524,7 @@ Sempre estruture a resposta em:
     maxTokens: 8000,
     thinking: {
       type: 'enabled',
-      budget_tokens: 'auto',
+      budget_tokens: 10000,
       activation_criteria: [
         'jurisprudência_conflitante = true',
         'temas_jurídicos > 1',
@@ -1800,10 +1800,10 @@ Formatação limpa:
 
   // ── ben-agente-operacional-standard (AGENTE OPERACIONAL STANDARD) ──
   'ben-agente-operacional-standard': {
-    model: 'claude-haiku-4',
-    temperature: 0.1,
+    model: 'claude-sonnet-4',
+    temperature: 0.05,
     maxTokens: 6000,
-    thinking: false,
+    thinking: { type: 'enabled', budget_tokens: 3000 },
     system: `IDENTIDADE E FUNÇÃO:
 Você é um agente jurídico operacional do escritório Mauro Monção Advogados.
 Sua função é EXECUTAR TAREFAS OPERACIONAIS dentro da capacidade de modelo pequeno.
@@ -1862,9 +1862,9 @@ Sempre estruture dados.
 Sempre deixe claro o que conseguiu fazer.
 Sempre cite fontes públicas quando aplicável.
 
-THINKING: DESATIVADO
-Você não usa modo thinking. Respostas diretas e rápidas.
-Velocidade esperada: 0,5 a 3 segundos. Tokens de output: até 6.000.
+THINKING: ATIVADO (budget: 3.000 tokens)
+Use raciocínio estruturado para validação de documentos e extração de informações complexas.
+Velocidade esperada: 3 a 8 segundos. Tokens de output: até 6.000.
 REGRA ABSOLUTA: NUNCA interrompa o documento antes de concluí-lo. Sempre entregue o texto completo com fecho, pedidos e assinatura.
 
 TOM: Profissional, prático, zero juridiquês desnecessário.
@@ -2050,8 +2050,7 @@ Formatação limpa:
     maxTokens: 8000,
     thinking: {
       type: 'enabled',
-      budget_tokens: 'auto',
-      always_active: true,
+      budget_tokens: 10000,
     },
     system: `IDENTIDADE E FUNÇÃO:
 Você é o agente tributarista estrategista do escritório Mauro Monção Advogados Associados.
@@ -4034,6 +4033,7 @@ Texto pronto para Word em Palatino Linotype 12pt. Sem markdown, sem colchetes, s
     model: 'claude-sonnet-4',
     temperature: 0.05,
     maxTokens: 6000,
+    thinking: { type: 'enabled', budget_tokens: 3000 },
     system: `# BEN FORENSIC EXPERT (STANDARD) — SYSTEM PROMPT
 # Mauro Monção Advogados Associados | ben-perito-forense | Claude Sonnet 4.6
 
@@ -4227,8 +4227,7 @@ Formatação limpa:
     maxTokens: 8000,
     thinking: {
       type: 'enabled',
-      budget_tokens: 'auto',
-      always_active: true,
+      budget_tokens: 10000,
     },
     system: `# BEN FORENSIC EXPERT (DEEP — RESTRICTED) — SYSTEM PROMPT
 # Mauro Monção Advogados Associados | ben-perito-forense-profundo | Claude Opus 4.6
@@ -4422,6 +4421,7 @@ Formatação limpa:
     model: 'claude-sonnet-4',
     temperature: 0.05,
     maxTokens: 6000,
+    thinking: { type: 'enabled', budget_tokens: 3000 },
     system: `# BEN DIGITAL FORENSIC EXPERT — SYSTEM PROMPT
 # Mauro Monção Advogados Associados | ben-perito-forense-digital | Claude Sonnet 4.6
 
@@ -5254,8 +5254,7 @@ O timbre do escritório é um ARQUIVO WORD SEPARADO. O agente gera APENAS o cont
     maxTokens: 8000,
     thinking: {
       type: 'enabled',
-      budget_tokens: 'auto',
-      always_active: true,
+      budget_tokens: 10000,
     },
     system: `IDENTIDADE E FUNÇÃO:
 Você é o agente processualista estratégico do escritório Mauro Monção Advogados Associados.
@@ -6000,8 +5999,12 @@ export default async function handler(req, res) {
       'ben-monitor-juridico',
       'ben-agente-operacional-maximus',
       'ben-agente-operacional-premium',
+      'ben-agente-operacional-standard',
       'ben-tributarista-estrategista',
       'ben-processualista-estrategico',
+      'ben-pesquisador-juridico',
+      'ben-engenheiro-prompt',
+      'ben-analista-relatorios',
       // Contadores — todos com memória
       'ben-contador-tributarista',
       'ben-contador-especialista',
@@ -6091,8 +6094,8 @@ export default async function handler(req, res) {
       'ben-assistente-geral',
       'ben-assistente-cnj',
       'ben-monitor-juridico',
-      'ben-agente-operacional-maximus','ben-agente-operacional-premium','ben-tributarista-estrategista',
-      'ben-pesquisador-juridico','ben-engenheiro-prompt',
+      'ben-agente-operacional-maximus','ben-agente-operacional-premium','ben-agente-operacional-standard','ben-tributarista-estrategista',
+      'ben-pesquisador-juridico','ben-engenheiro-prompt','ben-analista-relatorios',
       // Contadores — todos com Perplexity
       'ben-contador-tributarista','ben-contador-especialista',
       'ben-contador-planejamento','ben-contador-creditos',
