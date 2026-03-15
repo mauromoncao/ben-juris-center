@@ -12,20 +12,22 @@ export const config = {
 
 // ─── Helpers ─────────────────────────────────────────────────
 
+// OpenAI text-embedding-3-small — 1536 dims, match exato com índice Pinecone 'memória ben'
 async function getEmbedding(text) {
-  const apiKey = process.env.GEMINI_API_KEY
-  if (!apiKey) throw new Error('GEMINI_API_KEY ausente')
-  const res = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/text-embedding-004:embedContent?key=${apiKey}`,
-    {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ content: { parts: [{ text: text.slice(0, 2000) }] } }),
-    }
-  )
+  const apiKey = process.env.OPENAI_API_KEY
+  if (!apiKey) throw new Error('OPENAI_API_KEY ausente')
+  const res = await fetch('https://api.openai.com/v1/embeddings', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
+    body: JSON.stringify({
+      model: 'text-embedding-3-small',
+      input: text.slice(0, 8000),
+      dimensions: 1536,
+    }),
+  })
   if (!res.ok) throw new Error(`Embedding error: ${await res.text()}`)
   const data = await res.json()
-  return data.embedding?.values
+  return data.data?.[0]?.embedding
 }
 
 // Divide o texto em chunks semânticos de ~1500 tokens (~6000 chars)

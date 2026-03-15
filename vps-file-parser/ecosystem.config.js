@@ -16,7 +16,7 @@ module.exports = {
       // Preencher com as chaves reais no VPS:
       PINECONE_API_KEY:      process.env.PINECONE_API_KEY      || '',
       PINECONE_INDEX_HOST:   process.env.PINECONE_INDEX_HOST   || '',
-      GEMINI_API_KEY:        process.env.GEMINI_API_KEY        || '',
+      GEMINI_API_KEY:        '',  // NÃO USADO — embeddings via OpenAI
       OPENAI_API_KEY:        process.env.OPENAI_API_KEY        || '',
       ANTHROPIC_API_KEY:     process.env.ANTHROPIC_API_KEY     || '',
     },

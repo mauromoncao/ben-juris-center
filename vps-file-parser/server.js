@@ -25,7 +25,7 @@ const PORT = process.env.PORT || 3010
 // ── Configuração ─────────────────────────────────────────
 const PINECONE_KEY  = process.env.PINECONE_API_KEY  || ''
 const PINECONE_HOST = process.env.PINECONE_INDEX_HOST || ''
-const GEMINI_KEY    = process.env.GEMINI_API_KEY    || ''
+// GEMINI_KEY removido — embeddings via OpenAI text-embedding-3-small (1536 dims)
 const OPENAI_KEY    = process.env.OPENAI_API_KEY    || ''
 const CLAUDE_KEY    = process.env.ANTHROPIC_API_KEY || ''
 const INTERNAL_TOKEN = process.env.FILE_PARSER_TOKEN || 'ben-parser-2026'
