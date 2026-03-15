@@ -48,7 +48,7 @@ eas build --platform ios
 
 Todos os agentes conectam via:
 ```
-POST https://ben-juris-center.vercel.app/api/agents/run
+POST https://juris.mauromoncao.adv.br/api/agents/run
 ```
 
 ## Estrutura

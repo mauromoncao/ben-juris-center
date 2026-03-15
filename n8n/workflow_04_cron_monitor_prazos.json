@@ -10,7 +10,7 @@
     {
       "parameters": {
         "method": "GET",
-        "url": "https://ben-juris-center.vercel.app/api/db?action=prazos-urgentes"
+        "url": "https://juris.mauromoncao.adv.br/api/db?action=prazos-urgentes"
       },
       "name": "Buscar prazos (7 dias)",
       "type": "n8n-nodes-base.httpRequest",
@@ -42,7 +42,7 @@
         "bodyParameters": {
           "parameters": [
             { "name": "phone",   "value": "={{ $env.MAURO_PHONE }}" },
-            { "name": "message", "value": "=⚖️ BEN MONITOR — {{ $json.total }} prazo(s) urgente(s) nos próximos 7 dias:\\n\\n{{ $json.lista }}\\n\\nAcesse: https://ben-juris-center.vercel.app" }
+            { "name": "message", "value": "=⚖️ BEN MONITOR — {{ $json.total }} prazo(s) urgente(s) nos próximos 7 dias:\\n\\n{{ $json.lista }}\\n\\nAcesse: https://juris.mauromoncao.adv.br" }
           ]
         }
       },

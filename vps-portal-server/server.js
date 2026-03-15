@@ -280,7 +280,7 @@ async function initDB() {
   for (const a of admins) {
     const existe = await query('SELECT id FROM portal_admins WHERE email=$1', [a.email])
     if (existe.rows.length === 0) {
-      const hash = await bcrypt.hash('BenHub@Center2026', 10)
+      const hash = await bcrypt.hash(process.env.ADMIN_DEFAULT_PASSWORD || '', 10)
       await query(
         'INSERT INTO portal_admins(id,email,senha_hash,nome,role) VALUES($1,$2,$3,$4,$5)',
         [a.id, a.email, hash, a.nome, 'admin']

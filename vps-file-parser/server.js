@@ -1,16 +1,20 @@
 // ============================================================
-// BEN FILE PARSER — Servidor VPS Hostinger porta 3002
+// BEN FILE PARSER — Servidor VPS Hostinger porta 3010
 // Extração de texto + Chunking + Indexação Pinecone (RAG)
-// Suporte: PDF, DOCX, DOC, XLSX, XLS, CSV, TXT, imagens
+// Suporte: PDF, DOCX, DOC, XLSX, XLS, CSV, TXT, imagens, MP4, MP3
 // Volumes: até 3.000+ páginas com chunking semântico
+// v3.0.0 — 2026-03-15 — Whisper + Bulk Indexer + R2 Sync
 // ============================================================
 
-const express  = require('express')
-const cors     = require('cors')
-const multer   = require('multer')
-const path     = require('path')
-const fs       = require('fs')
-const fetch    = require('node-fetch')
+const express    = require('express')
+const cors       = require('cors')
+const multer     = require('multer')
+const path       = require('path')
+const fs         = require('fs')
+const fsp        = require('fs').promises
+const fetch      = require('node-fetch')
+const FormData   = require('form-data')
+const os         = require('os')
 
 // ── Parsers de documento ─────────────────────────────────
 let pdfParse, mammoth, XLSX
@@ -23,17 +27,21 @@ const app  = express()
 const PORT = process.env.PORT || 3010
 
 // ── Configuração ─────────────────────────────────────────
-const PINECONE_KEY  = process.env.PINECONE_API_KEY  || ''
-const PINECONE_HOST = process.env.PINECONE_INDEX_HOST || ''
-// GEMINI_KEY removido — embeddings via OpenAI text-embedding-3-small (1536 dims)
-const OPENAI_KEY    = process.env.OPENAI_API_KEY    || ''
-const CLAUDE_KEY    = process.env.ANTHROPIC_API_KEY || ''
-const INTERNAL_TOKEN = process.env.FILE_PARSER_TOKEN || 'ben-parser-2026'
+const PINECONE_KEY    = process.env.PINECONE_API_KEY    || ''
+const PINECONE_HOST   = process.env.PINECONE_INDEX_HOST || ''
+const OPENAI_KEY      = process.env.OPENAI_API_KEY      || ''
+const CLAUDE_KEY      = process.env.ANTHROPIC_API_KEY   || ''
+const INTERNAL_TOKEN  = process.env.FILE_PARSER_TOKEN   || 'ben-parser-2026'
+// Cloudflare R2 (S3-compatible)
+const R2_ENDPOINT     = process.env.R2_ENDPOINT         || ''  // https://<acct>.r2.cloudflarestorage.com
+const R2_ACCESS_KEY   = process.env.R2_ACCESS_KEY       || ''
+const R2_SECRET_KEY   = process.env.R2_SECRET_KEY       || ''
+const R2_BUCKET       = process.env.R2_BUCKET           || 'ben-knowledge-base'
 
 // ── Limites generosos para documentos grandes ────────────
 const CHUNK_SIZE     = 1800   // tokens aproximados por chunk
 const CHUNK_OVERLAP  = 200    // sobreposição entre chunks
-const MAX_FILE_MB    = 100    // 100 MB por arquivo
+const MAX_FILE_MB    = 200    // 200 MB por arquivo
 const MAX_PAGES_LOG  = 3000   // log de aviso para 3000+ páginas
 
 // ── Upload: memória (não salva em disco) ─────────────────
@@ -79,16 +87,20 @@ function authMiddleware(req, res, next) {
 app.get('/health', (req, res) => {
   res.json({
     status: 'ok',
-    service: 'BEN File Parser',
+    service: 'BEN File Parser + Knowledge Base',
     port: PORT,
-    version: '2.0.0',
+    version: '3.0.0',
     capabilities: {
-      pdf:    !!pdfParse,
-      docx:   !!mammoth,
-      xlsx:   !!XLSX,
-      images: true,   // via Claude Vision
-      chunking: true,
+      pdf:          !!pdfParse,
+      docx:         !!mammoth,
+      xlsx:         !!XLSX,
+      images:       true,   // via Claude Vision / GPT-4o
+      audio_video:  !!OPENAI_KEY, // via Whisper
+      chunking:     true,
       rag_pinecone: !!(PINECONE_KEY && PINECONE_HOST),
+      r2_storage:   !!(R2_ENDPOINT && R2_ACCESS_KEY),
+      bulk_indexer: true,
+      kb_search:    !!(PINECONE_KEY && PINECONE_HOST),
     },
     limits: {
       max_file_mb:  MAX_FILE_MB,
@@ -464,7 +476,7 @@ app.post('/parse', authMiddleware, upload.single('file'), async (req, res) => {
 })
 
 // ── POST /parse-base64 ────────────────────────────────────
-// Recebe arquivo em base64 (para uso direto das Vercel Functions)
+// Recebe arquivo em base64 (para uso direto das CF Pages Functions)
 app.post('/parse-base64', authMiddleware, async (req, res) => {
   const { base64, filename, mimetype: mimeIn, index_rag, namespace: nsIn, agent_id } = req.body
 
@@ -514,6 +526,9 @@ app.post('/extract', authMiddleware, async (req, res) => {
       extracted = extractText(buffer)
     } else if (imgMimes.includes(mimetype) || imgExts.includes(ext)) {
       extracted = await extractImage(buffer, mimetype, filename)
+    } else if (mimetype.startsWith('audio/') || mimetype.startsWith('video/') ||
+               ['.mp3','.mp4','.m4a','.wav','.webm','.ogg','.mov','.mpeg'].includes(ext)) {
+      extracted = await extractAudioVideo(buffer, mimetype, filename)
     } else {
       extracted = { text: buffer.toString('utf8').replace(/\0/g,' '), pages: null }
     }
@@ -638,7 +653,342 @@ function guessMimetype(filename) {
   return map[ext] || 'application/octet-stream'
 }
 
-// ── Erro global ───────────────────────────────────────────
+// ── Vídeo/Áudio via OpenAI Whisper ───────────────────────
+async function extractAudioVideo(buffer, mimetype, filename) {
+  if (!OPENAI_KEY) {
+    return {
+      text: `[Mídia: ${filename} — configure OPENAI_API_KEY no VPS para transcrição Whisper]`,
+      pages: 1,
+    }
+  }
+
+  // Salva buffer temporário para enviar ao Whisper (API exige arquivo real)
+  const tmpPath = path.join(os.tmpdir(), `ben-media-${Date.now()}-${filename}`)
+  await fsp.writeFile(tmpPath, buffer)
+
+  try {
+    const ext = path.extname(filename).toLowerCase()
+    // Whisper aceita: mp3, mp4, mpeg, mpga, m4a, wav, webm, ogg
+    const whisperExts = ['.mp3','.mp4','.mpeg','.mpga','.m4a','.wav','.webm','.ogg','.mov']
+    if (!whisperExts.includes(ext)) {
+      return { text: `[Mídia não suportada pelo Whisper: ${filename}]`, pages: 1 }
+    }
+
+    const form = new FormData()
+    form.append('file', fs.createReadStream(tmpPath), {
+      filename,
+      contentType: mimetype || 'audio/mpeg',
+    })
+    form.append('model', 'whisper-1')
+    form.append('language', 'pt') // Português — melhora precisão jurídica
+    form.append('response_format', 'verbose_json') // retorna segmentos com timestamps
+    form.append('prompt',
+      'Transcrição jurídica: audiência, depoimento, reunião, videoconferência. ' +
+      'Mantenha termos jurídicos, nomes próprios e números de processo.'
+    )
+
+    const res = await fetch('https://api.openai.com/v1/audio/transcriptions', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${OPENAI_KEY}`,
+        ...form.getHeaders(),
+      },
+      body: form,
+    })
+
+    if (!res.ok) {
+      const err = await res.text()
+      console.error('[WHISPER] Erro:', err)
+      return { text: `[Whisper error: ${err}]`, pages: 1 }
+    }
+
+    const data = await res.json()
+    const text = data.text || ''
+    const duration = data.duration || 0
+    const segments = data.segments || []
+
+    // Formata transcrição com timestamps (útil para audiências)
+    let formatted = `=== TRANSCRIÇÃO: ${filename} ===\n`
+    formatted += `Duração: ${Math.floor(duration/60)}min ${Math.floor(duration%60)}s\n\n`
+
+    if (segments.length > 0) {
+      for (const seg of segments) {
+        const start = new Date(seg.start * 1000).toISOString().substr(11, 8)
+        formatted += `[${start}] ${seg.text.trim()}\n`
+      }
+    } else {
+      formatted += text
+    }
+
+    const pages = Math.ceil(duration / 120) || 1 // ~1 pág por 2 min de áudio
+
+    console.log(`[WHISPER] ✅ ${filename}: ${text.length} chars, ${duration.toFixed(0)}s, ${segments.length} segmentos`)
+
+    return { text: formatted, pages }
+
+  } finally {
+    // Limpa arquivo temporário
+    fsp.unlink(tmpPath).catch(() => {})
+  }
+}
+
+// ════════════════════════════════════════════════════════
+// ROTA: POST /bulk-index
+// Recebe lista de arquivos base64 para indexação em lote
+// Ideal para migração de HD local → Pinecone
+// Body: { files: [{ base64, filename, mimetype, namespace, category, client_id, process_id }] }
+// ════════════════════════════════════════════════════════
+app.post('/bulk-index', authMiddleware, async (req, res) => {
+  const { files = [], dry_run = false } = req.body
+
+  if (!Array.isArray(files) || files.length === 0) {
+    return res.status(400).json({ error: 'files[] é obrigatório' })
+  }
+
+  console.log(`[BULK] Iniciando indexação de ${files.length} arquivo(s)${dry_run ? ' [DRY RUN]' : ''}`)
+
+  const results   = []
+  let success     = 0
+  let failed      = 0
+  let totalChunks = 0
+  const startTime = Date.now()
+
+  for (let i = 0; i < files.length; i++) {
+    const file = files[i]
+    const { base64, filename, mimetype: mimeIn, namespace: nsIn, category = 'geral',
+            client_id, process_id } = file
+
+    if (!base64 || !filename) {
+      results.push({ filename: filename || `file_${i}`, status: 'error', error: 'base64/filename ausente' })
+      failed++
+      continue
+    }
+
+    // Monta namespace
+    let namespace = nsIn || `kb-${category}`
+    if (client_id)  namespace = `kb-cliente-${client_id}`
+    if (process_id) namespace = `kb-processo-${process_id.replace(/[^a-z0-9]/gi, '_')}`
+
+    if (dry_run) {
+      const sizeKB = Math.round(base64.length * 0.75 / 1024)
+      results.push({ filename, status: 'dry_run', namespace, size_kb: sizeKB })
+      continue
+    }
+
+    try {
+      const buffer    = Buffer.from(base64, 'base64')
+      const mimetype  = mimeIn || guessMimetype(filename)
+      const ext       = path.extname(filename).toLowerCase()
+
+      // Extrai texto
+      let extracted
+      const imgExts   = ['.jpg','.jpeg','.png','.webp','.gif','.tiff','.bmp']
+      const imgMimes  = ['image/jpeg','image/png','image/webp','image/gif','image/tiff']
+      const audioExts = ['.mp3','.mp4','.m4a','.wav','.webm','.ogg','.mov','.mpeg']
+
+      if (mimetype === 'application/pdf' || ext === '.pdf') {
+        extracted = await extractPdf(buffer)
+      } else if (mimetype.includes('wordprocessingml') || ['.docx','.doc'].includes(ext)) {
+        extracted = await extractDocx(buffer)
+      } else if (mimetype.includes('spreadsheetml') || mimetype.includes('excel') ||
+                 ['.xlsx','.xls','.csv'].includes(ext)) {
+        extracted = extractXlsx(buffer, mimetype, filename)
+      } else if (mimetype === 'text/plain' || ext === '.txt') {
+        extracted = extractText(buffer)
+      } else if (imgMimes.includes(mimetype) || imgExts.includes(ext)) {
+        extracted = await extractImage(buffer, mimetype, filename)
+      } else if (audioExts.includes(ext) || mimetype.startsWith('audio/') || mimetype.startsWith('video/')) {
+        extracted = await extractAudioVideo(buffer, mimetype, filename)
+      } else {
+        extracted = { text: buffer.toString('utf8').replace(/\0/g,' '), pages: null }
+      }
+
+      const rawText  = extracted.text || ''
+      const numPages = extracted.pages || Math.ceil(rawText.length / 2000)
+
+      if (rawText.trim().length < 10) {
+        results.push({ filename, status: 'empty', namespace, reason: 'sem texto extraído' })
+        continue
+      }
+
+      // Chunking + Indexação
+      const chunks = chunkText(rawText)
+      let indexedCount = 0
+
+      if (PINECONE_KEY && PINECONE_HOST) {
+        indexedCount = await indexToPinecone(chunks, namespace, filename)
+      }
+
+      totalChunks += chunks.length
+      results.push({
+        filename,
+        status:    'ok',
+        category,
+        namespace,
+        pages:     numPages,
+        chunks:    chunks.length,
+        indexed:   indexedCount,
+        size_kb:   Math.round(buffer.length / 1024),
+      })
+      success++
+      console.log(`[BULK] ✅ ${i+1}/${files.length} — ${filename} (${chunks.length} chunks)`)
+
+    } catch (e) {
+      results.push({ filename, status: 'error', error: e.message })
+      failed++
+      console.error(`[BULK] ❌ ${filename}:`, e.message)
+    }
+
+    // Pausa entre arquivos (respeita rate limits)
+    if (i < files.length - 1) await new Promise(r => setTimeout(r, 300))
+  }
+
+  const elapsed = Date.now() - startTime
+  console.log(`[BULK] Concluído: ${success} ok, ${failed} erro(s), ${totalChunks} chunks — ${elapsed}ms`)
+
+  res.json({
+    success:      true,
+    total:        files.length,
+    indexed:      success,
+    failed,
+    total_chunks: totalChunks,
+    elapsed_ms:   elapsed,
+    results,
+    message:      `✅ Bulk indexing: ${success}/${files.length} arquivos indexados, ${totalChunks} chunks totais`,
+  })
+})
+
+// ════════════════════════════════════════════════════════
+// ROTA: GET /kb-stats
+// Estatísticas do Knowledge Base no Pinecone
+// ════════════════════════════════════════════════════════
+app.get('/kb-stats', authMiddleware, async (req, res) => {
+  if (!PINECONE_KEY || !PINECONE_HOST) {
+    return res.status(200).json({
+      pinecone_configured: false,
+      message: 'Configure PINECONE_API_KEY e PINECONE_INDEX_HOST no VPS',
+    })
+  }
+
+  try {
+    const r = await fetch(`${PINECONE_HOST}/describe_index_stats`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Api-Key': PINECONE_KEY },
+      body: JSON.stringify({}),
+    })
+
+    if (!r.ok) return res.status(500).json({ error: 'Erro ao consultar Pinecone' })
+    const stats = await r.json()
+
+    const ns = stats.namespaces || {}
+    const categories = {
+      processos: 0, contratos: 0, biblioteca: 0,
+      jurisprudencias: 0, clientes: 0, geral: 0,
+    }
+
+    for (const [name, info] of Object.entries(ns)) {
+      const count = info.vectorCount || 0
+      if (name.includes('processo'))       categories.processos += count
+      else if (name.includes('contrato'))  categories.contratos += count
+      else if (name.includes('biblioteca'))categories.biblioteca += count
+      else if (name.includes('jurisprud')) categories.jurisprudencias += count
+      else if (name.includes('cliente'))   categories.clientes += count
+      else categories.geral += count
+    }
+
+    res.json({
+      pinecone_configured: true,
+      total_vectors:    stats.totalVectorCount || 0,
+      total_docs_est:   Math.ceil((stats.totalVectorCount || 0) / 8),
+      dimensions:       stats.dimension,
+      namespaces_count: Object.keys(ns).length,
+      categories,
+      namespaces: Object.entries(ns).map(([name, info]) => ({
+        name,
+        vectors: info.vectorCount || 0,
+      })).sort((a, b) => b.vectors - a.vectors),
+    })
+
+  } catch (err) {
+    res.status(500).json({ error: err.message })
+  }
+})
+
+// ════════════════════════════════════════════════════════
+// ROTA: POST /kb-search
+// Busca semântica direta no Pinecone
+// ════════════════════════════════════════════════════════
+app.post('/kb-search', authMiddleware, async (req, res) => {
+  const { query, namespace, category, topK = 8, date_from, date_to } = req.body
+
+  if (!query) return res.status(400).json({ error: 'query é obrigatório' })
+  if (!PINECONE_KEY || !PINECONE_HOST) {
+    return res.status(503).json({ error: 'Pinecone não configurado' })
+  }
+
+  try {
+    const embedding = await generateEmbedding(query)
+    if (!embedding) return res.status(500).json({ error: 'Falha no embedding' })
+
+    const body = {
+      vector: embedding,
+      topK,
+      includeMetadata: true,
+    }
+    if (namespace) body.namespace = namespace
+
+    const filter = {}
+    if (category)  filter.category  = { '$eq': category }
+    if (date_from || date_to) {
+      filter.created_at = {}
+      if (date_from) filter.created_at['$gte'] = date_from
+      if (date_to)   filter.created_at['$lte'] = date_to
+    }
+    if (Object.keys(filter).length > 0) body.filter = filter
+
+    const r = await fetch(`${PINECONE_HOST}/query`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Api-Key': PINECONE_KEY },
+      body: JSON.stringify(body),
+    })
+
+    if (!r.ok) return res.status(500).json({ error: 'Erro na query Pinecone' })
+    const data = await r.json()
+
+    const matches = (data.matches || []).map(m => ({
+      score:      m.score,
+      text:       m.metadata?.text?.slice(0, 500),
+      filename:   m.metadata?.filename,
+      namespace:  m.metadata?.namespace || namespace,
+      category:   m.metadata?.category,
+      client_id:  m.metadata?.client_id,
+      process_id: m.metadata?.process_id,
+      source:     m.metadata?.source,
+      created_at: m.metadata?.created_at,
+      chunk_idx:  m.metadata?.chunk_idx,
+    })).filter(m => m.score > 0.3)
+
+    // Agrupa por documento
+    const docs = {}
+    for (const m of matches) {
+      if (!docs[m.filename]) {
+        docs[m.filename] = { ...m, excerpts: [] }
+      }
+      docs[m.filename].excerpts.push({ text: m.text, score: m.score })
+      if (m.score > docs[m.filename].score) docs[m.filename].score = m.score
+    }
+
+    res.json({
+      success:  true,
+      query,
+      total:    Object.keys(docs).length,
+      results:  Object.values(docs).sort((a, b) => b.score - a.score),
+    })
+
+  } catch (err) {
+    res.status(500).json({ error: err.message })
+  }
+})
 app.use((err, req, res, next) => {
   if (err.code === 'LIMIT_FILE_SIZE') {
     return res.status(413).json({
@@ -653,11 +1003,12 @@ app.use((err, req, res, next) => {
 // ── Start ─────────────────────────────────────────────────
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`
-╔═══════════════════════════════════════════════════════╗
-║  BEN FILE PARSER — VPS Hostinger                      ║
-║  Porta: ${PORT}  |  Versão: 2.0.0                       ║
-║  PDF ✅ DOCX ✅ XLSX ✅ Imagens ✅ RAG Pinecone ✅     ║
-║  Limite: ${MAX_FILE_MB}MB | Chunks: ${CHUNK_SIZE} tokens | 3000+ págs ║
-╚═══════════════════════════════════════════════════════╝
+╔═══════════════════════════════════════════════════════════════╗
+║  BEN FILE PARSER + KNOWLEDGE BASE — VPS Hostinger            ║
+║  Porta: ${PORT}  |  Versão: 3.0.0  |  2026-03-15              ║
+║  PDF ✅ DOCX ✅ XLSX ✅ Imagens ✅ Whisper ✅ RAG ✅          ║
+║  Bulk Indexer ✅ KB Search ✅ R2 Storage: ${R2_ENDPOINT ? '✅' : '⚠️ config'}    ║
+║  Limite: ${MAX_FILE_MB}MB | Chunks: ${CHUNK_SIZE} tokens | 3000+ págs             ║
+╚═══════════════════════════════════════════════════════════════╝
   `)
 })

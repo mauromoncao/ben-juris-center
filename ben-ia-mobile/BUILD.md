@@ -73,7 +73,7 @@ npx eas-cli@latest submit --platform ios --latest
 | Bundle iOS | br.adv.mauromoncao.benia |
 | Expo Slug | ben-ia-app |
 | Expo Project ID | a59da214-860d-4fcf-9337-845ab213c155 |
-| API Base | https://ben-juris-center.vercel.app |
+| API Base | https://juris.mauromoncao.adv.br |
 | Agentes | 45 agentes IA |
 
 ---

@@ -54,7 +54,7 @@ export async function callAIAgent(
   const lastMsg = messages[messages.length - 1]?.content || '';
 
   try {
-    // Chamar endpoint Worker (Cloudflare) — migrado de Vercel
+    // Chamar endpoint Worker (Cloudflare) — CF Workers
     const response = await fetch(AGENTS_API, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

@@ -5918,7 +5918,7 @@ async function callWithFallback(agentConfig, input, modelOverride) {
       console.warn(`[Juris Agents] Falha em ${attempt.label}:`, err.message)
     }
   }
-  throw new Error('Todos os modelos falharam. Verifique ANTHROPIC_API_KEY e OPENAI_API_KEY no Vercel.')
+  throw new Error('Todos os modelos falharam. Verifique ANTHROPIC_API_KEY e OPENAI_API_KEY no Cloudflare Pages.')
 }
 
 // ════════════════════════════════════════════════════════════

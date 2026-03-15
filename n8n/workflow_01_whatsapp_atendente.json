@@ -19,7 +19,7 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "https://ben-juris-center.vercel.app/api/agents/run",
+        "url": "https://juris.mauromoncao.adv.br/api/agents/run",
         "sendBody": true,
         "bodyParameters": {
           "parameters": [

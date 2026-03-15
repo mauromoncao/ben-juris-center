@@ -49,16 +49,17 @@ const AuthContext = createContext<AuthContextType | null>(null)
 const STORAGE_KEY = 'ben_juris_auth'
 
 // ── Credenciais email/senha ────────────────────────────────
+// ⚠️ SEGURANÇA: sem fallback hardcoded — configure VITE_AUTH_* no Cloudflare Pages
 const CREDENCIAIS = [
   {
-    email: (import.meta.env.VITE_AUTH_EMAIL_1 as string) || 'mauromoncaoestudos@gmail.com',
-    senha: (import.meta.env.VITE_AUTH_SENHA_1 as string) || 'BenHub@Center2026',
+    email: (import.meta.env.VITE_AUTH_EMAIL_1 as string),
+    senha: (import.meta.env.VITE_AUTH_SENHA_1 as string),
     nome: 'Mauro Monção',
     modulo: 'Ben Juris Center',
   },
   {
-    email: (import.meta.env.VITE_AUTH_EMAIL_2 as string) || 'mauromoncaoadv.escritorio@gmail.com',
-    senha: (import.meta.env.VITE_AUTH_SENHA_2 as string) || 'BenHub@Center2026',
+    email: (import.meta.env.VITE_AUTH_EMAIL_2 as string),
+    senha: (import.meta.env.VITE_AUTH_SENHA_2 as string),
     nome: 'Mauro Monção',
     modulo: 'Ben Juris Center',
   },

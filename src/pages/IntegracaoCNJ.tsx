@@ -263,7 +263,7 @@ export default function IntegracaoCNJ() {
   // ── Registrar ciência ────────────────────────────────────────
   const handleCiencia = async (idComunicacao: string) => {
     if (!djenConfigurado) {
-      setMensagem('Configure DJEN_TOKEN no Vercel para registrar ciências.');
+      setMensagem('Configure DJEN_TOKEN no Cloudflare Pages para registrar ciências.');
       setTimeout(() => setMensagem(''), 5000);
       return;
     }
@@ -374,13 +374,13 @@ export default function IntegracaoCNJ() {
             <p className="text-sm font-semibold text-amber-800 mb-1">DJEN não configurado — intimações indisponíveis</p>
             <p className="text-xs text-amber-700 mb-2">
               Para receber intimações e citações automaticamente, gere uma credencial API no portal do DJEN
-              e configure a variável de ambiente <code className="bg-amber-100 px-1 rounded">DJEN_TOKEN</code> no Vercel.
+              e configure a variável de ambiente DJEN_TOKEN no Cloudflare Pages.
             </p>
             <ol className="text-xs text-amber-700 space-y-0.5 list-decimal ml-4">
               <li>Acesse <a href="https://domicilio-eletronico.pdpj.jus.br" target="_blank" rel="noopener noreferrer" className="underline font-medium">domicilio-eletronico.pdpj.jus.br</a> com o certificado digital do escritório</li>
               <li>Menu lateral → <strong>Gerenciar credenciais API</strong> → <strong>Solicitar</strong></li>
               <li>Aceite os termos e gere o Bearer token</li>
-              <li>Configure <code className="bg-amber-100 px-1 rounded">DJEN_TOKEN=&lt;token&gt;</code> e <code className="bg-amber-100 px-1 rounded">DJEN_CNPJ=&lt;cnpj&gt;</code> no Vercel</li>
+              <li>Configure <code className="bg-amber-100 px-1 rounded">DJEN_TOKEN=&lt;token&gt;</code> e <code className="bg-amber-100 px-1 rounded">DJEN_CNPJ=&lt;cnpj&gt;</code> no Cloudflare Pages</li>
             </ol>
           </div>
           <a
