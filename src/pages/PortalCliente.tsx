@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 import EscavadorPage from './EscavadorPage';
 import JurisprudenciaPage from './JurisprudenciaPage';
+import FloatingAssistants from '../components/FloatingAssistants';
 
 // ── VPS Portal API ─────────────────────────────────────────────
 const VPS_PORTAL = 'https://portal-api.mauromoncao.adv.br';
@@ -1233,6 +1234,9 @@ export default function PortalCliente() {
           )}
         </div>
       </div>
+
+      {/* ── Assistentes Flutuantes: Mara IA + Dr. Ben ─────────── */}
+      <FloatingAssistants />
 
       {/* ── Modal convidar cliente ──────────────────────────── */}
       {showConvidarModal && (
