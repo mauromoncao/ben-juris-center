@@ -229,7 +229,7 @@ function gerarHtmlRelatorio(dadosTribunais, dadosDJEN, geradoEm) {
 
   <p style="margin-top:32px;font-size:11px;color:#94a3b8;border-top:1px solid #e2e8f0;padding-top:12px">
     Este relatório foi gerado automaticamente pelo BEN Juris Center.<br>
-    Para acessar o sistema: <a href="https://ben-juris-center.vercel.app" style="color:#19385C">ben-juris-center.vercel.app</a>
+    Para acessar o sistema: <a href="https://juris.mauromoncao.adv.br" style="color:#19385C">juris.mauromoncao.adv.br</a>
   </p>
 </body>
 </html>`

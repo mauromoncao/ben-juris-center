@@ -2,7 +2,7 @@
 // BEN IA — Constantes globais
 // ─────────────────────────────────────────────────────────────────
 
-export const JURIS_API = 'https://ben-juris-center.vercel.app'
+export const JURIS_API = 'https://juris.mauromoncao.adv.br'
 
 // ── Autenticação ─────────────────────────────────────────────────
 export const AUTH_PASSWORD = '12345678'

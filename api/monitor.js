@@ -7,7 +7,7 @@
 export const config = { maxDuration: 15 }
 
 const ADMIN_TOKEN = (process.env.MONITOR_ADMIN_TOKEN || 'ben_monitor_mauro_2026_secure').trim()
-const ECOSYSTEM_MONITOR_URL = (process.env.ECOSYSTEM_URL || 'https://ben-ecosystem-ia.vercel.app').trim()
+const ECOSYSTEM_MONITOR_URL = (process.env.ECOSYSTEM_URL || 'https://ecosystem.mauromoncao.adv.br').trim()
 
 function setCors(res) {
   res.setHeader('Access-Control-Allow-Origin', '*')

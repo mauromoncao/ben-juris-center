@@ -76,7 +76,7 @@ const EMAIL_TEMPLATES = {
         <tr style="background:#f9fafb;"><td style="padding:8px;color:#6b7280;"><strong>Horário:</strong></td><td style="padding:8px;color:#111827;">${data.hora}</td></tr>
       </table>
       <div style="margin-top:20px;text-align:center;">
-        <a href="https://ben-growth-center.vercel.app/crm" style="background:#0f2044;color:white;padding:12px 25px;border-radius:8px;text-decoration:none;font-weight:bold;">
+        <a href="https://bengrowth.mauromoncao.adv.br/crm" style="background:#0f2044;color:white;padding:12px 25px;border-radius:8px;text-decoration:none;font-weight:bold;">
           Abrir no CRM →
         </a>
       </div>

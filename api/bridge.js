@@ -10,8 +10,8 @@ export const config = { maxDuration: 30 }
 const SUPABASE_URL  = process.env.DATABASE_URL       // connection string
 const SUPABASE_REST = process.env.SUPABASE_REST_URL  // ex: https://xxx.supabase.co
 const SUPABASE_KEY  = process.env.SUPABASE_ANON_KEY  // anon key pública
-const JURIS_URL     = 'https://ben-juris-center.vercel.app'
-const GROWTH_URL    = 'https://ben-growth-center.vercel.app'
+const JURIS_URL     = 'https://juris.mauromoncao.adv.br'
+const GROWTH_URL    = 'https://bengrowth.mauromoncao.adv.br'
 const BRIDGE_SECRET = process.env.JWT_SECRET || 'ben_jwt_mauro_moncao_2026_enterprise_secret_key_advogados'
 
 // ── Helpers ──────────────────────────────────────────────────

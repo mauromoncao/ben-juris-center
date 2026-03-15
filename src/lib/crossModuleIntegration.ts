@@ -79,14 +79,14 @@ export const BEN_MODULES = {
     nome: 'Ben Growth Center',
     modulo: 'Módulo 01',
     cor: '#00b37e',
-    url: 'https://ben-growth-center.vercel.app',
+    url: 'https://bengrowth.mauromoncao.adv.br',
   },
   JURIS: {
     id: 'ben-juris-center',
     nome: 'Ben Juris Center',
     modulo: 'Módulo 02',
     cor: '#3b82f6',
-    url: 'https://ben-juris-center.vercel.app',
+    url: 'https://juris.mauromoncao.adv.br',
   },
 } as const
 

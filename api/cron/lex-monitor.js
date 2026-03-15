@@ -16,7 +16,7 @@ export const config = { maxDuration: 30 }
 const DATAJUD_BASE    = 'https://api-publica.datajud.cnj.jus.br'
 const DATAJUD_APIKEY  = process.env.DATAJUD_API_KEY
   || 'cDZHYzlZa0JadVREZDJCendQbXY6SkJlTzNjLV9TRENyQk1RdnFKZGRQdw=='
-const ECOSYSTEM_URL   = process.env.ECOSYSTEM_URL || 'https://ben-ecosystem-ia.vercel.app'
+const ECOSYSTEM_URL   = process.env.ECOSYSTEM_URL || 'https://ecosystem.mauromoncao.adv.br'
 const RESEND_API_KEY  = process.env.RESEND_API_KEY
 const MONITOR_ADMIN_TOKEN = process.env.MONITOR_ADMIN_TOKEN || 'ben_monitor_mauro_2026_secure'
 
@@ -217,7 +217,7 @@ async function enviarAlertaUrgente(urgentes) {
               <p style="color:#374151">As seguintes intimações requerem atenção <strong>imediata</strong>:</p>
               <ul style="color:#374151;line-height:1.8">${listagem}</ul>
               <p style="margin-top:16px">
-                <a href="https://ben-juris-center.vercel.app/cnj" 
+                <a href="https://juris.mauromoncao.adv.br/cnj" 
                    style="background:#19385C;color:white;padding:10px 20px;border-radius:6px;text-decoration:none;font-size:14px">
                   Acessar BEN Juris Center
                 </a>

@@ -6,7 +6,7 @@
 
 export const config = { maxDuration: 60 }
 
-const JURIS_API  = 'https://ben-juris-center.vercel.app'
+const JURIS_API  = 'https://juris.mauromoncao.adv.br'
 const ESCAVADOR_TOKEN = process.env.ESCAVADOR_TOKEN || process.env.VITE_ESCAVADOR_TOKEN
 const DATAJUD_BASE    = 'https://api-publica.datajud.cnj.jus.br'
 const DATAJUD_KEY     = process.env.DATAJUD_API_KEY

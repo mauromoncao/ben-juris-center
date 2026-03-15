@@ -266,7 +266,7 @@ export default function Financeiro() {
         <p className="text-sm text-yellow-800">Para ativar o módulo financeiro real:</p>
         <ol className="text-sm text-yellow-800 list-decimal ml-5 space-y-1">
           <li>Acesse <b>app.asaas.com</b> → Conta → Integrações → Copie a API Key</li>
-          <li>Vá em <b>vercel.com</b> → projeto ben-juris-center → Settings → Environment Variables</li>
+          <li>Vá em <b>Cloudflare/Hostinger</b> → projeto ben-juris-center → Settings → Environment Variables</li>
           <li>Adicione: <code className="bg-yellow-100 px-1 rounded">ASAAS_API_KEY</code> = sua chave</li>
           <li>Faça <b>Redeploy</b></li>
         </ol>

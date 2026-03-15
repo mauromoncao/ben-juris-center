@@ -442,4 +442,4 @@ export const CATEGORIES = [
   { key: 'sistema',  label: 'Sistema',            emoji: '⚙️', color: '#A5B4FC' },
 ]
 
-export const JURIS_API = 'https://ben-juris-center.vercel.app'
+export const JURIS_API = 'https://juris.mauromoncao.adv.br'

@@ -81,7 +81,7 @@ export default function ProfileScreen() {
           <View style={styles.infoCard}>
             {[
               { k: 'Versão', v: '1.0.0' },
-              { k: 'API', v: 'ben-juris-center.vercel.app' },
+              { k: 'API', v: 'juris.mauromoncao.adv.br' },
               { k: 'Motor', v: 'BEN Ecosystem IA' },
               { k: 'Acesso', v: 'Equipe autorizada' },
             ].map((r, i, arr) => (
