@@ -196,7 +196,7 @@ export default function PeritoIA() {
                   { icon: Microscope, label: '5 módulos periciais' },
                   { icon: Shield, label: 'CPC arts. 156-184' },
                   { icon: Eye, label: 'Análise em 7 camadas' },
-                  { icon: Brain, label: 'GPT-4o + Claude' },
+                  { icon: Brain, label: 'IA Multi-Agente' },
                 ].map(s => (
                   <div key={s.label} className="flex items-center gap-1.5 text-xs text-purple-200">
                     <s.icon size={11} className="text-red-400" />{s.label}
@@ -327,7 +327,7 @@ export default function PeritoIA() {
             {[
               { label: 'Análises', value: tabResults.length, icon: Microscope },
               { label: 'Módulo', value: agent.label.split(' ')[0], icon: FlaskConical },
-              { label: 'Modelo', value: tabResults[0]?.model?.split('-')[0] || 'Claude', icon: Brain },
+              { label: 'Processamento', value: tabResults[0]?.model ? 'BEN IA' : 'BEN IA', icon: Brain },
             ].map(s => (
               <div key={s.label} className="bg-white rounded-xl border border-slate-200 p-3 text-center">
                 <s.icon size={14} className="mx-auto mb-1" style={{ color: agent.color }} />

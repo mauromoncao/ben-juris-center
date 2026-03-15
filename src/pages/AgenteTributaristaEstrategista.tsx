@@ -35,7 +35,7 @@ interface DocumentoAnexo {
 // ─── Exemplos de consultas tributárias ────────────────────────────────────────
 const CONSULTAS_EXEMPLO = [
   { label: '🔱 Impugnação CARF', prompt: 'Elabore impugnação ao auto de infração por cobrança de IRPJ exercício 2022, valor R$ 180.000. A Receita negou dedução de despesas com educação especial. Sujeito passivo: Empresa XYZ Ltda, CNPJ 00.000.000/0001-00, Teresina/PI.' },
-  { label: '🏛️ Nulidade de autuação', prompt: 'Analise as hipóteses de nulidade (processual e material) de auto de infração por ICMS onde a intimação fiscal não indicou a base de cálculo utilizada e o prazo de defesa foi inferior a 30 dias.' },
+  { label: '🔱 Nulidade de autuação', prompt: 'Analise as hipóteses de nulidade (processual e material) de auto de infração por ICMS onde a intimação fiscal não indicou a base de cálculo utilizada e o prazo de defesa foi inferior a 30 dias.' },
   { label: '📋 Estratégia CARF → STJ', prompt: 'O CARF negou crédito de PIS/COFINS sobre insumos industriais. Quais são as chances no TJ? E no STJ? Há Tema Repetitivo favorável? Elabore estratégia de escalação multi-instância.' },
   { label: '🔍 Reforma Tributária EC 132', prompt: 'Quais são os impactos da EC 132/2023 para empresas de serviços no regime do ISS municipal? Há direito adquirido sobre benefícios fiscais concedidos antes da reforma?' },
   { label: '📄 Parecer dedutibilidade', prompt: 'Elabore parecer jurídico sobre a dedutibilidade de despesas com educação especial no IRPF. Fundamente com CTN, Lei 12.764/2012 e jurisprudência do STJ e CARF.' },
@@ -353,7 +353,7 @@ export default function AgenteTributaristaEstrategista() {
             </div>
             <div className="flex items-center gap-1.5">
               <Wifi className="w-3.5 h-3.5" style={{ color: '#19385C' }} />
-              <span className="text-xs font-medium" style={{ color: '#19385C' }}>Opus 4</span>
+              <span className="text-xs font-medium" style={{ color: '#19385C' }}>IA Estratégica</span>
             </div>
             <div className="text-center hidden sm:block">
               <div className="text-sm font-bold" style={{ color: '#19385C' }}>{stats.total}</div>
@@ -387,7 +387,7 @@ export default function AgenteTributaristaEstrategista() {
                 { n: '1', icon: <MessageSquare className="w-3 h-3" />, t: 'Recebe Demanda', d: 'Lê contexto tributário completo' },
                 { n: '2', icon: <Brain className="w-3 h-3" />, t: 'Thinking SEMPRE ON', d: '8–12s · 4k–10k tokens' },
                 { n: '3', icon: <Database className="w-3 h-3" />, t: '7 Camadas', d: 'Fato → Enquadramento → Jurisprud. → Vício Processual → Vício Material → Defesa → Estratégia' },
-                { n: '4', icon: <Bot className="w-3 h-3" />, t: 'Processa (Opus 4)', d: 'Análise tributária máxima' },
+                { n: '4', icon: <Bot className="w-3 h-3" />, t: 'Processa com IA', d: 'Análise tributária máxima' },
                 { n: '5', icon: <Sparkles className="w-3 h-3" />, t: 'Entrega Completa', d: 'Peça pronta + risco + cenários' },
               ].map(e => (
                 <div key={e.n} className="flex items-start gap-2 text-xs">

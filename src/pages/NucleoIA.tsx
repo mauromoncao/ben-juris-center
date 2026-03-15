@@ -23,8 +23,8 @@ const DR_BEN_AGENTS = [
     requests: 312,
     accuracy: 99.1,
     route: '/agente-maximus',
-    description: 'Nível máximo de raciocínio jurídico. Claude Opus com thinking sempre ativo. Raciocínio em 7 camadas obrigatórias. Exclusivo para casos de alta complexidade: valor > R$ 500k, teses inovadoras, múltiplas instâncias, risco muito alto.',
-    capabilities: ['Thinking sempre ativo (Claude Opus)', 'Raciocínio em 7 camadas', 'Estratégia multi-instância CARF→STF', 'Teses jurídicas inovadoras', 'Casos constitucionais com repercussão geral', 'Due diligence M&A complexa'],
+    description: 'Nível máximo de raciocínio jurídico. IA de máxima profundidade com thinking sempre ativo. Raciocínio em 7 camadas obrigatórias. Exclusivo para casos de alta complexidade: valor > R$ 500k, teses inovadoras, múltiplas instâncias, risco muito alto.',
+    capabilities: ['Thinking sempre ativo', 'Raciocínio em 7 camadas', 'Estratégia multi-instância CARF→STF', 'Teses jurídicas inovadoras', 'Casos constitucionais com repercussão geral', 'Due diligence M&A complexa'],
     prompts: [
       'Elabore estratégia multi-instância para crédito ICMS negado no CARF — valor R$ 2,4 milhões',
       'Análise constitucional de autuação fiscal com base em lei inconstitucional',
@@ -44,7 +44,7 @@ const DR_BEN_AGENTS = [
     requests: 1547,
     accuracy: 97.8,
     route: '/agente-premium',
-    description: 'Análise jurídica moderada a profunda com thinking adaptativo automático (Claude Sonnet). Sinaliza automaticamente casos que exigem o MAXIMUS.',
+    description: 'Análise jurídica moderada a profunda com thinking adaptativo automático. Sinaliza automaticamente casos que exigem o MAXIMUS.',
     capabilities: ['Thinking adaptativo automático', 'Jurisprudência STJ, TJ e CARF', 'Petições padrão a moderadamente complexas', 'Síntese de documentos até 30 pág.', 'Detecção de risco baixo a médio', 'Escalação automática para MAXIMUS'],
     prompts: [
       'Elabore contestação em ação de cobrança com preliminares de prescrição',
@@ -64,7 +64,7 @@ const DR_BEN_AGENTS = [
     requests: 3241,
     accuracy: 98.9,
     route: '/agente-standard',
-    description: 'Execução operacional rápida sem thinking (Claude Haiku). Extração, resumo, classificação, checklist, FAQ e validação de dados. Resposta em 0,3–0,8 s.',
+    description: 'Execução operacional rápida e eficiente. Extração, resumo, classificação, checklist, FAQ e validação de dados. Resposta em 0,3–0,8 s.',
     capabilities: ['Extração de dados de documentos', 'Resumo e classificação', 'Detecção de urgência', 'Checklist de prazos', 'FAQ jurídica padrão', 'Validação de campos'],
     prompts: [
       'Extraia as partes, pedidos e valor da causa deste processo',
@@ -84,7 +84,7 @@ const DR_BEN_AGENTS = [
     requests: 634,
     accuracy: 98.4,
     route: '/tributarista-estrategista',
-    description: 'Especialista exclusivo em Direito Tributário (federal, estadual e municipal). Thinking sempre ativo (Claude Opus). Raciocínio obrigatório em 7 camadas. Defesa no CARF, TJ, STJ e STF.',
+    description: 'Especialista exclusivo em Direito Tributário (federal, estadual e municipal). Thinking sempre ativo. Raciocínio obrigatório em 7 camadas. Defesa no CARF, TJ, STJ e STF.',
     capabilities: ['Nulidade tributária processual e material', 'Defesa administrativa no CARF', 'Defesa judicial TJ / STJ / STF', 'Planejamento tributário estratégico', 'Análise EC 132/2023 (Reforma Tributária)', 'Estratégia multi-instância CARF → STF'],
     prompts: [
       'Elabore impugnação ao auto de infração por IRPJ — exercício 2022',

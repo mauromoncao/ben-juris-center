@@ -30,7 +30,7 @@ interface Cadastro {
 }
 
 const TIPOS: Record<TipoEntidade, { label: string; color: string; icon: string }> = {
-  municipio: { label: 'Município', color: 'bg-navy-mid/10 text-navy font-semibold border-navy-mid/30', icon: '🏛️' },
+  municipio: { label: 'Município', color: 'bg-navy-mid/10 text-navy font-semibold border-navy-mid/30', icon: '🏢' },
   camara: { label: 'Câmara Municipal', color: 'bg-violet/10 text-violet border-violet/30', icon: '🔱' },
   secretaria: { label: 'Secretaria', color: 'bg-indigo-500/20 text-indigo-400 border-indigo-500/30', icon: '📋' },
   empresa_privada: { label: 'Empresa Privada', color: 'bg-emerald/10 text-emerald border-emerald/25', icon: '🏢' },

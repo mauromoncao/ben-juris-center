@@ -143,7 +143,7 @@ const COBRANCAS_MOCK: CobrancaPortal[] = [
 
 // ── Helpers ─────────────────────────────────────────────────────
 function tipoIcon(tipo: ClientePortal['tipo']) {
-  const m: Record<ClientePortal['tipo'], string> = { municipio: '🏛️', camara: '🔱', empresa: '🏢', secretaria: '📋', pessoa_fisica: '👤' };
+  const m: Record<ClientePortal['tipo'], string> = { municipio: '🏢', camara: '🔱', empresa: '🏢', secretaria: '📋', pessoa_fisica: '👤' };
   return m[tipo];
 }
 function planoBadge(plano: ClientePortal['plano']) {

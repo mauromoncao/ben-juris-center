@@ -1,6 +1,6 @@
 // ============================================================
 // BEN MONITOR JURÍDICO — Dashboard
-// Orquestra: Escavador DJe + DataJud CNJ + IA (Claude Sonnet)
+// Orquestra: Escavador DJe + DataJud CNJ + IA Jurídica
 // ============================================================
 
 import { useState, useCallback } from 'react'
@@ -262,7 +262,7 @@ export default function MonitorJuridico() {
           </div>
           <div>
             <h1 className="text-xl font-bold text-slate-100">Monitor Jurídico</h1>
-            <p className="text-sm text-slate-400">DJe · DataJud CNJ · IA Claude Sonnet</p>
+            <p className="text-sm text-slate-400">DJe · DataJud CNJ · IA Jurídica</p>
           </div>
         </div>
 

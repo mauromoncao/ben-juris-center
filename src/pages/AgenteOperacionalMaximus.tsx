@@ -31,7 +31,7 @@ interface DocumentoAnexo {
 
 const CONSULTAS_EXEMPLO = [
   { label: '⭐ Estratégia multi-instância', prompt: 'Elabore estratégia multi-instância para crédito de ICMS negado no CARF. Empresa: Indústria ABC Ltda. Valor: R$ 2,4 milhões. Argumentos disponíveis: não-cumulatividade e vício de intimação no processo administrativo.' },
-  { label: '🏛️ Análise constitucional', prompt: 'Analise a constitucionalidade da cobrança do DIFAL nas operações interestaduais com consumidores finais, considerando a LC 190/2022 e as ADIs 7066 e 7070 no STF.' },
+  { label: '🔱 Análise constitucional', prompt: 'Analise a constitucionalidade da cobrança do DIFAL nas operações interestaduais com consumidores finais, considerando a LC 190/2022 e as ADIs 7066 e 7070 no STF.' },
   { label: '💼 Due diligence M&A', prompt: 'Realize due diligence jurídica preliminar para aquisição de empresa do setor de saúde com passivo trabalhista estimado em R$ 800k e 3 ações fiscais em andamento no CARF.' },
   { label: '📜 Parecer high stakes', prompt: 'Elabore parecer jurídico definitivo sobre a possibilidade de creditamento de ICMS na aquisição de energia elétrica usada no processo industrial, considerando os precedentes do STJ e STF.' },
   { label: '🔱 Repercussão geral STF', prompt: 'Analise o impacto do Tema 69 do STF (tese do século — exclusão do ICMS da base do PIS/COFINS) nos processos tributários do escritório e elabore estratégia de execução dos créditos.' },
@@ -169,7 +169,7 @@ export default function AgenteOperacionalMaximus() {
           <div className="flex-1">
             <div className="flex items-center gap-2 mb-1">
               <h1 className="text-xl font-bold text-white">AGENTE OPERACIONAL MAXIMUS</h1>
-              <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-white/20 text-white border border-white/30">Claude Opus</span>
+              <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-white/20 text-white border border-white/30">⭐ Máxima Complexidade</span>
               <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-amber-300/30 text-amber-100 border border-amber-300/40">⚡ Thinking Sempre Ativo</span>
             </div>
             <p className="text-amber-100/80 text-sm max-w-2xl">
@@ -342,7 +342,7 @@ export default function AgenteOperacionalMaximus() {
             </div>
           </div>
           <div className="text-xs text-slate-400 mt-2 text-center">
-            MAXIMUS · Claude Opus · Thinking Sempre Ativo · Máxima Complexidade · Dados criptografados
+            MAXIMUS · Thinking Sempre Ativo · Máxima Complexidade · Dados criptografados
           </div>
         </div>
       </div>

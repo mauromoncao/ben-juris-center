@@ -1,6 +1,6 @@
 // ══════════════════════════════════════════════════════════════
-// BEN ASSISTENTE GERAL — Chat Fixo Universal
-// Copiloto do Dr. Ben | GPT-4o | Tema Claro Ecosystem IA
+// BEN COPILOT — Chat Fixo Universal
+// Copiloto do Dr. Ben | Tema Claro Ecosystem IA
 // ══════════════════════════════════════════════════════════════
 
 import React, { useState, useRef, useEffect, useCallback } from 'react';
@@ -356,7 +356,7 @@ export default function AssistenteGeral() {
         {/* Label */}
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
           <span style={{ color: C.gold, fontWeight: 700, fontSize: 13, letterSpacing: '-0.01em', lineHeight: 1.2 }}>Dr. Ben</span>
-          <span style={{ color: 'rgba(159,176,215,0.80)', fontSize: 10, lineHeight: 1.2 }}>Assistente 24h</span>
+          <span style={{ color: 'rgba(159,176,215,0.80)', fontSize: 10, lineHeight: 1.2 }}>BEN Copilot</span>
         </div>
 
         {/* Badge de mensagens */}
@@ -400,7 +400,7 @@ export default function AssistenteGeral() {
               Dr. Ben
             </p>
             <p style={{ color: 'rgba(159,176,215,0.80)', fontSize: 10, margin: 0 }}>
-              {carregando ? '⏳ Pensando...' : '● Assistente 24h · GPT-4o'}
+              {carregando ? '⏳ Pensando...' : '● BEN Copilot · Online 24h'}
             </p>
           </div>
         </div>

@@ -60,7 +60,7 @@ const urgCor: Record<string, string> = {
 };
 const tipoIcone: Record<string, string> = {
   intimacao: '📬', citacao: '🔱', pauta: '📅', despacho: '📄',
-  sentenca: '🏛️', comunicacao: '📩', decisao: '🔱',
+  sentenca: '🏢', comunicacao: '📩', decisao: '🔱',
 };
 function formatarData(iso: string) {
   if (!iso) return '—';
