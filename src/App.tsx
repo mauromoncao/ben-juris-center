@@ -8,7 +8,8 @@ import {
   PenTool, DollarSign, Link2, Users, BarChart3, Shield, Bell,
   Settings, ChevronDown, ChevronRight, Menu, X, Home, Search,
   LogOut, User, Zap, AlertTriangle, Activity, Brain,
-  Target, Map, BookMarked, Wand2, Calculator, Microscope, Radio
+  Target, Map, BookMarked, Wand2, Calculator, Microscope, Radio,
+  Database
 } from 'lucide-react';
 
 // Pages
@@ -40,6 +41,7 @@ import AgenteTributaristaEstrategista from './pages/AgenteTributaristaEstrategis
 import AgentProcessualistaEstrategico from './pages/AgentProcessualistaEstrategico';
 import MonitorCustos from './pages/MonitorCustos';
 import MonitorJuridico from './pages/MonitorJuridico';
+import KnowledgeBase from './pages/KnowledgeBase';
 import PortalClientePublico from './pages/PortalClientePublico';
 import LoginClientePage, { type ClienteAuth } from './pages/LoginClientePage';
 
@@ -99,6 +101,7 @@ const NAV_GROUPS = [
     label: 'SETOR PÚBLICO & DOCUMENTOS',
     color: '#d97706',
     items: [
+      { path: '/knowledge-base', icon: Database, label: 'Knowledge Base', badge: 'NEW' },
       { path: '/documentos',  icon: BookOpen, label: 'Docs & Pareceres'    },
       { path: '/assinaturas', icon: PenTool,  label: 'Assinatura Digital'  },
     ]
@@ -408,6 +411,7 @@ function AppRoutes() {
               <Route path="/cnj"                  element={<IntegracaoCNJ />} />
               <Route path="/prazos"               element={<Prazos />} />
               <Route path="/agenda"               element={<Agenda />} />
+              <Route path="/knowledge-base"          element={<KnowledgeBase />} />
               <Route path="/documentos"           element={<Documentos />} />
               <Route path="/assinaturas"          element={<Assinaturas />} />
               <Route path="/financeiro"           element={<Financeiro />} />
