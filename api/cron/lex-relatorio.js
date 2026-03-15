@@ -1,6 +1,6 @@
 // ============================================================
 // BEN JURIS CENTER — Cron: lex-relatorio
-// Schedule: toda segunda-feira às 09:00 UTC (vercel.json)
+// Schedule: toda segunda-feira às 09:00 UTC (Cloudflare Workers Cron)
 // Rota: GET /api/cron/lex-relatorio
 //
 // Responsabilidades:
@@ -190,7 +190,7 @@ function gerarHtmlRelatorio(dadosTribunais, dadosDJEN, geradoEm) {
            </tr>`
          ).join('')}
        </table>`
-    : `<p style="color:#64748b;font-size:13px">⚠️ DJEN não configurado — configure <code>DJEN_TOKEN</code> no Vercel.</p>`
+    : `<p style="color:#64748b;font-size:13px">⚠️ DJEN não configurado — configure <code>DJEN_TOKEN</code> no Cloudflare Pages.</p>`
 
   return `
 <!DOCTYPE html>
@@ -237,16 +237,16 @@ function gerarHtmlRelatorio(dadosTribunais, dadosDJEN, geradoEm) {
 
 // ── Handler principal ─────────────────────────────────────────
 export default async function handler(req, res) {
-  // Proteção: aceita chamada do Vercel Cron (CRON_SECRET) ou admin token
+  // Proteção: aceita chamada do Cloudflare Workers Cron (CRON_SECRET) ou admin token
   const authHeader  = req.headers['authorization'] || ''
   const cronSecret  = process.env.CRON_SECRET || ''
   const adminToken  = MONITOR_ADMIN_TOKEN
 
-  const isVercelCron = authHeader === `Bearer ${cronSecret}` && cronSecret
+  const isCFCron = authHeader === `Bearer ${cronSecret}` && cronSecret
   const isAdminCall  = authHeader === `Bearer ${adminToken}`
   const isGetNoAuth  = req.method === 'GET' // Em dev, permite sem auth para testes
 
-  if (!isVercelCron && !isAdminCall && !isGetNoAuth) {
+  if (!isCFCron && !isAdminCall && !isGetNoAuth) {
     return res.status(401).json({ error: 'Não autorizado.' })
   }
 

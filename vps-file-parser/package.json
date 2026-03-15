@@ -1,12 +1,13 @@
 {
   "name": "ben-file-parser",
-  "version": "1.0.0",
-  "description": "BEN Document Parser — PDF, DOCX, XLSX, Images via VPS Hostinger porta 3010",
+  "version": "3.0.0",
+  "description": "BEN File Parser + Knowledge Base — PDF, DOCX, XLSX, Images, Audio/Video (Whisper) — VPS Hostinger porta 3010",
   "main": "server.js",
   "scripts": {
     "start": "PORT=3010 node server.js",
     "dev": "PORT=3010 node server.js",
-    "install-deps": "npm install"
+    "install-deps": "npm install",
+    "migrate": "bash migrate-hd.sh"
   },
   "dependencies": {
     "express": "^4.18.2",
@@ -17,6 +18,7 @@
     "xlsx": "^0.18.5",
     "node-fetch": "^2.7.0",
     "form-data": "^4.0.0",
-    "sharp": "^0.33.2"
+    "sharp": "^0.33.2",
+    "dotenv": "^16.4.5"
   }
 }

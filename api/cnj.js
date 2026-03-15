@@ -507,13 +507,13 @@ async function djenListar({ pagina = 0, tamanho = 20, status = 'NAO_LIDA' } = {}
     return {
       success: false,
       configurado: false,
-      mensagem: 'DJEN não configurado. Configure DJEN_TOKEN e DJEN_CNPJ no Vercel.',
+      mensagem: 'DJEN não configurado. Configure DJEN_TOKEN e DJEN_CNPJ no Cloudflare Pages.',
       instrucoes: [
         '1. Acesse https://domicilio-eletronico.pdpj.jus.br com certificado digital do escritório',
         '2. Menu lateral → "Gerenciar credenciais API" → "Solicitar"',
         '3. Aceite os termos e clique em "Gerar credencial"',
         '4. Copie o Bearer token gerado',
-        '5. Configure DJEN_TOKEN=<token> e DJEN_CNPJ=<cnpj_sem_mascara> no Vercel',
+        '5. Configure DJEN_TOKEN=<token> e DJEN_CNPJ=<cnpj_sem_mascara> no Cloudflare Pages',
       ],
       comunicacoes: [],
     }
@@ -630,12 +630,12 @@ async function djenStatus() {
       success: true,
       djen: 'não_configurado',
       configurado: false,
-      mensagem: 'DJEN_TOKEN não definido. Configure no Vercel.',
+      mensagem: 'DJEN_TOKEN não definido. Configure no Cloudflare Pages.',
       instrucoes: [
         'Acesse https://domicilio-eletronico.pdpj.jus.br',
         'Menu → Gerenciar credenciais API → Solicitar',
         'Copie o Bearer token',
-        'Adicione DJEN_TOKEN=<token> nas variáveis de ambiente do Vercel',
+        'Adicione DJEN_TOKEN=<token> nas variáveis de ambiente do Cloudflare Pages',
       ],
     }
   }

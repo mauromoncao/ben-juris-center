@@ -5,17 +5,17 @@ import {
 } from 'recharts';
 import {
   Gavel, Clock, AlertTriangle, CheckCircle, TrendingUp, TrendingDown, DollarSign,
-  Building2, FileText, Scale, Calendar, Activity, Brain, Target
+  Building2, FileText, Scale, Calendar, Activity, Brain, Target, Zap, Globe
 } from 'lucide-react';
 
-// ─── dados ────────────────────────────────────────────────────────────────────
+// ─── dados atualizados Março 2026 ──────────────────────────────────────────────
 const revenueData = [
-  { mes: 'Set', receita: 85000, despesa: 32000 },
-  { mes: 'Out', receita: 92000, despesa: 35000 },
-  { mes: 'Nov', receita: 78000, despesa: 28000 },
+  { mes: 'Out', receita: 92000,  despesa: 35000 },
+  { mes: 'Nov', receita: 78000,  despesa: 28000 },
   { mes: 'Dez', receita: 110000, despesa: 42000 },
-  { mes: 'Jan', receita: 96000, despesa: 38000 },
+  { mes: 'Jan', receita: 96000,  despesa: 38000 },
   { mes: 'Fev', receita: 125000, despesa: 45000 },
+  { mes: 'Mar', receita: 138000, despesa: 48000 },
 ];
 
 const areaData = [
@@ -27,28 +27,29 @@ const areaData = [
 ];
 
 const setorData = [
-  { setor: 'Municípios',  processos: 68 },
-  { setor: 'Câmaras',     processos: 42 },
-  { setor: 'Secretarias', processos: 37 },
-  { setor: 'Empresas',    processos: 55 },
-  { setor: 'Fundações',   processos: 24 },
-  { setor: 'Autarquias',  processos: 21 },
+  { setor: 'Municípios',  processos: 72 },
+  { setor: 'Câmaras',     processos: 45 },
+  { setor: 'Secretarias', processos: 39 },
+  { setor: 'Empresas',    processos: 61 },
+  { setor: 'Fundações',   processos: 27 },
+  { setor: 'Autarquias',  processos: 23 },
 ];
 
 const alertas = [
-  { tipo: 'danger',  icon: AlertTriangle, msg: 'Prazo fatal: Processo nº 0001234-55.2024 — vence HOJE 18h',          area: 'Tributário' },
-  { tipo: 'danger',  icon: AlertTriangle, msg: 'Prazo fatal: Apelação Cível nº 0009876-44.2023 — vence HOJE',         area: 'Civil' },
-  { tipo: 'warning', icon: Clock,         msg: 'D-3: Contestação nº 0004321-66.2024 — vence 03/03',                   area: 'Trabalhista' },
-  { tipo: 'warning', icon: Calendar,      msg: 'Audiência amanhã 14h — Fórum Central, Sala 5',                        area: 'Administrativo' },
-  { tipo: 'info',    icon: FileText,      msg: 'Nova intimação recebida via DJEN — Processo nº 0007654-11.2024',      area: 'Tributário' },
+  { tipo: 'danger',  icon: AlertTriangle, msg: 'Prazo fatal: Processo nº 0001234-55.2025 — vence HOJE 18h',           area: 'Tributário' },
+  { tipo: 'danger',  icon: AlertTriangle, msg: 'Prazo fatal: Apelação Cível nº 0009876-44.2024 — vence HOJE',          area: 'Civil' },
+  { tipo: 'warning', icon: Clock,         msg: 'D-3: Contestação nº 0004321-66.2025 — vence 18/03',                    area: 'Trabalhista' },
+  { tipo: 'warning', icon: Calendar,      msg: 'Audiência amanhã 14h — Fórum Central, Sala 5',                         area: 'Administrativo' },
+  { tipo: 'info',    icon: FileText,      msg: 'Nova intimação recebida via DJEN — Processo nº 0007654-11.2025',       area: 'Tributário' },
+  { tipo: 'info',    icon: Brain,         msg: 'Dr. Ben IA concluiu análise de 3 processos — ver relatório',           area: 'IA' },
 ];
 
 const processosList = [
-  { num: '0001234-55.2024', cliente: 'Prefeitura Municipal de SP',  area: 'Tributário',     instancia: '1ª instância', status: 'ativo',            prazo: '28/02', urgencia: 'critico' },
-  { num: '0009876-44.2023', cliente: 'Câmara Municipal RJ',         area: 'Administrativo', instancia: '2ª instância', status: 'recurso',          prazo: '05/03', urgencia: 'alta'    },
-  { num: '0004321-66.2024', cliente: 'Fundação Educacional SP',     area: 'Trabalhista',    instancia: '1ª instância', status: 'ativo',            prazo: '03/03', urgencia: 'media'   },
-  { num: '0007654-11.2024', cliente: 'Secretaria da Saúde MG',      area: 'Administrativo', instancia: 'STJ',          status: 'recurso_especial', prazo: '12/03', urgencia: 'baixa'   },
-  { num: '0002345-78.2024', cliente: 'Agência Reguladora Federal',  area: 'Administrativo', instancia: '1ª instância', status: 'ativo',            prazo: '18/03', urgencia: 'baixa'   },
+  { num: '0001234-55.2025', cliente: 'Prefeitura Municipal de SP',  area: 'Tributário',     instancia: '1ª instância', status: 'ativo',            prazo: '15/03', urgencia: 'critico' },
+  { num: '0009876-44.2024', cliente: 'Câmara Municipal RJ',         area: 'Administrativo', instancia: '2ª instância', status: 'recurso',          prazo: '18/03', urgencia: 'alta'    },
+  { num: '0004321-66.2025', cliente: 'Fundação Educacional SP',     area: 'Trabalhista',    instancia: '1ª instância', status: 'ativo',            prazo: '18/03', urgencia: 'media'   },
+  { num: '0007654-11.2025', cliente: 'Secretaria da Saúde MG',      area: 'Administrativo', instancia: 'STJ',          status: 'recurso_especial', prazo: '22/03', urgencia: 'baixa'   },
+  { num: '0002345-78.2025', cliente: 'Agência Reguladora Federal',  area: 'Administrativo', instancia: '1ª instância', status: 'ativo',            prazo: '28/03', urgencia: 'baixa'   },
 ];
 
 // ─── helpers de cor ───────────────────────────────────────────────────────────
@@ -123,7 +124,7 @@ export default function Dashboard() {
             Dashboard Executivo
           </h1>
           <p className="text-sm mt-1 font-sans" style={{ color: 'rgba(25,56,92,0.72)' }}>
-            Gestão Jurídica · Operações · Setor Público · Processos · Financeiro
+            Gestão Jurídica · Operações · Setor Público · Processos · Financeiro — Março 2026
           </p>
         </div>
         <div className="flex items-center gap-3 flex-wrap relative z-10">
@@ -135,6 +136,10 @@ export default function Dashboard() {
             style={{ background: 'rgba(25,56,92,0.18)', border: '1px solid rgba(25,56,92,0.35)', color: '#19385C', fontSize: '0.75rem', fontWeight: 600 }}>
             <Brain size={12} /><span className="font-sans">Dr. Ben IA Ativo</span>
           </div>
+          <div className="flex items-center gap-1.5 rounded-full px-3 py-1.5"
+            style={{ background: 'rgba(0,179,126,0.18)', border: '1px solid rgba(0,179,126,0.35)', color: '#065f46', fontSize: '0.75rem', fontWeight: 600 }}>
+            <Zap size={12} /><span className="font-sans">Agents v6 Online</span>
+          </div>
           <button className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold font-sans transition-all hover:brightness-110 active:scale-95"
             style={{ background: '#19385C', color: '#DEC078', boxShadow: '0 2px 10px rgba(25,56,92,0.30)' }}>
             <Activity size={14} />Acionar Agente
@@ -145,10 +150,10 @@ export default function Dashboard() {
       {/* ── KPI CARDS ──────────────────────────────────────────────── */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Processos Ativos', value: '247',      icon: Gavel,         change: '+12',  up: true,  accent: '#19385C', sub: '18 novas entradas' },
-          { label: 'Prazos Críticos',  value: '8',         icon: AlertTriangle, change: '+3',   up: false, accent: '#e11d48', sub: '3 vencem hoje' },
-          { label: 'Receita do Mês',   value: 'R$ 125K',   icon: DollarSign,   change: '+23%', up: true,  accent: '#00b37e', sub: 'vs mês anterior' },
-          { label: 'Clientes Ativos',  value: '34',        icon: Building2,     change: '+2',   up: true,  accent: '#DEC078', sub: '6 públicos, 28 privados' },
+          { label: 'Processos Ativos', value: '267',      icon: Gavel,         change: '+20',  up: true,  accent: '#19385C', sub: '22 novas entradas' },
+          { label: 'Prazos Críticos',  value: '6',         icon: AlertTriangle, change: '-2',   up: true,  accent: '#e11d48', sub: '2 vencem hoje' },
+          { label: 'Receita do Mês',   value: 'R$ 138K',   icon: DollarSign,   change: '+10%', up: true,  accent: '#00b37e', sub: 'vs mês anterior' },
+          { label: 'Clientes Ativos',  value: '38',        icon: Building2,     change: '+4',   up: true,  accent: '#DEC078', sub: '7 públicos, 31 privados' },
         ].map(item => {
           const Icon = item.icon;
           return (
@@ -175,6 +180,35 @@ export default function Dashboard() {
             </div>
           );
         })}
+      </div>
+
+      {/* ── STATUS DO ECOSSISTEMA ──────────────────────────────────── */}
+      <div className="rounded-2xl p-5" style={{ ...card, borderLeft: '3px solid #00b37e' }}>
+        <div className="flex items-center gap-2 mb-3">
+          <Globe size={16} style={{ color: '#00b37e' }} />
+          <span className="font-bold text-sm font-sans" style={{ color: '#222222' }}>Status do Ecossistema BEN — Março 2026</span>
+          <span className="ml-auto text-xs px-2 py-0.5 rounded-full font-semibold font-sans"
+            style={{ background: 'rgba(0,179,126,0.10)', color: '#065f46', border: '1px solid rgba(0,179,126,0.30)' }}>
+            Todos online
+          </span>
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+          {[
+            { name: 'Ben Juris',        url: 'juris.mauromoncao.adv.br',          status: 'online', color: '#19385C' },
+            { name: 'Ben Growth',       url: 'growth.mauromoncao.adv.br',          status: 'online', color: '#00b37e' },
+            { name: 'Ben Ecosystem IA', url: 'ecosystem.mauromoncao.adv.br',       status: 'online', color: '#7c3aed' },
+            { name: 'Portal Cliente',   url: 'portaldocliente.mauromoncao.adv.br', status: 'online', color: '#DEC078' },
+          ].map(s => (
+            <div key={s.name} className="rounded-xl p-3 flex items-center gap-2.5"
+              style={{ background: `${s.color}08`, border: `1px solid ${s.color}25` }}>
+              <div className="w-2 h-2 rounded-full flex-shrink-0 animate-pulse" style={{ background: '#00b37e' }} />
+              <div className="min-w-0">
+                <p className="text-xs font-bold font-sans truncate" style={{ color: s.color }}>{s.name}</p>
+                <p className="text-xs font-sans truncate" style={{ color: '#9CA3AF', fontSize: '0.65rem' }}>{s.url}</p>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* ── MÓDULOS RÁPIDOS ────────────────────────────────────────── */}
@@ -211,7 +245,7 @@ export default function Dashboard() {
           <span className="font-bold text-sm font-sans" style={{ color: '#222222' }}>Alertas & Prazos Críticos</span>
           <span className="ml-auto inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold font-sans"
             style={{ background: 'rgba(225,29,72,0.10)', color: '#e11d48', border: '1px solid rgba(225,29,72,0.30)' }}>
-            5 alertas
+            6 alertas
           </span>
         </div>
         {/* linhas */}
@@ -248,7 +282,7 @@ export default function Dashboard() {
             </span>
             <span className="text-xs font-sans px-2 py-1 rounded-lg"
               style={{ color: '#8C6B0A', background: 'rgba(222,192,120,0.15)', border: '1px solid rgba(222,192,120,0.30)' }}>
-              Últimos 6 meses
+              Out 2025 – Mar 2026
             </span>
           </div>
           <ResponsiveContainer width="100%" height={200}>
@@ -305,7 +339,7 @@ export default function Dashboard() {
           <span className="font-bold text-sm flex items-center gap-2 font-sans" style={{ color: '#222222' }}>
             <Building2 size={16} style={{ color: '#DEC078' }} />Distribuição Setor Público
           </span>
-          <span className="text-xs font-sans" style={{ color: '#9CA3AF' }}>Processos por segmento</span>
+          <span className="text-xs font-sans" style={{ color: '#9CA3AF' }}>Processos por segmento — Mar 2026</span>
         </div>
         <ResponsiveContainer width="100%" height={150}>
           <BarChart data={setorData} barSize={30}>
@@ -377,10 +411,10 @@ export default function Dashboard() {
       {/* ── KPI BOTTOM ROW ─────────────────────────────────────────── */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Docs Gerados IA',  value: '1.247', icon: FileText,   accent: '#7c3aed' },
-          { label: 'Assin. Pendentes', value: '23',    icon: PenTool,    accent: '#f59e0b' },
-          { label: 'Taxa de Sucesso',  value: '72%',   icon: Target,     accent: '#00b37e' },
-          { label: 'Audiências/Mês',   value: '18',    icon: Calendar,   accent: '#DEC078' },
+          { label: 'Docs Gerados IA',  value: '2.847', icon: FileText,   accent: '#7c3aed' },
+          { label: 'Assin. Pendentes', value: '19',    icon: PenTool,    accent: '#f59e0b' },
+          { label: 'Taxa de Sucesso',  value: '74%',   icon: Target,     accent: '#00b37e' },
+          { label: 'Audiências/Mês',   value: '21',    icon: Calendar,   accent: '#DEC078' },
         ].map(s => {
           const Icon = s.icon;
           return (
@@ -408,20 +442,20 @@ export default function Dashboard() {
           </div>
           <div>
             <h3 className="font-bold text-sm font-serif" style={{ color: '#222222', letterSpacing: '-0.01em' }}>
-              Acesso Rápido — Agentes Dr. Ben IA
+              Acesso Rápido — Agentes Dr. Ben IA v6.0
             </h3>
             <p className="text-xs font-sans mt-0.5" style={{ color: '#6B7280' }}>
-              Selecione um agente especialista para iniciar
+              35 agentes disponíveis — selecione um especialista para iniciar
             </p>
           </div>
           <div className="ml-auto flex items-center gap-1.5 text-xs font-semibold font-sans" style={{ color: '#00b37e' }}>
             <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            10 agentes online
+            35 agentes online
           </div>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
           {[
-            { label: 'Petições', color: '#DEC078', emoji: '🔱' },
+            { label: 'Petições',          color: '#DEC078', emoji: '🔱' },
             { label: 'Contratos',          color: '#00b37e', emoji: '📋' },
             { label: 'Análise Processual', color: '#19385C', emoji: '🔍' },
             { label: 'Auditoria Fiscal',   color: '#f59e0b', emoji: '💰' },

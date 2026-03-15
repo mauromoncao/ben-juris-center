@@ -10,7 +10,7 @@
     {
       "parameters": {
         "method": "GET",
-        "url": "https://ben-juris-center.vercel.app/api/db?action=prazos-urgentes"
+        "url": "https://juris.mauromoncao.adv.br/api/db?action=prazos-urgentes"
       },
       "name": "Buscar prazos urgentes (7 dias)",
       "type": "n8n-nodes-base.httpRequest",
@@ -27,7 +27,7 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "https://ben-juris-center.vercel.app/api/agents/run",
+        "url": "https://juris.mauromoncao.adv.br/api/agents/run",
         "sendBody": true,
         "bodyParameters": {
           "parameters": [
