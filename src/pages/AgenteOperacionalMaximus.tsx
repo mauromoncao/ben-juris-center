@@ -76,7 +76,7 @@ export default function AgenteOperacionalMaximus() {
     try {
       const formData = new FormData();
       formData.append('file', file);
-      const res = await fetch('/api/upload-pdf', { method: 'POST', body: formData });
+      const res = await fetch((import.meta.env.VITE_FILE_PARSER_URL || 'https://api.mauromoncao.adv.br/upload') + '/pdf', { method: 'POST', body: formData });
       if (res.ok) {
         const data = await res.json();
         setDocumento({ nome: file.name, tipo: file.type, tamanho: file.size, texto: data.text || '' });

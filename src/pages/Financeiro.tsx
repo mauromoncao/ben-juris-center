@@ -9,7 +9,7 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContaine
 
 // ─── Helper: chama api/asaas.js ─────────────────────────────
 async function callAsaas(action: string, params: Record<string, any> = {}) {
-  const res = await fetch('/api/asaas', {
+  const res = await fetch((import.meta.env.VITE_FILE_PARSER_URL?.replace('/upload','') || 'https://api.mauromoncao.adv.br') + '/asaas', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ action, params }),

@@ -34,8 +34,9 @@ export interface TaskRecord {
 }
 
 // ─── Enterprise API Stack ─────────────────────────────────────
-// Todos os agentes usam o endpoint serverless /api/agents/run
-// que roteia para: Claude Haiku 4.5 · GPT-4o · GPT-4o Mini · Perplexity
+// Cloudflare Pages: usa SEMPRE o endpoint local /api/agents/run
+// que é uma CF Pages Function com todos os 45 agentes e prompts completos.
+// O VITE_AGENT_API_URL (Worker) é fallback apenas se o local falhar.
 const AGENTS_API = '/api/agents/run';
 
 function getEndpointConfig(model: string): { base: string; key: string; modelName: string } {
@@ -52,8 +53,8 @@ export async function callAIAgent(
   const lastMsg = messages[messages.length - 1]?.content || '';
 
   try {
-    // Chamar endpoint serverless Enterprise
-    const response = await fetch('/api/agents/run', {
+    // Chamar endpoint Worker (Cloudflare) — migrado de Vercel
+    const response = await fetch(AGENTS_API, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

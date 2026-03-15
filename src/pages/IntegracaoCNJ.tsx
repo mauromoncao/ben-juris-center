@@ -70,7 +70,7 @@ function formatarData(iso: string) {
 
 // ─── Chamada centralizada à api/cnj ──────────────────────────
 async function callCNJ(action: string, params: Record<string, any> = {}) {
-  const res = await fetch('/api/cnj', {
+  const res = await fetch((import.meta.env.VITE_FILE_PARSER_URL?.replace('/upload','') || 'https://api.mauromoncao.adv.br') + '/cnj', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ action, ...params }),
@@ -168,7 +168,7 @@ export default function IntegracaoCNJ() {
   const carregarStatus = useCallback(async () => {
     setLoadingStatus(true);
     try {
-      const res = await fetch('/api/cnj');
+      const res = await fetch((import.meta.env.VITE_FILE_PARSER_URL?.replace('/upload','') || 'https://api.mauromoncao.adv.br') + '/cnj');
       const data = await res.json();
 
       const datajudTribunais = data?.datajud?.tribunais_testados || [];
