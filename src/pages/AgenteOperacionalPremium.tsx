@@ -103,7 +103,7 @@ export default function AgenteOperacionalPremium() {
   const [documento, setDocumento] = useState<DocumentoAnexo | null>(null);
   const [uploading, setUploading] = useState(false);
   const [dragOver, setDragOver] = useState(false);
-  const [stats, setStats] = useState({ total: 0, tempoMedio: 0, modeloAtual: 'claude-sonnet-4-5' });
+  const [stats, setStats] = useState({ total: 0, tempoMedio: 0, modeloAtual: 'BEN IA Plus' });
   const [showExemplos, setShowExemplos] = useState(true);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -557,7 +557,7 @@ export default function AgenteOperacionalPremium() {
                       <div className="flex items-center justify-between mb-2 flex-wrap gap-1">
                         <div className="flex items-center gap-2 text-xs" style={{ color: '#9CA3AF' }}>
                           <Sparkles className="w-3 h-3 text-blue-400" />
-                          <span>{msg.model || 'claude-sonnet-4-5'}</span>
+                          <span>{msg.model || 'BEN IA Plus'}</span>
                           {msg.elapsed && (
                             <>
                               <Clock className="w-3 h-3" />

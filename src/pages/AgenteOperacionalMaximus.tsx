@@ -125,7 +125,7 @@ export default function AgenteOperacionalMaximus() {
         role: 'assistant',
         content: data.output || data.error || 'Sem resposta do agente.',
         timestamp: new Date(),
-        model: data.modelUsed || 'claude-opus',
+        model: data.modelUsed || 'BEN IA Pro',
         elapsed,
         thinkingAtivo: true,
         risco: data.risco,
@@ -200,7 +200,7 @@ export default function AgenteOperacionalMaximus() {
         <AlertTriangle size={16} className="text-amber-500 flex-shrink-0 mt-0.5" />
         <p className="text-xs text-amber-700">
           <strong>MAXIMUS é reservado para máxima complexidade.</strong> Para casos comuns, utilize o Agente Operacional Premium.
-          Este agente usa Claude Opus com thinking sempre ativo — pode levar 20–45 segundos por resposta.
+          Este agente usa BEN IA Pro com thinking sempre ativo — pode levar 20–45 segundos por resposta.
         </p>
       </div>
 

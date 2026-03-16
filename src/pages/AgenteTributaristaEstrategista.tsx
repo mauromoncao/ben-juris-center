@@ -104,7 +104,7 @@ export default function AgenteTributaristaEstrategista() {
   const [documento, setDocumento] = useState<DocumentoAnexo | null>(null);
   const [uploading, setUploading] = useState(false);
   const [dragOver, setDragOver] = useState(false);
-  const [stats, setStats] = useState({ total: 0, tempoMedio: 0, modeloAtual: 'claude-opus-4-5' });
+  const [stats, setStats] = useState({ total: 0, tempoMedio: 0, modeloAtual: 'BEN IA Pro' });
   const [showExemplos, setShowExemplos] = useState(true);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -574,7 +574,7 @@ export default function AgenteTributaristaEstrategista() {
                       <div className="flex items-center justify-between mb-2 flex-wrap gap-1">
                         <div className="flex items-center gap-2 text-xs" style={{ color: '#9CA3AF' }}>
                           <Sparkles className="w-3 h-3" style={{ color: COR_ACENTO }} />
-                          <span>{msg.model || 'claude-opus-4-5'}</span>
+                          <span>{msg.model || 'BEN IA Pro'}</span>
                           {msg.elapsed && (
                             <>
                               <Clock className="w-3 h-3" />

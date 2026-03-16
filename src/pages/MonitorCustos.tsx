@@ -78,12 +78,10 @@ function fmtMs(ms: number)       { return ms >= 1000 ? `${(ms/1000).toFixed(1)}s
 
 function modelColor(modelId: string): string {
   const colors: Record<string, string> = {
-    'claude-haiku-4-5':       '#4ADE80', 'claude-haiku-fallback':  '#86EFAC',
-    'claude-sonnet-4-5':      '#60A5FA', 'claude-sonnet-fallback': '#93C5FD',
-    'claude-opus-4-5':        '#F472B6',
-    'gpt-4o':                 '#FBBF24', 'gpt-4o-fallback':       '#FCD34D',
-    'gpt-4o-mini':            '#A3E635', 'gpt-4o-mini-final':     '#BEF264',
-    'perplexity':             '#C084FC',
+    'ben-ia':                 '#4ADE80', 'ben-ia-fallback':       '#86EFAC',
+    'ben-ia-plus':            '#60A5FA', 'ben-ia-plus-fallback':  '#93C5FD',
+    'ben-ia-pro':             '#F472B6',
+    'ben-ia-search':          '#FBBF24', 'ben-ia-search-fallback':'#FCD34D',
   }
   return colors[modelId] || '#94A3B8'
 }

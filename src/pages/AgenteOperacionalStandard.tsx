@@ -94,7 +94,7 @@ export default function AgenteOperacionalStandard() {
   const [documento, setDocumento] = useState<DocumentoAnexo | null>(null);
   const [uploading, setUploading] = useState(false);
   const [dragOver, setDragOver] = useState(false);
-  const [stats, setStats] = useState({ total: 0, tempoMedio: 0, modeloAtual: 'claude-haiku-4-5' });
+  const [stats, setStats] = useState({ total: 0, tempoMedio: 0, modeloAtual: 'BEN IA' });
   const [showExemplos, setShowExemplos] = useState(true);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -547,7 +547,7 @@ export default function AgenteOperacionalStandard() {
                       <div className="flex items-center justify-between mb-2 flex-wrap gap-1">
                         <div className="flex items-center gap-2 text-xs" style={{ color: '#9CA3AF' }}>
                           <Zap className="w-3 h-3 text-green-500" />
-                          <span>{msg.model || 'claude-haiku-4-5'}</span>
+                          <span>{msg.model || 'BEN IA'}</span>
                           {msg.elapsed && (
                             <>
                               <Clock className="w-3 h-3" />

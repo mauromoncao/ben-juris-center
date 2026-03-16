@@ -251,7 +251,7 @@ export default function AgentProcessualistaEstrategico() {
           role: 'assistant',
           content: resposta,
           timestamp: new Date(),
-          model: data.modelUsed || 'claude-opus',
+          model: data.modelUsed || 'BEN IA Pro',
           elapsed,
           thinkingAtivo: true,
           risco: data.risco,

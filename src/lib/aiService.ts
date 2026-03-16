@@ -1,6 +1,6 @@
 // ============================================================
 // LEX JURÍDICO — AI SERVICE LAYER
-// Integração OpenAI GPT-4o + Claude + Perplexity
+// Integração BEN IA Pro + Plus + Search
 // ============================================================
 
 import type { AgentConfig } from './aiAgents';

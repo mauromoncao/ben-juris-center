@@ -14,7 +14,7 @@ const DR_BEN_AGENTS = [
   {
     id: 'ben-agente-operacional-maximus',
     name: 'AGENTE OPERACIONAL MAXIMUS',
-    specialty: 'Máxima Complexidade — Claude Opus + Thinking Sempre Ativo',
+    specialty: 'Máxima Complexidade — BEN IA Pro + Thinking Sempre Ativo',
     avatar: '⭐',
     color: '#b45309',
     gradient: 'linear-gradient(135deg, #78350f, #d97706)',
